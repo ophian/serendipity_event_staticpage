@@ -1,5 +1,4 @@
 # serendipity_event_staticpage dev
-- - -
 
 This is a developer repository to smartify the current **S9y** serendipity_event_staticpage plugin and make it available with upcoming Serendipity 2.0.
 
@@ -11,7 +10,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] finalize 'backend_staticpage.tpl' for Serendipity 2.0 only usage, keep 'old_staticpage_backend.tpl' for previous S9y versions
 - [ ] finalize the version stylesheets for this
 - [ ] create a smarty template for the unstructered staticpage form (which is currently the 'no template' select switch, build by hardcoded stuff)
-- [ ] deep check, if current changes broke anything with some more enhanced staticpage options, all normal behaviour is ckecked working
+- [ ] deep check, if current changes broke anything with some more enhanced staticpage options, all normal behaviour is checked working
 - [ ] prepare everything to hold a HTM5 version, which will be the default in future
 - [ ] prepare everything to shut down every hardcoded non-smarty output in future
 - [ ] structure backend template files in new directory?

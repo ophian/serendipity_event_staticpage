@@ -181,6 +181,7 @@
                         $this->showForm($this->config_types, $this->pagetype, 'introspect_item_type', 'get_type', 'typeSubmit', $is_smarty);
                         echo '<!-- backend show pagetype form no smarty end -->';
                     } else {
+                        $serendipity['smarty']->assign('new_backend', true);
                         $serendipity['POST']['backend_template'] = 'typeform_staticpage_backend.tpl';
                         $bag = new serendipity_property_bag();
                         $this->introspect($bag);

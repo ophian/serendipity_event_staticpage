@@ -1,49 +1,72 @@
+
+.icon-ok:before{content:'\2714'}
+.icon-error:before{content:'\26a0';}
+.icon-cancel-circle:before{content:'\2716'}
+.icon-attention:before{content:'\2757';}
+.icon-attention:before{content:'!';font-weight:bold;} /* fake for chrome, since exclamation mark ! not supported as native \2757 */
+
+.icon-error:before{content:'\2716'} /* fake for chrome, since origin triangled exclamation mark <!> not supported as native unicode */
+.icon-clock:before{content:'\2940'} /* fake for chrome, since origin clock not supported as native unicode - U+2940  &#10560;  ANTICLOCKWISE CLOSED CIRCLE ARROW  */
+
+.icon-attention:before, .icon-error:before {color:red;}
+.icon-ok:before {color:green;}
+.icon-clock:before {color:purple;}
+.icon-ok:before, .icon-error:before, .icon-attention:before, .icon-clock:before {font-size:131%;}
+
 #serendipityStaticpagesNav ul {
-    padding:3px 0;
-    margin-left:0;
-    border-bottom:1px solid #000000;
+    padding: 3px 0;
+    margin-left: 0;
+    border-bottom: 1px solid #000000;
 }
 
 #serendipityStaticpagesNav ul li {
-    list-style:none;
-    margin:0;
-    display:inline;
+    list-style: none;
+    margin: 0;
+    display: inline;
 }
 
 #serendipityStaticpagesNav ul li a {
     padding: 3px 0.5em;
-    margin-left:5px;
-    border:1px solid #000000;
+    margin-left: 5px;
+    border: 1px solid #000000;
 }
 
+#serendipityStaticpagesNav ul li {
+    display: inline-flex;
+}
 #serendipityStaticpagesNav ul li a#active {
-    border-bottom:1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
 }
 
+/* overrule .serendipityAdminContent span */
 #serendipityStaticpagesRed {
-    color:#c00000;
+    color: #c00000 !important;
 }
 
 #serendipityStaticpagesYellow {
-    color:#eac131;
+    color: #eac131 !important;
 }
 
 #serendipityStaticpagesGreen {
-    color:#18f11d;
+    color: #188d1d !important;/*#18f11d*/
 }
 
 #serendipityStaticpagesTableHeader {
-    background-color:#c0c0c0;
+    background-color: #c0c0c0;
 }
 
 #serendipityStaticpagesTable1 {
-    background-color:#dfdfdf;
+    background-color: #dfdfdf;
 }
 
 #serendipityStaticpagesTable0 {
-    background-color:#f0f0f0;
+    background-color: #f0f0f0;
 }
-
+.sp_label {
+    page-break-after: always;
+    display: block;
+    clear: both;
+}
 .sp_templateselector {
     float: right;
     margin: 5px;
@@ -52,6 +75,16 @@
 .sp_pageselector {
     background-color: #E0E0E0;
     padding: 5px;
+}
+
+.sp_listfooter {
+    background-color: #DFDFDF;
+}
+.sp_listfooter form {
+    padding: 5px;
+}
+.default_staticpage {
+    margin-top: 1.2em;
 }
 
 .default_staticpage .sp_label {
@@ -75,3 +108,80 @@
     width: 100%;
     margin: 0px auto;
 }
+
+/* staticpage smartfied backend_staticpage.tpl */
+.sp_msg_success:not(:empty) {
+    display:block;
+    margin: 1.5em 0;
+    padding: 10px;
+}
+.sp_msg_success:not(:empty) {
+    background: #dff0d8;
+    border: 1px solid #c1e2b3;
+    color: #468847;
+}
+#serendipityStaticpagesNav ul li#active a  {
+    background: #dedede;
+}
+.sp_sequence {
+    margin: .5em;
+}
+.sequence_item,
+.sequence_container {
+    width: 16em;
+}
+.sequence_grablet {
+    width: 15% !important;
+}
+.sp_sequence .sp_nojs {
+    float: right;
+    margin-left: 1em;
+}
+/* try to overwrite PLUGIN MANAGER styles in 2.0 */
+.pluginmanager_container {
+    border-radius: inherit !important;
+    box-sizing: inherit !important;
+    -moz-box-sizing: inherit !important;
+    height: inherit !important;
+    margin: inherit !important;
+    padding: inherit !important;
+}
+
+.sp_entries_pane .spmod {
+    margin-top: -1.25em;
+}
+.sp_entries_pane .spmod,
+.sp_entries_pane .spform {
+    float: right;
+}
+/* older browsers which dont support inline-flex */
+.sp_entries_pane .spform a,.sp_entries_pane .spform form {
+    display: inline-block;
+    zoom: 1;
+}
+.sp_entries_pane .spform {
+    display: inline-flex;
+    height: 1.5em;
+}
+.serendipityAdminContent span.five {
+    font-weight: 500;
+    color: rgb(0, 0, 0) !important;
+}
+
+.sp_bold { font-weight: 700; }
+.sp_top { margin-top: 0; }
+
+.sp_add table { border: 1px solid rgb(187, 187, 187); }
+#sp_entries_list li { margin: 0.2em; }
+#sp_entries_list li:last-of-type { margin-top: 0.5em; }
+#sp_entries_list h3 {
+    font-size: inherit;
+    margin: 0;
+}
+.sp_plav {
+    cursor: pointer;
+    float: right;
+}
+.sp_plav img { vertical-align: middle;}
+.sp_ptype .input_textbox { width: inherit; }
+.serendipityAdminContent span.sp_ptype_desc { color: #5E7A94 !important; font-size: 8pt; }

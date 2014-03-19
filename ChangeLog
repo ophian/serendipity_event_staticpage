@@ -1,3 +1,16 @@
+4.10 Fixed (4.06) markup and sets (4.06 listentries) to be optional (selectbox default) due to errors
+     Added some css
+     Fixed some minor markup errors
+     Fixed backend_templates/default_staticpage_backend.tpl smarty markup (escape and cke-wysiwyg)
+     Changed Template names
+     Added 'publishstatus' and removed 'pass','is_startpage','is_404_page' in plugins config options,
+          since the latter were unused there and are too specific to be set global in plugin config.
+          Now 'publishstatus' will respect a global show as option rule (Draft is default)
+     Outsourced some heavy markup functions
+     Smartified the backend as much as possible (get ready to run smarty-only in future?)
+
+4.06 Bump version since merged entry list pull request by (ogerlach)
+
 4.05 Bump version to propagate changed plugin_staticpage_related_category.tpl
 
 4.04 Bump version to propagate new .htaccess

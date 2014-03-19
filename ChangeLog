@@ -1,6 +1,6 @@
 4.11:
 ----
-    Fixed (4.06) markup and sets (4.06 listentries) to be optional (selectbox default). due to errors
+    Fixed (4.06) markup and sets (4.06 listentries) to be optional (selectbox default), due to errors
     Added some css
     Fixed some minor markup errors
     Fixed backend_templates/default_staticpage_backend.tpl smarty markup (escape and cke-wysiwyg)

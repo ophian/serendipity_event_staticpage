@@ -26,6 +26,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [x] Changed form template names
 - [x] Added in 'pageorder' a new drag&drop sequencer, to automatically set the new list order on drop
 - [x] Added some css and include by version files
+- [x] Fixed tabs and 'pageadd' markup/css
 - [x] Fixed backend_templates/default_staticpage_backend.tpl smarty markup (escape and cke-wysiwyg)
 - [x] Fixed some plugin file code inconsistencies
 - [x] Fixed some minor markup errors

@@ -1,11 +1,13 @@
 <?php /* is already called by is_smarty and switched to ob_methods */echo "<!-- modul-type::$type - is SMARTIFIED($is_smarty) - backend_inspectConfig.php -->\n";/* and may sadley not get further modulized */
         switch ($type) {
             case 'seperator':
+                if (!$is_smarty) {
 ?>
         <tr>
             <td colspan="2"><hr noshade="noshade" size="1" /></td>
         </tr>
 <?php
+                }
                 break;
 
             case 'select':

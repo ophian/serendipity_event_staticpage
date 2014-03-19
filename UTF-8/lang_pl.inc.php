@@ -132,7 +132,7 @@
 @define('PLUGIN_STATICPAGELIST_TITLE_DEFAULT', 'Strony statyczne');
 @define('PLUGIN_STATICPAGELIST_LIMIT', 'Ilość pokazywanych stron');
 @define('PLUGIN_STATICPAGELIST_LIMIT_DESC', 'Wpisz ilość pokazywanych stron statycznych w menu. 0 oznacza brak limitów.');
-@define('PLUGIN_STATICPAGELIST_FRONTPAGE_NAME',	'Pokaż link do strony głównej');
+@define('PLUGIN_STATICPAGELIST_FRONTPAGE_NAME', 'Pokaż link do strony głównej');
 @define('PLUGIN_STATICPAGELIST_FRONTPAGE_DESC', 'Czy w menu ma byc pokazany link do strony głównej?');
 @define('PLUGIN_STATICPAGELIST_FRONTPAGE_LINKNAME', 'Strona główna');
 @define('PLUGIN_LINKS_IMGDIR', 'Uzyj katalogu wtyczki, w nim znajdują się odpowiednie obrazki');

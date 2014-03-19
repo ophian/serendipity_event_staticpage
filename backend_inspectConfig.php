@@ -52,7 +52,7 @@ foreach($select AS $select_value => $select_desc) {
                 $radio['value'][] = 'false';
                 $radio['desc'][]  = NO;
 
-           case 'radio':
+            case 'radio':
                 if (!count($radio) > 0) {
                     $radio = $radio2;
                 }
@@ -78,7 +78,7 @@ foreach($select AS $select_value => $select_desc) {
             </td>
             <td style="border-bottom: 1px solid #000000; vertical-align: middle;" width="250">
 <?php
-            }
+                }
                 $counter = 0;
                 foreach($radio['value'] AS $radio_index => $radio_value) {
                     $id = htmlspecialchars($config_item . $radio_value);

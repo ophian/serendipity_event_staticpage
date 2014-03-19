@@ -1,33 +1,33 @@
-<html>    
-	<head>        
-		<meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Dokumentace: Statické stránky</title>        
-		<style>
-        	pre {
-				display: block;
-				padding: 5px;
-				border: solid 1px #333333;
-				background-color: #cccccc;
-			}         
-		</style>    
-	</head>
-	<body>
-	<h1>Dokumentace k pluginu 'Statické stránky'<br />
-	<small>(serendipity_event_staticpage)</small></h1>
-		<p>Dokumentaci k tomuto pluginu přeložil do češtiny Vladimír Ajgl (vlada [zavinac] ajgl [tecka] cz) dne 4.5.2013. Od té doby mohl být plugin pozměněn nebo mohly být rozšířené jeho funkce. Zkontrolujte pro jistotu i <a href="../documentation_en.html">aktuální anglickou dokumentaci</a>, <a href="../ChangeLog">ChangeLog</a>, <a href="../README_FOR_RELATED_CATEGORIES.txt">README_FOR_RELATED_CATEGORIES.txt</a>, <a href="../Smarty_and_CSS_Tags">Smarty_and_CSS_Tags</a> a <a href="../TODO">TODO</a>. 
-		</p>
-		
-		<h2>Popis pluginu</h2>
-		<p>
-		Zobrazuje v blogu statické stránky se stejným designem jako mají běžné přspěvky. Přidá nové menu do adminstrátorského rozhraní.
-		</p>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <title>Dokumentace: Statické stránky</title>
+        <style>
+            pre {
+                display: block;
+                padding: 5px;
+                border: solid 1px #333333;
+                background-color: #cccccc;
+            }
+        </style>
+    </head>
+    <body>
+    <h1>Dokumentace k pluginu 'Statické stránky'<br />
+    <small>(serendipity_event_staticpage)</small></h1>
+        <p>Dokumentaci k tomuto pluginu přeložil do češtiny Vladimír Ajgl (vlada [zavinac] ajgl [tecka] cz) dne 4.5.2013. Od té doby mohl být plugin pozměněn nebo mohly být rozšířené jeho funkce. Zkontrolujte pro jistotu i <a href="../documentation_en.html">aktuální anglickou dokumentaci</a>, <a href="../ChangeLog">ChangeLog</a>, <a href="../README_FOR_RELATED_CATEGORIES.txt">README_FOR_RELATED_CATEGORIES.txt</a>, <a href="../Smarty_and_CSS_Tags">Smarty_and_CSS_Tags</a> a <a href="../TODO">TODO</a>. 
+        </p>
 
-		<h2>Vypsání odkazů na související statické stránky ve výpisu kategorií</h2>
-		Podívejte se na šalbony <i>staticpage-entries-listing.tpl</i> a <i>plugin_staticpage_related_category.tpl</i>!
+        <h2>Popis pluginu</h2>
+        <p>
+        Zobrazuje v blogu statické stránky se stejným designem jako mají běžné přspěvky. Přidá nové menu do adminstrátorského rozhraní.
+        </p>
 
-		<p>
-		Aby se ve výpisu kategorie zobrazovaly i související statické stránky, přidejte následující kód do šablony <i>entries.tpl</i>:
-		<br/>
+        <h2>Vypsání odkazů na související statické stránky ve výpisu kategorií</h2>
+        Podívejte se na šalbony <i>staticpage-entries-listing.tpl</i> a <i>plugin_staticpage_related_category.tpl</i>!
+
+        <p>
+        Aby se ve výpisu kategorie zobrazovaly i související statické stránky, přidejte následující kód do šablony <i>entries.tpl</i>:
+        <br/>
 (můžete použít {$CONST.PLUGIN_STATICPAGELIST_FRONTPAGE_LINKNAME} místo {$blogTitle})
 
 <pre>{if ($view == 'archives') || ($view == 'frontpage')}
@@ -57,8 +57,8 @@
 {/if}
 </pre>
 
-		<h2>Seznam použitých CSS tagů a Smarty proměnných</h2>
-			<h3>Proměnné Smarty</h3>
+        <h2>Seznam použitých CSS tagů a Smarty proměnných</h2>
+            <h3>Proměnné Smarty</h3>
 <pre>bool $staticpage_articleformat
 string $staticpage_articleformattitle
 string $staticpage_headline
@@ -114,15 +114,15 @@ Frontend:
 #static-entries
 </pre>
 
-		<h2>TODO (zbývá dodělat)</h2>
-		<ul>
-		<li>Hezčí vzhled</li>
-		<li>Schopnost mít více než jeden postranní sloupec, který bude zobrazovat různé stránky.</li>
-		<li>Kopírování existujících stránek.</li>
-		<li>Podpora oprávnění "může vytvářet statické stránky" pro jednotlivé autory s použitím systému oživatelských oprávnění ve verzi serendipity 0.9 a vyšší.</li>
-		</ul>
+        <h2>TODO (zbývá dodělat)</h2>
+        <ul>
+        <li>Hezčí vzhled</li>
+        <li>Schopnost mít více než jeden postranní sloupec, který bude zobrazovat různé stránky.</li>
+        <li>Kopírování existujících stránek.</li>
+        <li>Podpora oprávnění "může vytvářet statické stránky" pro jednotlivé autory s použitím systému oživatelských oprávnění ve verzi serendipity 0.9 a vyšší.</li>
+        </ul>
 
-		<h2>Historie verzí (ChangeLog)</h2>
+        <h2>Historie verzí (ChangeLog)</h2>
 <pre>
 4.02 Removed some & references, trying to fix issues with more recent PHP versions and core dumps / memory corruption
 
@@ -337,121 +337,121 @@ Changes by Falk Döring:
 * Fix: FAQ-Event now without mod_rewrite support
 </pre>
 
-		<ul>
-			<li>verze 1.0</li>	
-			<ul>	
-				<li></li>	
-			</ul>
-			<li>verze 3.20 [Falk Döring]</li>	
-			<ul>	
-				<li>Nové: Přidání FAQ-Event do postranního sloupce</li>	
-				<li>Oprava: některé špatné řetězce akcí</li>	
-			</ul>
-			<li>verze 3.19 [JWalker]</li>	
-			<ul>	
-				<li>Oprava: Zobrazovat odkazy "předchozí/další/hlavní stránka" jen pokud nejsou prázdné</li>	
-			</ul>
-			<li>verze 3.18 [Falk Döring]</li>	
-			<ul>	
-				<li>Oprava: integrace kontaktního formuláře správně podle postránek, pokud je vypnut mod_rewrite</li>	
-			</ul>
-			<li>verze 3.17 [Falk Döring]</li>	
-			<ul>	
-				<li>Nové: seznam pluginů, které mohou být vloženy do postranního sloupce, a jejich status</li>	
-			</ul>
-			<li>verze 3.16 [Falk Döring]</li>	
-			<ul>	
-				<li>Oprava výběru jazyka. Nyní můžete vybrat stránku pro všechny jazyky.</li>	
-				<li>Oprava nevyužitích definic</li>	
-			</ul>
-			<li>verze 3.15</li>	
-			<ul>	
-				<li>Změna šablony <i>plugin_staticpage.tpl</i>, aby byly použity unikátní CSS identifikátory</li>
-				<li>Oprava PHP varování, pokud není nalezena žádná publikovaná stránka</li>	
-				<li>Oddělení katalogu jazykových řetězců do <i>lang_en.inc.php</i> [Tadashi Jokagi]</li>	
-				<li>Aktualizace japonského překladu, synchronizace s anglickým [Tadashi Jokagi]</li>	
-			</ul>
-			<li>verze 3.14 [Falk Döring]</li>	
-			<ul>	
-				<li>Nové: Podpora více jazyků</li>	
-			</ul>
-			<li>verze 3.12/3.13 [Stephan Sachse]</li>	
-			<ul>	
-				<li>Oprava SQL příkazu k vytvoření tabulky. Znova se omlouvám, chlapi.</li>	
-			</ul>
-			<li>verze 3.11</li>	
-			<ul>	
-				<li>Oprava pravopisné chyby, díky uživateli [Wesley]</li>	
-				<li>Oprava ukončujícího lomítka "/" pro httpPath, díky uživateli [Michel Verdier]</li>	
-			</ul>
-			<li>verze 3.10 [Tadashi Jokagi]</li>	
-			<ul>	
-				<li>Změna konstant<br /> "STATICPAGE_{SHOWNAVI,SHOWONNAVI,SHOWARTICLEFORMAT,SHOWCHILDPAGES}_DEFAULT_DESC"
+        <ul>
+            <li>verze 1.0</li>
+            <ul>
+                <li></li>
+            </ul>
+            <li>verze 3.20 [Falk Döring]</li>
+            <ul>
+                <li>Nové: Přidání FAQ-Event do postranního sloupce</li>
+                <li>Oprava: některé špatné řetězce akcí</li>
+            </ul>
+            <li>verze 3.19 [JWalker]</li>
+            <ul>
+                <li>Oprava: Zobrazovat odkazy "předchozí/další/hlavní stránka" jen pokud nejsou prázdné</li>
+            </ul>
+            <li>verze 3.18 [Falk Döring]</li>
+            <ul>
+                <li>Oprava: integrace kontaktního formuláře správně podle postránek, pokud je vypnut mod_rewrite</li>
+            </ul>
+            <li>verze 3.17 [Falk Döring]</li>
+            <ul>
+                <li>Nové: seznam pluginů, které mohou být vloženy do postranního sloupce, a jejich status</li>
+            </ul>
+            <li>verze 3.16 [Falk Döring]</li>
+            <ul>
+                <li>Oprava výběru jazyka. Nyní můžete vybrat stránku pro všechny jazyky.</li>
+                <li>Oprava nevyužitích definic</li>
+            </ul>
+            <li>verze 3.15</li>
+            <ul>
+                <li>Změna šablony <i>plugin_staticpage.tpl</i>, aby byly použity unikátní CSS identifikátory</li>
+                <li>Oprava PHP varování, pokud není nalezena žádná publikovaná stránka</li>
+                <li>Oddělení katalogu jazykových řetězců do <i>lang_en.inc.php</i> [Tadashi Jokagi]</li>
+                <li>Aktualizace japonského překladu, synchronizace s anglickým [Tadashi Jokagi]</li>
+            </ul>
+            <li>verze 3.14 [Falk Döring]</li>
+            <ul>
+                <li>Nové: Podpora více jazyků</li>
+            </ul>
+            <li>verze 3.12/3.13 [Stephan Sachse]</li>
+            <ul>
+                <li>Oprava SQL příkazu k vytvoření tabulky. Znova se omlouvám, chlapi.</li>
+            </ul>
+            <li>verze 3.11</li>
+            <ul>
+                <li>Oprava pravopisné chyby, díky uživateli [Wesley]</li>
+                <li>Oprava ukončujícího lomítka "/" pro httpPath, díky uživateli [Michel Verdier]</li>
+            </ul>
+            <li>verze 3.10 [Tadashi Jokagi]</li>
+            <ul>
+                <li>Změna konstant<br /> "STATICPAGE_{SHOWNAVI,SHOWONNAVI,SHOWARTICLEFORMAT,SHOWCHILDPAGES}_DEFAULT_DESC"
 <br /> na jedinou konstantu
 <br /> "STATICPAGE_DEFAULT_DESC",
-<br /> protože měly všechny stejný obsah. Díky [Tadashi Jokagi]!</li>	
-			</ul>
-			<li>verze 3.09 [Garvin Hicking]</li>	
-			<ul>	
-				<li>Oprava PHP short-tags</li>	
-				<li>Oprava na správné použití serendipity_db_update</li>	
-				<li>Oprava chybných kontrol "unset" proměnných (kontrola postgreSql čeká)</li>	
-			</ul>
-			<li>verze 3.08 [Falk Döring]</li>	
-			<ul>	
-				<li>Oprava DB aktualizací (za které může Garvin :-) )</li>	
-				<li>Nové: Zobrazení nadpisu nebo odkazů další/předchozí v navigaci stránek-potomků</li>	
-				<li>Aktualizace: použití funkcí s9y pro aktualizaci</li>	
-			</ul>
-			<li>verze 3.07 [Garvin Hicking]</li>	
-			<ul>	
-				<li>Nastavení výchozích hodnot pro číselné sloupce, aby to bylo v pořádku v postreSQL</li>	
-			</ul>
-			<li>verze 3.06 [Falk Döring]</li>	
-			<ul>	
-				<li>Nové: Vložení ostatních pluginů do postranního sloupce</li>	
-			</ul>
-			<li>verze 3.05 [Garvin Hicking]</li>	
-			<ul>	
-				<li>Změna: ALTER TABLE</li>	
-			</ul>
-			<li>verze 3.04 [Garvin Hicking]</li>	
-			<ul>	
-				<li>Oprava: číslo verze s9y</li>	
-			</ul>
-			<li>verze 3.03 [Falk Döring]</li>	
-			<ul>	
-				<li>Nové nastavení:</li>	
-				<ul>
-					<li>zapnutí navigace</li>	
-					<li>zobrazování navigace</li>	
-					<li>publikování stavu</li>	
-				</ul>
-				<li>nastavení výchozích hodnot v Plugin-Section</li>	
-			</ul>	
-			<li>verze 3.02 [Garvin Hicking]</li>	
-			<ul>	
-				<li>Oprava: anglický jazykový soubor</li>	
-			</ul>
-			<li>verze 3.01 [Garvin Hicking]</li>	
-			<ul>	
-				<li>Opraveny WYSIWYG editory (aby to správně fungovalo v ne-WYSIWYG módu, potřebujete Serendipity >= 0.9-beta3!</li>	
-			</ul>
-			<li>verze 3.0 [Falk Döring]</li>	
-			<ul>	
-				<li>Nové: kategorie stránky</li>	
-				<li>Výchozí: Příspěvky a "Stránka o blogu"</li>	
-				<li>Oprava: Navigace zpět/vpřed</li>	
-				<li>Aktualizace: německý překlad</li>	
-				<li>Podpora obrázku kategorie</li>	
-				<li>Podpora řazení stránek</li>	
-			</ul>
-			<li>verze 2.12 [Falk Döring]</li>	
-			<ul>	
-				<li>Zobrazování navigace na "poslední změny" a "zpět/vpřed"</li>	
-				<li>Zobrazování odkazu "Upravit tuto stránku"</li>	
-			</ul>
-		</ul>  
+<br /> protože měly všechny stejný obsah. Díky [Tadashi Jokagi]!</li>
+            </ul>
+            <li>verze 3.09 [Garvin Hicking]</li>
+            <ul>
+                <li>Oprava PHP short-tags</li>
+                <li>Oprava na správné použití serendipity_db_update</li>
+                <li>Oprava chybných kontrol "unset" proměnných (kontrola postgreSql čeká)</li>
+            </ul>
+            <li>verze 3.08 [Falk Döring]</li>
+            <ul>
+                <li>Oprava DB aktualizací (za které může Garvin :-) )</li>
+                <li>Nové: Zobrazení nadpisu nebo odkazů další/předchozí v navigaci stránek-potomků</li>
+                <li>Aktualizace: použití funkcí s9y pro aktualizaci</li>
+            </ul>
+            <li>verze 3.07 [Garvin Hicking]</li>
+            <ul>
+                <li>Nastavení výchozích hodnot pro číselné sloupce, aby to bylo v pořádku v postreSQL</li>
+            </ul>
+            <li>verze 3.06 [Falk Döring]</li>
+            <ul>
+                <li>Nové: Vložení ostatních pluginů do postranního sloupce</li>
+            </ul>
+            <li>verze 3.05 [Garvin Hicking]</li>
+            <ul>
+                <li>Změna: ALTER TABLE</li>
+            </ul>
+            <li>verze 3.04 [Garvin Hicking]</li>
+            <ul>
+                <li>Oprava: číslo verze s9y</li>
+            </ul>
+            <li>verze 3.03 [Falk Döring]</li>
+            <ul>
+                <li>Nové nastavení:</li>
+                <ul>
+                    <li>zapnutí navigace</li>
+                    <li>zobrazování navigace</li>
+                    <li>publikování stavu</li>
+                </ul>
+                <li>nastavení výchozích hodnot v Plugin-Section</li>
+            </ul>
+            <li>verze 3.02 [Garvin Hicking]</li>
+            <ul>
+                <li>Oprava: anglický jazykový soubor</li>
+            </ul>
+            <li>verze 3.01 [Garvin Hicking]</li>
+            <ul>
+                <li>Opraveny WYSIWYG editory (aby to správně fungovalo v ne-WYSIWYG módu, potřebujete Serendipity >= 0.9-beta3!</li>
+            </ul>
+            <li>verze 3.0 [Falk Döring]</li>
+            <ul>
+                <li>Nové: kategorie stránky</li>
+                <li>Výchozí: Příspěvky a "Stránka o blogu"</li>
+                <li>Oprava: Navigace zpět/vpřed</li>
+                <li>Aktualizace: německý překlad</li>
+                <li>Podpora obrázku kategorie</li>
+                <li>Podpora řazení stránek</li>
+            </ul>
+            <li>verze 2.12 [Falk Döring]</li>
+            <ul>
+                <li>Zobrazování navigace na "poslední změny" a "zpět/vpřed"</li>
+                <li>Zobrazování odkazu "Upravit tuto stránku"</li>
+            </ul>
+        </ul>
 
-	</body>
+    </body>
 </html>

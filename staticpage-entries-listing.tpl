@@ -6,9 +6,9 @@
 <ul>
     {foreach from=$entries item="dategroup"}
             {foreach from=$dategroup.entries item="entry"}
-			<li class="static-entries">
-        		({$dategroup.date|date_format:"%d.%m.%Y"}) <a href="{$entry.link}">{$entry.title|@default:$entry.id}</a>
-			</li>
+            <li class="static-entries">
+                ({$dategroup.date|date_format:"%d.%m.%Y"}) <a href="{$entry.link}">{$entry.title|@default:$entry.id}</a>
+            </li>
             {/foreach}
    {/foreach}
 </ul>

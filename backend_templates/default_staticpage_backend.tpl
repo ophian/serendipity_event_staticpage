@@ -248,8 +248,7 @@
 
 {staticpage_input_finish}
 
-<br style="clear: both" />
-<div class="sp_defaultform_submit">
+<div class="sp_defaultform_submit sp_input_finish">
     <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button" />
 </div>
 

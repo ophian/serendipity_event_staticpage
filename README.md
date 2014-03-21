@@ -18,6 +18,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done:
+- [x] Reworked default form template by switching new_backend
 - [x] Added new 'pagetype' typeform template
 - [x] Set required version to 1.6, due to smarty usage in sequencer 'pageorder' drag&drop
 - [x] Smartified the backend as much as possible

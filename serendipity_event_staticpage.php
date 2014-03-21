@@ -2000,8 +2000,11 @@ class serendipity_event_staticpage extends serendipity_event
             $serendipity['smarty']->register_modifier('in_array', 'in_array');
             $serendipity['smarty']->register_function('staticpage_input', array($this, 'SmartyInspectConfig'));
             $serendipity['smarty']->register_function('staticpage_input_finish', array($this, 'SmartyInspectConfigFinish'));
-            if ($serendipity['wysiwyg'] && !class_exists('serendipity_event_ckeditor')) {
+            if ($serendipity['version'][0] == '1' && $serendipity['wysiwyg'] && !class_exists('serendipity_event_ckeditor')) {
                 $serendipity['smarty']->assign('is_wysiwyg', true); // ckeditor has no need to disable 2cd collapsible box in default form template
+            }
+            if ($serendipity['version'][0] == '2') {
+                $serendipity['smarty']->assign('new_backend', true);
             }
 
             $filename = preg_replace('@[^a-z0-9\._-]@i', '', $serendipity['POST']['backend_template']);

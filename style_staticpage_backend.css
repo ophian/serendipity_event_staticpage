@@ -171,6 +171,22 @@
 .sp_bold { font-weight: 700; }
 .sp_top { margin-top: 0; }
 
+#backend_sp_simple .sp_toggle {
+    margin: 0 auto;
+    padding: .2em 0;
+}
+.sp_defaultform_right {
+    width: 29%;
+    float: right;
+}
+.sp_defaultform_left {
+    width: 69%;
+    float: left;
+}
+.sp_defaultform_submit {
+    text-align: center;
+    margin: 1em auto 0;
+}
 .sp_add table { border: 1px solid rgb(187, 187, 187); }
 #sp_entries_list li { margin: 0.2em; }
 #sp_entries_list li:last-of-type { margin-top: 0.5em; }

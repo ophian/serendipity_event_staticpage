@@ -1,6 +1,6 @@
 
 <!-- DEFAULT_STATICPAGE_BACKEND.TPL start -->
-
+{if !$new_backend}
 <script type="text/javascript">
     var img_plus  = '{serendipity_getFile file="img/plus.png"}';
     var img_minus = '{serendipity_getFile file="img/minus.png"}';
@@ -37,10 +37,11 @@
     }
 {/literal}
 </script>
+{/if}
 
 <div id="backend_sp_simple" class="default_staticpage">
 
-    <div style="width: 69%; float: left">
+    <div class="sp_defaultform_left">
         <!-- LEFT -->
 
         <fieldset class="sect_basic">
@@ -61,12 +62,16 @@
             </div>
 
             {if $showmeta}
-            <div class="sp_sect">
+            <div class="sp_sect configuration_group">
+                {if $new_backend}
+                <h3 class="toggle_headline"><button id="optionel1" class="toggle_info show_config_option sp_toggle" type="button" data-href="#el1" title="{$CONST.TOGGLE_OPTION}"><span class="icon-right-dir"></span> {$CONST.STATICPAGES_CUSTOM_META_SHOW}</button></h3>
+                {else}
                 {$CONST.STATICPAGES_CUSTOM_META_SHOW}
-                <p id="sp_toggle_optionall"><a style="border:0; text-decoration: none;" href="#" onClick="showConfig('el1'); return false" title="{$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel1" alt="+/-" border="0">&nbsp;{$CONST.TOGGLE_ALL}</a></p>
+                <p id="sp_toggle_optionall"><a href="#" onClick="showConfig('el1'); return false" title="{$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel1" alt="+/-" border="0">&nbsp;{$CONST.TOGGLE_ALL}</a></p>
+                {/if}
             </div>
 
-            <div id="el1">
+            {if !$new_backend}<div id="el1">{else}<fieldset id="el1" class="config_optiongroup additional_info">{/if}
                 <div class="sp_sect">
                     <label class="sp_label" title="{staticpage_input item="title_element" what="desc"}">{staticpage_input item="title_element" what="name"}</label>
                     {staticpage_input item="title_element"}
@@ -81,8 +86,8 @@
                     <label class="sp_label" title="{staticpage_input item="meta_keywords" what="desc"}">{staticpage_input item="meta_keywords" what="name"}</label>
                     {staticpage_input item="meta_keywords"}
                 </div>
-             </div>
-            <script type="text/javascript" language="JavaScript">document.getElementById("el1").style.display = "none";</script>
+            {if !$new_backend}</div>{else}</fieldset>{/if}
+            {if !$new_backend}<script type="text/javascript" language="JavaScript">document.getElementById("el1").style.display = "none";</script>{/if}
             {/if}
 
         </fieldset>
@@ -90,13 +95,18 @@
         <fieldset class="sect_struct">
             <legend>{$CONST.STATICPAGE_SECTION_STRUCT}</legend>
             {if !$is_wysiwyg}
-            <div class="sp_sect">
+            <div class="sp_sect configuration_group">
+                {if $new_backend}
+                <h3 class="toggle_headline"><button id="optionel2" class="toggle_info show_config_option sp_toggle" type="button" data-href="#el2" title="{$CONST.TOGGLE_OPTION}"><span class="icon-right-dir"></span> {$CONST.STATICPAGES_CUSTOM_STRUCTURE_SHOW}</button></h3>
+                {else}
                 {$CONST.STATICPAGES_CUSTOM_STRUCTURE_SHOW}
-                <p id="sp_toggle_optionall"><a style="border:0; text-decoration: none;" href="#" onClick="showConfig('el2'); return false" title="{$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel2" alt="+/-" border="0">&nbsp;{$CONST.TOGGLE_ALL}</a></p>
+                <p id="sp_toggle_optionall"><a href="#" onClick="showConfig('el2'); return false" title="{$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel2" alt="+/-" border="0">&nbsp;{$CONST.TOGGLE_ALL}</a></p>
+                {/if}
             </div>
             {/if}
 
-            <div id="el2">
+            {if !$new_backend}<div id="el2">{else}<fieldset id="el2" class="config_optiongroup additional_info">{/if}
+
                 <div class="sp_sect">
                     <label class="sp_label" title="{staticpage_input item="authorid" what="desc"}">{staticpage_input item="authorid" what="name"}</label>
                         {staticpage_input item="authorid"}
@@ -142,12 +152,12 @@
                         {staticpage_input item="pre_content"}
                 </div>
 
-            </div>
-            {if !$is_wysiwyg}<script type="text/javascript" language="JavaScript">document.getElementById("el2").style.display = "none";</script>{/if}
+            {if !$new_backend}</div>{else}</fieldset>{/if}
+            {if !$new_backend && !$is_wysiwyg}<script type="text/javascript" language="JavaScript">document.getElementById("el2").style.display = "none";</script>{/if}
         </fieldset>
     </div>
 
-    <div style="width: 29%; float: right">
+    <div class="sp_defaultform_right">
         <!-- RIGHT -->
         <fieldset class="sect_meta">
             <legend>{$CONST.STATICPAGE_SECTION_META}</legend>
@@ -228,7 +238,7 @@
         </fieldset>
          END OF EXAMPLE FOR CUSTOM STATICPAGE PROPERTIES *}
 
-        <div style="margin: 0px auto; text-align: center">
+        <div class="sp_defaultform_submit">
             <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button" />
         </div>
 
@@ -239,7 +249,7 @@
 {staticpage_input_finish}
 
 <br style="clear: both" />
-<div style="margin: 10px auto; text-align: center">
+<div class="sp_defaultform_submit">
     <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button" />
 </div>
 

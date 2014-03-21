@@ -205,4 +205,28 @@
 }
 .sp_plav img { vertical-align: middle;}
 .sp_ptype .input_textbox { width: inherit; }
-.serendipityAdminContent span.sp_ptype_desc { color: #5E7A94 !important; font-size: 8pt; }
+.serendipityAdminContent span.sp_ptype_desc { color: #5E7A94 !important; font-size: 8pt; }/*old backend*/
+
+.spform a,.spform form {
+    margin-right: .275em;
+}
+#sp_entries_list button[type="submit"], #sp_entries_list button[type="submit"]:hover,
+#sp_entries_list input[type="submit"], #sp_entries_list input[type="submit"]:hover,
+#sp_entries_list .button_link:hover,
+#sp_entries_list button:hover {
+    background: #ddd !important;
+    background: -webkit-linear-gradient(#fff, #ddd) !important;
+    background: linear-gradient(#fff, #ddd) !important;
+    text-shadow: inherit !important;
+    border-color: #ddd #bbb #999 !important;
+}
+#sp_entries_list input[type="submit"] {
+    font-family: "fontello";
+}
+.sp-btn {
+    color: #222 !important;
+    text-shadow: #fff 0 1px 1px;
+}
+.sp-btn-edit:before { content:attr(value) '\e803'; }
+
+.sp-btn-purge:before { content: attr(value) '\e80d'); }

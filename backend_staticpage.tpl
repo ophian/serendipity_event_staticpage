@@ -409,7 +409,7 @@ switch pcat if      pageorder
         <li class="clearfix">
             {$CONST.POSTED_BY} {$sp_listentries_authors[$entry['authorid']]|escape:'html'}
             <div class="sp_entry_info clearfix spform">
-                <a target="_blank" href="{$serendipityHTTPPath}{$serendipityIndexFile}?serendipity[staticid]={$entry['id']}&amp;serendipity[staticPreview]=1" title="{$CONST.VIEW} #{$entry['pagetitle']}" class="serendipityIconLink"><img src="{serendipity_getFile file='admin/img/zoom.png'}" alt="{$CONST.VIEW} #{$entry['pagetitle']}" /></a>
+                <a target="_blank" class="button_link" href="{$serendipityHTTPPath}{$serendipityIndexFile}?serendipity[staticid]={$entry['id']}&amp;serendipity[staticPreview]=1" title="{$CONST.VIEW} #{$entry['pagetitle']}"><span class="icon-search"></span><span class="visuallyhidden"> {$CONST.VIEW} #{$entry['pagetitle']}</span></a>
                 <form action="serendipity_admin.php" method="post" name="sp_listentry_{$entry['id']}">
                 <div>
                     <input type="hidden" name="serendipity[adminModule]" value="event_display" />
@@ -417,8 +417,8 @@ switch pcat if      pageorder
                     <input type="hidden" name="serendipity[staticpagecategory]" value="pages" />
                     <input type="hidden" name="serendipity[staticpage]" value="{$entry['id']}" />
                     <input type="hidden" name="serendipity[listentries_formSubmit]" value="true" />{* necessary to open form on entrylist post submits *}
-                    <input type="image" name="serendipity[staticSubmit]" src="{serendipity_getFile file='admin/img/edit.png'}" class="spleim" title="{$CONST.EDIT} #{$entry['pagetitle']}" />
-                    <input type="image" name="serendipity[staticDelete]" src="{serendipity_getFile file='admin/img/delete.png'}" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:$entry['pagetitle']}');" title="{$CONST.DELETE} #{$entry['pagetitle']}" />
+                    <input type="submit" name="serendipity[staticSubmit]" class="icon-edit sp-btn sp-btn-edit" value="&#xe803;" titele="{$CONST.EDIT} #{$entry['pagetitle']}" />
+                    <input type="submit" name="serendipity[staticDelete]" class="icon-trash sp-btn sp-btn-purge" value="&#xe80d;" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:$entry['pagetitle']}');" title="{$CONST.DELETE} #{$entry['pagetitle']}" />
                 </div>
                 </form>
             </div>

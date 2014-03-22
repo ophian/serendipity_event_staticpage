@@ -95,10 +95,6 @@
     margin-bottom: 5px;
 }
 
-.default_staticpage .sect_opt {
-    font-size: 0.8em;
-}
-
 .default_staticpage fieldset {
     margin: 5px;
     border: 1px solid #F0F0F0;
@@ -210,6 +206,9 @@
 /**** 2.0 ****/
 
 /* defaultform */
+#backend_sp_simple {
+    font-size: .875em;
+}
 #backend_sp_simple fieldset {
     border: 1px solid #DDD;
     padding: .75em;

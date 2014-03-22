@@ -207,7 +207,21 @@
 .sp_ptype .input_textbox { width: inherit; }
 .serendipityAdminContent span.sp_ptype_desc { color: #5E7A94 !important; font-size: 8pt; }/*old backend*/
 
-/*2.0*/
+/**** 2.0 ****/
+
+/* defaultform */
+#backend_sp_simple fieldset {
+    border: 1px solid #DDD;
+    padding: .75em;
+    margin: 0 0 1em 0;
+}
+#backend_sp_simple legend {
+    border: 1px solid #72878A;
+    padding: 2px 5px;
+    background-color: #DFDFDF;
+}
+
+/* listentries */
 .spform a,.spform form {
     margin-right: .275em;
 }
@@ -232,7 +246,7 @@
 
 .sp-btn-purge:before { content: attr(value) '\e80d'); }
 
-/*pagetype*/
+/* pagetype */
 .configuration_group fieldset {
     border: 1px solid #c0c0c0;
     margin: 0 2px;
@@ -246,7 +260,7 @@
 .configuration_group .grouped:last-of-type { border-bottom: 1px solid #ccc;}
 .configuration_group .grouped.odd { background: #eee; }
 .configuration_group .grouped.even { background: #fff; }
-.sp_label {
+#staticpage_pagetype .sp_label {
     padding-left: .3em;
     width: 47% !important;
 }

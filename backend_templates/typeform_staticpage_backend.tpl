@@ -1,5 +1,5 @@
         <!-- smartified typeform_staticpage_backend.tpl -->
-        <div class="configuration_group default_staticpage sp_ptype">
+        <div id="staticpage_pagetype" class="configuration_group default_staticpage sp_ptype">
             <fieldset>
                 <span class="wrap_legend"><legend>Form Pagetype</legend></span>
                     <div class="clearfix grouped odd form_field sp_sect">

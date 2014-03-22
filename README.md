@@ -30,6 +30,6 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [x] Fixed backend_templates/default_staticpage_backend.tpl smarty markup (escape and cke-wysiwyg)
 - [x] Fixed some plugin file code inconsistencies
 - [x] Fixed some minor markup errors
-- [x] New option: sets publishstatus as default
-- [x] New option: sets (4.06 listentries) to be optional (selectbox default), due to errors in combination with selectlist
+- [x] New option: sets publishstatus (default draft) as default
+- [x] New option: sets listentries (selectbox default), due to errors in combination with selectlist
 - [x] Fixed (4.06) new entrylist markup

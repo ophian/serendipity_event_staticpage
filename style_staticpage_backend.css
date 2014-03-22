@@ -247,19 +247,19 @@
 .sp-btn-purge:before { content: attr(value) '\e80d'); }
 
 /* pagetype */
-.configuration_group fieldset {
+#staticpage_pagetype fieldset {
     border: 1px solid #c0c0c0;
     margin: 0 2px;
     padding: 0.35em 0.625em 0.75em;
 }
-.configuration_group .grouped {
+#staticpage_pagetype .grouped {
     border-width: 1px 1px 0px;
     border-style: solid solid none;
     border-color: #CCC;
 }
-.configuration_group .grouped:last-of-type { border-bottom: 1px solid #ccc;}
-.configuration_group .grouped.odd { background: #eee; }
-.configuration_group .grouped.even { background: #fff; }
+#staticpage_pagetype .grouped:last-of-type { border-bottom: 1px solid #ccc;}
+#staticpage_pagetype .grouped.odd { background: #eee; }
+#staticpage_pagetype .grouped.even { background: #fff; }
 #staticpage_pagetype .sp_label {
     padding-left: .3em;
     width: 47% !important;

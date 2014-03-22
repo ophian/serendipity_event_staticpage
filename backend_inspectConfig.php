@@ -95,7 +95,7 @@ foreach($select AS $select_value => $select_desc) {
 
                     if ($counter == 1) {
 ?>
-                <div>
+                <div class="sp_input_radio">
 <?php
                     }
 ?>

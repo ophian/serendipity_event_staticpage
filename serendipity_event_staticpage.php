@@ -92,7 +92,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.11');
+        $propbag->add('version', '4.12');
         $propbag->add('requirements',  array(
             'serendipity' => '1.6',
             'smarty'      => '2.6.7',
@@ -1988,9 +1988,9 @@ class serendipity_event_staticpage extends serendipity_event
         }
 
         // get global set show publishstatus for non-smarty showform and new
-        if ($serendipity['POST']['backend_template'] == 'internal' && $serendipity['POST']['staticpage'] == '__new') {
+        if (/*$serendipity['POST']['backend_template'] == 'internal' && */$serendipity['POST']['staticpage'] == '__new') {
             $this->staticpage['publishstatus'] = serendipity_db_bool($this->get_config('publishstatus'));
-        }
+        }//here we need a case selectlist new form - that is why it does not matter if internal or external
 
         // Code copied from include/admin/plugins.inc.php. Sue me. ;-)
         // now 'get_type' also needs to use a smartified file, therefore we check for 'is_smarty' instead

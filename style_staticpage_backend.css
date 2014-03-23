@@ -205,6 +205,13 @@
 
 /**** 2.0 ****/
 
+#staticpage_pagetype fieldset,
+#staticpage_pageadd .sp_add {
+    border: 1px solid #c0c0c0;
+    margin: 0;
+    padding: 0.35em 0.625em 0.75em;
+}
+
 /* defaultform */
 #backend_sp_simple {
     font-size: .875em;
@@ -247,11 +254,6 @@
 .sp-btn-purge:before { content: attr(value) '\e80d'); }
 
 /* pagetype */
-#staticpage_pagetype fieldset {
-    border: 1px solid #c0c0c0;
-    margin: 0 2px;
-    padding: 0.35em 0.625em 0.75em;
-}
 #staticpage_pagetype .grouped {
     border-width: 1px 1px 0px;
     border-style: solid solid none;
@@ -263,4 +265,25 @@
 #staticpage_pagetype .sp_label {
     padding-left: .3em;
     width: 47% !important;
+}
+
+/* pageadd */
+#staticpage_pageadd form,
+#staticpage_pageadd .sp_add legend {
+    border: 1px solid #72878A;
+    padding: 2px 5px;
+    margin-top: 1em;
+}
+#staticpage_pageadd .input_button {
+    margin-top: .5em;
+}
+
+/* pageorder */
+#sequence .pluginmanager_item_even {background: #fff;}
+#sequence .pluginmanager_item_odd {background: #eee;}
+#sequence .sequence_item {
+    display: inline-flex;
+    border: 1px dashed #ccc;
+    margin: .1em;
+    width: 95%;
 }

@@ -76,108 +76,104 @@ switch pcat if      pageorder
 
 {if $switch_spcat == 'pageorder'}
 
-<div id="splistorder" class="serendipityAdminMsgSuccess sp_msg_success"></div>
+<div id="splistorder" class="sp_msg_success"></div>
 
     {if is_array($sp_pageorder_pages)}
 
-<script src="{serendipity_getFile file='dragdrop.js'}" type="text/javascript"></script>
-<fieldset class="sp_sequence">
-    <legend>{$CONST.STATICPAGE_PAGEORDER_DESC}</legend>
-    <input type="hidden" name="serendipity[plugin][sequence]" id="sequence_value" value="{foreach name=sp_seqvalue item=element from=$sp_pageorder_pages}{$element['pagetitle']}{if !$smarty.foreach.sp_seqvalue.last},{/if}{/foreach}" />
-    <noscript>
-        <!-- Replace standard submit button when using up/down submits -->
-        <input type="hidden" name="SAVECONF" value="Save" />
-    </noscript>
-    <ol id="sequence" class="sequence_container pluginmanager_container">
-    {foreach name=sp_sequence item=sp_element from=$sp_pageorder_pages}
-        <li id="{$sp_element['id']}" class="sequence_item pluginmanager_item_even">{*  in normal situations id=$sp_element['pagetitle'], but we need id for js sequence mode *}
-            <input type="hidden" name="serendipity[plugin][sequence][id]" id="sequence_id" value="{$sp_element['id']}" />
-            <div id="g{$sp_element['pagetitle']}" class="pluginmanager_grablet sequence_grablet">
-                <button id="grabs{$sp_element['pagetitle']}" class="icon_link button_link" title="{$CONST.MOVE}" type="button">
-                    <span class="icon-move"></span>
-                    <span class="visuallyhidden"></span>
-                </button>
-            </div>
-            <span style="margin: 0 auto auto 3em;">{$sp_element['pagetitle']}</span>
-            <div class="sp_nojs">
+<script src="{serendipity_getFile file="admin/js/jquery.autoscroll.js"}"></script>
+<script src="{serendipity_getFile file="admin/js/jquery.sortable.js"}"></script>
+<script>
+    var SYHP = "{$serendipityHTTPPath}";
+{literal}
+function save_new_order() {
+    var a = [];
+    $('#sequence').children().each(function (i) {
+        a.push($(this).attr('id'));
+    });
+    var s = a.join(',');
+    jQuery.ajax({
+        url: SYHP+"serendipity_admin.php?serendipity[adminModule]=staticpages&serendipity[moveto]=move&serendipity[pagemoveorder]=" + s + "&serendipity[adminModule]=event_display&serendipity[adminAction]=staticpages&serendipity[staticpagecategory]=pageorder",
+        context: document.body,
+        success: function() {
+            jQuery('#splistorder').html("<span class=\"icon-ok-circle\"></span> New staticpage pageorder list "+s+" successfully saved");
+            //console.log("new staticpage pageorder list "+s+" successfully saved");
+        }
+    });
+}
+$("document").ready(function() {
+    if (! Modernizr.touch){
+        function getDragdropConfiguration(group) {
+            return {
+                containerSelector: '.pluginmanager_container',
+                group: group,
+                handle: '.pluginmanager_grablet',
+
+                onDrop: function ($item, container, _super) {
+                    var placement = $item.parents('.pluginmanager_container').data("placement");
+                    $item.find('select[name$="placement]"]').val(placement);
+                    $item.removeClass("dragged").removeAttr("style");
+                    $("body").removeClass("dragging");
+                    save_new_order();
+                    $.autoscroll.stop();
+               },
+                onDragStart: function ($item, container, _super) {
+                    $.autoscroll.init();
+                    $item.css({
+                        height: $item.height(),
+                        width: $item.width()
+                    });
+                    $item.addClass("dragged");
+                    $("body").addClass("dragging");
+                }
+            }
+        }
+        $('.configuration_group .pluginmanager_container').sortable(getDragdropConfiguration('plugins_event'));
+    }
+});
+{/literal}
+</script>
+<div class="configuration_group even">
+    <fieldset class="sp_sequence">
+        <legend>{$CONST.STATICPAGE_PAGEORDER_DESC}</legend>
+        <input type="hidden" name="serendipity[plugin][sequence]" id="sequence_value" value="{foreach name=sp_seqvalue item=element from=$sp_pageorder_pages}{$element['pagetitle']}{if !$smarty.foreach.sp_seqvalue.last},{/if}{/foreach}" />
+        <noscript>
+            <!-- Replace standard submit button when using up/down submits -->
+            <input type="hidden" name="SAVECONF" value="Save" />
+        </noscript>
+
+        <ol id="sequence" data-placement="sqid" class="sequence_container pluginmanager_container">
+        {foreach name=sp_sequence item=sp_element from=$sp_pageorder_pages}
+            <li id="{$sp_element['id']}" class="sequence_item pluginmanager_item_{cycle values="odd,even"}">{*  in normal situations id=$sp_element['pagetitle'], but we need id for js sequence mode *}
+                <input type="hidden" name="serendipity[plugin][sequence][id]" id="sequence_id" value="{$sp_element['id']}" />
+                <div id="g{$sp_element['pagetitle']}" class="pluginmanager_grablet sequence_grablet">
+                    <button class="icon_link" type="button" title="{$CONST.MOVE}"><span class="icon-move"></span><span class="visuallyhidden"> {$CONST.MOVE}</span></button>
+                </div>
+                <span style="margin: 0 auto auto 1em;">{$sp_element['pagetitle']}</span>
+                <div class="sp_nojs">
                 {if !$smarty.foreach.sp_sequence.first}
 
-                <span>
-                    <noscript><a href="?serendipity[adminModule]=staticpages&amp;serendipity[moveto]=moveup&amp;serendipity[pagetomove]={$sp_element['id']}&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder" style="border: 0"></noscript>
-                    <img src="{serendipity_getFile file='admin/img/uparrow.png'}" alt="{$CONST.UP}"><noscript></a></noscript>
-                </span>
+                    <span>
+                        <noscript>
+                        <a href="?serendipity[adminModule]=staticpages&amp;serendipity[moveto]=moveup&amp;serendipity[pagetomove]={$sp_element['id']}&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder" style="border: 0"><img src="{serendipity_getFile file='admin/img/uparrow.png'}" alt="{$CONST.UP}"></a>
+                        </noscript>
+                    </span>
 
                 {/if}
                 {if !$smarty.foreach.sp_sequence.last}
 
-                <span>
-                    <noscript><a href="?serendipity[adminModule]=staticpages&amp;serendipity[moveto]=movedown&amp;serendipity[pagetomove]={$sp_element['id']}&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder" style="border: 0"></noscript>
-                    <img src="{serendipity_getFile file='admin/img/downarrow.png'}" alt="{$CONST.DOWN}"><noscript></a></noscript>
-                </span>
+                    <span>
+                        <noscript>
+                        <a href="?serendipity[adminModule]=staticpages&amp;serendipity[moveto]=movedown&amp;serendipity[pagetomove]={$sp_element['id']}&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder" style="border: 0"><img src="{serendipity_getFile file='admin/img/downarrow.png'}" alt="{$CONST.DOWN}"></a>
+                        </noscript>
+                    </span>
 
                 {/if}
-            </div>
-        </li>
-    {/foreach}
-    </ol>
-</fieldset>
-<script type="text/javascript">
-    var SYHP = "{$serendipityHTTPPath}";
-{literal}
-    jQuery.ajaxSetup({
-        error: handleXhrError
-    });
-
-    function handleXhrError(xhr) {
-        document.open();
-        document.write(xhr.responseText);
-        document.close();
-    }
-
-    function sort_sequence_Sequence() {
-        var seq = DragDrop.serData(null, 'sequence');
-        var start = seq.indexOf("(");
-        var end = seq.indexOf(")");
-        seq = seq.slice((start + 1), end);
-        checkable_seq = seq.split(",");
-        out_seq = '';
-        for (i in checkable_seq) {
-            if (out_seq != '') {
-                out_seq += ',';
-            }
-            out_seq += checkable_seq[i];
-        }
-        var dropid = document.getElementById("sequence_id")
-        var order  = document.getElementById("sequence_value")
-        order.value = out_seq;
-        /** debug
-        console.log(order.value); // the new list order
-        console.log(dropid.value); // the dropped id
-        **/
-
-        jQuery.ajax({
-            url: SYHP+"serendipity_admin.php?serendipity[adminModule]=staticpages&serendipity[moveto]=move&serendipity[pagemoveorder]=" + order.value + "&serendipity[adminModule]=event_display&serendipity[adminAction]=staticpages&serendipity[staticpagecategory]=pageorder",
-            context: document.body,
-            success: function() {
-                jQuery('#splistorder').html("<span class=\"icon-ok-circle\"></span> New staticpage pageorder list "+order.value+" successfully saved");
-                console.log("new staticpage pageorder list "+order.value+" successfully saved");
-            }
-        });
-    }
-
-    function init_sequence_Sequence()
-    {
-        var lst = document.getElementById("sequence");
-        DragDrop.makeListContainer(lst, 'sequence_group');
-        lst.onDragOut = function() {
-            sort_sequence_Sequence();
-        };
-    }
-
-    /*addLoadEvent(init_sequence_Sequence);*/
-    if (window.jQuery) { jQuery(function ($) { init_sequence_Sequence(); }); } else { addLoadEvent(init_sequence_Sequence); } 
-{/literal}
-</script>
+                </div>
+            </li>
+        {/foreach}
+        </ol>
+    </fieldset>
+</div>
     {else}
 
     <p class="sp_bold">{$CONST.STATICPAGE_PAGEORDER_DESC}</p>
@@ -187,15 +183,15 @@ switch pcat if      pageorder
 {elseif $switch_spcat == 'pagetype'}
 
     {if $sp_pagetype_saveconf}
-<div class="serendipityAdminMsgSuccess msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
+<div class="msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
     {/if}
 
     {if $sp_pagetype_purged}
-<div class="serendipityAdminMsgSuccess msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.RIP_ENTRY|sprintf:$sp_pagetype_ripped}</div>
+<div class="msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.RIP_ENTRY|sprintf:$sp_pagetype_ripped}</div>
     {/if}
 
     {if $sp_pagetype_update}
-<div class="serendipityAdminMsgError msg_error"><span class="icon-error"></span> {$CONST.ERROR}: {$sp_pagetype_mixedresult}</div>
+<div class="msg_error"><span class="icon-error"></span> {$CONST.ERROR}: {$sp_pagetype_mixedresult}</div>
     {/if}
 
 <form action="serendipity_admin.php" method="post" name="serendipityEntry">
@@ -215,8 +211,8 @@ switch pcat if      pageorder
 {/if}
 
         </select>
-        <input type="submit" class="serendipityPrettyButton input_button" name="serendipity[typeSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong> 
-        <input type="submit" class="serendipityPrettyButton input_button" name="serendipity[typeDelete]" value="{$CONST.DELETE}" />
+        <input type="submit" class="input_button" name="serendipity[typeSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong>
+        <input type="submit" class="input_button" name="serendipity[typeDelete]" value="{$CONST.DELETE}" />
         {if $sp_pagetype_submit}<input type="hidden" name="serendipity[typeSave]" value="true" />{/if}
         {if $sp_pagetype_isshowform && !empty($sp_pagetype_showform)}
 
@@ -232,67 +228,71 @@ switch pcat if      pageorder
 
 {elseif $switch_spcat == 'pageadd'}
 
+<div id="staticpage_pageadd" class="sp_padd">
+
     {if $sp_addsubmit}
-<div class="serendipityAdminMsgSuccess msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
+    <div class="msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
     {/if}
 
-<p class="sp_bold">{$CONST.STATICPAGE_PAGEADD_DESC}</p>
+    <p class="sp_bold">{$CONST.STATICPAGE_PAGEADD_DESC}</p>
 
     {if is_array($sp_pageadd_plugins)}
 
-<form action="serendipity_admin.php" method="post" name="serendipityPlugins">
-    <div>
-    <input type="hidden" name="serendipity[adminModule]" value="event_display" />
-    <input type="hidden" name="serendipity[adminAction]" value="staticpages" />
-    <input type="hidden" name="serendipity[staticpagecategory]" value="pageadd" />
+    <form action="serendipity_admin.php" method="post" name="serendipityPlugins">
+        <div>
+        <input type="hidden" name="serendipity[adminModule]" value="event_display" />
+        <input type="hidden" name="serendipity[adminAction]" value="staticpages" />
+        <input type="hidden" name="serendipity[staticpagecategory]" value="pageadd" />
 
     {foreach name=pageadd_plugins from=$sp_pageadd_plugins key=key item=plugin}
 
-    <input class="input_checkbox" type="checkbox" name="serendipity[externalPlugins][]" value="{$key}"{if isset($sp_pageadd_insplugins[$key])} checked="checked"{/if} />{$plugin['name']}<br />
+        <input class="input_checkbox" type="checkbox" name="serendipity[externalPlugins][]" value="{$key}"{if isset($sp_pageadd_insplugins[$key])} checked="checked"{/if} />{$plugin['name']}<br />
 
     {/foreach}
 
-    <input type="submit" name="serendipity[typeSubmit]" class="serendipityPrettyButton input_button" value="{$CONST.GO}" />
-    </div>
-</form>
+        <input type="submit" name="serendipity[typeSubmit]" class="input_button" value="{$CONST.GO}" />
+        </div>
+    </form>
 
     {/if} {* is_array($sp_pageadd_plugins) end *}
 
-<fieldset class="sp_add">
-    <legend>{$CONST.STATICPAGE_PAGEADD_PLUGINS}</legend>
+    <fieldset class="sp_add">
+        <legend>{$CONST.STATICPAGE_PAGEADD_PLUGINS}</legend>
 
-<table>
-    <tr id="serendipityStaticpagesTableHeader">
-        <th>{$CONST.EVENT_PLUGIN}</th>
-        <th>{$CONST.STATICPAGE_STATUS}</th>
-    </tr>
+        <table>
+            <tr id="serendipityStaticpagesTableHeader">
+                <th>{$CONST.EVENT_PLUGIN}</th>
+                <th>{$CONST.STATICPAGE_STATUS}</th>
+            </tr>
 
     {foreach name=pageadd_pstats from=$sp_pageadd_plugstats key=key item=value}
 
-    <tr id="serendipityStaticpagesTable{$smarty.foreach.pageadd_pstats.index % 2}">
-        <td>{$key}</td>
-        <td><span id="serendipityStaticpages{$value['color']}">{$value['status']}</span></td>
-    </tr>
+            <tr id="serendipityStaticpagesTable{$smarty.foreach.pageadd_pstats.index % 2}">
+                <td>{$key}</td>
+                <td><span id="serendipityStaticpages{$value['color']}">{$value['status']}</span></td>
+            </tr>
 
     {/foreach}
-</table>
-</fieldeset>
+
+        </table>
+    </fieldeset>
+</div>
 
 {else} {** == 'pages' || 'pageedit' || default **}
 
     {if $sp_staticsubmit}
         {if !empty($sp_defpages_upd_result)}
-<div class="serendipityAdminMsgError msg_error"><span class="icon-error"></span> {$CONST.ERROR}: {$sp_defpages_upd_result}</div>
+<div class="msg_error"><span class="icon-error"></span> {$CONST.ERROR}: {$sp_defpages_upd_result}</div>
         {else}
-<div class="serendipityAdminMsgSuccess msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
+<div class="msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
         {/if}
     {/if}
 
     {if $sp_staticdelete}
         {if isset($sp_defpages_rip_success)}
-<div class="serendipityAdminMsgSuccess msg_success"><span class="icon-ok"></span> {$sp_defpages_rip_success}</div>
+<div class="msg_success"><span class="icon-ok"></span> {$sp_defpages_rip_success}</div>
         {else}
-<div class="serendipityAdminMsgNote msg_notice">
+<div class="msg_notice">
     <span class="icon-error"></span> {$CONST.IMPORT_NOTES}: {$CONST.STATICPAGE_CANNOTDELETE_MSG}
 </div>
         {/if}
@@ -335,9 +335,9 @@ switch pcat if      pageorder
                 {foreach name=sp_sps item=pop from=$sp_defpages_pop}{$pop}{/foreach}
             {/if}
         </select>
-        <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong>
-        <input type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"document.getElementById('staticpage_dropdown').options[document.getElementById('staticpage_dropdown').selectedIndex].text"}');" class="serendipityPrettyButton input_button" value="{$CONST.DELETE}" />
-        <strong>-{$CONST.WORD_OR}-</strong> <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticPreview]" value="{$CONST.PREVIEW}" />
+        <input class="input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong>
+        <input type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"document.getElementById('staticpage_dropdown').options[document.getElementById('staticpage_dropdown').selectedIndex].text"}');" class="input_button" value="{$CONST.DELETE}" />
+        <strong>-{$CONST.WORD_OR}-</strong> <input class="input_button" type="submit" name="serendipity[staticPreview]" value="{$CONST.PREVIEW}" />
         {if $sp_defpages_sbplav}
         <div class="sp_plav">
             <img class="attention" title="Staticpage Sidebar {$CONST.STATICPAGE_PLUGIN_AVAILABLE}" src="{serendipity_getFile file='admin/img/admin_msg_note.png'}" alt="info" />
@@ -350,7 +350,7 @@ switch pcat if      pageorder
         var staticpage_preview = window.open("{$sp_defpages_link}", "staticpage_preview");
         staticpage_preview.focus();
     </script>
-    <div class="serendipityAdminMsgNotice msg_notice"><span class="icon-info-circled"></span> {$CONST.PLUGIN_STATICPAGE_PREVIEW|sprintf:"<a href=\"$sp_defpages_link\">$sp_defpages_pagetitle</a>"}</div>
+    <div class="msg_notice"><span class="icon-info-circled"></span> {$CONST.PLUGIN_STATICPAGE_PREVIEW|sprintf:"<a href=\"$sp_defpages_link\">$sp_defpages_pagetitle</a>"}</div>
     {/if}
 
     {/if}{* showform, but not not entrylist end *}
@@ -383,7 +383,7 @@ switch pcat if      pageorder
     </table>
     <br />
     <div style="padding-left: 20px">
-        <input type="submit" name="serendipity[SAVECONF]" value="Speichern" class="serendipityPrettyButton input_button" />
+        <input type="submit" name="serendipity[SAVECONF]" value="Speichern" class="input_button" />
     </div>
 
     {/if}
@@ -437,14 +437,14 @@ switch pcat if      pageorder
         {$CONST.NEW_ENTRY} <em>{$CONST.WORD_OR|lower}</em> {$CONST.EDIT_ENTRY}: #<input class="input_textbox" type="text" size="3" name="serendipity[staticpage]" /> 
         <input type="hidden" name="serendipity[listentries_formSubmit]" value="true" />{* necessary to open form on entrylist post submits *}
         <input type="hidden" name="serendipity[pagetype]" value="__new" />
-        <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}" />
+        <input class="input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}" />
     </div>
     </form>
 </div>
 
         {else} {* if !$sp_listentries_entries || empty($sp_listentries_entries) *}
 
-<div class="serendipityAdminMsgNote msg_notice">
+<div class="msg_notice">
     <span class="icon-attention"></span> {$CONST.NO_ENTRIES_TO_PRINT}
 </div>
 

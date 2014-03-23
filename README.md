@@ -7,7 +7,6 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### ToDo: :arrow_down:
-- [ ] finalize 'backend_staticpage.tpl' for Serendipity 2.0 only usage, keep 'old_staticpage_backend.tpl' for previous S9y versions
 - [ ] finalize the version stylesheets for this
 - [ ] create a smarty template for the unstructered staticpage form (which is currently the 'no template' select switch, build by hardcoded stuff)
 - [ ] deep check, if current changes broke anything with some more enhanced staticpage options, all normal behaviour is checked working
@@ -18,6 +17,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] finalize 'backend_staticpage.tpl' for Serendipity 2.0 only usage, keep 'old_staticpage_backend.tpl' for previous S9y versions
 - [x] Reworked default form template by switching new_backend
 - [x] Added new 'pagetype' typeform template
 - [x] Set required version to 1.6, due to smarty usage in sequencer 'pageorder' drag&drop

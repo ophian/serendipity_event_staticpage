@@ -208,7 +208,7 @@
 #staticpage_pagetype fieldset,
 #staticpage_pageadd .sp_add {
     border: 1px solid #c0c0c0;
-    margin: 0;
+    margin: 1em 0 0 0;
     padding: 0.35em 0.625em 0.75em;
 }
 
@@ -272,7 +272,6 @@
 #staticpage_pageadd .sp_add legend {
     border: 1px solid #72878A;
     padding: 2px 5px;
-    margin-top: 1em;
 }
 #staticpage_pageadd .input_button {
     margin-top: .5em;

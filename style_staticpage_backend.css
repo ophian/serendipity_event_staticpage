@@ -211,15 +211,22 @@
     margin: 1em 0 0 0;
     padding: 0.35em 0.625em 0.75em;
 }
-
-/* defaultform */
-#backend_sp_simple {
-    font-size: .875em;
-}
+.sp_sequence,
 #backend_sp_simple fieldset {
     border: 1px solid #DDD;
     padding: .75em;
     margin: 0 0 1em 0;
+}
+.sp_sequence legend,
+#staticpage_pageadd form,
+#staticpage_pageadd .sp_add legend {
+    border: 1px solid #72878A;
+    padding: 2px 5px;
+}
+
+/* defaultform */
+#backend_sp_simple {
+    font-size: .875em;
 }
 #backend_sp_simple legend {
     border: 1px solid #72878A;
@@ -268,11 +275,6 @@
 }
 
 /* pageadd */
-#staticpage_pageadd form,
-#staticpage_pageadd .sp_add legend {
-    border: 1px solid #72878A;
-    padding: 2px 5px;
-}
 #staticpage_pageadd .input_button {
     margin-top: .5em;
 }

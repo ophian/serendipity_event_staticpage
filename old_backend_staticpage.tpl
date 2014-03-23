@@ -1,4 +1,4 @@
-{* backend show starpage remplate file v. 1.0, 2014-03-10 *}
+{* old_backend_staticpage template file v. 1.0, 2014-03-23 *}
 {** moduled backend_show.php tpl vars
 
 +++++ head +++++
@@ -65,10 +65,8 @@ switch pcat if      pageorder
 
 <!-- backend_staticpage.tpl START -->
 
-{if !$new_backend}
 <script type="text/javascript" src="{$serendipityHTTPPath}serendipity_define.js.php"></script>
 <script type="text/javascript" src="{$serendipityHTTPPath}serendipity_editor.js"></script>
-{/if}
 
 <div id="serendipityStaticpagesNav">
     <ul>
@@ -97,17 +95,8 @@ switch pcat if      pageorder
     {foreach name=sp_sequence item=sp_element from=$sp_pageorder_pages}
         <li id="{$sp_element['id']}" class="sequence_item pluginmanager_item_even">{*  in normal situations id=$sp_element['pagetitle'], but we need id for js sequence mode *}
             <input type="hidden" name="serendipity[plugin][sequence][id]" id="sequence_id" value="{$sp_element['id']}" />
-            {if $new_backend}
-            <div id="g{$sp_element['pagetitle']}" class="pluginmanager_grablet sequence_grablet">
-                <button id="grabs{$sp_element['pagetitle']}" class="icon_link button_link" title="{$CONST.MOVE}" type="button">
-                    <span class="icon-move"></span>
-                    <span class="visuallyhidden"></span>
-                </button>
-            </div>
-            {else}
             <div id="g{$sp_element['pagetitle']}" class="pluginmanager_grablet sequence_grablet"><a href="#"></a></div>
-            {/if}
-            <span{if $new_backend} style="margin: 0 auto auto 3em;"{/if}>{$sp_element['pagetitle']}</span>
+            <span>{$sp_element['pagetitle']}</span>
             <div class="sp_nojs">
                 {if !$smarty.foreach.sp_sequence.first}
 
@@ -224,7 +213,7 @@ switch pcat if      pageorder
 {/if}
 
         </select>
-        <input type="submit" class="serendipityPrettyButton input_button" name="serendipity[typeSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong> 
+        <input type="submit" class="serendipityPrettyButton input_button" name="serendipity[typeSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong>
         <input type="submit" class="serendipityPrettyButton input_button" name="serendipity[typeDelete]" value="{$CONST.DELETE}" />
         {if $sp_pagetype_submit}<input type="hidden" name="serendipity[typeSave]" value="true" />{/if}
         {if $sp_pagetype_isshowform && !empty($sp_pagetype_showform)}
@@ -318,11 +307,7 @@ switch pcat if      pageorder
 
     {if isset($sp_cookie_value)}
     <script type="text/javascript">
-        {if $new_backend}
-        if (window.jQuery) { jQuery(function ($) { serendipity.SetCookie("backend_template", unescape("{$sp_cookie_value}")); }); } else { serendipity.SetCookie("backend_template", unescape("{$sp_cookie_value}")); } 
-        {else}
         if (window.jQuery) { jQuery(function ($) { SetCookie("backend_template", unescape("{$sp_cookie_value}")); }); } else { SetCookie("backend_template", unescape("{$sp_cookie_value}")); } 
-        {/if}
     </script>
     {/if}
 
@@ -363,11 +348,7 @@ switch pcat if      pageorder
         var staticpage_preview = window.open("{$sp_defpages_link}", "staticpage_preview");
         staticpage_preview.focus();
     </script>
-        {if $new_backend}
-    <div class="serendipityAdminMsgNotice msg_notice"><span class="icon-info-circled"></span> {$CONST.PLUGIN_STATICPAGE_PREVIEW|sprintf:"<a href=\"$sp_defpages_link\">$sp_defpages_pagetitle</a>"}</div>
-        {else}
     <p>{$CONST.PLUGIN_STATICPAGE_PREVIEW|sprintf:"<a href=\"$sp_defpages_link\">$sp_defpages_pagetitle</a>"}</p>
-        {/if}
     {/if}
 
     {/if}{* showform, but not not entrylist end *}
@@ -469,10 +450,6 @@ switch pcat if      pageorder
 
     {/if} {* sp_defpages_showlist false/true end  *}
     {if $sp_pagetype_showform_isnuggets}
-
-{if $new_backend}
-<script src="{serendipity_getFile file='admin/js/jquery.magnific-popup.js'}"></script>
-{/if}
 
 <!-- sp_pagetype_showform_isnuggets start -->
 <script type="text/javascript">

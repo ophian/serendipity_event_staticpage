@@ -1,4 +1,4 @@
-{* backend show starpage remplate file v. 1.0, 2014-03-10 *}
+{* backend_staticpage template file v. 1.0, 2014-03-23 *}
 {** moduled backend_show.php tpl vars
 
 +++++ head +++++
@@ -95,7 +95,7 @@ function save_new_order() {
         url: SYHP+"serendipity_admin.php?serendipity[adminModule]=staticpages&serendipity[moveto]=move&serendipity[pagemoveorder]=" + s + "&serendipity[adminModule]=event_display&serendipity[adminAction]=staticpages&serendipity[staticpagecategory]=pageorder",
         context: document.body,
         success: function() {
-            jQuery('#splistorder').html("<span class=\"icon-ok-circle\"></span> New staticpage pageorder list "+s+" successfully saved");
+            jQuery('#splistorder').html("<span class=\"icon-ok\"></span> New staticpage pageorder list "+s+" successfully saved");
             //console.log("new staticpage pageorder list "+s+" successfully saved");
         }
     });
@@ -148,7 +148,7 @@ $("document").ready(function() {
                 <div id="g{$sp_element['pagetitle']}" class="pluginmanager_grablet sequence_grablet">
                     <button class="icon_link" type="button" title="{$CONST.MOVE}"><span class="icon-move"></span><span class="visuallyhidden"> {$CONST.MOVE}</span></button>
                 </div>
-                <span style="margin: 0 auto auto 1em;">{$sp_element['pagetitle']}</span>
+                <span class="sp_grablet_title">{$sp_element['pagetitle']}</span>
                 <div class="sp_nojs">
                 {if !$smarty.foreach.sp_sequence.first}
 

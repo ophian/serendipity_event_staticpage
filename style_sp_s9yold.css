@@ -78,3 +78,8 @@
     border: 0;
     text-decoration: none;
 }
+#staticpage_pagetype .wrap_legend {
+    display: block;
+    margin-bottom: 1em;
+}
+

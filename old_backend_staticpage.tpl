@@ -63,7 +63,7 @@ switch pcat if      pageorder
 
 **}
 
-<!-- backend_staticpage.tpl START -->
+<!-- old_backend_staticpage.tpl START -->
 
 <script type="text/javascript" src="{$serendipityHTTPPath}serendipity_define.js.php"></script>
 <script type="text/javascript" src="{$serendipityHTTPPath}serendipity_editor.js"></script>
@@ -93,7 +93,7 @@ switch pcat if      pageorder
     </noscript>
     <ol id="sequence" class="sequence_container pluginmanager_container">
     {foreach name=sp_sequence item=sp_element from=$sp_pageorder_pages}
-        <li id="{$sp_element['id']}" class="sequence_item pluginmanager_item_even">{*  in normal situations id=$sp_element['pagetitle'], but we need id for js sequence mode *}
+        <li id="{$sp_element['id']}" class="sequence_item_old pluginmanager_item_even">{*  in normal situations id=$sp_element['pagetitle'], but we need id for js sequence mode *}
             <input type="hidden" name="serendipity[plugin][sequence][id]" id="sequence_id" value="{$sp_element['id']}" />
             <div id="g{$sp_element['pagetitle']}" class="pluginmanager_grablet sequence_grablet"><a href="#"></a></div>
             <span>{$sp_element['pagetitle']}</span>
@@ -157,7 +157,7 @@ switch pcat if      pageorder
             url: SYHP+"serendipity_admin.php?serendipity[adminModule]=staticpages&serendipity[moveto]=move&serendipity[pagemoveorder]=" + order.value + "&serendipity[adminModule]=event_display&serendipity[adminAction]=staticpages&serendipity[staticpagecategory]=pageorder",
             context: document.body,
             success: function() {
-                jQuery('#splistorder').html("<span class=\"icon-ok-circle\"></span> New staticpage pageorder list "+order.value+" successfully saved");
+                jQuery('#splistorder').html("<span class=\"icon-ok\"></span> New staticpage pageorder list "+order.value+" successfully saved");
                 console.log("new staticpage pageorder list "+order.value+" successfully saved");
             }
         });
@@ -464,5 +464,5 @@ switch pcat if      pageorder
 
 {/if} {* switch end *}
 
-<!-- backend_staticpage.tpl END -->
+<!-- old_backend_staticpage.tpl END -->
 

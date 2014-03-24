@@ -39,7 +39,7 @@
 </script>
 {/if}
 
-<div id="backend_sp_simple" class="default_staticpage">
+<div id="backend_sp_simple{if !$new_backend}_old{/if}" class="default_staticpage">
 
     <div class="sp_defaultform_left">
         <!-- LEFT -->

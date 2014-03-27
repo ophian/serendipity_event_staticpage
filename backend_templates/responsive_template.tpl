@@ -79,7 +79,7 @@
         {if $new_backend}
         <h3 class="toggle_headline"><button id="optionel1" class="toggle_info show_config_option sp_toggle" type="button" data-href="#el1" title="{$CONST.TOGGLE_OPTION}"><span class="icon-right-dir"></span> {$CONST.STATICPAGES_CUSTOM_META_SHOW}</button></h3>
         {else}
-        <p id="sp_toggle_optionall"><a href="#" onClick="showConfig('el1'); return false" title="{$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel1" alt="+/-" border="0">&nbsp; {$CONST.STATICPAGES_CUSTOM_META_SHOW}</a></p>
+        <p id="sp_toggle_optionall"><a href="#" onClick="showConfig('el1'); return false" title="{$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel1" alt="+/-" border="0">&nbsp;{$CONST.STATICPAGES_CUSTOM_META_SHOW}</a></p>
         {/if}
     </div>
 
@@ -247,6 +247,8 @@
                 <p>This custom section vastly improves Serendipity's CMS-abilities and shows an example for saving custom fields for static pages. All custom fields need to be implemented through usual HTML form elements, and need to save their values inside a serendipity[plugin][custom][XXX] fieldname. Once entered, the data will be automatically saved inside the serendipity_staticpage_custom database table, and will be available through &#123;$staticpage_custom.XXX&#125; when later being displayed in the frontend. This way, you can easily add new custom fields for a staticpage, ie. to specify a custom header image for each staticpage. Sky's the limit!</p>
                 <p>This example here enables to use a custom CSS-BODY-ID to render the page. Or you can specify, which sidebar you want to see when this staticpage is rendered.<br><span><strong>Example for 2k11/index.tpl:</strong></span></p>
                 <pre>
+&lt;body&#123;if $template_option.webfonts != 'none'&#125; class=&quot;&#123;$template_option.webfonts&#125;&#123;if !empty($staticpage_custom.css_class)&#125; &#123;$staticpage_custom.css_class&#125;&#123;/if&#125;&quot;&#123;/if&#125;&#123;if !empty($staticpage_custom.css_class)&#125; class=&quot;&#123;$staticpage_custom.css_class&#125;&quot;&#123;/if&#125;&gt;
+
     &lt;div class=&quot;clearfix&#123;if $leftSidebarElements &gt; 0 &amp;&amp; $rightSidebarElements &gt; 0 &amp;&amp; empty($staticpage_custom.sidebars)&#125; col3&#123;elseif ($leftSidebarElements &gt; 0 &amp;&amp; $rightSidebarElements == 0) || $staticpage_custom.sidebars=='left'&#125; col2l&#123;else&#125; col2r&#123;/if&#125;&quot;&gt;
         &lt;main id=&quot;content&quot; &#123;if $template_option.imgstyle != 'none'&#125; class=&quot;&#123;$template_option.imgstyle&#125;&quot;&#123;/if&#125;&gt;
         &#123;$CONTENT&#125;

@@ -283,9 +283,16 @@
     min-height: 3.6em; /* avoid breaks having less height blocks */
     padding-bottom: -100%;/* cheat browser for equal-height part 2 */
 }
-#backend_sp_respond #entry_main_headline,
-#backend_sp_respond #entry_main_aftitle {
+#backend_sp_respond .form_field_long {
     background: #eee;
+    border: 1px solid #aaa;
+    min-height: 3.5em;
+    width: 97.8%;
+}
+#backend_sp_respond .form_field_long label,
+#backend_sp_respond .form_field_long input {
+    margin: 0 .4em;
+    width: 98.6%;
 }
 #backend_sp_respond #sp_main_data legend,
 #backend_sp_respond #sp_structure_data legend,
@@ -294,12 +301,11 @@
     border: 1px solid #72878A;
     padding: 2px 5px;
 }
-
 #backend_sp_respond #sp_structure_data > div.form_area {
     margin-right: inherit;
 }
-#backend_sp_respond #entry_main_headline,
-#backend_sp_respond #entry_main_aftitle,
+/*#backend_sp_respond #entry_main_headline,
+#backend_sp_respond #entry_main_aftitle,*/
 #backend_sp_respond #entry_main_content,
 #backend_sp_respond #sp_metafield_data > div.sp_sect,
 #backend_sp_respond #sp_structure_data > div.form_area {
@@ -329,7 +335,7 @@
 .spform a,.spform form {
     margin-right: .275em;
 }
-#sp_entries_list {margin: 0 0 0 0; padding: .4em 0; }
+#sp_entries_list { margin: 0 0 0 0; padding: .4em 0; }
 .sp_entries_pane.odd { background: #eee; }
 .sp_entries_pane.even { background: #fff; }
 .sp_entries_pane.sp_close {

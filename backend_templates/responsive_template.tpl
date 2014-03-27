@@ -43,12 +43,12 @@
 
     <fieldset id="sp_main_data" class="sect_basic">
         <legend>{$CONST.STATICPAGE_SECTION_BASIC}</legend>
-        <div id="entry_main_headline" class="sp_sect">
+        <div id="entry_main_headline" class="form_field_long sp_sect">
             <label class="sp_label" title="{staticpage_input item="headline" what="desc"}">{staticpage_input item="headline" what="name"}</label>
                 {staticpage_input item="headline"}
         </div>
 
-        <div id="entry_main_aftitle" class="sp_sect">
+        <div id="entry_main_aftitle" class="form_field_long sp_sect">
             <label class="sp_label" title="{staticpage_input item="articleformattitle" what="desc"}">{staticpage_input item="articleformattitle" what="name"}</label>
                 {staticpage_input item="articleformattitle"}
         </div>

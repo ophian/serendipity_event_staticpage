@@ -173,8 +173,8 @@
                 }
 
                 if (isset($serendipity['POST']['typeSubmit'])) {
-                    $serendipity['POST']['staticSubmit'] = true;
-                        $serendipity['POST']['plugin']['custom'] = $this->staticpage['custom'];//wofür?
+                    $serendipity['POST']['staticSubmit'] = true;//??
+                    $serendipity['POST']['plugin']['custom'] = $this->staticpage['custom'];//?? what for?
                     if (!$is_smarty) {
                         echo '<!-- backend show pagetype form no smarty start -->';
                         echo '<input type="hidden" name="serendipity[typeSave]" value="true" />';
@@ -395,12 +395,13 @@
                     if ($dh) {
                         while ($file = readdir($dh)) {
                             if (!in_array($file, $exclude_files) && preg_match('@^(.*).tpl$@i', $file, $m)) {
+                                if (isset($m[1]) && !empty($m[1])) $templateName = ucwords(str_replace('_', ' ', $m[1]));
                                 if (!$is_smarty) {
 ?>
-            <option <?php echo ($file == $serendipity['POST']['backend_template'] ? 'selected="selected" ' : '') . 'value="' . htmlspecialchars($file) . '">' . htmlspecialchars($m[1]) ?></option>
+            <option <?php echo ($file == $serendipity['POST']['backend_template'] ? 'selected="selected" ' : '') . 'value="' . htmlspecialchars($file) . '">' . htmlspecialchars($templateName) ?></option>
 <?php
                                 } else {
-                                    $ts_option[] = '<option ' . ($file == $serendipity['POST']['backend_template'] ? 'selected="selected" ' : '') . 'value="' . htmlspecialchars($file) . '">' . htmlspecialchars($m[1]) . '</option>'."\n";
+                                    $ts_option[] = '<option ' . ($file == $serendipity['POST']['backend_template'] ? 'selected="selected" ' : '') . 'value="' . htmlspecialchars($file) . '">' . htmlspecialchars($templateName) . '</option>'."\n";
                                 }
                             }
                         }
@@ -409,12 +410,13 @@
                     if ($dh) {
                         while ($file = readdir($dh)) {
                             if (!in_array($file, $exclude_files) && preg_match('@^(.*).tpl$@i', $file, $m)) {
+                                if (isset($m[1]) && !empty($m[1])) $templateName = ucwords(str_replace('_', ' ', $m[1]));
                                 if (!$is_smarty) {
 ?>
-        <option <?php echo ($file == $serendipity['POST']['backend_template'] ? 'selected="selected" ' : '') . 'value="' . htmlspecialchars($file) . '">' . htmlspecialchars($m[1]) ?></option>
+        <option <?php echo ($file == $serendipity['POST']['backend_template'] ? 'selected="selected" ' : '') . 'value="' . htmlspecialchars($file) . '">' . htmlspecialchars($templateName) ?></option>
 <?php
                                 } else {
-                                    $ts_option[] = '<option ' . ($file == $serendipity['POST']['backend_template'] ? 'selected="selected" ' : '') . 'value="' . htmlspecialchars($file) . '">' . htmlspecialchars($m[1]) .'</option>'."\n";
+                                    $ts_option[] = '<option ' . ($file == $serendipity['POST']['backend_template'] ? 'selected="selected" ' : '') . 'value="' . htmlspecialchars($file) . '">' . htmlspecialchars($templateName) .'</option>'."\n";
                                 }
                             }
                         }

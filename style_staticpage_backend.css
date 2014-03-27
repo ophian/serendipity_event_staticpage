@@ -102,7 +102,7 @@
 
 .default_staticpage .input_textbox {
     width: 100%;
-    margin: 0px auto;
+    margin: 0px auto .125em;
 }
 
 /* staticpage smartfied backend_staticpage.tpl */
@@ -167,7 +167,8 @@
 .sp_bold { font-weight: 700; }
 .sp_top { margin-top: 0; }
 
-#backend_sp_simple .sp_toggle {
+#backend_sp_simple .sp_toggle,
+#backend_sp_respond .sp_toggle {
     margin: 0 auto;
     padding: .2em 0;
 }
@@ -203,7 +204,7 @@
 .sp_ptype .input_textbox { width: inherit; }
 .serendipityAdminContent span.sp_ptype_desc { color: #5E7A94 !important; font-size: 8pt; }/*old backend*/
 
-/**** 2.0 ****/
+/**** 2.0 and very few tweaks for old backend ****/
 
 #staticpage_pagetype fieldset,
 #staticpage_pageadd .sp_add {
@@ -240,6 +241,89 @@
     background-color: #DFDFDF;
 }
 #backend_sp_simple .sp_input_radio { line-height: 2; }
+
+#backend_sp_respond #sp_main_data,
+#backend_sp_respond #sp_metafield_data,
+#backend_sp_respond #sp_structure_data,
+#backend_sp_respond #sp_option_data,
+#backend_sp_respond #sp_custom_data {
+    border: 1px solid #DDD;
+    padding: 0.75em;
+    margin: 0px 0px 1em;
+}
+#backend_sp_respond fieldset legend {
+    background: #eee;
+    font-weight: bold;
+}
+#backend_sp_respond .form_field select,
+#backend_sp_respond .form_radio {
+    display: block;
+}
+#sp_option_data > div,
+#sp_structure_data > div {
+    padding-bottom: 100%;/* cheat browser for equal-height part 1 */
+}
+#backend_sp_respond select {
+    min-width: 48%;
+}
+#backend_sp_respond #entry_main_data > div,
+#backend_sp_respond #sp_structure_data > div,
+#backend_sp_respond #sp_option_data > div,
+#backend_sp_respond #sp_custom_data > div {
+    position: relative;
+    float: left;
+    margin-right: 2%;
+    width: 48%;
+    background: #eee;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #aaa;
+    padding: 0 .4em;
+    min-height: 3.6em; /* avoid breaks having less height blocks */
+    padding-bottom: -100%;/* cheat browser for equal-height part 2 */
+}
+#backend_sp_respond #entry_main_headline,
+#backend_sp_respond #entry_main_aftitle {
+    background: #eee;
+}
+#backend_sp_respond #sp_main_data legend,
+#backend_sp_respond #sp_structure_data legend,
+#backend_sp_respond #sp_option_data legend,
+#backend_sp_respond #sp_custom_data legend {
+    border: 1px solid #72878A;
+    padding: 2px 5px;
+}
+
+#backend_sp_respond #sp_structure_data > div.form_area {
+    margin-right: inherit;
+}
+#backend_sp_respond #entry_main_headline,
+#backend_sp_respond #entry_main_aftitle,
+#backend_sp_respond #entry_main_content,
+#backend_sp_respond #sp_metafield_data > div.sp_sect,
+#backend_sp_respond #sp_structure_data > div.form_area {
+    width: 98%;
+}
+#backend_sp_respond #entry_meta_urltitle > input,
+#backend_sp_respond #entry_struc_date > input,
+#backend_sp_respond #entry_struc_password > input,
+#backend_sp_respond #entry_custom_class > input {
+    max-width: 16em;
+}
+#backend_sp_respond #sp_custom_data #el5,
+#backend_sp_respond #sp_custom_data #entry_custom_info {
+    width: 98%;
+}
+#backend_sp_respond #custom_info {
+    width: 100%;
+}
+#backend_sp_respond #custom_info pre {
+    white-space: pre-wrap;
+}
+#backend_sp_respond #sp_custom_data #el5 {
+    margin-bottom: 1em
+}
 
 /* listentries */
 .spform a,.spform form {

@@ -138,8 +138,10 @@
 @define('STATICPAGE_ARTICLE_OVERVIEW','Artikelübersicht');
 @define('STATICPAGE_NEW_HEADLINES','Aktuelle Schlagzeilen:');
 
-@define('STATICPAGES_CUSTOM_STRUCTURE_SHOW', 'Zeige Struktur Feld Optionen');
-@define('STATICPAGES_CUSTOM_META_SHOW', 'Zeige optionale META FELD Einträge');
+@define('STATICPAGES_CUSTOMEXAMPLE_OPTION_SHOW', 'Zeige benutzerdefinierte Optionen');
+@define('STATICPAGES_CUSTOM_OPTION_SHOW', 'Zeige KONFIGURATIONS Optionen');
+@define('STATICPAGES_CUSTOM_STRUCTURE_SHOW', 'Zeige STRUKTUR Optionen');
+@define('STATICPAGES_CUSTOM_META_SHOW', 'Zeige META FELD Optionen');
 @define('STATICPAGES_CUSTOM_META_TITLE', 'HTML META Seitentitel (optional)');
 @define('STATICPAGES_CUSTOM_META_DESC', 'HTML META Seitenbeschreibung (optional)');
 @define('STATICPAGES_CUSTOM_META_KEYS', 'HTML META Seiten Schlüsselwörter (optional)');

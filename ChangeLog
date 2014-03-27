@@ -1,16 +1,19 @@
-4.11:
+4.13:
 ----
     Fixed (4.06) markup and sets (4.06 listentries) to be optional (selectbox default), due to errors
-    Added some css
-    Fixed some minor markup errors
+    Rebuild the stylesheets
+    Fixed various minor markup and logical code errors
     Fixed backend_templates/default_staticpage_backend.tpl smarty markup (escape and cke-wysiwyg)
-    Changed Template names
+    Changed template names to 'Default Template' (previously named 'Simple Template', which was not correct)
+    and 'No Template' (previously named 'All Fields', which was not correct, since just the very old hardcoded form)
     Added 'publishstatus' and removed 'pass','is_startpage','is_404_page' in plugins config options,
          since the latter were unused there and are too specific to be set global in plugin config.
          Now 'publishstatus' will respect a global show as option rule (Draft is default)
-    Outsourced some heavy markup functions
+    Outsourced some heavy hardcoded markup functions
     Smartified the backend as much as possible (get ready to run smarty-only in future?)
-    Extend Serendipity version needed to 1.6, since smarty usage
+    Extend required Serendipity version to 1.6, since heavy smarty usage
+    Rebuild the plugin stylesheets to work well with upcoming Serendipity 2.0
+    Added a new responsive (mobile) template (build to work with upcoming Serendipity 2.0)
 
 4.06 Bump version since merged entry list pull request by (ogerlach)
 

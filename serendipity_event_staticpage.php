@@ -92,7 +92,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.12');
+        $propbag->add('version', '4.13');
         $propbag->add('requirements',  array(
             'serendipity' => '1.6',
             'smarty'      => '2.6.7',
@@ -1680,8 +1680,10 @@ class serendipity_event_staticpage extends serendipity_event
                 serendipity_db_query("DELETE FROM {$serendipity['dbPrefix']}staticpage_custom
                                             WHERE staticpage = " . (int)$pid . "
                                               AND name = '" . serendipity_db_escape_string($custom_name) . "'");
-                serendipity_db_query("INSERT INTO {$serendipity['dbPrefix']}staticpage_custom (staticpage, name, value)
+                if (strtolower($custom_value) != 'none' && trim($custom_value) != '') {
+                    serendipity_db_query("INSERT INTO {$serendipity['dbPrefix']}staticpage_custom (staticpage, name, value)
                                            VALUES (" . (int)$pid . ", '" . serendipity_db_escape_string($custom_name) . "', '" . serendipity_db_escape_string($custom_value) . "')");
+                }
             }
             $this->staticpage['custom'] = $serendipity['POST']['plugin']['custom'];
         }

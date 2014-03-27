@@ -121,8 +121,10 @@
 
 @define('STATICPAGE_STATUS', 'Status');
 
-@define('STATICPAGES_CUSTOM_STRUCTURE_SHOW', 'Show Structural field options');
-@define('STATICPAGES_CUSTOM_META_SHOW', 'Show optional META field entries');
+@define('STATICPAGES_CUSTOMEXAMPLE_OPTION_SHOW', 'Show CUSTOM optiones');
+@define('STATICPAGES_CUSTOM_OPTION_SHOW', 'Show CONFIGURATION options');
+@define('STATICPAGES_CUSTOM_STRUCTURE_SHOW', 'Show STRUCTURAL options');
+@define('STATICPAGES_CUSTOM_META_SHOW', 'Show META FIELD options');
 @define('STATICPAGES_CUSTOM_META_TITLE', 'HTML title element (optional)');
 @define('STATICPAGES_CUSTOM_META_TITLE_BLAH_BLAH', 'Will be emitted as <title>Your title here</title>');
 @define('STATICPAGES_CUSTOM_META_DESC', 'HTML META Description (optional)');

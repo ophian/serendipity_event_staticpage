@@ -286,8 +286,7 @@
 #backend_sp_respond .form_field_long {
     background: #eee;
     border: 1px solid #aaa;
-    min-height: 3.5em;
-    width: 97.8%;
+    min-height: 3.6em;
 }
 #backend_sp_respond .form_field_long label,
 #backend_sp_respond .form_field_long input {
@@ -304,12 +303,15 @@
 #backend_sp_respond #sp_structure_data > div.form_area {
     margin-right: inherit;
 }
-/*#backend_sp_respond #entry_main_headline,
-#backend_sp_respond #entry_main_aftitle,*/
+#backend_sp_respond #entry_main_headline,
+#backend_sp_respond #entry_main_aftitle,
 #backend_sp_respond #entry_main_content,
 #backend_sp_respond #sp_metafield_data > div.sp_sect,
 #backend_sp_respond #sp_structure_data > div.form_area {
     width: 98%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 #backend_sp_respond #entry_meta_urltitle > input,
 #backend_sp_respond #entry_struc_date > input,

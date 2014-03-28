@@ -286,12 +286,17 @@
 #backend_sp_respond .form_field_long {
     background: #eee;
     border: 1px solid #aaa;
-    min-height: 3.6em;
 }
 #backend_sp_respond .form_field_long label,
 #backend_sp_respond .form_field_long input {
-    margin: 0 .4em;
+    margin: 0px .4em .125em;;
     width: 98.6%;
+}
+@media only screen and (max-width: 480px) {
+    #backend_sp_respond .form_field_long label,
+    #backend_sp_respond .form_field_long input {
+        width: 96.6%;
+    }
 }
 #backend_sp_respond #sp_main_data legend,
 #backend_sp_respond #sp_structure_data legend,

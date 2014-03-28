@@ -110,7 +110,7 @@
         {if $new_backend}
         <h3 class="toggle_headline"><button id="optionel2" class="toggle_info show_config_option sp_toggle" type="button" data-href="#el2" title="{$CONST.TOGGLE_OPTION}"><span class="icon-right-dir"></span> {$CONST.STATICPAGES_CUSTOM_STRUCTURE_SHOW}</button></h3>
         {else}
-        <p id="sp_toggle_optional2"><a href="#" onClick="showConfig('el2'); return false" title="{$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel2" alt="+/-" border="0">&nbsp;{$CONST.STATICPAGES_CUSTOM_STRUCTURE_SHOW}</a></p>
+        <p id="sp_toggle_optionall"><a href="#" onClick="showConfig('el2'); return false" title="{$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel2" alt="+/-" border="0">&nbsp;{$CONST.STATICPAGES_CUSTOM_STRUCTURE_SHOW}</a></p>
         {/if}
     {/if}
     </div>
@@ -173,7 +173,7 @@
         {if $new_backend}
         <h3 class="toggle_headline"><button id="optionel3" class="toggle_info show_config_option sp_toggle" type="button" data-href="#el3" title="{$CONST.TOGGLE_OPTION}"><span class="icon-right-dir"></span> {$CONST.STATICPAGES_CUSTOM_OPTION_SHOW}</button></h3>
         {else}
-        <p id="sp_toggle_optional3"><a href="#" onClick="showConfig('el3'); return false" title="{$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel3" alt="+/-" border="0">&nbsp;{$CONST.STATICPAGES_CUSTOM_OPTION_SHOW}</a></p>
+        <p id="sp_toggle_optionall"><a href="#" onClick="showConfig('el3'); return false" title="{$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel3" alt="+/-" border="0">&nbsp;{$CONST.STATICPAGES_CUSTOM_OPTION_SHOW}</a></p>
         {/if}
     </div>
 
@@ -230,7 +230,7 @@
         {if $new_backend}
         <h3 class="toggle_headline"><button id="optionel4" class="toggle_info show_config_option sp_toggle" type="button" data-href="#el4" title="{$CONST.TOGGLE_OPTION}"><span class="icon-right-dir"></span> {$CONST.STATICPAGES_CUSTOMEXAMPLE_OPTION_SHOW}</button></h3>
         {else}
-        <p id="sp_toggle_optional4"><a href="#" onClick="showConfig('el4'); return false" title="{$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel4" alt="+/-" border="0">&nbsp;{$CONST.STATICPAGES_CUSTOMEXAMPLE_OPTION_SHOW}</a></p>
+        <p id="sp_toggle_optionall"><a href="#" onClick="showConfig('el4'); return false" title="{$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel4" alt="+/-" border="0">&nbsp;{$CONST.STATICPAGES_CUSTOMEXAMPLE_OPTION_SHOW}</a></p>
         {/if}
     </div>
 
@@ -239,7 +239,7 @@
         <fieldset id="sp_custom_data" class="clearfix sect_custom">
             <legend>Custom{if $new_backend} <button class="toggle_info button_link" type="button" data-href="#entry_custom_info"><span class="icon-info-circled"></span><b>i</b><span class="visuallyhidden"> Mehr</span></button>{/if}</legend>
             {if !$new_backend}
-            <p id="sp_toggle_optional5">Custom <a href="#" onClick="showConfig('el5'); return false" title="{$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel5" alt="+/-" border="0">&nbsp;{$CONST.TOGGLE_ALL}</a></p>
+            <p id="sp_toggle_optionall">Custom <a href="#" onClick="showConfig('el5'); return false" title="{$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel5" alt="+/-" border="0">&nbsp;Info</a></p>
             {/if}
 
             <div id="{if !$new_backend}el5{else}entry_custom_info{/if}" class="clearfix field_info additional_info">

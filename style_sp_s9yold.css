@@ -28,18 +28,18 @@
   font-variant: normal;
   text-transform: none;
 
-  /* fix buttons height, for twitter bootstrap */
-  line-height: 1em;
+  /* fix buttons height, for twitter bootstrap
+  line-height: 1em; */
 
   /* Animation center compensation - margins should be symmetric */
-  /* remove if not needed */
-  margin-left: .2em;
+  /* remove if not needed
+  margin-left: .2em; */
 
   /* you can be more comfortable with increased icons size */
   /* font-size: 120%; */
 
   /* Uncomment for 3D effect */
-  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3);
 }
 
 .msg_error,
@@ -50,30 +50,27 @@
     margin: 1.5em 0;
     padding: 10px;
 }
-
 .msg_error {
     background: #f2dede;
     border: 1px solid #e4b9b9;
     color: #b94a48;
 }
-
 .msg_success {
     background: #dff0d8;
     border: 1px solid #c1e2b3;
     color: #468847;
 }
-
 .msg_notice {
     background: #fcf8e3;
     border: 1px solid #f7ecb5;
     color: #c09853;
 }
-
 .msg_dialogue {
     background: #eee;
     border: 1px solid #aaa;
     color: #777;
 }
+
 #sp_toggle_optionall a {
     border: 0;
     text-decoration: none;
@@ -81,5 +78,9 @@
 #staticpage_pagetype .wrap_legend {
     display: block;
     margin-bottom: 1em;
+}
+#backend_sp_respond .form_field_long label,
+#backend_sp_respond .form_field_long input {
+    width: 99%;
 }
 

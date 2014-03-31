@@ -385,15 +385,15 @@
 }
 
 /* pageorder */
-#sequence .pluginmanager_item_even { background: #fff; }
-#sequence .pluginmanager_item_odd { background: #eee; }
-#sequence .sequence_item_old,
-#sequence .sequence_item {
+#sp_sequencer #sequence .pluginmanager_item_even { background: #fff; }
+#sp_sequencer #sequence .pluginmanager_item_odd { background: #eee; }
+#sp_sequencer #sequence .sequence_item_old,
+#sp_sequencer #sequence .sequence_item {
     margin: .1em;
 }
-#sequence .sequence_item {
+#sp_sequencer #sequence .sequence_item {
     display: inline-flex;
     border: 1px dashed #ccc;
     width: 95%;
 }
-#sequence .sp_grablet_title { margin: 0 auto auto 1em; }
+#sp_sequencer #sequence .sp_grablet_title { margin: 0 auto auto 1em; }

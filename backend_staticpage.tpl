@@ -132,7 +132,7 @@ $("document").ready(function() {
 });
 {/literal}
 </script>
-<div class="configuration_group even">
+<div id="sp_sequencer" class="configuration_group even">
     <fieldset class="sp_sequence">
         <legend>{$CONST.STATICPAGE_PAGEORDER_DESC}</legend>
         <input type="hidden" name="serendipity[plugin][sequence]" id="sequence_value" value="{foreach name=sp_seqvalue item=element from=$sp_pageorder_pages}{$element['pagetitle']}{if !$smarty.foreach.sp_seqvalue.last},{/if}{/foreach}" />

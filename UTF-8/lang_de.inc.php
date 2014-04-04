@@ -88,6 +88,8 @@
 @define('STATICPAGE_ARTICLETYPE_IMAGE', 'Bildpfad');
 @define('STATICPAGE_ARTICLETYPE_IMAGE_DESC', 'Die URL zu einem Kategoriebild.');
 
+@define('STATICPAGE_USELMDATE_DEFAULT', 'Zeige als last_modified Datum im Eintragsfuß?');
+
 @define('STATICPAGE_STATUS', 'Status');
 
 @define('STATICPAGE_PLUGINS_INSTALLED', 'Plugin ist installiert');

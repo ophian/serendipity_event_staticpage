@@ -74,7 +74,11 @@
 
     <div class="staticpage_metainfo">
 {if $staticpage_lastchange}
-    <span class="staticpage_metainfo_lastchange">{$staticpage_lastchange|date_format:"%Y-%m-%d"}</span>
+    {if $staticpage_use_lmdate}
+        <span class="staticpage_metainfo_lastchange">{$staticpage_lastchange|@date_format:"%Y-%m-%d"} {if $staticpage_adminlink AND $staticpage_adminlink.page_user}({$staticpage_created_on|@date_format:"%Y-%m-%d"}){/if}</span>
+    {else}
+        <span class="staticpage_metainfo_date">{$staticpage_created_on|@date_format:"%Y-%m-%d"} {if $staticpage_adminlink AND $staticpage_adminlink.page_user}({$staticpage_lastchange|@date_format:"%Y-%m-%d"}){/if}</span>
+    {/if}
 {/if}
 
 {if $staticpage_adminlink AND $staticpage_adminlink.page_user}

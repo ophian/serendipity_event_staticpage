@@ -16,6 +16,8 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Added new config option to show last_modified or created_on date in plugin_staticpage.tpl (needs to change templates with already supplied files!)
+- [x] Applied some plain button changes for 2.0 previously bumped as 4.06
 - [x] Added a responsive custom (mobile) template, to replace the old 'no Template' (previously named 'All Fields' form)
 - [x] finalize the version stylesheets for this
 - [x] finalize 'backend_staticpage.tpl' for Serendipity 2.0 only usage

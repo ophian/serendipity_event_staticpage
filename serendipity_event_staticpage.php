@@ -92,7 +92,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.13');
+        $propbag->add('version', '4.14');
         $propbag->add('requirements',  array(
             'serendipity' => '1.6',
             'smarty'      => '2.6.7',
@@ -104,6 +104,7 @@ class serendipity_event_staticpage extends serendipity_event
             'markup',
             'articleformat',
             'publishstatus',
+            'use_lmdate',
             'show_childpages',
             'shownavi',
             'show_breadcrumb',
@@ -132,6 +133,13 @@ class serendipity_event_staticpage extends serendipity_event
                 $propbag->add('type',           'boolean');
                 $propbag->add('name',           QUICKSEARCH);
                 $propbag->add('description',    STATICPAGE_QUICKSEARCH_DESC);
+                $propbag->add('default',        true);
+                break;
+
+            case 'use_lmdate':
+                $propbag->add('type',           'boolean');
+                $propbag->add('name',           STATICPAGE_USELMDATE_DEFAULT);
+                $propbag->add('description',    STATICPAGE_DEFAULT_DESC);
                 $propbag->add('default',        true);
                 break;
 
@@ -1287,6 +1295,7 @@ class serendipity_event_staticpage extends serendipity_event
                 $pagevar . 'author'             => $this->selectAuthor($this->staticpage['authorid']),
                 $pagevar . 'created_on'         => $this->get_static('timestamp'),
                 $pagevar . 'lastchange'         => $this->get_static('last_modified'),
+                $pagevar . 'use_lmdate'         => serendipity_db_bool($this->get_config('use_lmdate', true)),
                 $pagevar . 'shownavi'           => $this->get_static('shownavi'),
                 $pagevar . 'show_breadcrumb'    => $this->get_static('show_breadcrumb'),
                 $pagevar . 'custom'             => $this->get_static('custom'),

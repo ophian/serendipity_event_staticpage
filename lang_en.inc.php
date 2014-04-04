@@ -61,6 +61,8 @@
 @define('STATICPAGE_ARTICLETYPE_IMAGE', 'Image path:');
 @define('STATICPAGE_ARTICLETYPE_IMAGE_DESC', 'The URL to the image.');
 
+@define('STATICPAGE_USELMDATE_DEFAULT', 'Use last modified date in footer?');
+
 @define('STATICPAGE_SHOWNAVI', 'Include navigation');
 @define('STATICPAGE_SHOWNAVI_DESC', 'Show navigation within staticpages on this page.');
 @define('STATICPAGE_SHOWONNAVI', 'Include in sidebar-navigation');

@@ -172,7 +172,7 @@ foreach($select AS $select_value => $select_desc) {
 <?php
                         }
 ?>
-                        <input type="button" class="serendipityPrettyButton input_button wrap_insurl" name="insU" value="URL" accesskey="l" data-tarea="nuggets<?php echo $elcount; ?>" style="color: blue; text-decoration: underline;" onclick="wrapSelectionWithLink(document.forms['serendipityEntry']['serendipity[plugin][<?php echo $config_item ?>]'])" />
+                        <input type="button" class="serendipityPrettyButton input_button wrap_insurl" name="insU" value="URL" accesskey="l" data-tarea="nuggets<?php echo $elcount; ?>" onclick="wrapSelectionWithLink(document.forms['serendipityEntry']['serendipity[plugin][<?php echo $config_item ?>]'])" />
                     </span></nobr>
                     <script type="text/javascript" language="JavaScript">
                         var tb_<?php echo $config_item ?> = document.getElementById('tools_<?php echo $config_item ?>');

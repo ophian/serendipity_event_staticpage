@@ -1,4 +1,4 @@
-4.14:
+4.15:
 ----
     Fixed (4.06) markup and sets (4.06 listentries) to be optional (selectbox default), due to errors
     Rebuild the stylesheets
@@ -16,8 +16,11 @@
     Added a new responsive (mobile) template (build to work with upcoming Serendipity 2.0)
     Applied some plain button changes for 2.0 previously bumped as 4.06
     Added last_modified or created_on date option for frontend footer in plugin_staticpage.tpl (needs to change templates with already supplied files!)
+    merged 4.07 Propagate $smarty.env.staticpage_pagetitle (and the others) so that it can be used in entries.tpl
+    merged 4.06 Serendipity 2.0 compatibility fix for the editorbuttons (wysiwyg and default)
+    4.06 Bump version since merged entry list pull request by (ogerlach)
 
-4.06 Bump version since merged entry list pull request by (ogerlach)
+-----
 
 4.05 Bump version to propagate changed plugin_staticpage_related_category.tpl
 

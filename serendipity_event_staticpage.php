@@ -92,7 +92,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.14');
+        $propbag->add('version', '4.15');
         $propbag->add('requirements',  array(
             'serendipity' => '1.6',
             'smarty'      => '2.6.7',
@@ -1177,7 +1177,10 @@ class serendipity_event_staticpage extends serendipity_event
         serendipity_smarty_init();
 
         foreach($this->config as $staticpage_config) {
-            $serendipity['smarty']->assign($pagevar . $staticpage_config, $this->get_static($staticpage_config));
+            $cvar = $this->get_static($staticpage_config);
+            $serendipity['smarty']->assign($pagevar . $staticpage_config, $cvar);
+            // This is a global variable assignment, so that within entries.tpl you can access $smarty.env.staticpage_pagetitle. Otherwise, $staticpage_pagetitle would only be available to index.tpl and content.tpl
+            $_ENV[$pagevar . $staticpage_config] = $cvar;
         }
 
         if (serendipity_db_bool($this->get_static('markup'))) {

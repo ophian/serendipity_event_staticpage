@@ -207,6 +207,9 @@ foreach($select AS $select_value => $select_desc) {
 <?php
                     }
 
+                    if ($serendipity['version'][0] > '1') {
+                        serendipity_emit_htmlarea_code("nuggets{$elcount}","");
+                    }
                     $entry['backend_entry_toolbar_body:nugget'] = 'nuggets' . $elcount;
                     $entry['backend_entry_toolbar_body:textarea'] = 'serendipity[plugin][' . $config_item . ']';
                     serendipity_plugin_api::hook_event('backend_entry_toolbar_body', $entry);

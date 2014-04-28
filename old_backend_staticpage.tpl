@@ -426,6 +426,14 @@ switch pcat if      pageorder
 
             {/foreach}
 
+        {else} {* if !$sp_listentries_entries || empty($sp_listentries_entries) *}
+
+<div class="serendipityAdminMsgNote msg_notice">
+    <span class="icon-attention"></span> {$CONST.NO_ENTRIES_TO_PRINT}
+</div>
+
+        {/if} {* is_array($sp_listentries_entries) end *}
+
 <div class="sp_listfooter">
     <form action="serendipity_admin.php" method="post" name="sp_ListFooter">
     <div>
@@ -439,14 +447,6 @@ switch pcat if      pageorder
     </div>
     </form>
 </div>
-
-        {else} {* if !$sp_listentries_entries || empty($sp_listentries_entries) *}
-
-<div class="serendipityAdminMsgNote msg_notice">
-    <span class="icon-attention"></span> {$CONST.NO_ENTRIES_TO_PRINT}
-</div>
-
-        {/if} {* is_array($sp_listentries_entries) end *}
 
     {/if} {* sp_defpages_showlist false/true end  *}
     {if $sp_pagetype_showform_isnuggets}

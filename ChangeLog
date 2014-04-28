@@ -1,5 +1,6 @@
-4.15:
+4.16:
 ----
+    4.06 Bump version since merged entry list pull request by (ogerlach)
     Fixed (4.06) markup and sets (4.06 listentries) to be optional (selectbox default), due to errors
     Rebuild the stylesheets
     Fixed various minor markup and logical code errors
@@ -18,7 +19,7 @@
     Added last_modified or created_on date option for frontend footer in plugin_staticpage.tpl (needs to change templates with already supplied files!)
     merged 4.07 Propagate $smarty.env.staticpage_pagetitle (and the others) so that it can be used in entries.tpl
     merged 4.06 Serendipity 2.0 compatibility fix for the editorbuttons (wysiwyg and default)
-    4.06 Bump version since merged entry list pull request by (ogerlach)
+    Moved listentries _new submit footer to also show up on empty list
 
 -----
 

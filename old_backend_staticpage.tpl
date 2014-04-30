@@ -334,7 +334,6 @@ switch pcat if      pageorder
             {/if}
         </select>
         <script>
-            {literal]
             var prev_value;
             jQuery('#staticpage_dropdown').focus(function() {
                 prev_value = $(this).val();
@@ -345,7 +344,6 @@ switch pcat if      pageorder
                     jQuery(this).bind('focus');
                     return false;
                 }
-            {/literal}
             });
         </script>
         <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong>

@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.0, 2014-03-23 *}
+{* backend_staticpage template file v. 1.1, 2014-04-30 *}
 {** moduled backend_show.php tpl vars
 
 +++++ head +++++

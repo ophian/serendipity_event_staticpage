@@ -333,6 +333,19 @@ switch pcat if      pageorder
                 {foreach name=sp_sps item=pop from=$sp_defpages_pop}{$pop}{/foreach}
             {/if}
         </select>
+        <script>
+            var prev_value;
+            $('#staticpage_dropdown').focus(function() {
+                prev_value = $(this).val();
+            }).change(function(){
+                $(this).unbind('focus');
+                if (!confirm("{$CONST.STATICPAGE_CONFIRM_SELECTDIALOG}")){
+                    $(this).val(prev_value);
+                    $(this).bind('focus');
+                    return false;
+                }
+            });
+        </script>
         <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong>
         <input type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"document.getElementById('staticpage_dropdown').options[document.getElementById('staticpage_dropdown').selectedIndex].text"}');" class="serendipityPrettyButton input_button" value="{$CONST.DELETE}" />
         <strong>-{$CONST.WORD_OR}-</strong> <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticPreview]" value="{$CONST.PREVIEW}" />

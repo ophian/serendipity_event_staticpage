@@ -191,3 +191,5 @@
 @define('STATICPAGE_SHOWLIST_DEFAULT', 'Backend: Show as entry list');
 @define('STATICPAGE_SHOWLIST_DESC', 'Show backends staticpage startpage as entry list. Selectbox default.');
 
+@define('STATICPAGE_CONFIRM_SELECTDIALOG', "Are you sure to have saved your changed entry and want to switch the current page?\\n\\nIf OK, click the GO button to change to new content!"); // js confirm need an additional backslash before the the linebreaks!
+

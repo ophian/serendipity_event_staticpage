@@ -1,4 +1,4 @@
-4.16:
+4.17:
 ----
     4.06 Bump version since merged entry list pull request by (ogerlach)
     Fixed (4.06) markup and sets (4.06 listentries) to be optional (selectbox default), due to errors
@@ -20,6 +20,7 @@
     merged 4.07 Propagate $smarty.env.staticpage_pagetitle (and the others) so that it can be used in entries.tpl
     merged 4.06 Serendipity 2.0 compatibility fix for the editorbuttons (wysiwyg and default)
     Moved listentries _new submit footer to also show up on empty list
+    Added confirmation dialog on select change page events, to avoid saving into wrong page accidently
 
 -----
 

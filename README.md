@@ -12,6 +12,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] prepare everything to shut down every hardcoded non-smarty output in future
 - [ ] remove the 'no template' hardcoded stuff
 - [ ] structure backend template files in new directory?
+- [ ] since now using Smarty 3 only, some Smarty code will need a refresh
 
 - - -
 

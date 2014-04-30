@@ -333,6 +333,7 @@ switch pcat if      pageorder
                 {foreach name=sp_sps item=pop from=$sp_defpages_pop}{$pop}{/foreach}
             {/if}
         </select>
+        {if isset($smarty.post.serendipity['staticpagecategory']) || isset($smarty.get.serendipity['staticid'])}
         <script>
             var prev_value;
             jQuery('#staticpage_dropdown').focus(function() {
@@ -346,6 +347,7 @@ switch pcat if      pageorder
                 }
             });
         </script>
+        {/if}
         <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong>
         <input type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"document.getElementById('staticpage_dropdown').options[document.getElementById('staticpage_dropdown').selectedIndex].text"}');" class="serendipityPrettyButton input_button" value="{$CONST.DELETE}" />
         <strong>-{$CONST.WORD_OR}-</strong> <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticPreview]" value="{$CONST.PREVIEW}" />

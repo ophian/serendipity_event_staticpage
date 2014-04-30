@@ -16,6 +16,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Extend required Serendipity version to 1.7 and Smarty 3.1, since the old_backend_staticpage.tpl would need too much old Smarty2 and CSS fixes
 - [x] Added confirmation dialog on select change page events, to avoid saving into wrong page accidently
 - [x] Moved listentries _new submit footer to also show up on empty list
 - [x] Added new config option to show last_modified or created_on date in plugin_staticpage.tpl (needs to change templates with already supplied files!)

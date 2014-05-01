@@ -73,8 +73,9 @@
 }
 
 .sp_pageselector {
-    background-color: #E0E0E0;
+    background-color: #EFEFEF;
     padding: 5px;
+    border: 1px solid #DDD;
 }
 
 .sp_listfooter {

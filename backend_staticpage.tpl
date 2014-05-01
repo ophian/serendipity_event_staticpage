@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.1, 2014-04-30 *}
+{* backend_staticpage template file v. 1.1, 2014-05-01 *}
 {** moduled backend_show.php tpl vars
 
 +++++ head +++++
@@ -135,16 +135,16 @@ $("document").ready(function() {
 <div id="sp_sequencer" class="configuration_group even">
     <fieldset class="sp_sequence">
         <legend>{$CONST.STATICPAGE_PAGEORDER_DESC}</legend>
-        <input type="hidden" name="serendipity[plugin][sequence]" id="sequence_value" value="{foreach name=sp_seqvalue item=element from=$sp_pageorder_pages}{$element['pagetitle']}{if !$smarty.foreach.sp_seqvalue.last},{/if}{/foreach}" />
+        <input type="hidden" name="serendipity[plugin][sequence]" id="sequence_value" value="{foreach name=sp_seqvalue item=element from=$sp_pageorder_pages}{$element['pagetitle']}{if !$smarty.foreach.sp_seqvalue.last},{/if}{/foreach}">
         <noscript>
             <!-- Replace standard submit button when using up/down submits -->
-            <input type="hidden" name="SAVECONF" value="Save" />
+            <input type="hidden" name="SAVECONF" value="Save">
         </noscript>
 
         <ol id="sequence" data-placement="sqid" class="sequence_container pluginmanager_container">
         {foreach name=sp_sequence item=sp_element from=$sp_pageorder_pages}
             <li id="{$sp_element['id']}" class="sequence_item pluginmanager_item_{cycle values="odd,even"}">{*  in normal situations id=$sp_element['pagetitle'], but we need id for js sequence mode *}
-                <input type="hidden" name="serendipity[plugin][sequence][id]" id="sequence_id" value="{$sp_element['id']}" />
+                <input type="hidden" name="serendipity[plugin][sequence][id]" id="sequence_id" value="{$sp_element['id']}">
                 <div id="g{$sp_element['pagetitle']}" class="pluginmanager_grablet sequence_grablet">
                     <button class="icon_link" type="button" title="{$CONST.MOVE}"><span class="icon-move"></span><span class="visuallyhidden"> {$CONST.MOVE}</span></button>
                 </div>
@@ -196,9 +196,9 @@ $("document").ready(function() {
 
 <form action="serendipity_admin.php" method="post" name="serendipityEntry">
 <div>
-    <input type="hidden" name="serendipity[adminModule]" value="event_display" />
-    <input type="hidden" name="serendipity[adminAction]" value="staticpages" />
-    <input type="hidden" name="serendipity[staticpagecategory]" value="pagetype" />
+    <input type="hidden" name="serendipity[adminModule]" value="event_display">
+    <input type="hidden" name="serendipity[adminAction]" value="staticpages">
+    <input type="hidden" name="serendipity[staticpagecategory]" value="pagetype">
     <div>
         <p class="sp_bold">{$CONST.PAGETYPES_SELECT}</p>
         <select name="serendipity[pagetype]">
@@ -211,9 +211,9 @@ $("document").ready(function() {
 {/if}
 
         </select>
-        <input type="submit" class="input_button" name="serendipity[typeSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong>
-        <input type="submit" class="input_button" name="serendipity[typeDelete]" value="{$CONST.DELETE}" />
-        {if $sp_pagetype_submit}<input type="hidden" name="serendipity[typeSave]" value="true" />{/if}
+        <input type="submit" class="input_button" name="serendipity[typeSubmit]" value="{$CONST.GO}"> <strong>-{$CONST.WORD_OR}-</strong>
+        <input type="submit" class="input_button" name="serendipity[typeDelete]" value="{$CONST.DELETE}">
+        {if $sp_pagetype_submit}<input type="hidden" name="serendipity[typeSave]" value="true">{/if}
         {if $sp_pagetype_isshowform && !empty($sp_pagetype_showform)}
 
         <!-- sp_pagetype_showform start -->
@@ -240,17 +240,17 @@ $("document").ready(function() {
 
     <form action="serendipity_admin.php" method="post" name="serendipityPlugins">
         <div>
-        <input type="hidden" name="serendipity[adminModule]" value="event_display" />
-        <input type="hidden" name="serendipity[adminAction]" value="staticpages" />
-        <input type="hidden" name="serendipity[staticpagecategory]" value="pageadd" />
+        <input type="hidden" name="serendipity[adminModule]" value="event_display">
+        <input type="hidden" name="serendipity[adminAction]" value="staticpages">
+        <input type="hidden" name="serendipity[staticpagecategory]" value="pageadd">
 
     {foreach name=pageadd_plugins from=$sp_pageadd_plugins key=key item=plugin}
 
-        <input class="input_checkbox" type="checkbox" name="serendipity[externalPlugins][]" value="{$key}"{if isset($sp_pageadd_insplugins[$key])} checked="checked"{/if} />{$plugin['name']}<br />
+        <input class="input_checkbox" type="checkbox" name="serendipity[externalPlugins][]" value="{$key}"{if isset($sp_pageadd_insplugins[$key])} checked="checked"{/if}>{$plugin['name']}<br>
 
     {/foreach}
 
-        <input type="submit" name="serendipity[typeSubmit]" class="input_button" value="{$CONST.GO}" />
+        <input type="submit" name="serendipity[typeSubmit]" class="input_button" value="{$CONST.GO}">
         </div>
     </form>
 
@@ -302,9 +302,9 @@ $("document").ready(function() {
 
 <form action="serendipity_admin.php" method="post" name="serendipityEntry">
     <div>
-        <input type="hidden" name="serendipity[adminModule]" value="event_display" />
-        <input type="hidden" name="serendipity[adminAction]" value="staticpages" />
-        <input type="hidden" name="serendipity[staticpagecategory]" value="pages" />
+        <input type="hidden" name="serendipity[adminModule]" value="event_display">
+        <input type="hidden" name="serendipity[adminAction]" value="staticpages">
+        <input type="hidden" name="serendipity[staticpagecategory]" value="pages">
     </div>
 
     {if isset($sp_cookie_value)}
@@ -350,12 +350,12 @@ $("document").ready(function() {
             });
         </script>
         {/if}
-        <input class="input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong>
-        <input type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"document.getElementById('staticpage_dropdown').options[document.getElementById('staticpage_dropdown').selectedIndex].text"}');" class="input_button" value="{$CONST.DELETE}" />
-        <strong>-{$CONST.WORD_OR}-</strong> <input class="input_button" type="submit" name="serendipity[staticPreview]" value="{$CONST.PREVIEW}" />
+        <input class="input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}"> <strong>-{$CONST.WORD_OR}-</strong>
+        <input type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"document.getElementById('staticpage_dropdown').options[document.getElementById('staticpage_dropdown').selectedIndex].text"}');" class="input_button" value="{$CONST.DELETE}">
+        <strong>-{$CONST.WORD_OR}-</strong> <input class="input_button" type="submit" name="serendipity[staticPreview]" value="{$CONST.PREVIEW}">
         {if $sp_defpages_sbplav}
         <div class="sp_plav">
-            <img class="attention" title="Staticpage Sidebar {$CONST.STATICPAGE_PLUGIN_AVAILABLE}" src="{serendipity_getFile file='admin/img/admin_msg_note.png'}" alt="info" />
+            <img class="attention" title="Staticpage Sidebar {$CONST.STATICPAGE_PLUGIN_AVAILABLE}" src="{serendipity_getFile file='admin/img/admin_msg_note.png'}" alt="info">
         </div>
         {/if}
     </div><!-- class sp_pageselector end -->
@@ -374,7 +374,7 @@ $("document").ready(function() {
     {if $sp_defpages_staticsave}
 
     <div>
-        <input type="hidden" name="serendipity[staticSave]" value="true" />
+        <input type="hidden" name="serendipity[staticSave]" value="true">
     </div>
 
     {**
@@ -397,8 +397,8 @@ $("document").ready(function() {
 
     </table>
     <br />
-    <div style="padding-left: 20px">
-        <input type="submit" name="serendipity[SAVECONF]" value="Speichern" class="input_button" />
+    <div class="sp_entrysave" style="padding-left: 20px">
+        <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="input_button">
     </div>
 
     {/if}
@@ -427,13 +427,13 @@ $("document").ready(function() {
                 <a target="_blank" class="button_link" href="{$serendipityHTTPPath}{$serendipityIndexFile}?serendipity[staticid]={$entry['id']}&amp;serendipity[staticPreview]=1" title="{$CONST.VIEW} #{$entry['pagetitle']}"><span class="icon-search"></span><span class="visuallyhidden"> {$CONST.VIEW} #{$entry['pagetitle']}</span></a>
                 <form action="serendipity_admin.php" method="post" name="sp_listentry_{$entry['id']}">
                 <div>
-                    <input type="hidden" name="serendipity[adminModule]" value="event_display" />
-                    <input type="hidden" name="serendipity[adminAction]" value="staticpages" />
-                    <input type="hidden" name="serendipity[staticpagecategory]" value="pages" />
-                    <input type="hidden" name="serendipity[staticpage]" value="{$entry['id']}" />
-                    <input type="hidden" name="serendipity[listentries_formSubmit]" value="true" />{* necessary to open form on entrylist post submits *}
-                    <input type="submit" name="serendipity[staticSubmit]" class="icon-edit sp-btn sp-btn-edit" value="&#xe803;" titele="{$CONST.EDIT} #{$entry['pagetitle']}" />
-                    <input type="submit" name="serendipity[staticDelete]" class="icon-trash sp-btn sp-btn-purge" value="&#xe80d;" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:$entry['pagetitle']}');" title="{$CONST.DELETE} #{$entry['pagetitle']}" />
+                    <input type="hidden" name="serendipity[adminModule]" value="event_display">
+                    <input type="hidden" name="serendipity[adminAction]" value="staticpages">
+                    <input type="hidden" name="serendipity[staticpagecategory]" value="pages">
+                    <input type="hidden" name="serendipity[staticpage]" value="{$entry['id']}">
+                    <input type="hidden" name="serendipity[listentries_formSubmit]" value="true">{* necessary to open form on entrylist post submits *}
+                    <input type="submit" name="serendipity[staticSubmit]" class="icon-edit sp-btn sp-btn-edit" value="&#xe803;" titele="{$CONST.EDIT} #{$entry['pagetitle']}">
+                    <input type="submit" name="serendipity[staticDelete]" class="icon-trash sp-btn sp-btn-purge" value="&#xe80d;" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:$entry['pagetitle']}');" title="{$CONST.DELETE} #{$entry['pagetitle']}">
                 </div>
                 </form>
             </div>
@@ -454,13 +454,13 @@ $("document").ready(function() {
 <div class="sp_listfooter">
     <form action="serendipity_admin.php" method="post" name="sp_ListFooter">
     <div>
-        <input type="hidden" name="serendipity[adminModule]" value="event_display" />
-        <input type="hidden" name="serendipity[adminAction]" value="staticpages" />
-        <input type="hidden" name="serendipity[staticpagecategory]" value="pages" />
-        {$CONST.NEW_ENTRY} <em>{$CONST.WORD_OR|lower}</em> {$CONST.EDIT_ENTRY}: #<input class="input_textbox" type="text" size="3" name="serendipity[staticpage]" /> 
-        <input type="hidden" name="serendipity[listentries_formSubmit]" value="true" />{* necessary to open form on entrylist post submits *}
-        <input type="hidden" name="serendipity[pagetype]" value="__new" />
-        <input class="input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}" />
+        <input type="hidden" name="serendipity[adminModule]" value="event_display">
+        <input type="hidden" name="serendipity[adminAction]" value="staticpages">
+        <input type="hidden" name="serendipity[staticpagecategory]" value="pages">
+        {$CONST.NEW_ENTRY} <em>{$CONST.WORD_OR|lower}</em> {$CONST.EDIT_ENTRY}: #<input class="input_textbox" type="text" size="3" name="serendipity[staticpage]">
+        <input type="hidden" name="serendipity[listentries_formSubmit]" value="true">{* necessary to open form on entrylist post submits *}
+        <input type="hidden" name="serendipity[pagetype]" value="__new">
+        <input class="input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}">
     </div>
     </form>
 </div>

@@ -1,4 +1,4 @@
-{* old_backend_staticpage template file v. 1.1, 2014-04-30 *}
+{* old_backend_staticpage template file v. 1.1, 2014-05-01 *}
 {** moduled backend_show.php tpl vars
 
 +++++ head +++++
@@ -396,7 +396,7 @@ switch pcat if      pageorder
     </table>
     <br />
     <div style="padding-left: 20px">
-        <input type="submit" name="serendipity[SAVECONF]" value="Speichern" class="serendipityPrettyButton input_button" />
+        <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button" />
     </div>
 
     {/if}

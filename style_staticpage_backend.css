@@ -120,29 +120,6 @@
 #serendipityStaticpagesNav ul li#active a  {
     background: #dedede;
 }
-.sp_sequence {
-    margin: .5em;
-}
-.sequence_item,
-.sequence_container {
-    width: 16em;
-}
-.sequence_grablet {
-    width: 15% !important;
-}
-.sp_sequence .sp_nojs {
-    float: right;
-    margin-left: 1em;
-}
-/* try to overwrite PLUGIN MANAGER styles in 2.0 */
-.pluginmanager_container {
-    border-radius: inherit !important;
-    box-sizing: inherit !important;
-    -moz-box-sizing: inherit !important;
-    height: inherit !important;
-    margin: inherit !important;
-    padding: inherit !important;
-}
 
 .sp_entries_pane .spmod {
     margin-top: -1.25em;
@@ -386,15 +363,37 @@
 }
 
 /* pageorder */
+#sp_sequencer #sequence.pluginmanager_container {
+    width: 29em;
+}
+#sp_sequencer .sp_sequence {
+    margin: .5em;
+}
+#sp_sequencer .sequence_grablet {
+    width: 15% !important;
+}
+#sp_sequencer .sp_sequence .sp_nojs {
+    float: right;
+    margin-left: 1em;
+}
 #sp_sequencer #sequence .pluginmanager_item_even { background: #fff; }
 #sp_sequencer #sequence .pluginmanager_item_odd { background: #eee; }
-#sp_sequencer #sequence .sequence_item_old,
-#sp_sequencer #sequence .sequence_item {
+#sp_sequencer #sequence .sequence_item_old {
     margin: .1em;
 }
-#sp_sequencer #sequence .sequence_item {
-    display: inline-flex;
-    border: 1px dashed #ccc;
-    width: 95%;
+#sp_sequencer #sequence .sequence_item_old > span,
+#sp_sequencer #sequence .sequence_item_old > div {
+    text-align: right;
 }
-#sp_sequencer #sequence .sp_grablet_title { margin: 0 auto auto 1em; }
+#sp_sequencer #sequence .sequence_item {
+    border: 1px dashed #ccc;
+}
+#sp_sequencer #sequence .sp_grablet_title {
+    margin: 0 auto auto 1em;
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 20em;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: top;
+}

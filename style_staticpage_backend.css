@@ -75,7 +75,7 @@
     margin: 5px;
 }
 .sp_pageselector {
-    background-color: #EFEFEF;
+    background-color: #EEE;
     padding: 5px;
     border: 1px solid #DDD;
 }
@@ -191,7 +191,8 @@ div.sp_entrysave {
     cursor: pointer;
     float: right;
 }
-.sp_plav img { vertical-align: middle;}
+.sp_plav span { font-size: 125%; }
+.sp_plav img { vertical-align: middle; }
 .sp_ptype .input_textbox { width: inherit; }
 
 /**** 2.0 and very few tweaks for old backend ****/

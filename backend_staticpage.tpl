@@ -352,9 +352,7 @@ $("document").ready(function() {
         <input class="input_button state_cancel" type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"document.getElementById('staticpage_dropdown').options[document.getElementById('staticpage_dropdown').selectedIndex].text"}');" value="{$CONST.DELETE}">
         <strong>-{$CONST.WORD_OR}-</strong> <input class="input_button entry_preview" type="submit" name="serendipity[staticPreview]" value="{$CONST.PREVIEW}">
         {if $sp_defpages_sbplav}
-        <div class="sp_plav">
-            <img class="attention" title="Staticpage Sidebar {$CONST.STATICPAGE_PLUGIN_AVAILABLE}" src="{serendipity_getFile file='admin/img/admin_msg_note.png'}" alt="info">
-        </div>
+        <div class="sp_plav"><span class="icon-info-circled" title="Staticpage Sidebar {$CONST.STATICPAGE_PLUGIN_AVAILABLE}"></span></div>
         {/if}
     </div><!-- class sp_pageselector end -->
 

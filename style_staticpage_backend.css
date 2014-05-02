@@ -38,7 +38,7 @@
     border-bottom: 1px solid #ffffff;
 }
 
-/* overrule .serendipityAdminContent span as long as also used with old backend */
+/* overrule .serendipityAdminContent span, as long as also used with old backend - need to keep her and not in old.css */
 .serendipityAdminContent span.sp_ptype_desc {
     color: #5E7A94 !important;
     font-size: 8pt;
@@ -155,7 +155,7 @@
     width: 69%;
     float: left;
 }
-/* this single is mo template form only - remove when finished cleanup */
+/* this single is no template form only - remove when finished cleanup */
 div.sp_entrysave {
     text-align: center;
     padding: 0 !important;
@@ -195,7 +195,6 @@ div.sp_entrysave {
 .sp_ptype .input_textbox { width: inherit; }
 
 /**** 2.0 and very few tweaks for old backend ****/
-
 #staticpage_pagetype fieldset,
 #staticpage_pageadd .sp_add {
     border: 1px solid #c0c0c0;
@@ -219,10 +218,6 @@ div.sp_entrysave {
     border-width: 1px 1px 0px;
     border-style: solid solid none;
     border-color: #CCC;
-}
-#staticpage_pageadd table th,
-#staticpage_pageadd table td {
-    padding: auto 5px;
 }
 /* defaultform */
 #backend_sp_simple {

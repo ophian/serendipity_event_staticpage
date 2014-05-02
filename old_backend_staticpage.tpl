@@ -1,4 +1,4 @@
-{* old_backend_staticpage template file v. 1.1, 2014-05-01 *}
+{* old_backend_staticpage template file v. 1.2, 2014-05-02 *}
 {** moduled backend_show.php tpl vars
 
 +++++ head +++++
@@ -259,21 +259,22 @@ switch pcat if      pageorder
 <fieldset class="sp_add">
     <legend>{$CONST.STATICPAGE_PAGEADD_PLUGINS}</legend>
 
-<table>
-    <tr id="serendipityStaticpagesTableHeader">
-        <th>{$CONST.EVENT_PLUGIN}</th>
-        <th>{$CONST.STATICPAGE_STATUS}</th>
-    </tr>
+    <table>
+        <tr class="sp_thead">
+            <th>{$CONST.EVENT_PLUGIN}</th>
+            <th>{$CONST.STATICPAGE_STATUS}</th>
+        </tr>
 
-    {foreach name=pageadd_pstats from=$sp_pageadd_plugstats key=key item=value}
+{foreach from=$sp_pageadd_plugstats key=key item=value}
 
-    <tr id="serendipityStaticpagesTable{$smarty.foreach.pageadd_pstats.index % 2}">
-        <td>{$key}</td>
-        <td><span id="serendipityStaticpages{$value['color']}">{$value['status']}</span></td>
-    </tr>
+        <tr class="sp_t{cycle values="odd,even"}">
+            <td>{$key}</td>
+            <td><span class="sp_t{$value['color']|lower}">{$value['status']}</span></td>
+        </tr>
 
-    {/foreach}
-</table>
+{/foreach}
+
+    </table>
 </fieldeset>
 
 {else} {** == 'pages' || 'pageedit' || default **}

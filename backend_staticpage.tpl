@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.1, 2014-05-01 *}
+{* backend_staticpage template file v. 1.2, 2014-05-02 *}
 {** moduled backend_show.php tpl vars
 
 +++++ head +++++
@@ -84,7 +84,6 @@ switch pcat if      pageorder
 <script src="{serendipity_getFile file="admin/js/jquery.sortable.js"}"></script>
 <script>
     var SYHP = "{$serendipityHTTPPath}";
-{literal}
 function save_new_order() {
     var a = [];
     $('#sequence').children().each(function (i) {
@@ -130,7 +129,6 @@ $("document").ready(function() {
         $('.configuration_group .pluginmanager_container').sortable(getDragdropConfiguration('plugins_event'));
     }
 });
-{/literal}
 </script>
 <div id="sp_sequencer" class="configuration_group even">
     <fieldset class="sp_sequence">
@@ -211,8 +209,8 @@ $("document").ready(function() {
 {/if}
 
         </select>
-        <input type="submit" class="input_button" name="serendipity[typeSubmit]" value="{$CONST.GO}"> <strong>-{$CONST.WORD_OR}-</strong>
-        <input type="submit" class="input_button" name="serendipity[typeDelete]" value="{$CONST.DELETE}">
+        <input type="submit" class="input_button state_submit" name="serendipity[typeSubmit]" value="{$CONST.GO}"> <strong>-{$CONST.WORD_OR}-</strong>
+        <input type="submit" class="input_button state_cancel" name="serendipity[typeDelete]" value="{$CONST.DELETE}">
         {if $sp_pagetype_submit}<input type="hidden" name="serendipity[typeSave]" value="true">{/if}
         {if $sp_pagetype_isshowform && !empty($sp_pagetype_showform)}
 
@@ -250,7 +248,7 @@ $("document").ready(function() {
 
     {/foreach}
 
-        <input type="submit" name="serendipity[typeSubmit]" class="input_button" value="{$CONST.GO}">
+        <input type="submit" name="serendipity[typeSubmit]" class="input_button state_submit" value="{$CONST.GO}">
         </div>
     </form>
 
@@ -260,16 +258,16 @@ $("document").ready(function() {
         <legend>{$CONST.STATICPAGE_PAGEADD_PLUGINS}</legend>
 
         <table>
-            <tr id="serendipityStaticpagesTableHeader">
+            <tr class="sp_thead">
                 <th>{$CONST.EVENT_PLUGIN}</th>
                 <th>{$CONST.STATICPAGE_STATUS}</th>
             </tr>
 
-    {foreach name=pageadd_pstats from=$sp_pageadd_plugstats key=key item=value}
+    {foreach from=$sp_pageadd_plugstats key=key item=value}
 
-            <tr id="serendipityStaticpagesTable{$smarty.foreach.pageadd_pstats.index % 2}">
+            <tr class="sp_t{cycle values="odd,even"}">
                 <td>{$key}</td>
-                <td><span id="serendipityStaticpages{$value['color']}">{$value['status']}</span></td>
+                <td><span class="sp_t{$value['color']|lower}">{$value['status']}</span></td>
             </tr>
 
     {/foreach}
@@ -350,9 +348,9 @@ $("document").ready(function() {
             });
         </script>
         {/if}
-        <input class="input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}"> <strong>-{$CONST.WORD_OR}-</strong>
-        <input type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"document.getElementById('staticpage_dropdown').options[document.getElementById('staticpage_dropdown').selectedIndex].text"}');" class="input_button" value="{$CONST.DELETE}">
-        <strong>-{$CONST.WORD_OR}-</strong> <input class="input_button" type="submit" name="serendipity[staticPreview]" value="{$CONST.PREVIEW}">
+        <input class="input_button state_submit" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}"> <strong>-{$CONST.WORD_OR}-</strong>
+        <input class="input_button state_cancel" type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"document.getElementById('staticpage_dropdown').options[document.getElementById('staticpage_dropdown').selectedIndex].text"}');" value="{$CONST.DELETE}">
+        <strong>-{$CONST.WORD_OR}-</strong> <input class="input_button entry_preview" type="submit" name="serendipity[staticPreview]" value="{$CONST.PREVIEW}">
         {if $sp_defpages_sbplav}
         <div class="sp_plav">
             <img class="attention" title="Staticpage Sidebar {$CONST.STATICPAGE_PLUGIN_AVAILABLE}" src="{serendipity_getFile file='admin/img/admin_msg_note.png'}" alt="info">
@@ -398,7 +396,7 @@ $("document").ready(function() {
     </table>
     <br />
     <div class="sp_entrysave" style="padding-left: 20px">
-        <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="input_button">
+        <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="input_button state_submit">
     </div>
 
     {/if}
@@ -460,7 +458,7 @@ $("document").ready(function() {
         {$CONST.NEW_ENTRY} <em>{$CONST.WORD_OR|lower}</em> {$CONST.EDIT_ENTRY}: #<input class="input_textbox" type="text" size="3" name="serendipity[staticpage]">
         <input type="hidden" name="serendipity[listentries_formSubmit]" value="true">{* necessary to open form on entrylist post submits *}
         <input type="hidden" name="serendipity[pagetype]" value="__new">
-        <input class="input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}">
+        <input class="input_button state_submit" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}">
     </div>
     </form>
 </div>

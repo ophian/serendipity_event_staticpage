@@ -38,28 +38,31 @@
     border-bottom: 1px solid #ffffff;
 }
 
-/* overrule .serendipityAdminContent span */
-#serendipityStaticpagesRed {
+/* overrule .serendipityAdminContent span as long as also used with old backend */
+.serendipityAdminContent span.sp_ptype_desc {
+    color: #5E7A94 !important;
+    font-size: 8pt;
+}
+.serendipityAdminContent .sp_tred,
+.sp_tred {
     color: #c00000 !important;
 }
-
-#serendipityStaticpagesYellow {
+.serendipityAdminContent .sp_yellow,
+.sp_tyellow {
     color: #eac131 !important;
 }
-
-#serendipityStaticpagesGreen {
-    color: #188d1d !important;/*#18f11d*/
+.serendipityAdminContent .sp_tgreen,
+.sp_tgreen {
+    color: #188d1d !important;
 }
 
-#serendipityStaticpagesTableHeader {
+.sp_thead {
     background-color: #c0c0c0;
 }
-
-#serendipityStaticpagesTable1 {
+.sp_teven {
     background-color: #dfdfdf;
 }
-
-#serendipityStaticpagesTable0 {
+.sp_todd {
     background-color: #f0f0f0;
 }
 .sp_label {
@@ -71,13 +74,11 @@
     float: right;
     margin: 5px;
 }
-
 .sp_pageselector {
     background-color: #EFEFEF;
     padding: 5px;
     border: 1px solid #DDD;
 }
-
 .sp_listfooter {
     background-color: #DFDFDF;
 }
@@ -87,20 +88,16 @@
 .default_staticpage {
     margin-top: 1.2em;
 }
-
 .default_staticpage .sp_label {
     font-weight: bold;
 }
-
 .default_staticpage .sp_sect {
     margin-bottom: 5px;
 }
-
 .default_staticpage fieldset {
     margin: 5px;
     border: 1px solid #F0F0F0;
 }
-
 .default_staticpage .input_textbox {
     width: 100%;
     margin: 0px auto .125em;
@@ -158,15 +155,31 @@
     width: 69%;
     float: left;
 }
+/* this single is mo template form only - remove when finished cleanup */
+div.sp_entrysave {
+    text-align: center;
+    padding: 0 !important;
+}
 .sp_defaultform_submit {
     text-align: center;
     margin: 1em auto 0;
+}
+.sp_responsform_submit {
+    margin: 2em auto 1em;
+    text-align: center;
 }
 .sp_input_finish {
     clear: both;
     padding-top: 1em;
 }
-
+.sp_legend_submit {
+    display: block;
+    float: right;
+    background-color: #EEE;
+    padding: 0.25em;
+    margin: -2.75em auto auto;
+    border: 1px solid #72878A;
+}
 .sp_add table { border: 1px solid rgb(187, 187, 187); }
 #sp_entries_list li { margin: 0.2em; }
 #sp_entries_list li:last-of-type { margin-top: 0.5em; }
@@ -180,7 +193,6 @@
 }
 .sp_plav img { vertical-align: middle;}
 .sp_ptype .input_textbox { width: inherit; }
-.serendipityAdminContent span.sp_ptype_desc { color: #5E7A94 !important; font-size: 8pt; }/*old backend*/
 
 /**** 2.0 and very few tweaks for old backend ****/
 
@@ -208,7 +220,10 @@
     border-style: solid solid none;
     border-color: #CCC;
 }
-
+#staticpage_pageadd table th,
+#staticpage_pageadd table td {
+    padding: auto 5px;
+}
 /* defaultform */
 #backend_sp_simple {
     font-size: .875em;
@@ -229,6 +244,9 @@
     padding: 0.75em;
     margin: 0px 0px 1em;
 }
+#staticpage_pageadd .sp_add legend,
+#staticpage_pagetype fieldset legend,
+#sp_sequencer fieldset legend,
 #backend_sp_respond fieldset legend {
     background: #eee;
     font-weight: bold;
@@ -276,6 +294,7 @@
         width: 96.6%;
     }
 }
+#staticpage_pagetype fieldset legend,
 #backend_sp_respond #sp_main_data legend,
 #backend_sp_respond #sp_structure_data legend,
 #backend_sp_respond #sp_option_data legend,

@@ -151,8 +151,9 @@ foreach($select AS $select_value => $select_desc) {
                 <td align="right">
 <?php
                     }
-
-?>                  <nobr><span id="tools_<?php echo $config_item ?>" style="display: none">
+                    if ($serendipity['version'][0] == '1') {
+?>
+                    <nobr><span id="tools_<?php echo $config_item ?>" class="editor_toolbar" style="display: none">
                         <?php if( $serendipity['nl2br']['iso2br'] ) { ?>
                         <input type="button" class="serendipityPrettyButton input_button" name="insX" value="NoBR" accesskey="x" data-tarea="nuggets<?php echo $elcount; ?>" data-tag="nl" style="font-style: italic" onclick="wrapSelection(document.forms['serendipityEntry']['serendipity[plugin][<?php echo $config_item ?>]'],'<nl>','</nl>')" />
                         <?php } ?>
@@ -161,19 +162,26 @@ foreach($select AS $select_value => $select_desc) {
                         <input type="button" class="serendipityPrettyButton input_button wrap_selection" name="insU" value="U" accesskey="u" data-tarea="nuggets<?php echo $elcount; ?>" data-tag="u" style="text-decoration: underline;" onclick="wrapSelection(document.forms['serendipityEntry']['serendipity[plugin][<?php echo $config_item ?>]'],'<u>','</u>')" />
                         <input type="button" class="serendipityPrettyButton input_button wrap_selection" name="insQ" value="<?php echo QUOTE ?>" accesskey="q" data-tarea="nuggets<?php echo $elcount; ?>" data-tag="blockquote" style="font-style: italic" onclick="wrapSelection(document.forms['serendipityEntry']['serendipity[plugin][<?php echo $config_item ?>]'],'<blockquote>','</blockquote>')" />
                         <input type="button" class="serendipityPrettyButton input_button wrap_insimg" name="insJ" value="img" accesskey="j" data-tarea="nuggets<?php echo $elcount; ?>" onclick="wrapInsImage(document.forms['serendipityEntry']['serendipity[plugin][<?php echo $config_item ?>]'])" />
-<?php
-                        if (!$serendipity['version'][0] == '1') {
-?>
-                            <button class="wrap_insmedia" type="button" name="insImage" data-tarea="nuggets<?php echo $elcount; ?>"><?php echo MEDIA; ?></button>
+                        <input type="button" class="serendipityPrettyButton input_button wrap_insmedia" name="insImage" value="<?php echo MEDIA; ?>" style="" onclick="window.open('serendipity_admin_image_selector.php?serendipity[textarea]=<?php echo urlencode('serendipity[plugin]['.$config_item.']'); ?>', 'ImageSel', 'width=800,height=600,toolbar=no,scrollbars=1,scrollbars,resize=1,resizable=1');" />
+                        <input type="button" class="serendipityPrettyButton input_button wrap_insurl" name="insU" value="URL" accesskey="l" data-tarea="nuggets<?php echo $elcount; ?>" onclick="wrapSelectionWithLink(document.forms['serendipityEntry']['serendipity[plugin][<?php echo $config_item ?>]'])" />
+                    </span></nobr>
 <?php
                         } else {
 ?>
-                            <input type="button" class="serendipityPrettyButton input_button wrap_insmedia" name="insImage" value="<?php echo MEDIA; ?>" style="" onclick="window.open('serendipity_admin_image_selector.php?serendipity[textarea]=<?php echo urlencode('serendipity[plugin]['.$config_item.']'); ?>', 'ImageSel', 'width=800,height=600,toolbar=no,scrollbars=1,scrollbars,resize=1,resizable=1');" />
+                    <nobr><span id="tools_<?php echo $config_item ?>" class="editor_toolbar" style="display: none">
+                        <?php if( $serendipity['nl2br']['iso2br'] ) { ?>
+                        <button class="wrap_selection lang-html" type="button" name="insX" data-tarea="nuggets<?php echo $elcount; ?>" data-tag-open="nl" data-tag-close="nl">NoBR</button>
+                        <?php } ?>
+                        <button class="hilite_i wrap_selection lang-html" type="button" name="insI" data-tarea="nuggets<?php echo $elcount; ?>" data-tag-open="em" data-tag-close="em">i</button>
+                        <button class="hilite_b wrap_selection lang-html" type="button" name="insB" data-tarea="nuggets<?php echo $elcount; ?>" data-tag-open="strong" data-tag-close="strong">b</button>
+                        <button class="wrap_selection lang-html" type="button" name="insQ" data-tarea="nuggets<?php echo $elcount; ?>" data-tag-open="blockquote" data-tag-close="blockquote"><?php echo QUOTE ?></button>
+                        <button class="wrap_insimg" type="button" name="insJ" data-tarea="nuggets<?php echo $elcount; ?>">img</button>
+                        <button class="wrap_insmedia" type="button" name="insImage" data-tarea="nuggets<?php echo $elcount; ?>" ><?php echo MEDIA ?></button>
+                        <button class="wrap_insurl" type="button" name="insURL" data-tarea="nuggets<?php echo $elcount; ?>" >URL</button>
+                    </span></nobr>
 <?php
                         }
 ?>
-                        <input type="button" class="serendipityPrettyButton input_button wrap_insurl" name="insU" value="URL" accesskey="l" data-tarea="nuggets<?php echo $elcount; ?>" onclick="wrapSelectionWithLink(document.forms['serendipityEntry']['serendipity[plugin][<?php echo $config_item ?>]'])" />
-                    </span></nobr>
                     <script type="text/javascript" language="JavaScript">
                         var tb_<?php echo $config_item ?> = document.getElementById('tools_<?php echo $config_item ?>');
                         tb_<?php echo $config_item ?>.style.display = '';

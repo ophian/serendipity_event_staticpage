@@ -1,4 +1,4 @@
-{* old_backend_staticpage template file v. 1.2, 2014-05-02 *}
+{* old_backend_staticpage template file v. 1.3, 2014-05-03 *}
 {** moduled backend_show.php tpl vars
 
 +++++ head +++++
@@ -345,6 +345,8 @@ switch pcat if      pageorder
                     jQuery$(this).val(prev_value);
                     jQuery(this).bind('focus');
                     return false;
+                } else {
+                    $(this.form.elements["serendipity[staticSubmit]"]).click();
                 }
             });
         </script>

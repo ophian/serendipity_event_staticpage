@@ -155,5 +155,5 @@
 @define('STATICPAGE_SHOWLIST_DEFAULT', 'Backend: Zeige als Eintragsliste');
 @define('STATICPAGE_SHOWLIST_DESC', 'Zeige Management Startseite als Eintrags Liste. Auswahlliste Standardeinstellung.');
 
-@define('STATICPAGE_CONFIRM_SELECTDIALOG', "Sind Sie sicher ihren offenen Artikel im Falle einer Veränderung gespeichert zu haben, wenn Sie jetzt die Seite wechseln?\\n\\nWenn OK, klicken Sie den LOS!-Button, um die neue Seite anzuzeigen!"); // js confirm need an additional backslash before the the linebreaks!
+@define('STATICPAGE_CONFIRM_SELECTDIALOG', "Sind Sie sicher ihren offenen Artikel im Falle einer Veränderung gespeichert zu haben?\\n\\nWenn Sie OK drücken, wird die Seite gewechselt!"); // js confirm need an additional backslash before the linebreaks!
 

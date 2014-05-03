@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.2, 2014-05-02 *}
+{* backend_staticpage template file v. 1.3, 2014-05-03 *}
 {** moduled backend_show.php tpl vars
 
 +++++ head +++++
@@ -344,6 +344,8 @@ $("document").ready(function() {
                     $(this).val(prev_value);
                     $(this).bind('focus');
                     return false;
+                } else {
+                    $(this.form.elements["serendipity[staticSubmit]"]).click();
                 }
             });
         </script>

@@ -7,12 +7,13 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### ToDo: :arrow_down:
-- [ ] deep check, if current changes broke anything with some more enhanced staticpage options, all normal behaviour is checked working
-- [ ] prepare everything to hold a HTM5 version, which will be the default in future
-- [ ] prepare everything to shut down every hardcoded non-smarty output in future
+- [ ] deep check, if current changes broke anything with some more enhanced staticpage options (all normal behaviour is checked working!)
+- [ ] prepare everything to HTML5, which will be the default in future
+- [ ] prepare everything to shut down plugins hardcoded non-smarty output in future
 - [ ] remove the 'no template' hardcoded stuff
-- [ ] structure backend template files in new directory?
+- [ ] structure backend template files in new directory ?
 - [ ] since now using Smarty 3 only, some Smarty code will need a refresh
+- [ ] howto navigate with large amount of staticpages, beyond 20 ?
 
 - - -
 

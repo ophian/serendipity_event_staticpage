@@ -18,6 +18,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Plain Editor button changes for the 2.0 backend
 - [x] Extend required Serendipity version to 1.7 and Smarty 3.1, since the old_backend_staticpage.tpl would need too much old Smarty2 and CSS fixes
 - [x] Added confirmation dialog on select change page events, to avoid saving into wrong page accidently
 - [x] Moved listentries _new submit footer to also show up on empty list

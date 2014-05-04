@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.3, 2014-05-03 *}
+{* backend_staticpage template file v. 1.4, 2014-05-04 *}
 {** moduled backend_show.php tpl vars
 
 +++++ head +++++
@@ -464,9 +464,12 @@ $("document").ready(function() {
 </div>
 
     {/if} {* sp_defpages_showlist false/true end  *}
-    {if $sp_pagetype_showform_isnuggets}
+    {if $sp_defpages_template == 'internal'}
 
 <script src="{serendipity_getFile file='admin/js/jquery.magnific-popup.js'}"></script>
+
+    {/if}
+    {if $sp_pagetype_showform_isnuggets}
 
 <!-- sp_pagetype_showform_isnuggets start -->
 <script type="text/javascript">

@@ -1,4 +1,4 @@
-{* old_backend_staticpage template file v. 1.3, 2014-05-03 *}
+{* old_backend_staticpage template file v. 1.4, 2014-05-04 *}
 {** moduled backend_show.php tpl vars
 
 +++++ head +++++
@@ -342,11 +342,11 @@ switch pcat if      pageorder
             }).change(function(){
                 jQuery(this).unbind('focus');
                 if (!confirm("{$CONST.STATICPAGE_CONFIRM_SELECTDIALOG}")) {
-                    jQuery$(this).val(prev_value);
+                    jQuery(this).val(prev_value);
                     jQuery(this).bind('focus');
                     return false;
                 } else {
-                    $(this.form.elements["serendipity[staticSubmit]"]).click();
+                    jQuery(this.form.elements["serendipity[staticSubmit]"]).click();
                 }
             });
         </script>

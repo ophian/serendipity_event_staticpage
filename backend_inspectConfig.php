@@ -172,12 +172,12 @@ foreach($select AS $select_value => $select_desc) {
                         <?php if( $serendipity['nl2br']['iso2br'] ) { ?>
                         <button class="wrap_selection lang-html" type="button" name="insX" data-tarea="nuggets<?php echo $elcount; ?>" data-tag-open="nl" data-tag-close="nl">NoBR</button>
                         <?php } ?>
-                        <button class="hilite_i wrap_selection lang-html" type="button" name="insI" data-tarea="nuggets<?php echo $elcount; ?>" data-tag-open="em" data-tag-close="em">i</button>
-                        <button class="hilite_b wrap_selection lang-html" type="button" name="insB" data-tarea="nuggets<?php echo $elcount; ?>" data-tag-open="strong" data-tag-close="strong">b</button>
-                        <button class="wrap_selection lang-html" type="button" name="insQ" data-tarea="nuggets<?php echo $elcount; ?>" data-tag-open="blockquote" data-tag-close="blockquote"><?php echo QUOTE ?></button>
-                        <button class="wrap_insimg" type="button" name="insJ" data-tarea="nuggets<?php echo $elcount; ?>">img</button>
-                        <button class="wrap_insmedia" type="button" name="insImage" data-tarea="nuggets<?php echo $elcount; ?>" ><?php echo MEDIA ?></button>
-                        <button class="wrap_insurl" type="button" name="insURL" data-tarea="nuggets<?php echo $elcount; ?>" >URL</button>
+                        <button class="hilite_i wrap_selection lang-html" type="button" data-tarea="nuggets<?php echo $elcount; ?>" data-tag-open="em" data-tag-close="em" name="insI">i</button>
+                        <button class="hilite_b wrap_selection lang-html" type="button" data-tarea="nuggets<?php echo $elcount; ?>" data-tag-open="strong" data-tag-close="strong" name="insB">b</button>
+                        <button class="wrap_selection lang-html" type="button" data-tarea="nuggets<?php echo $elcount; ?>" data-tag-open="blockquote" data-tag-close="blockquote" name="insQ"><?php echo QUOTE ?></button>
+                        <button class="wrap_insimg" type="button" data-tarea="nuggets<?php echo $elcount; ?>" name="insJ">img</button>
+                        <button class="wrap_insmedia" type="button" data-tarea="nuggets<?php echo $elcount; ?>" name="insImage"><?php echo MEDIA ?></button>
+                        <button class="wrap_insurl" type="button" data-tarea="nuggets<?php echo $elcount; ?>" name="insURL">URL</button>
                     </span></nobr>
 <?php
                         }

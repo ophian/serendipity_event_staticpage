@@ -308,5 +308,7 @@
     <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button state_submit" />
 </div>
 
+<script src="{serendipity_getFile file='admin/js/jquery.magnific-popup.js'}"></script>
+
 <!-- RESPONSIVE_TEMPLATE.TPL end -->
 

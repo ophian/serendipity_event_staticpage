@@ -14,28 +14,43 @@
 .icon-ok:before, .icon-error:before, .icon-attention:before, .icon-clock:before {font-size:131%;}
 
 #serendipityStaticpagesNav ul {
-    padding: 3px 0;
+    padding: 3px 0 1px;
     margin-left: 0;
-    border-bottom: 1px solid #000000;
+    background: #ddd;
+    background-image: -webkit-linear-gradient(#fff, #ddd);
+    background-image: linear-gradient(#fff, #ddd);
+    display: block;
+    border-style: solid;
+    border-color: #BBB #DEDEDE;
+    border-width: 1px;
 }
-
 #serendipityStaticpagesNav ul li {
     list-style: none;
     margin: 0;
-    display: inline;
+    /* older browsers which dont support inline-flex */
+    display: inline-block;
+    display: inline-flex;
 }
-
 #serendipityStaticpagesNav ul li a {
     padding: 3px 0.5em;
     margin-left: 5px;
-    border: 1px solid #000000;
 }
-
-#serendipityStaticpagesNav ul li {
-    display: inline-flex;
-}
-#serendipityStaticpagesNav ul li a#active {
-    border-bottom: 1px solid #ffffff;
+#serendipityStaticpagesNav ul li#active a {
+    background: #dedede;
+    background-image: -webkit-linear-gradient(#fff, #dedede);
+    background-image: linear-gradient(#fff, #dedede);
+    background-clip: padding-box;
+    border: 1px solid #CACACA;
+    /* rounded corners */
+    -webkit-border-radius: 0.1em;
+    -moz-border-radius: 0.1em;
+    -o-border-radius: 0.1em;
+    border-radius: 0.1em; /* html5 standard */
+    /* shadow settings */
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    -o-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* html5 standard */
 }
 
 /* overrule .serendipityAdminContent span, as long as also used with old backend - need to keep her and not in old.css */
@@ -105,7 +120,7 @@
 
 /* staticpage smartfied backend_staticpage.tpl */
 .sp_msg_success:not(:empty) {
-    display:block;
+    display: block;
     margin: 1.5em 0;
     padding: 10px;
 }
@@ -114,10 +129,6 @@
     border: 1px solid #c1e2b3;
     color: #468847;
 }
-#serendipityStaticpagesNav ul li#active a  {
-    background: #dedede;
-}
-
 .sp_entries_pane .spmod {
     margin-top: -1.25em;
 }

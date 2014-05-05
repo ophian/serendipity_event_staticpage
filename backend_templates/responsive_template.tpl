@@ -246,7 +246,7 @@
             <div id="{if !$new_backend}el5{else}entry_custom_info{/if}" class="clearfix field_info additional_info">
                 <span id="custom_info" class="field_info">
                 <p>This custom section vastly improves Serendipity's CMS-abilities and shows an example for saving custom fields for static pages. All custom fields need to be implemented through usual HTML form elements, and need to save their values inside a serendipity[plugin][custom][XXX] fieldname. Once entered, the data will be automatically saved inside the serendipity_staticpage_custom database table, and will be available through &#123;$staticpage_custom.XXX&#125; when later being displayed in the frontend. This way, you can easily add new custom fields for a staticpage, ie. to specify a custom header image for each staticpage. Sky's the limit!</p>
-                <p>This example here enables to use a custom CSS-BODY-ID to render the page. Or you can specify, which sidebar you want to see when this staticpage is rendered.<br><span><strong>Example for 2k11/index.tpl:</strong></span></p>
+                <p>This example here enables to use a custom CSS-BODY-ID to render the page. Or you can specify, which sidebar you want to see when this staticpage is rendered.<br><span><strong>Example parts for 2k11/index.tpl:</strong></span></p>
                 <pre>
 &lt;body&#123;if $template_option.webfonts != 'none'&#125; class=&quot;&#123;$template_option.webfonts&#125;&#123;if !empty($staticpage_custom.css_class)&#125; &#123;$staticpage_custom.css_class&#125;&#123;/if&#125;&quot;&#123;/if&#125;&#123;if !empty($staticpage_custom.css_class)&#125; class=&quot;&#123;$staticpage_custom.css_class&#125;&quot;&#123;/if&#125;&gt;
 

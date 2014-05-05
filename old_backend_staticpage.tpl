@@ -1,4 +1,4 @@
-{* old_backend_staticpage template file v. 1.4, 2014-05-04 *}
+{* old_backend_staticpage template file v. 1.5, 2014-05-05 *}
 {** moduled backend_show.php tpl vars
 
 +++++ head +++++
@@ -338,7 +338,7 @@ switch pcat if      pageorder
         <script>
             var prev_value;
             jQuery('#staticpage_dropdown').focus(function() {
-                prev_value = $(this).val();
+                prev_value = jQuery(this).val();
             }).change(function(){
                 jQuery(this).unbind('focus');
                 if (!confirm("{$CONST.STATICPAGE_CONFIRM_SELECTDIALOG}")) {
@@ -471,11 +471,24 @@ switch pcat if      pageorder
 
 <!-- sp_pagetype_showform_isnuggets start -->
 <script type="text/javascript">
-    function Spawnnugget() {ldelim}
+    {* for the rare case, someone uses the full CKEDITOR package, including the toolbar CKE save button, we need to disable/remove the save button for static pages only, since it is not compatible with staticpage form submits. - Sorry! Do not re-active, or you may lose data, when used/clicked! *}
+    if (CKEDITOR.plugins.registered['save']) {
+        // overwrite CKE save button in all nugget instances, see extending smarty note in backend_staticpage.tpl
+        CKEDITOR.plugins.registered['save'] = {
+            init: function (editor) {
+                var command = editor.addCommand('save',
+                {
+                    modes: { wysiwyg: 1, source: 1 }
+                });
+            }
+        }
+    }
+
+    function Spawnnugget() {
 {foreach from=$sp_pagetype_showform_htmlnuggets name=hnid item=htmlnuggetid}
         if (window.Spawnnuggets) Spawnnuggets('{$htmlnuggetid}');
 {/foreach}
-    {rdelim}
+    }
 </script>
 <!-- sp_pagetype_showform_isnuggets end -->
     {/if}

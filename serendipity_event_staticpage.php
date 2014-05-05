@@ -1463,9 +1463,7 @@ class serendipity_event_staticpage extends serendipity_event
                    WHERE (pagetitle = '" . serendipity_db_escape_string($serendipity['GET']['subpage']) . "'
                       OR permalink = '" . serendipity_db_escape_string($serendipity['GET']['subpage']) . "') $sql_where
                    LIMIT 1";
-        }
-        else
-        {
+        } else {
             $q = "SELECT *
                     FROM {$serendipity['dbPrefix']}staticpages
                   WHERE (id = '" . serendipity_db_escape_string($serendipity['GET']['staticid']) . "') $sql_where

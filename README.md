@@ -13,6 +13,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] how to navigate with larger amounts of staticpages, ie. beyond 10-15 ?
 - [ ] touch frontend templates (in this plugin dir) for HTML5, inline styles, etc ?
 - [ ] solve some last remaining questions pasted as '// RQ: ' notes
+- [ ] remove the four options link menu on top (since not used very often) - maybe per JS & Cookie hideaway ?
 
 - - -
 

@@ -5,7 +5,7 @@
     <ul class="staticpage_result">
     {foreach from=$staticpage_results item="result"}
         <li><strong><a href="{$result.permalink|@escape}" title="{$result.pagetitle|@escape}">{$result.headline}</a></strong> ({$result.realname})<br />
-        {$result.content|@strip_tags|@strip|@truncate:200:" ... "}</li>
+        {$result.content|@strip_tags|@strip|@truncate:200:"&hellip;"}</li>
     {/foreach}
     </ul>
     {/if}

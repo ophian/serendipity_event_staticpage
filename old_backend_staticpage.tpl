@@ -1,4 +1,4 @@
-{* old_backend_staticpage template file v. 1.5, 2014-05-05 *}
+{* old_backend_staticpage template file v. 1.6, 2014-05-06 *}
 {** moduled backend_show.php tpl vars
 
 +++++ head +++++
@@ -38,15 +38,13 @@
 
 {bool $sp_defpages_showlist}
      {string $sp_defpages_jsCookie}
-     {string $sp_defpages_template}
      {array $sp_defpages_top}
      {array $sp_defpages_pop}
      {bool $sp_defpages_sbplav}
      {string $sp_defpages_link}
      {string $sp_defpages_pagetitle}
      {bool $sp_defpages_staticsave}
-          {bool $sp_defpages_oldform}
-               {$sp_defpages_showform}
+     {$sp_defpages_showform}
 
      {string $sp_listentries_authors}
      {array $sp_listentries_entries}
@@ -315,8 +313,6 @@ switch pcat if      pageorder
     <div class="sp_templateselector">
         <label for="sp_templateselector">{$CONST.STATICPAGE_TEMPLATE}</label> 
         <select id="sp_templateselector" name="serendipity[backend_template]">
-            <option{if $sp_defpages_template == 'external'} selected="selected"{/if} value="external">{$CONST.STATICPAGE_TEMPLATE_EXTERNAL}</option>
-            <option{if $sp_defpages_template == 'internal'} selected="selected"{/if} value="internal">{$CONST.STATICPAGE_TEMPLATE_INTERNAL}</option>
             {if isset($sp_defpages_top) && is_array($sp_defpages_top)}
 
                 {foreach name=sp_sts item=top from=$sp_defpages_top}{$top}{/foreach}
@@ -378,31 +374,8 @@ switch pcat if      pageorder
         <input type="hidden" name="serendipity[staticSave]" value="true" />
     </div>
 
-    {**
-     - In case of $sp_defpages_oldform == the 'All Fields' Form, the rows are build by internal hardcoded markup, which is based to sent $serendipity['POST']['backend_template'] == 'internal'.
-     - The "simple" form is the better, newer and default form and internally build as an already smartified form by backend_templates/default_staticpage_backend.tpl.
-     - It is possible to just disable Smarty usage by "if 'internal' $is_smarty = false" on top of backend_show.php file, to skip this template at all.
-     **}
-
-    {if $sp_defpages_oldform}
-    <!-- internal inspectConfig() allField form markup -->
-    <br /><hr />
-    <table border="0" cellspacing="0" cellpadding="3" width="100%">
-
-    {/if}
-
     <!-- sp_defpages_showform -->
     {$sp_defpages_showform}{** this might come already smartified (default form) or as hardcoded table row stuff (old form) **}
-
-    {if $sp_defpages_oldform}
-
-    </table>
-    <br />
-    <div style="padding-left: 20px">
-        <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button" />
-    </div>
-
-    {/if}
 
     {/if}{* sp_defpages_staticsave end *}
 

@@ -43,7 +43,7 @@
 
     <fieldset id="sp_main_data" class="sect_basic">
         <legend>{$CONST.STATICPAGE_SECTION_BASIC}</legend>
-        <span class="sp_legend_submit"><input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button state_submit" /></span>
+        <span class="sp_legend_submit"><input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button state_submit"{if !$new_backend} /{/if}></span>
         <div id="entry_main_headline" class="form_field_long sp_sect">
             <label class="sp_label" title="{staticpage_input item="headline" what="desc"}">{staticpage_input item="headline" what="name"}</label>
                 {staticpage_input item="headline"}
@@ -291,7 +291,7 @@
 
             <div id="entry_custom_class" class="form_field sp_sect">
                 <label class="sp_label" title="CSS class of the main page body that should be associated">Main CSS class</label>
-                    <input class="input_textbox direction_ltr" type="text" size="30" name="serendipity[plugin][custom][css_class]" value="{$form_values.custom.css_class|@default:'None'}" />
+                    <input class="input_textbox direction_ltr" type="text" size="30" name="serendipity[plugin][custom][css_class]" value="{$form_values.custom.css_class|@default:'None'}"{if !$new_backend} /{/if}>
             </div>
         </fieldset>
 
@@ -305,7 +305,7 @@
 {staticpage_input_finish}
 
 <div class="sp_responsform_submit">
-    <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button state_submit" />
+    <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button state_submit"{if !$new_backend} /{/if}>
 </div>
 
 <script src="{serendipity_getFile file='admin/js/jquery.magnific-popup.js'}"></script>

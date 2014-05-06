@@ -233,13 +233,13 @@
 
             <div class="sp_sect">
                 <label class="sp_label" title="CSS class of the main page body that should be associated">Main CSS class</label>
-                    <input type="text" name="serendipity[plugin][custom][css_class]" value="{$form_values.custom.css_class|@default:'None'}" />
+                    <input type="text" name="serendipity[plugin][custom][css_class]" value="{$form_values.custom.css_class|@default:'None'}"{if !$new_backend} /{/if}>
             </div>
         </fieldset>
          END OF EXAMPLE FOR CUSTOM STATICPAGE PROPERTIES *}
 
         <div class="sp_defaultform_submit">
-            <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button" />
+            <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button"{if !$new_backend} /{/if}>
         </div>
 
     </div>
@@ -249,7 +249,7 @@
 {staticpage_input_finish}
 
 <div class="sp_defaultform_submit sp_input_finish">
-    <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button" />
+    <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button"{if !$new_backend} /{/if}>
 </div>
 
 <script src="{serendipity_getFile file='admin/js/jquery.magnific-popup.js'}"></script>

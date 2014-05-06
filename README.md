@@ -8,16 +8,18 @@ Please use with care and always keep a backup copy of your updated plugin.
 
 ### ToDo: :arrow_down:
 - [ ] deep check, if current changes broke anything with some more enhanced staticpage options (all normal behaviour is checked working!)
-- [ ] prepare everything to HTML5, which will be the default in future
-- [ ] prepare everything to shut down plugins hardcoded non-smarty output in future
-- [ ] remove the 'no template' hardcoded stuff
-- [ ] structure backend template files in new directory ?
-- [ ] since now using Smarty 3 only, some Smarty code will need a refresh
-- [ ] howto navigate with large amount of staticpages, beyond 20 ?
+- [ ] move new backend template files into own or current backend_template directory ?
+- [ ] since now using Smarty 3 only, some Smarty code will need a refresh (no need, but cleaner)
+- [ ] howto navigate with large amount of staticpages, beyond 10-15 ?
+- [ ] touch frontend template (examples in the plugin dir) for HTML5, inline styles, etc ?
+- [ ] solve some last remaining questions pasted as notes
 
 - - -
 
 ### Already done: :arrow_up:
+- [x] prepare everything to HTML5, which will be the default in future
+- [x] prepare everything to shut down plugins hardcoded non-smarty output in future
+- [x] remove the 'no template' hardcoded stuff
 - [x] Plain Editor button changes for the 2.0 backend
 - [x] Extend required Serendipity version to 1.7 and Smarty 3.1, since the old_backend_staticpage.tpl would need too much old Smarty2 and CSS fixes
 - [x] Added confirmation dialog on select change page events, to avoid saving into wrong page accidently

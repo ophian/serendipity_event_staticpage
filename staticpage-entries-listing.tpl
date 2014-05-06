@@ -15,8 +15,7 @@
 
 
 {*  for normal static pages  *}
-&raquo; <a href="{$serendipityBaseURL}{getCategoryLinkByID cid=$staticpage_related_category_id}
-">{$CONST.STATICPAGE_ARTICLE_OVERVIEW}</a><br />
+&raquo; <a href="{$serendipityBaseURL}{getCategoryLinkByID cid=$staticpage_related_category_id}">{$CONST.STATICPAGE_ARTICLE_OVERVIEW}</a><br />
 
 {* for a staticpage as startpage  *}
 {* &raquo; <a href="{$serendipityArchiveURL}/P1.html">{$CONST.STATICPAGE_ARTICLE_OVERVIEW}</a><br />  *}

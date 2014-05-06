@@ -1,4 +1,4 @@
-<?php # 
+<?php #
      #http://board.s9y.org/viewtopic.php?p=57348#57348
 
 if (IN_serendipity !== true) {
@@ -92,7 +92,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.18');
+        $propbag->add('version', '4.19');
         $propbag->add('requirements',  array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -235,27 +235,27 @@ class serendipity_event_staticpage extends serendipity_event
                 $propbag->add('description',    STATICPAGE_FILENAME_DESC);
                 $propbag->add('default',        'plugin_staticpage.tpl');
                 break;
-            
+
             case 'title_element':
                 $propbag->add('type',          'string');
                 $propbag->add('name',           STATICPAGES_CUSTOM_META_TITLE);
                 $propbag->add('description',    STATICPAGES_CUSTOM_META_TITLE_BLAH_BLAH);
                 $propbag->add('default',        '');
-                break;           
-            
+                break;
+
             case 'meta_description':
                 $propbag->add('type',          'string');
                 $propbag->add('name',           STATICPAGES_CUSTOM_META_DESC);
                 $propbag->add('description',    STATICPAGES_CUSTOM_META_DESC_BLAH_BLAH);
                 $propbag->add('default',        '');
-                break;            
-            
+                break;
+
             case 'meta_keywords':
                  $propbag->add('type',          'string');
                 $propbag->add('name',           STATICPAGES_CUSTOM_META_KEYS);
                 $propbag->add('description',    STATICPAGES_CUSTOM_META_KEYS_BLAH_BLAH);
                 $propbag->add('default',        '');
-                break;                  
+                break;
 
             case 'content':
                 $propbag->add('type',           'html');
@@ -457,7 +457,6 @@ class serendipity_event_staticpage extends serendipity_event
      * @return array    key: userid, value: realname
      *
      */
-
     function selectAuthors()
     {
         global $serendipity;
@@ -502,7 +501,6 @@ class serendipity_event_staticpage extends serendipity_event
      * @return mixed    realname if match, else false
      *
      */
-
     function selectAuthor($id)
     {
         global $serendipity;
@@ -524,7 +522,6 @@ class serendipity_event_staticpage extends serendipity_event
      * @return boolean
      *
      */
-
     function checkUser(&$user)
     {
         global $serendipity;
@@ -541,7 +538,6 @@ class serendipity_event_staticpage extends serendipity_event
      * @return boolean
      *
      */
-
     function checkPageUser($authorid)
     {
         global $serendipity;
@@ -563,7 +559,6 @@ class serendipity_event_staticpage extends serendipity_event
      * @return array    array of pages
      *
      */
-
     function selectPages()
     {
         global $serendipity;
@@ -594,7 +589,6 @@ class serendipity_event_staticpage extends serendipity_event
      * @return mixed    array if pagetypes, else false
      *
      */
-
     function selectPageTypes()
     {
         global $serendipity;
@@ -629,7 +623,6 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      *
      */
-
     function pluginstatus()
     {
         global $serendipity;
@@ -674,7 +667,6 @@ class serendipity_event_staticpage extends serendipity_event
      * @return array
      *
      */
-
     function selectPlugins()
     {
         global $serendipity;
@@ -804,7 +796,6 @@ class serendipity_event_staticpage extends serendipity_event
      * @return void
      *
      */
-
     function setupDB()
     {
         global $serendipity;
@@ -978,13 +969,13 @@ class serendipity_event_staticpage extends serendipity_event
                     serendipity_db_schema_import($q);
                 }
             case 20:
-                if (!$fresh) {            
+                if (!$fresh) {
                     $q = "ALTER TABLE {$serendipity['dbPrefix']}staticpages ADD COLUMN title_element varchar(255) not null default ''";
                     serendipity_db_schema_import($q);
                     $q = "ALTER TABLE {$serendipity['dbPrefix']}staticpages ADD COLUMN meta_description varchar(255) not null default ''";
                     serendipity_db_schema_import($q);
                     $q = "ALTER TABLE {$serendipity['dbPrefix']}staticpages ADD COLUMN meta_keywords varchar(255) not null default ''";
-                    serendipity_db_schema_import($q);                 
+                    serendipity_db_schema_import($q);
                 }
                 $this->set_config('db_built', 21);
                 break;
@@ -1001,7 +992,6 @@ class serendipity_event_staticpage extends serendipity_event
      * @return string
      *
      */
-
     function get_static($key, $default = null) /* no more & */
     {
         return (isset($this->staticpage[$key]) ? $this->staticpage[$key] : $default);
@@ -1016,7 +1006,6 @@ class serendipity_event_staticpage extends serendipity_event
      * @return string
      *
      */
-
     function get_type($key, $default = null) /* no more & */
     {
         return (isset($this->pagetype[$key]) ? $this->pagetype[$key] : $default);
@@ -1150,8 +1139,8 @@ class serendipity_event_staticpage extends serendipity_event
                 $staticpage_cat = $this->fetchCatProp($serendipity['GET']['category']);
                 $serendipity['smarty']->assign('staticpage_categorypage', $this->fetchStaticPageForCat($staticpage_cat));
                 $serendipity['smarty']->assign('serendipityArchiveURL', getArchiveURL());
-                $serendipity['smarty']->register_function('getCategoryLinkByID', 'smarty_getCategoryLinkByID');
-                $serendipity['smarty']->register_function('staticpage_display', 'staticpage_display');
+                $serendipity['smarty']->registerPlugin('function', 'getCategoryLinkByID', 'smarty_getCategoryLinkByID');
+                $serendipity['smarty']->registerPlugin('function', 'staticpage_display', 'staticpage_display');
                 $serendipity['staticpage_plugin'] =& $this;
                 $this->smarty_init = true;
             }
@@ -1172,7 +1161,6 @@ class serendipity_event_staticpage extends serendipity_event
         } else if ($this->get_static('articletype')) {
             $filename = $this->getTemplate($this->get_static('articletype'));
         }
-
 
         serendipity_smarty_init();
 
@@ -1207,8 +1195,6 @@ class serendipity_event_staticpage extends serendipity_event
             $staticpage_content    = $this->get_static('content'); // no more &
             $staticpage_precontent = $this->get_static('pre_content'); // no more &
         }
-
-
 
         if ($cpids = $this->getChildPagesID()) {
 
@@ -1456,7 +1442,7 @@ class serendipity_event_staticpage extends serendipity_event
             $sql_where .= ' AND publishstatus = 1 ';
         }
 
-        if ( empty($serendipity['GET']['staticid']) )
+        if (empty($serendipity['GET']['staticid']))
         {
             $q = "SELECT *
                     FROM {$serendipity['dbPrefix']}staticpages
@@ -1469,6 +1455,7 @@ class serendipity_event_staticpage extends serendipity_event
                   WHERE (id = '" . serendipity_db_escape_string($serendipity['GET']['staticid']) . "') $sql_where
                   LIMIT 1";
         }
+
         $page = serendipity_db_query($q, true, 'assoc');
         if (is_array($page)) {
             $this->staticpage =& $page;
@@ -1496,7 +1483,7 @@ class serendipity_event_staticpage extends serendipity_event
         }
     }
 
-    function fetchPageType($id) // no more & 
+    function fetchPageType($id) // no more &
     {
         global $serendipity;
 
@@ -1510,8 +1497,10 @@ class serendipity_event_staticpage extends serendipity_event
         }
     }
 
-    // This function checks the values of a staticpage entry, and maybe adjusts the right values to use.
-    // Yeah. PostgreSQL is picky about this.
+    /**
+     * This function checks the values of a staticpage entry, and maybe adjusts the right values to use.
+     * Yeah. PostgreSQL is picky about this.
+     */
     function checkPage() {
         global $serendipity;
 
@@ -1697,34 +1686,22 @@ class serendipity_event_staticpage extends serendipity_event
             }
             $this->staticpage['custom'] = $serendipity['POST']['plugin']['custom'];
         }
-
         return $result;
     }
 
-    function updatePageType($is_smarty)
+    function updatePageType()
     {
         global $serendipity;
 
         if (!isset($this->pagetype['id'])) {
             $result = serendipity_db_insert('staticpages_types', $this->pagetype);
-            if (is_string($result)) {
-                if (!$is_smarty) {
-                    echo '<div class="serendipityAdminMsgError"><img class="img_error" src="' . serendipity_getTemplateFile('admin/img/admin_msg_error.png') . '" alt="" />ERROR: ' . $result . '</div>';
-                }
-            }
             $serendipity["POST"]["pagetype"] = serendipity_db_insert_id('staticpages_types', 'id');
         } else {
             $result = serendipity_db_update('staticpages_types', array('id' => $this->pagetype['id']), $this->pagetype);
-            if (is_string($result)) {
-                if (!$is_smarty) {
-                    echo '<div class="serendipityAdminMsgError"><img class="img_error" src="' . serendipity_getTemplateFile('admin/img/admin_msg_error.png') . '" alt="" />ERROR: ' . $result . '</div>';
-                }
-            }
         }
-        if ($is_smarty) {
-            if (is_string($result)) $serendipity['smarty']->assign('sp_pagetype_update', true);
-            $serendipity['smarty']->assign('sp_pagetype_mixedresult', $result);
-        }
+        if (is_string($result)) $serendipity['smarty']->assign('sp_pagetype_update', true);
+
+        $serendipity['smarty']->assign('sp_pagetype_mixedresult', $result);
     }
 
     function fetchStaticPages($plugins = false, $match_permalink = '') // no more &
@@ -1779,21 +1756,19 @@ class serendipity_event_staticpage extends serendipity_event
         return $ret;
     }
 
-    function showBackend($is_smarty=false)
+    function showBackend()
     {
         global $serendipity;
-        // moduled, since using lots of html/smarty output
+        // moduled, since using lots of html/smarty output - shall we re-include this now again?
         include_once 'backend_show.php';
-        if ($is_smarty) {
-            if ($serendipity['version'][0] == '2') {
-                #$serendipity['smarty']->assign('new_backend', true);
-                $filename = 'backend_staticpage.tpl';
-            } else {
-                $filename = 'old_backend_staticpage.tpl';
-            }
-            $content = $this->parseTemplate($filename);
-            echo $content;
+
+        if ($serendipity['version'][0] == '2') {
+            $filename = 'backend_staticpage.tpl';
+        } else {
+            $filename = 'old_backend_staticpage.tpl';
         }
+        $content = $this->parseTemplate($filename);
+        echo $content;
     }
 
     /**
@@ -1882,20 +1857,20 @@ class serendipity_event_staticpage extends serendipity_event
         @unlink($this->cachefile);
     }
 
-    function inspectConfig($is_smarty, $what, $elcount, $config_item, $config_value, $type, $cname, $cdesc, $value, $default, $lang_direction, $hvalue, $radio, $radio2, $select, $per_row, $per_row2)
+    function inspectConfig($what, $elcount, $config_item, $config_value, $type, $cname, $cdesc, $value, $default, $lang_direction, $hvalue, $radio, $radio2, $select, $per_row, $per_row2)
     {
         global $serendipity;
 
-        if ($is_smarty && $what == 'desc') {
+        if ($what == 'desc') {
             echo $cdesc;
             return true;
         }
 
-        if ($is_smarty && $what == 'name') {
+        if ($what == 'name') {
             echo $cname;
             return true;
         }
-        // else call moduled, since using lots of html/smarty output - needs to load multiple times! Dont use *_once!
+        // else call moduled, since being a PHP Template - needs to load multiple times! Dont use *_once!
         include 'backend_inspectConfig.php';
     }
 
@@ -1940,7 +1915,7 @@ class serendipity_event_staticpage extends serendipity_event
 
         /* Apparently no value was set for this config item */
         if ($value === 'unset') {
-            /* Try and the default value for the config item */
+            // Try and set the default value for the config item
             $value = $cbag->get('default');
         }
         $hvalue   = ((!isset($serendipity['POST']['staticSubmit']) || is_array($serendipity['GET']['pre'])) && isset($serendipity['POST']['plugin'][$config_item]) ? htmlspecialchars($serendipity['POST']['plugin'][$config_item]) : htmlspecialchars($value));
@@ -1953,10 +1928,12 @@ class serendipity_event_staticpage extends serendipity_event
         $radio2   = $cbag->get('radio');
         $per_row2 = $cbag->get('radio_per_row');
         $default  = $cbag->get('default');
+
         ob_start();
-        $this->inspectConfig(true, $what, $elcount, $config_item, $config_value, $type, $cname, $cdesc, $value, $default, $lang_direction, $hvalue, $radio, $radio2, $select, $per_row, $per_row2);
+        $this->inspectConfig($what, $elcount, $config_item, $config_value, $type, $cname, $cdesc, $value, $default, $lang_direction, $hvalue, $radio, $radio2, $select, $per_row, $per_row2);
         $out = ob_get_contents();
         ob_end_clean();
+
         return $out;
     }
 
@@ -1965,28 +1942,25 @@ class serendipity_event_staticpage extends serendipity_event
         global $serendipity;
 
         ob_start();
-
         if (isset($serendipity['wysiwyg']) && $serendipity['wysiwyg'] && count($this->htmlnugget) > 0) {
             $ev = array('nuggets' => $this->htmlnugget, 'skip_nuggets' => false);
             serendipity_plugin_api::hook_event('backend_wysiwyg_nuggets', $ev);
 
             if ($ev['skip_nuggets'] === false) {
-                // smarty only function
-                $serendipity['smarty']->assign( array( 
+                $serendipity['smarty']->assign( array(
                              'sp_pagetype_showform_isnuggets' => true,
                              'sp_pagetype_showform_htmlnuggets' => $this->htmlnugget
                 ));
             }
         }
-
         serendipity_plugin_api::hook_event('backend_staticpages_showform', $this->staticpage);
-
         $out = ob_get_contents();
         ob_end_clean();
+
         return $out;
     }
-
-    function showForm(&$form_values, &$form_container, $introspec_func = 'introspect_item', $value_func = 'get_static', $submit_name = 'staticSubmit', $is_smarty=false)
+// is it pass-by-reference argument or pass-by-value ?
+    function showForm(&$form_values, &$form_container, $introspec_func = 'introspect_item', $value_func = 'get_static', $submit_name = 'staticSubmit')
     {
         global $serendipity;
 
@@ -1999,42 +1973,39 @@ class serendipity_event_staticpage extends serendipity_event
             include_once(S9Y_INCLUDE_PATH . 'include/functions_entries_admin.inc.php');
         }
 
-        // get global set show publishstatus for non-smarty showform and new
-        if (/*$serendipity['POST']['backend_template'] == 'internal' && */$serendipity['POST']['staticpage'] == '__new') {
+        // get global set show publishstatus for new forms
+        if ($serendipity['POST']['staticpage'] == '__new') {
             $this->staticpage['publishstatus'] = serendipity_db_bool($this->get_config('publishstatus'));
-        }//here we need a case selectlist new form - that is why it does not matter if internal or external
+        }
 
-        // Code copied from include/admin/plugins.inc.php. Sue me. ;-)
-        // now 'get_type' also needs to use a smartified file, therefore we check for 'is_smarty' instead
-        if (/*$value_func == 'get_static'*/$is_smarty && $serendipity['POST']['backend_template'] != 'internal') {
-            serendipity_smarty_init();
-            /* ToDo: Convert to Smarty3 register() in future! */
-            $serendipity['smarty']->register_modifier('in_array', 'in_array');
-            $serendipity['smarty']->register_function('staticpage_input', array($this, 'SmartyInspectConfig'));
-            $serendipity['smarty']->register_function('staticpage_input_finish', array($this, 'SmartyInspectConfigFinish'));
-            if ($serendipity['version'][0] == '1' && $serendipity['wysiwyg'] && !class_exists('serendipity_event_ckeditor')) {
-                $serendipity['smarty']->assign('is_wysiwyg', true); // ckeditor has no need to disable 2cd collapsible box in default form template
-            }
-            if ($serendipity['version'][0] == '2') {
-                $serendipity['smarty']->assign('new_backend', true);
-            }
+        serendipity_smarty_init();
+        $serendipity['smarty']->registerPlugin('modifier', 'in_array', 'in_array');
+        $serendipity['smarty']->registerPlugin('function', 'staticpage_input', array($this, 'SmartyInspectConfig'));
+        $serendipity['smarty']->registerPlugin('function', 'staticpage_input_finish', array($this, 'SmartyInspectConfigFinish'));
 
-            $filename = preg_replace('@[^a-z0-9\._-]@i', '', $serendipity['POST']['backend_template']);
-            // check for other templates, else set default
-            if ($filename == 'external' || empty($filename)) {
-                $filename = 'default_staticpage_backend.tpl';
-            }
+        if ($serendipity['version'][0] == '1' && $serendipity['wysiwyg'] && !class_exists('serendipity_event_ckeditor')) {
+            $serendipity['smarty']->assign('is_wysiwyg', true); // ckeditor has no need to disable 2cd collapsible box in default form template
+        }
+        if ($serendipity['version'][0] == '2') {
+            $serendipity['smarty']->assign('new_backend', true);
+        }
 
-            $tfile = serendipity_getTemplateFile('backend_templates/' . $filename, 'serendipityPath');
-            if (!$tfile || $tfile == 'backend_templates/' . $filename) {
-                $tfile = serendipity_getTemplateFile($filename, 'serendipityPath');
-                if (!$tfile || $tfile == $filename) {
-                    $tfile = dirname(__FILE__) . '/backend_templates/' . $filename;
-                }
+        $filename = preg_replace('@[^a-z0-9\._-]@i', '', $serendipity['POST']['backend_template']);
+        // check for other templates, else set default
+        if (empty($filename)) {
+            $filename = 'default_staticpage_backend.tpl';
+        }
+
+        $tfile = serendipity_getTemplateFile('backend_templates/' . $filename, 'serendipityPath');
+        if (!$tfile || $tfile == 'backend_templates/' . $filename) {
+            $tfile = serendipity_getTemplateFile($filename, 'serendipityPath');
+            if (!$tfile || $tfile == $filename) {
+                $tfile = dirname(__FILE__) . '/backend_templates/' . $filename;
             }
-            $inclusion = $serendipity['smarty']->security_settings[INCLUDE_ANY];
-            $serendipity['smarty']->security_settings[INCLUDE_ANY] = true;
-            $serendipity['smarty']->assign(
+        }
+        $inclusion = $serendipity['smarty']->security_settings[INCLUDE_ANY];
+        $serendipity['smarty']->security_settings[INCLUDE_ANY] = true;
+        $serendipity['smarty']->assign(
                 array(
                     'showmeta'       => serendipity_db_bool($this->get_config('showmeta')),
                     'form_keys'      => $form_values,
@@ -2042,241 +2013,15 @@ class serendipity_event_staticpage extends serendipity_event
                     'form_post'      => $serendipity['POST']['plugin'],
                     'form_values'    => (is_array($serendipity['POST']['plugin']) ? $serendipity['POST']['plugin'] : $this->staticpage)
                 )
-            );
-            $content = $serendipity['smarty']->fetch('file:'. $tfile);
-            $serendipity['smarty']->security_settings[INCLUDE_ANY] = $inclusion;
+        );
+        $content = $serendipity['smarty']->fetch('file:'. $tfile);
+        $serendipity['smarty']->security_settings[INCLUDE_ANY] = $inclusion;
 
-            echo $content;
-            return true;
-        }
-        if (!$is_smarty) {
-?>
-    <br /><hr />
-    <table border="0" cellspacing="0" cellpadding="3" width="100%">
-<?php
-        }
-        if ($serendipity['POST']['backend_template'] == 'internal') {
-            $serendipity['smarty']->assign('sp_defpages_oldform', true); // in case cookie for internal template exist (POST = COOKIE newly added in listentries part of backend_show.php)
-        }
-        $elcount = 0;
-        $this->htmlnugget = array();
-        foreach ($form_values as $config_item) {
-            $elcount++;
-            $config_value = $form_container[$config_item];
-            $cbag = new serendipity_property_bag;
-            $this->$introspec_func($config_item, $cbag);
-
-            $cname      = htmlspecialchars($cbag->get('name'));
-            $cdesc      = htmlspecialchars($cbag->get('description'));
-            $value      = $this->$value_func($config_item, 'unset');
-
-            $lang_direction = htmlspecialchars($cbag->get('lang_direction'));
-
-            if (empty($lang_direction)) {
-                $lang_direction = LANG_DIRECTION;
-            }
-
-            /* Apparently no value was set for this config item */
-            if ($value === 'unset') {
-                /* Try and the default value for the config item */
-                $value = $cbag->get('default');
-            }
-            $hvalue   = ((!isset($serendipity['POST'][$submit_name]) || is_array($serendipity['GET']['pre'])) && isset($serendipity['POST']['plugin'][$config_item]) ? htmlspecialchars($serendipity['POST']['plugin'][$config_item]) : htmlspecialchars($value));
-            $radio    = array();
-            $select   = array();
-            $per_row  = null;
-
-            $type     = $cbag->get('type');
-            $select   = $cbag->get('select_values');
-            $radio2   = $cbag->get('radio');
-            $per_row2 = $cbag->get('radio_per_row');
-            $default  = $cbag->get('default');
-
-            $this->inspectConfig(false, 'input', $elcount, $config_item, $config_value, $type, $cname, $cdesc, $value, $default, $lang_direction, $hvalue, $radio, $radio2, $select, $per_row, $per_row2);
-        }
-
-        if (isset($serendipity['wysiwyg']) && $serendipity['wysiwyg'] && count($this->htmlnugget) > 0) {
-            $ev = array('nuggets' => $this->htmlnugget, 'skip_nuggets' => false);
-            serendipity_plugin_api::hook_event('backend_wysiwyg_nuggets', $ev);
-
-            if ($ev['skip_nuggets'] === false) {
-                if (!$is_smarty) {
-?>
-        <script type="text/javascript">
-        function Spawnnugget() { //no smarty
-            <?php foreach($this->htmlnugget AS $htmlnuggetid) { ?>
-            if (window.Spawnnuggets) Spawnnuggets('<?php echo $htmlnuggetid; ?>');
-            <?php } ?>
-        }
-        </script>
-<?php
-                } else {
-                    $serendipity['smarty']->assign( array( 
-                             'sp_pagetype_showform_isnuggets' => true,
-                             'sp_pagetype_showform_htmlnuggets' => $this->htmlnugget
-                    ));
-                }
-            }
-        }
-
-        serendipity_plugin_api::hook_event('backend_staticpages_showform', $this->staticpage);
-        if (!$is_smarty) {
-?>
-    </table>
-    <br />
-    <div style="padding-left: 20px">
-        <input type="submit" name="serendipity[SAVECONF]" value="<?php echo SAVE; ?>" class="serendipityPrettyButton input_button" />
-    </div>
-<?php
-        }
+        echo $content;
+        return true;
+//***must this old non template markup hook now move to template???        serendipity_plugin_api::hook_event('backend_staticpages_showform', $this->staticpage); eg somehow as {serendipity_hookPlugin hook="backend_staticpages_showform" hookAll="true"}?
     }
-    
-    /**
-     * generate header for static page overview panel
-     *
-     * Show a introducing headline to the list.
-     */
-    function showListHeader()
-    {
-        echo "\n<h3>" . STATICPAGE_LIST_EXISTING_PAGES . "</h3>\n";
-    }
-
-    /**
-     * generate entry row for static page overview panel
-     *
-     * Show a row for a given static page.
-     * This row is similar to the one used for entries.
-     * It contains the linked title, the author and quick access for preview, editing and deletion of the page.
-     * The background color of the table produced differs for even rows and uneven rows.
-     *
-     * @param entry array with database information for the static page
-     * @param is_even true for even rows and wrong for uneven rows.
-     * @return null
-     */
-    function showListEntry($entry, $is_even)
-    {
-        global $serendipity;
-        // Find out if the entry has been modified later than 30 minutes after creation
-        if ( $entry['timestamp'] <= ($entry['last_modified'] - 60*30) )
-        {
-            $lm = '<a href="#" title="' . LAST_UPDATED . ': ' . serendipity_formatTime(DATE_FORMAT_SHORT, $entry['last_modified']) . '" onclick="alert(this.title)"><img src="'. serendipity_getTemplateFile('admin/img/clock.png') .'" alt="*" style="border: 0px none ; vertical-align: bottom;" /></a>';
-        } else {
-            $lm = '';
-        }
-
-        $published = true;
-        if (!serendipity_db_bool($entry['publishstatus']) )
-        {
-            $published = false;
-        }
-        ?>
-
-<div class="serendipity_admin_list_item serendipity_admin_list_item_<?php echo ($is_even) ? 'even' : 'uneven'; ?>">
-    <table width="100%" cellspacing="0" cellpadding="3">
-        <tr>
-            <td>
-                <?php if (!$published) { ?><strong> - DRAFT : </strong><?php } if (empty($entry['headline'])) { echo STATICPAGE_PAGETITLE . ': '; } ?><a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]=<?php echo $entry['id']; ?>" title="#<?php echo $entry['id']; ?>"><?php echo (!empty($entry['headline']) ? serendipity_truncateString(htmlspecialchars($entry['headline']),50) : $entry['pagetitle']); ?></a>
-            </td>
-            <td align="right"><?php echo serendipity_formatTime(DATE_FORMAT_SHORT, $entry['timestamp']) . ' ' .$lm; ?></td>
-        </tr>
-        <tr>
-            <td><?php echo POSTED_BY . ' ' . htmlspecialchars($this->selectAuthor($entry['authorid'])); ?></td>
-            <td align="right">
-                <form action="serendipity_admin.php" method="post" name="sp_<?php echo $entry['id']; ?>">
-                <a target="_blank" href="<?php echo $serendipity['baseURL'] . $serendipity['indexFile'] ?>?serendipity[staticid]=<?php echo $entry['id']; ?>&amp;serendipity[staticPreview]=1" title="<?php echo VIEW . ' #' . $entry['pagetitle']; ?>" class="serendipityIconLink"><img src="<?php echo serendipity_getTemplateFile('admin/img/zoom.png'); ?>" style="vertical-align: baseline; margin-right: 0px;" alt="<?php echo VIEW . ' #' . $entry['pagetitle']; ?>" /></a>
-                    <input type="hidden" name="serendipity[adminModule]" value="event_display" />
-                    <input type="hidden" name="serendipity[adminAction]" value="staticpages" />
-                    <input type="hidden" name="serendipity[staticpagecategory]" value="pages" />
-                    <input type="hidden" name="serendipity[staticpage]" value="<?php echo $entry['id']; ?>" />
-                    <input type="image" name="serendipity[staticSubmit]" src="<?php echo serendipity_getTemplateFile('admin/img/edit.png'); ?>" title="<?php echo EDIT . ' #' . $entry['pagetitle']; ?>" />
-                    <input type="image" name="serendipity[staticDelete]" src="<?php echo serendipity_getTemplateFile('admin/img/delete.png'); ?>" onclick="return confirm('<?php echo sprintf(DELETE_SURE, $entry['pagetitle']); ?>');" title="<?php echo DELETE . ' #' . $entry['pagetitle']; ?>" />
-                </form>
-            </td>
-        </tr>
-    </table>
-</div>
-
-    <?php
-    }
-
-    /**
-     * generate footer for static page overview panel
-     *
-     * Show a footline with id-based access to static pages.
-     * This footer is similar to the one used for entries.
-     * The background color of the table produced differs for even rows and uneven rows.
-     *
-     * @param is_even true for even rows and wrong for uneven rows.
-     * @return null
-     */
-    function showListFooter($is_even)
-    {
-?>
-
-<div class="sp_listfooter">
-    <form action="serendipity_admin.php" method="post" name="sp_ListFooter">
-    <div>
-        <input type="hidden" name="serendipity[adminModule]" value="event_display" />
-        <input type="hidden" name="serendipity[adminAction]" value="staticpages" />
-        <input type="hidden" name="serendipity[staticpagecategory]" value="pages" />
-        <?php echo EDIT_ENTRY ?>: #<input class="input_textbox" type="text" size="3" name="serendipity[staticpage]" />
-        <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticSubmit]" value="<?php echo GO; ?>" />
-    </div>
-    </form>
-</div>
-
-    <?php
-    }
-
-    /**
-     * generate content for empty overview panel
-     *
-     * Show a message instead of static page list if no static pages exist.
-     *
-     * @return null
-     */
-    function showEmptyList()
-    {
-    ?>
-
-<div class="serendipityAdminMsgNote">
-    <img class="backend_attention" style="vertical-align: -30%" src="<?php echo serendipity_getTemplateFile('admin/img/admin_msg_note.png'); ?>" alt="" />
-    <?php echo NO_ENTRIES_TO_PRINT ?>
-</div>
-
-    <?php
-    }
-    
-    /**
-     * Shows the static page panel overview
-     *
-     * Shows a list of all existing static pages.
-     *
-     * @access public
-     * @return null
-     */
-    function listStaticPages()
-    {
-        // get and list static pages
-        $pages = $this->fetchStaticPages();
-        if(is_array($pages))
-        {
-            $this->showListHeader();
-            
-            $pages = serendipity_walkRecursive($pages);
-            $rows = 1; // start with uneven row
-            foreach ($pages as $page)
-            {
-                $this->showListEntry($page, $rows % 2);
-                $rows++;
-            }
-
-            $this->showListFooter($is_even);
-        } else {
-            $this->showEmptyList();
-        }
-    }
-    
+//shouldn't we better move this two function far more up?
     function generate_content(&$title)
     {
         $title = STATICPAGE_TITLE;
@@ -2302,7 +2047,6 @@ class serendipity_event_staticpage extends serendipity_event
             }
         }
         return false;
-
     }
 
     function showSearch()
@@ -2343,7 +2087,7 @@ class serendipity_event_staticpage extends serendipity_event
         $results = serendipity_db_query($querystring);
         if (!is_array($results)) {
             if ($results !== 1 && $results !== true) {
-                echo '<div style="margin: 1em 2em;">'.$results.'</div>';//htmlspecialchars($results); // htmlspecialchars already done by serendipity_db_query()
+                echo '<div style="margin: 1em 2em;">'.$results.'</div>';// already escaped by serendipity_db_query()
             }
             $results = array();
         }
@@ -2355,7 +2099,7 @@ class serendipity_event_staticpage extends serendipity_event
         );
 
         $filename = 'plugin_staticpage_searchresults.tpl';
-        // use nativ API here - extends s9y version >= 1.3'
+        // use native API here - extends s9y version >= 1.3'
         $content = $this->parseTemplate($filename);
         echo $content;
     }
@@ -2368,7 +2112,6 @@ class serendipity_event_staticpage extends serendipity_event
      * @return mixed    int if match, else false
      *
      */
-
     function fetchCatProp($cid, $key = 'staticpage_categorypage')
     {
         global $serendipity;
@@ -2396,7 +2139,6 @@ class serendipity_event_staticpage extends serendipity_event
      * @return array  or false
      *
      */
-
     function fetchStaticPageForCat($staticpage_id)
     {
         global $serendipity;
@@ -2409,6 +2151,7 @@ class serendipity_event_staticpage extends serendipity_event
          if (is_array($cache)) {
              return $cache;
          }
+
          return false;
     }
 
@@ -2420,7 +2163,6 @@ class serendipity_event_staticpage extends serendipity_event
      * @return true
      *
      */
-
     function setCatProps($cid, $val = false, $deleteOnly = false)
     {
         global $serendipity;
@@ -2438,6 +2180,7 @@ class serendipity_event_staticpage extends serendipity_event
         if ($deleteOnly === false) {
             return serendipity_db_insert('staticpage_categorypage', $val);
         }
+
         return true;
     }
 
@@ -2461,7 +2204,7 @@ class serendipity_event_staticpage extends serendipity_event
                         echo " staticpage ";
                         echo $this->fetchCatProp((int)$eventData);
                     }
-
+// here we need a switch for better 2.0 and backend categories markup, I assume... WHERE is this pasted to?
 ?>
     <tr>
         <td valign="top"><label for="staticpage_categorypage"><?php echo STATICPAGE_CATEGORYPAGE; ?></label></td>
@@ -2469,9 +2212,7 @@ class serendipity_event_staticpage extends serendipity_event
 
           <select name="serendipity[cat][staticpage_categorypage]">
                 <option value=""><?php echo NONE; ?></option>
-
 <?php
-
                 $pages = $this->fetchStaticPages();
                 if(is_array($pages)) {
                     $pages = serendipity_walkRecursive($pages);
@@ -2482,10 +2223,8 @@ class serendipity_event_staticpage extends serendipity_event
                         }
                     }
                 }
-
 ?>
             </select>
-
 
         </td>
     </tr>
@@ -2496,7 +2235,6 @@ class serendipity_event_staticpage extends serendipity_event
 
                 case 'backend_category_delete':
                     $this->setCatProps($eventData, null, true);
-
 /*
 **  problem: different to backend_category_update and backend_category_addNew, here $eventData did not contain the id of the category, so
 **  the entry in the table _staticpage_categorypage is not deleted :-( Every time I get "35 AND 36" in the debug-modus.
@@ -2528,7 +2266,7 @@ class serendipity_event_staticpage extends serendipity_event
                     }
 
 // Manko10 patch: http://board.s9y.org/viewtopic.php?f=3&t=17910&p=10426432#p10426432
-                    
+
                     // Check if static page exists or if this is an error 404
                     // 
                     // NOTE: as soon as you set a static page to be a 404 handler
@@ -2537,20 +2275,20 @@ class serendipity_event_staticpage extends serendipity_event
                     // plugins such as serendipity_event_contactform
                     // This behavior might change in future releases.
                     $this->error_404 = ($_SERVER['REDIRECT_STATUS'] == '404');
-                    
+
                     $pages = $this->fetchStaticPages(true, $nice_url);
                     if (is_array($pages)) {
-                    foreach ($pages as $page) {
-                        if ($page['permalink'] == $nice_url) {
-                            $this->error_404 = FALSE;
-                            if ($pages['is_404_page']) {
-                                $this->error_404 = TRUE;
+                        foreach ($pages as $page) {
+                            if ($page['permalink'] == $nice_url) {
+                                $this->error_404 = FALSE;
+                                if ($pages['is_404_page']) {
+                                    $this->error_404 = TRUE;
+                                }
+                                break;
                             }
-                            break;
                         }
                     }
-                    }
-                    
+
                     // Set static page to 404 error document if page not found
                     if ($this->error_404) {
                         $serendipity['GET']['subpage'] = $this->get404Errorpage();
@@ -2572,8 +2310,8 @@ class serendipity_event_staticpage extends serendipity_event
                             $serendipity['head_title']    = htmlspecialchars($te);
                             $serendipity['head_subtitle'] ='';
                         } else {
-                        $serendipity['head_title']    = $this->get_static('headline');
-                        $serendipity['head_subtitle'] = $serendipity['blogTitle'];
+                            $serendipity['head_title']    = $this->get_static('headline');
+                            $serendipity['head_subtitle'] = $serendipity['blogTitle'];
                         }
                     }
                     break;
@@ -2581,15 +2319,12 @@ class serendipity_event_staticpage extends serendipity_event
                 case 'frontend_header':
                     $md = htmlspecialchars($this->get_static('meta_description'));
                     $mk = htmlspecialchars($this->get_static('meta_keywords'));
-                    if (!empty($md))
-                    {
-                        echo '        <meta name="description" content="' . $md . '" />' . "\n";
-                    }                    
-                    
-                     if (!empty($mk))
-                    {
-                        echo '        <meta name="keywords" content="' . $mk . '" />' . "\n";
-                    }                   
+                    if (!empty($md)) {
+                        echo '        <meta name="description" content="' . $md . '"' . $serendipity['version'][0] == '1' ? ' />' : '>' . "\n";
+                    }
+                    if (!empty($mk)) {
+                        echo '        <meta name="keywords" content="' . $mk . '"' . $serendipity['version'][0] == '1' ? ' />' : '>' . "\n";
+                    }
                     break;
 
                 case 'frontend_fetchentries':
@@ -2599,7 +2334,6 @@ class serendipity_event_staticpage extends serendipity_event
                     break;
 
                 case 'entry_display':
-
                     $this->smarty_init();
 
                     if ($this->selected()) {
@@ -2609,7 +2343,6 @@ class serendipity_event_staticpage extends serendipity_event
                             $eventData = array('clean_page' => true);
                         }
                     }
-
                     break;
 
                 case 'backend_sidebar_entries':
@@ -2623,8 +2356,6 @@ class serendipity_event_staticpage extends serendipity_event
 
 
                 case 'backend_media_rename':
-
-
                     // Only MySQL supported, since I don't know how to use REGEXPs differently.
                     if ($serendipity['dbType'] != 'mysql' && $serendipity['dbType'] != 'mysqli') {
                         echo STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRY . '<br />';
@@ -2636,21 +2367,16 @@ class serendipity_event_staticpage extends serendipity_event
                     }
 
                     if ($eventData[0]['type'] == 'dir'){
-                    
-                    }
-                    
-                    elseif ($eventData[0]['type'] == 'filedir'){
-
+                        // void ???
+                    } elseif ($eventData[0]['type'] == 'filedir'){
                          $eventData[0]['oldDir'] .= $eventData[0]['name'];
                          $eventData[0]['newDir'] .= $eventData[0]['name'];
                     }
 
-
                     $q = "SELECT id, content, pre_content
                             FROM {$serendipity['dbPrefix']}staticpages
                            WHERE content     REGEXP '(src=|href=|window.open.)(\'|\")(" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . "|" . serendipity_db_escape_string($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . ")'
-                              OR pre_content REGEXP '(src=|href=|window.open.)(\'|\")(" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . "|" . serendipity_db_escape_string($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . ")'
-                    ";
+                              OR pre_content REGEXP '(src=|href=|window.open.)(\'|\")(" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . "|" . serendipity_db_escape_string($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . ")'";
 
                     $dirs = serendipity_db_query($q);
                     if (is_array($dirs)) {
@@ -2665,12 +2391,12 @@ class serendipity_event_staticpage extends serendipity_event
                                                    WHERE id       = " . serendipity_db_escape_string($dir['id']);
                             serendipity_db_query($uq);
                         }
-
-                        printf(STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRIES . '<br />', count($dirs));
+                        if ($serendipity['version'][0] == '1') {
+                            printf(STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRIES . '<br />', count($dirs));
+                        } else {
+                            printf(STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRIES . '<br>', count($dirs));
+                        }
                     }
-
-
-
                     break;
 
                 case 'external_plugin':
@@ -2680,19 +2406,17 @@ class serendipity_event_staticpage extends serendipity_event
                     } else {
                         $param = null;
                     }
-
+// do we need to change this for newer frontend templates?
                     if ($parts[0] == 'dtree.js') {
                         header('Content-Type: text/javascript');
                         echo file_get_contents(dirname(__FILE__) . '/dtree.js');
                     }
-
                     break;
 
                 case 'entries_header':
                     if (!$this->isplugin()) {
                         $this->show();
                     }
-
                     break;
 
                 case 'entries_footer':

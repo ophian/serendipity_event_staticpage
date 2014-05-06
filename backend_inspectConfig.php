@@ -1,43 +1,22 @@
-<?php /* is already called by is_smarty and switched to ob_methods */echo "<!-- modul-type::$type - is SMARTIFIED($is_smarty) - backend_inspectConfig.php -->\n";/* and may sadley not get further modulized */
+<?php /* switched to ob_methods */echo "<!-- modul-type::$type - is SMARTIFIED(true) - backend_inspectConfig.php -->\n";/* and may sadley not get further modulized */
         switch ($type) {
             case 'seperator':
-                if (!$is_smarty) {
-?>
-        <tr>
-            <td colspan="2"><hr noshade="noshade" size="1" /></td>
-        </tr>
-<?php
-                }
+                //void
                 break;
 
             case 'select':
-                if (!$is_smarty) {
 ?>
-        <tr>
-            <td style="border-bottom: 1px solid #000000; vertical-align: top"><strong><?php echo $cname; ?></strong>
+                <select class="direction_<?php echo $lang_direction; ?>" name="serendipity[plugin][<?php echo $config_item; ?>]">
 <?php
-                if ($cdesc != '') {
+                foreach($select AS $select_value => $select_desc) {
+                    $id = htmlspecialchars($config_item . $select_value);
 ?>
-                <br><span  style="color: #5E7A94; font-size: 8pt;">&nbsp;<?php echo $cdesc; ?></span>
-                <?php } ?>
-            </td>
-            <td style="border-bottom: 1px solid #000000; vertical-align: middle" width="250">
-                <div>
-                <?php } ?>
-<select class="direction_<?php echo $lang_direction; ?>" name="serendipity[plugin][<?php echo $config_item; ?>]">
-<?php
-foreach($select AS $select_value => $select_desc) {
-    $id = htmlspecialchars($config_item . $select_value);
-?>
-                        <option title="<?php echo htmlspecialchars($select_desc); ?>"<?php echo ($select_value == $hvalue ? ' selected="selected"' : ''); ?> value="<?php echo $select_value; ?>"><?php echo htmlspecialchars($select_desc); ?></option>
-<?php } ?>
-                    </select>
-<?php if (!$is_smarty) { ?>
-                </div>
-            </td>
-        </tr>
+                    <option title="<?php echo htmlspecialchars($select_desc); ?>"<?php echo ($select_value == $hvalue ? ' selected="selected"' : ''); ?> value="<?php echo $select_value; ?>"><?php echo htmlspecialchars($select_desc); ?></option>
 <?php
                 }
+?>
+                </select>
+<?php
                 break;
 
             case 'tristate':
@@ -64,21 +43,6 @@ foreach($select AS $select_value => $select_desc) {
                     }
                 }
 
-                if (!$is_smarty) {
-?>
-        <tr>
-            <td style="border-bottom: 1px solid #000000; vertical-align: top"><strong><?php echo $cname; ?></strong>
-<?php
-                if ($cdesc != '') {
-?>
-                <br /><span  style="color: #5E7A94; font-size: 8pt;">&nbsp;<?php echo $cdesc; ?></span>
-<?php
-                }
-?>
-            </td>
-            <td style="border-bottom: 1px solid #000000; vertical-align: middle;" width="250">
-<?php
-                }
                 $counter = 0;
                 foreach($radio['value'] AS $radio_index => $radio_value) {
                     $id = htmlspecialchars($config_item . $radio_value);
@@ -99,7 +63,7 @@ foreach($select AS $select_value => $select_desc) {
 <?php
                     }
 ?>
-                    <input class="input_radio direction_<?php echo $lang_direction; ?>" type="radio" id="serendipity_plugin_<?php echo $id; ?>" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo $radio_value; ?>" <?php echo $checked ?> title="<?php echo htmlspecialchars($radio['desc'][$radio_index]); ?>" />
+                    <input class="input_radio direction_<?php echo $lang_direction; ?>" type="radio" id="serendipity_plugin_<?php echo $id; ?>" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo $radio_value; ?>" <?php echo $checked ?> title="<?php echo htmlspecialchars($radio['desc'][$radio_index]); ?>"<?php if ($serendipity['version'][0] == '1') { ?> /<?php } ?>>
                         <label for="serendipity_plugin_<?php echo $id; ?>"><?php echo htmlspecialchars($radio['desc'][$radio_index]); ?></label>
 <?php
                     if ($counter == $per_row) {
@@ -109,48 +73,18 @@ foreach($select AS $select_value => $select_desc) {
 <?php
                     }
                 }
-                if (!$is_smarty) {
-?>
-            </td>
-        </tr>
-<?php
-                }
                 break;
 
             case 'string':
-                if (!$is_smarty) {
 ?>
-        <tr>
-            <td style="border-bottom: 1px solid #000000">
-                    <strong><?php echo $cname; ?></strong>
-                    <br><span style="color: #5E7A94; font-size: 8pt;">&nbsp;<?php echo $cdesc; ?></span>
-            </td>
-            <td style="border-bottom: 1px solid #000000" width="250">
-                <div>
-<?php           } ?>
-                    <input class="input_textbox direction_<?php echo $lang_direction; ?>" type="text" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo $hvalue; ?>" size="30" />
-<?php           if (!$is_smarty) { ?>
-                </div>
-            </td>
-        </tr>
+                    <input class="input_textbox direction_<?php echo $lang_direction; ?>" type="text" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo $hvalue; ?>" size="30"<?php if ($serendipity['version'][0] == '1') { ?> /<?php } ?>>
 <?php
-                }
                 break;
 
             case 'html':
             case 'text':
-                if (!$is_smarty) {
-                    echo '<tr>';
-                }
 
                 if (!$serendipity['wysiwyg']) {
-                    if (!$is_smarty) {
-?>
-                <td><strong><?php echo $cname; ?></strong>
-                &nbsp;<span style="color: #5E7A94; font-size: 8pt;">&nbsp;<?php echo $cdesc; ?></span></td>
-                <td align="right">
-<?php
-                    }
                     if ($serendipity['version'][0] == '1') {
 ?>
                     <nobr><span id="tools_<?php echo $config_item ?>" class="editor_toolbar" style="display: none">
@@ -187,11 +121,6 @@ foreach($select AS $select_value => $select_desc) {
                         tb_<?php echo $config_item ?>.style.display = '';
                     </script>
 <?php
-                    if (!$serendipity['version'][0] == '1' && !$is_smarty) {
-?>
-                    <script src="<?php echo serendipity_getTemplateFile('admin/js/jquery.magnific-popup.js') ?>"></script>
-<?php
-                    }
 
                     // add extra data in the entry's array so that emoticonchooser plugin
                     // behaves well with wysiwyg editors, then clean up ;-) (same apply below)
@@ -201,19 +130,6 @@ foreach($select AS $select_value => $select_desc) {
                     unset($entry['backend_entry_toolbar_body:textarea']);
                     unset($entry['backend_entry_toolbar_body:nugget']);
                 } else {
-                    if (!$is_smarty) {
-?>
-            <td colspan="2"><strong><?php echo $cname; ?></strong>
-                &nbsp;<span style="color: #5E7A94; font-size: 8pt;">&nbsp;<?php echo $cdesc; ?></span></td>
-            <td>
-<?php
-                    }
-
-                    if (!$serendipity['version'][0] == '1' && !$is_smarty) {
-?>
-                    <script src="<?php echo serendipity_getTemplateFile('admin/js/jquery.magnific-popup.js') ?>"></script>
-<?php
-                    }
 
                     if ($serendipity['version'][0] > '1') {
                         serendipity_emit_htmlarea_code("nuggets{$elcount}","");
@@ -225,68 +141,32 @@ foreach($select AS $select_value => $select_desc) {
                     unset($entry['backend_entry_toolbar_body:nugget']);
 
                 }
-
-                if (!$is_smarty) {
 ?>
-                </td>
-            </tr>
-
-        <tr>
-            <td colspan="2">
-<?php           } ?>
                 <div>
                     <textarea class="direction_<?php echo $lang_direction; ?>" style="width: 100%" id="nuggets<?php echo $elcount; ?>" name="serendipity[plugin][<?php echo $config_item; ?>]" rows="20" cols="80"><?php echo $hvalue; ?></textarea>
                 </div>
-
-<?php         if (!$is_smarty) { ?>
-
-            </td>
-        </tr>
 <?php
-                }
 
                 if ($type == 'html') {
                     $this->htmlnugget[] = $elcount;
-                    #if (version_compare(preg_replace('@[^0-9\.]@', '', $serendipity['version']), '0.9', '<')) {
-                    #    serendipity_emit_htmlarea_code('nuggets' . $elcount, 'nuggets' . $elcount);
-                    #} else {
-                        serendipity_emit_htmlarea_code('nuggets', 'nuggets', true);
-                    #}
+                    serendipity_emit_htmlarea_code('nuggets', 'nuggets', true);
                 }
                 break;
 
             case 'content':
-                if (!$is_smarty) {
-                    ?><tr><td colspan="2"><?php echo $default; ?></td></tr><?php
-                } else {
-                    echo $default;
-                }
+                echo $default;
                 break;
 
             case 'hidden':
-                if (!$is_smarty) {?><tr><td colspan="2"><?php }
-                ?><input class="direction_<?php echo $lang_direction; ?>" type="hidden" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo $value; ?>" /><?php
-                if (!$is_smarty) {?></td></tr><?php }
+?>
+                <input class="direction_<?php echo $lang_direction; ?>" type="hidden" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo $value; ?>"<?php if ($serendipity['version'][0] == '1') { ?> /<?php } ?>>
+<?php
                 break;
 
             case 'timestamp':
-                if (!$is_smarty) {
 ?>
-        <tr>
-            <td style="border-bottom: 1px solid #000000">
-                    <strong><?php echo $cname; ?></strong>
-                    <br><span style="color: #5E7A94; font-size: 8pt;">&nbsp;<?php echo $cdesc; ?></span>
-            </td>
-            <td style="border-bottom: 1px solid #000000" width="250">
-                <div>
-<?php           } ?>
-                    <input class="input_textbox direction_<?php echo $lang_direction; ?>" type="text" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo serendipity_strftime(DATE_FORMAT_SHORT, $hvalue); ?>" size="30" />
-<?php           if (!$is_smarty) { ?>
-                </div>
-            </td>
-        </tr>
+                    <input class="input_textbox direction_<?php echo $lang_direction; ?>" type="text" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo serendipity_strftime(DATE_FORMAT_SHORT, $hvalue); ?>" size="30"<?php if ($serendipity['version'][0] == '1') { ?> /<?php } ?>>
 <?php
-                }
                 break;
         }
 

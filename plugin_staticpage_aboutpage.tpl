@@ -50,7 +50,7 @@
 </td>
 <td>
         <a href="{$child.permalink}">{$child.pagetitle}</a><br />
-        {$child.precontent|truncate:200:"...":true}
+        {$child.precontent|truncate:200:"&hellip;":true}
 
 </td>
 </tr>

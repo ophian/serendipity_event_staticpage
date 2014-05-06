@@ -10,9 +10,9 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] deep check, if current changes broke anything with some more enhanced staticpage options (all normal behaviour is checked working!)
 - [ ] move new backend template files into own or current backend_template directory ?
 - [ ] since now using Smarty 3 only, some Smarty code will need a refresh (no need, but cleaner)
-- [ ] howto navigate with large amount of staticpages, beyond 10-15 ?
-- [ ] touch frontend template (examples in the plugin dir) for HTML5, inline styles, etc ?
-- [ ] solve some last remaining questions pasted as notes
+- [ ] how to navigate with larger amounts of staticpages, ie. beyond 10-15 ?
+- [ ] touch frontend templates (in this plugin dir) for HTML5, inline styles, etc ?
+- [ ] solve some last remaining questions pasted as '// RQ: ' notes
 
 - - -
 

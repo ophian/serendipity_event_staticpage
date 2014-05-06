@@ -16,7 +16,7 @@
         $serendipity['smarty']->assign( array (
                      's9y_get_cat' => $serendipity['GET']['staticpagecategory'],
                      's9y_post_cat' => $serendipity['POST']['staticpagecategory']
-                     ));
+        ));
 
         $spcat = !empty($serendipity['GET']['staticpagecategory']) ? $serendipity['GET']['staticpagecategory'] : $serendipity['POST']['staticpagecategory'];
 
@@ -74,14 +74,14 @@
                     $serendipity['smarty']->assign( array (
                                  'sp_pagetype_ripped' => $this->pagetype['description'],
                                  'sp_pagetype_purged' => true
-                                 ));
+                    ));
                 }
 
                 $types = $this->fetchPageTypes();
                 $serendipity['smarty']->assign( array (
                              'sp_pagetype' => true,
                              'sp_pagetype_types' => $types
-                             ));
+                ));
 
                 if (isset($serendipity['POST']['typeSubmit'])) {
                     $serendipity['POST']['staticSubmit'] = true;//??
@@ -108,7 +108,7 @@
                     $serendipity['smarty']->assign( array(
                                  'sp_pagetype_isshowform' => true,
                                  'sp_pagetype_showform' => trim($smarty_pagetypeshowform)
-                                 ));// showform is a string!
+                    ));// showform is a string!
                 }
                 break;
 
@@ -146,7 +146,7 @@
                     $serendipity['smarty']->assign( array (
                                  'sp_pageadd_plugins' => $plugins,
                                  'sp_pageadd_insplugins' => $insplugins
-                                 ));
+                    ));
                 }
 
                 $this->pluginstatus();
@@ -283,7 +283,7 @@
                         $serendipity['smarty']->assign( array (
                                      'sp_listentries_entries' => $this->fetchStaticPages(),
                                      'sp_listentries_authors' => $this->selectAuthors()
-                                     ));
+                        ));
                     }
                     // TODO: here entryList pagination... (only in case there are too much entries; but then also needed for selectbox default option) - could be a JS pagination by first or via php and external_plugins?
                 } //get_config('showlist') end

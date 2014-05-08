@@ -1549,6 +1549,7 @@ class serendipity_event_staticpage extends serendipity_event
         $q = 'SELECT parent_id
                 FROM '.$serendipity['dbPrefix'].'staticpages
                WHERE id = '.(int)$id;
+
         $parent_id = serendipity_db_query($q, true, 'assoc');
 
         $q = 'SELECT id, pageorder
@@ -1556,7 +1557,9 @@ class serendipity_event_staticpage extends serendipity_event
                WHERE parent_id = '.$parent_id['parent_id'].'
                  AND publishstatus = 1
             ORDER BY pageorder';
+
         $pages = serendipity_db_query($q, false, 'assoc');
+
         return is_array($pages) ? $pages : false;
     }
 
@@ -1574,7 +1577,9 @@ class serendipity_event_staticpage extends serendipity_event
                 FROM '.$serendipity['dbPrefix'].'staticpages
                WHERE id = '.(int)$id.'
                LIMIT 1';
+
         $page = serendipity_db_query($q, true, 'assoc');
+
         return is_array($page) ? $page : false;
     }
 
@@ -1648,7 +1653,9 @@ class serendipity_event_staticpage extends serendipity_event
                 FROM '.$serendipity['dbPrefix'].'staticpages
                WHERE id = '.(int)$id.'
                LIMIT 1';
+
         $page = serendipity_db_query($q, true, 'assoc');
+
         if (is_array($page)) {
             $this->staticpage =& $page;
             $this->checkPage();
@@ -1669,7 +1676,9 @@ class serendipity_event_staticpage extends serendipity_event
                 FROM '.$serendipity['dbPrefix'].'staticpages_types
                WHERE id = '.(int)$id.'
               LIMIT 1';
+
         $type = serendipity_db_query($q, true, 'assoc');
+
         if(is_array($type)) {
             $this->pagetype = $type; // no more &
         }
@@ -1775,7 +1784,9 @@ class serendipity_event_staticpage extends serendipity_event
         $q = 'SELECT *
                 FROM ' . $serendipity['dbPrefix'] . 'staticpage_custom
                WHERE staticpage = ' . (int)$this->staticpage['id'];
+
         $custom = serendipity_db_query($q, false, 'assoc');
+
         if (is_array($custom)) {
             foreach($custom AS $idx => $row) {
                 $parts = explode('~', $row['value']);
@@ -1806,6 +1817,7 @@ class serendipity_event_staticpage extends serendipity_event
                   OR  language = \'\')
             ORDER BY id DESC
                LIMIT 1';
+
         $page = serendipity_db_query($q, true, 'assoc');
 
         return (is_array($page) && isset($page['pagetitle'])) ? $page['pagetitle'] : false;
@@ -1829,6 +1841,7 @@ class serendipity_event_staticpage extends serendipity_event
                   OR  language = \'\')
             ORDER BY last_modified DESC
                LIMIT 1';
+
         $page = serendipity_db_query($q, true, 'assoc');
 
         return (is_array($page) && isset($page['pagetitle'])) ? $page['pagetitle'] : false;
@@ -1878,6 +1891,7 @@ class serendipity_event_staticpage extends serendipity_event
                 serendipity_db_query("DELETE FROM {$serendipity['dbPrefix']}staticpage_custom
                                             WHERE staticpage = " . (int)$pid . "
                                               AND name = '" . serendipity_db_escape_string($custom_name) . "'");
+
                 if (strtolower($custom_value) != 'none' && trim($custom_value) != '') {
                     serendipity_db_query("INSERT INTO {$serendipity['dbPrefix']}staticpage_custom (staticpage, name, value)
                                            VALUES (" . (int)$pid . ", '" . serendipity_db_escape_string($custom_name) . "', '" . serendipity_db_escape_string($custom_value) . "')");
@@ -1922,14 +1936,15 @@ class serendipity_event_staticpage extends serendipity_event
         $q = 'SELECT *
                 FROM '.$serendipity['dbPrefix'].'staticpages
                WHERE 1 = 1';
+
         if(!$plugins) {
             $q .= ' AND content != \'plugin\'';
         }
-
         if ($match_permalink != '') {
             $q .= " AND permalink = '" . serendipity_db_escape_string($match_permalink) . "' ";
         }
         $q .= ' ORDER BY parent_id, pageorder';
+
         return serendipity_db_query($q);
     }
 
@@ -1944,6 +1959,7 @@ class serendipity_event_staticpage extends serendipity_event
         global $serendipity;
 
         $pub = serendipity_db_query("SELECT id, pagetitle, parent_id, permalink FROM {$serendipity['dbPrefix']}staticpages WHERE publishstatus = 1 ORDER BY parent_id, pageorder");
+
         return is_array($pub) ? $pub : false;
     }
 
@@ -1974,7 +1990,9 @@ class serendipity_event_staticpage extends serendipity_event
                 FROM ".$serendipity['dbPrefix']."staticpages
                WHERE content = 'plugin'
               ORDER BY pageorder";
+
         $res = (array)serendipity_db_query($q, false, 'assoc');
+
         foreach($res as $plugin){
             $ret[$plugin['pre_content']] = array(
                 'pagetitle' => $plugin['pagetitle'],
@@ -1982,6 +2000,7 @@ class serendipity_event_staticpage extends serendipity_event
                 'id'        => $plugin['id']
             );
         }
+
         return $ret;
     }
 
@@ -2002,7 +2021,9 @@ class serendipity_event_staticpage extends serendipity_event
         } else {
             $filename = 'old_backend_staticpage.tpl';
         }
+
         $content = $this->parseTemplate($filename);
+
         echo $content;
     }
 
@@ -2018,6 +2039,7 @@ class serendipity_event_staticpage extends serendipity_event
         foreach ($order as $key => $id) {
             serendipity_db_update('staticpages', array('id' => $id), array('pageorder' => $key));
         }
+
         @unlink($this->cachefile);
     }
 
@@ -2036,11 +2058,14 @@ class serendipity_event_staticpage extends serendipity_event
         $q = 'SELECT pageorder, parent_id
                 FROM '.$serendipity['dbPrefix'].'staticpages
                WHERE id='.$id;
+
         $thispage = serendipity_db_query($q, true, 'assoc');
+
         $q = 'SELECT id
                 FROM '.$serendipity['dbPrefix'].'staticpages
                WHERE parent_id = '.$thispage['parent_id'].'
                  AND pageorder = '.($thispage['pageorder'] -1);
+
         $childpage = serendipity_db_query($q, true, 'assoc');
 
         $sisters = $this->getSisterID($id);
@@ -2060,6 +2085,7 @@ class serendipity_event_staticpage extends serendipity_event
             serendipity_db_update('staticpages', array('id' => $id), array('pageorder' => ($thispage['pageorder'] - 1)));
             serendipity_db_update('staticpages', array('id' => $childpage['id']), array('pageorder' => $thispage['pageorder']));
         }
+
         @unlink($this->cachefile);
     }
 
@@ -2078,11 +2104,14 @@ class serendipity_event_staticpage extends serendipity_event
         $q = 'SELECT pageorder, parent_id
                 FROM '.$serendipity['dbPrefix'].'staticpages
                WHERE id='.$id;
+
         $thispage = serendipity_db_query($q, true, 'assoc');
+
         $q = 'SELECT id
                 FROM '.$serendipity['dbPrefix'].'staticpages
                WHERE parent_id = '.$thispage['parent_id'].'
                  AND pageorder = '.($thispage['pageorder'] + 1);
+
         $childpage = serendipity_db_query($q, true, 'assoc');
 
         $sisters = $this->getSisterID($id);
@@ -2102,6 +2131,7 @@ class serendipity_event_staticpage extends serendipity_event
             serendipity_db_update('staticpages', array('id' => $id), array('pageorder' => ($thispage['pageorder'] + 1)));
             serendipity_db_update('staticpages', array('id' => $childpage['id']), array('pageorder' => $thispage['pageorder']));
         }
+
         @unlink($this->cachefile);
     }
 
@@ -2253,7 +2283,9 @@ class serendipity_event_staticpage extends serendipity_event
             $this->staticpage['publishstatus'] = serendipity_db_bool($this->get_config('publishstatus'));
         }
 
-        serendipity_smarty_init();
+        if (!is_object($serendipity['smarty'])) {
+            serendipity_smarty_init();
+        }
         $serendipity['smarty']->registerPlugin('modifier', 'in_array', 'in_array');
         $serendipity['smarty']->registerPlugin('function', 'staticpage_input', array($this, 'SmartyInspectConfig'));
         $serendipity['smarty']->registerPlugin('function', 'staticpage_input_finish', array($this, 'SmartyInspectConfigFinish'));
@@ -2278,8 +2310,6 @@ class serendipity_event_staticpage extends serendipity_event
                 $tfile = dirname(__FILE__) . '/backend_templates/' . $filename;
             }
         }
-        $inclusion = $serendipity['smarty']->security_settings[INCLUDE_ANY];
-        $serendipity['smarty']->security_settings[INCLUDE_ANY] = true;
         $serendipity['smarty']->assign(
                 array(
                     'showmeta'       => serendipity_db_bool($this->get_config('showmeta')),
@@ -2290,7 +2320,6 @@ class serendipity_event_staticpage extends serendipity_event
                 )
         );
         $content = $serendipity['smarty']->fetch('file:'. $tfile);
-        $serendipity['smarty']->security_settings[INCLUDE_ANY] = $inclusion;
 
         echo $content;
         return true;
@@ -2361,6 +2390,7 @@ class serendipity_event_staticpage extends serendipity_event
                       ORDER BY timestamp DESC";
 
         $results = serendipity_db_query($querystring);
+
         if (!is_array($results)) {
             if ($results !== 1 && $results !== true) {
                 echo '<div style="margin: 1em 2em;">'.$results.'</div>';// already escaped by serendipity_db_query()
@@ -2400,6 +2430,7 @@ class serendipity_event_staticpage extends serendipity_event
         }
 
         $props = serendipity_db_query("SELECT * FROM {$serendipity['dbPrefix']}staticpage_categorypage WHERE categoryid = " . (int)$cid . " LIMIT 1");
+
         if (is_array($props)) {
             $cache[$cid] = $props[0];
             return $cache[$cid][$key];
@@ -2425,12 +2456,14 @@ class serendipity_event_staticpage extends serendipity_event
                 FROM '.$serendipity['dbPrefix'].'staticpages
                WHERE id = '.(int)$staticpage_id.'
                LIMIT 1';
-        $cache =  serendipity_db_query($q, true, 'assoc');
-         if (is_array($cache)) {
-             return $cache;
-         }
 
-         return false;
+        $cache =  serendipity_db_query($q, true, 'assoc');
+
+        if (is_array($cache)) {
+             return $cache;
+        }
+
+        return false;
     }
 
 

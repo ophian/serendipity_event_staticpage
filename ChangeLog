@@ -23,6 +23,7 @@
     Added confirmation dialog on select change page events, to avoid saving into wrong page accidently
     Extend required Serendipity version to 1.7 and Smarty 3.1, since the old_backend_staticpage.tpl would need too much old Smarty2 and CSS fixes
     Removed old hardcoded markup - mark as fully smartified (except inspectConfig generation, which is some sort of template too and some minor markups that get hooked)
+    Changed method name getSystersID() to getSisterID()
 
 -----
 

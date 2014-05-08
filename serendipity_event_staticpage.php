@@ -1411,10 +1411,7 @@ class serendipity_event_staticpage extends serendipity_event
         if (!$tfile || $tfile == $filename) {
             $tfile = dirname(__FILE__) . '/' . $filename;
         }
-        $inclusion = $serendipity['smarty']->security_settings[INCLUDE_ANY];
-        $serendipity['smarty']->security_settings[INCLUDE_ANY] = true;
         $content = $serendipity['smarty']->fetch('file:'. $tfile);
-        $serendipity['smarty']->security_settings[INCLUDE_ANY] = $inclusion;
 
         return $content;
     }

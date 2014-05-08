@@ -62,10 +62,11 @@ class serendipity_event_staticpage extends serendipity_event
         );
 
     /**
-     * ??
+     * The introspection function to setup properties about the plugin.
      *
-     * @access private
-     * @return void
+     * @access public
+     * @param   object  A property bag object you can manipulate
+     * @return true
      */
     function introspect(&$propbag)
     {
@@ -484,6 +485,28 @@ class serendipity_event_staticpage extends serendipity_event
                 return false;
         }
         return true;
+    }
+
+    /**
+     * Generate content title
+     *
+     * @access private
+     * @return void
+     */
+    function generate_content(&$title)
+    {
+        $title = STATICPAGE_TITLE;
+    }
+
+    /**
+     * Install the staticpage database tables
+     *
+     * @access private
+     * @return void
+     */
+    function install()
+    {
+        $this->setupDB();
     }
 
     /**
@@ -1320,8 +1343,8 @@ class serendipity_event_staticpage extends serendipity_event
             }
         }
 
-
-/* RQ: (remove?) this is probably unneeded for the solution with serendipity_fetchPrintEntries - see plugin_staticpage_related_category.tpl - so we can save the costs of a sql-query
+// RQ: remove ?
+/* this is probably unneeded for the solution with serendipity_fetchPrintEntries - see plugin_staticpage_related_category.tpl - so we can save the costs of a sql-query
 
             $related_category_entries = null;
             if ($this->get_static('related_category_id') >= 0) {
@@ -1378,7 +1401,8 @@ class serendipity_event_staticpage extends serendipity_event
                 $pagevar . 'title_element'      => $this->get_static('title_element'),
                 $pagevar . 'meta_description'   => $this->get_static('meta_description'),
                 $pagevar . 'meta_keywords'      => $this->get_static('meta_keywords')
-// RQ: (remove?) same thing as above
+// RQ: remove ?
+// same thing as above
 //                    $pagevar . 'related_category_entries'           => $related_category_entries
             )
         );
@@ -2199,7 +2223,7 @@ class serendipity_event_staticpage extends serendipity_event
                 ));
             }
         }
-// RQ: good here or move to tpl ?
+// RQ: good here or better move to tpl ?
         serendipity_plugin_api::hook_event('backend_staticpages_showform', $this->staticpage);
 
         $out = ob_get_contents();
@@ -2214,7 +2238,6 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return bool
      */
-// RQ: is it pass-by-reference argument or pass-by-value ?
     function showForm(&$form_values, &$form_container, $introspec_func = 'introspect_item', $value_func = 'get_static', $submit_name = 'staticSubmit')
     {
         global $serendipity;
@@ -2274,33 +2297,6 @@ class serendipity_event_staticpage extends serendipity_event
 
         echo $content;
         return true;
-// RQ: must this old non template markup hook now move to template???
-//        serendipity_plugin_api::hook_event('backend_staticpages_showform', $this->staticpage);
-// eg somehow as {serendipity_hookPlugin hook="backend_staticpages_showform" hookAll="true"} ?
-// It is already hooked at end of SmartyInspectConfigFinish() L~2155 - so I actually think there is no need to do it again... (?)
-    }
-
-// RQ: shouldn't we better move these two functions far more up?
-    /**
-     * Generate content title
-     *
-     * @access private
-     * @return void
-     */
-    function generate_content(&$title)
-    {
-        $title = STATICPAGE_TITLE;
-    }
-
-    /**
-     * Install the staticpage database tables
-     *
-     * @access private
-     * @return void
-     */
-    function install()
-    {
-        $this->setupDB();
     }
 
     /**
@@ -2503,7 +2499,7 @@ class serendipity_event_staticpage extends serendipity_event
                         echo " staticpage ";
                         echo $this->fetchCatProp((int)$eventData);
                     }
-// RQ: here we need a switch for better 2.0 and backend categories markup, I assume... WHERE is this pasted to?
+// RQ: here we need a switch for better 2.0 and backend categories markup, I assume... WHERE is this pasted to ?
 ?>
     <tr>
         <td valign="top"><label for="staticpage_categorypage"><?php echo STATICPAGE_CATEGORYPAGE; ?></label></td>
@@ -2534,7 +2530,7 @@ class serendipity_event_staticpage extends serendipity_event
 
                 case 'backend_category_delete':
                     $this->setCatProps($eventData, null, true);
-/* RQ: remove note?
+/* RQ: remove note ?
 **  problem: different to backend_category_update and backend_category_addNew, here $eventData did not contain the id of the category, so
 **  the entry in the table _staticpage_categorypage is not deleted :-( Every time I get "35 AND 36" in the debug-modus.
 **  GARVIN: Yes, the ID contains a SQL statement for Category ID because the category children are contained as well!
@@ -2563,7 +2559,7 @@ class serendipity_event_staticpage extends serendipity_event
                     } else {
                         $nice_url = $serendipity['serendipityHTTPPath'] . $serendipity['indexFile'] . '?/' . $args;
                     }
-// RQ: remove note?
+// RQ: remove note ?
 // Manko10 patch: http://board.s9y.org/viewtopic.php?f=3&t=17910&p=10426432#p10426432
 
                     // Check if static page exists or if this is an error 404
@@ -2655,7 +2651,7 @@ class serendipity_event_staticpage extends serendipity_event
 
 
                 case 'backend_media_rename':
-// RQ: ToDo?
+// RQ: ToDo ?
                     // Only MySQL supported, since I don't know how to use REGEXPs differently.
                     if ($serendipity['dbType'] != 'mysql' && $serendipity['dbType'] != 'mysqli') {
                         echo STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRY . '<br />';
@@ -2706,7 +2702,7 @@ class serendipity_event_staticpage extends serendipity_event
                     } else {
                         $param = null;
                     }
-// RQ: do we need to change this for newer frontend templates?
+// RQ: do we need to change this for newer frontend templates ?
                     if ($parts[0] == 'dtree.js') {
                         header('Content-Type: text/javascript');
                         echo file_get_contents(dirname(__FILE__) . '/dtree.js');

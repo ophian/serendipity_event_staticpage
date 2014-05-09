@@ -68,7 +68,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @param   object  A property bag object you can manipulate
      * @return true
      */
-    function introspect(&$propbag)
+    public function introspect(&$propbag)
     {
         global $serendipity;
 
@@ -135,7 +135,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @param     object    A property bag object you can store the configuration in
      * @return bool
      */
-    function introspect_config_item($name, &$propbag)
+    public function introspect_config_item($name, &$propbag)
     {
         global $serendipity;
 
@@ -240,12 +240,12 @@ class serendipity_event_staticpage extends serendipity_event
      *
      * Called, when the (Smarty)InspectConfig is gathered for form generation elements
      *
-     * @access    public
+     * @access    private
      * @param     string    Name of the config item
      * @param     object    A property bag object you can store the configuration in
      * @return bool
      */
-    function introspect_item($name, &$propbag)
+    private function introspect_item($name, &$propbag)
     {
         global $serendipity;
 
@@ -451,12 +451,12 @@ class serendipity_event_staticpage extends serendipity_event
      *
      * Called, when the (Smarty)InspectConfig is gathered for form generation elements
      *
-     * @access    public
+     * @access    private
      * @param     string    Name of the config item
      * @param     object    A property bag object you can store the configuration in
      * @return bool
      */
-    function introspect_item_type($name, &$propbag)
+    private function introspect_item_type($name, &$propbag)
     {
         global $serendipity;
 
@@ -490,10 +490,10 @@ class serendipity_event_staticpage extends serendipity_event
     /**
      * Generate content title
      *
-     * @access private
+     * @access public
      * @return void
      */
-    function generate_content(&$title)
+    public function generate_content(&$title)
     {
         $title = STATICPAGE_TITLE;
     }
@@ -501,10 +501,10 @@ class serendipity_event_staticpage extends serendipity_event
     /**
      * Install the staticpage database tables
      *
-     * @access private
+     * @access public
      * @return void
      */
-    function install()
+    public function install()
     {
         $this->setupDB();
     }
@@ -516,7 +516,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @return array    key: userid, value: realname
      *
      */
-    function selectAuthors()
+    private function selectAuthors()
     {
         global $serendipity;
 
@@ -535,7 +535,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return array
      */
-    function getLanguages()
+    private function getLanguages()
     {
         global $serendipity;
 
@@ -550,7 +550,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return array
      */
-    function getRelatedCategories()
+    private function getRelatedCategories()
     {
         global $serendipity;
 
@@ -571,7 +571,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @return mixed    realname if match, else false
      *
      */
-    function selectAuthor($id)
+    private function selectAuthor($id)
     {
         global $serendipity;
 
@@ -591,7 +591,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @return boolean
      *
      */
-    function checkUser(&$user)
+    private function checkUser(&$user)
     {
         global $serendipity;
 
@@ -606,7 +606,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @return boolean
      *
      */
-    function checkPageUser($authorid)
+    private function checkPageUser($authorid)
     {
         global $serendipity;
 
@@ -626,7 +626,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @return array    array of pages
      *
      */
-    function selectPages()
+    private function selectPages()
     {
         global $serendipity;
 
@@ -658,7 +658,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @return mixed    array if pagetypes, else false
      *
      */
-    function selectPageTypes()
+    private function selectPageTypes()
     {
         global $serendipity;
 
@@ -683,7 +683,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return bool
      */
-    function sb_plugin_status() {
+    private function sb_plugin_status() {
         $plugins = serendipity_plugin_api::enum_plugins('*', false, 'serendipity_plugin_staticpage');
         if(is_array($plugins) && !empty($plugins[0]['name'])) {
             return true;
@@ -697,7 +697,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return void
      */
-    function pluginstatus()
+    private function pluginstatus()
     {
         global $serendipity;
 
@@ -740,7 +740,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @return array
      *
      */
-    function selectPlugins()
+    private function selectPlugins()
     {
         global $serendipity;
 
@@ -869,7 +869,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @return void
      *
      */
-    function setupDB()
+    private function setupDB()
     {
         global $serendipity;
 
@@ -1065,7 +1065,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @return string
      *
      */
-    function get_static($key, $default = null) /* no more & */
+    private function get_static($key, $default = null) /* no more & */
     {
         return (isset($this->staticpage[$key]) ? $this->staticpage[$key] : $default);
     }
@@ -1079,7 +1079,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @return string
      *
      */
-    function get_type($key, $default = null) /* no more & */
+    private function get_type($key, $default = null) /* no more & */
     {
         return (isset($this->pagetype[$key]) ? $this->pagetype[$key] : $default);
     }
@@ -1090,7 +1090,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return array
      */
-    function getEditlinkData()
+    private function getEditlinkData()
     {
         global $serendipity;
 
@@ -1109,7 +1109,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return mixed array/bool
      */
-    function getNavigationData()
+    private function getNavigationData()
     {
         global $serendipity;
 
@@ -1196,7 +1196,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return string
      */
-    function getTemplate($id)
+    private function getTemplate($id)
     {
         global $serendipity;
 
@@ -1213,7 +1213,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return string
      */
-    function getImage($id)
+    private function getImage($id)
     {
         global $serendipity;
 
@@ -1230,7 +1230,8 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return void
      */
-    function smarty_init()
+// RQ: must this (and assigned or registered methods) be declared public?
+    private function smarty_init()
     {
         global $serendipity;
         if (!isset($this->smarty_init))
@@ -1255,7 +1256,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return template string
      */
-    function parseStaticPage($pagevar = 'staticpage_', $template = 'plugin_staticpage.tpl') /* No more & */
+    private function parseStaticPage($pagevar = 'staticpage_', $template = 'plugin_staticpage.tpl') /* No more & */
     {
         global $serendipity;
 
@@ -1422,7 +1423,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return string by echo
      */
-    function show()
+    private function show()
     {
         global $serendipity;
 
@@ -1446,7 +1447,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return mixed array/bool
      */
-    function getPageID()
+    private function getPageID()
     {
         global $serendipity;
 
@@ -1470,7 +1471,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return mixed array/bool
      */
-    function getChildPages() {
+    private function getChildPages() {
         global $serendipity;
 
         $id = (int)$this->getPageID();
@@ -1492,7 +1493,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return mixed array/bool
      */
-    function getChildPagesID()
+    private function getChildPagesID()
     {
         global $serendipity;
 
@@ -1522,7 +1523,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return mixed array/bool
      */
-    function getChildPage($id) // no more &
+    private function getChildPage($id) // no more &
     {
         global $serendipity;
 
@@ -1542,7 +1543,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return mixed array/bool
      */
-    function getSisterID($id) // no more &
+    private function getSisterID($id) // no more &
     {
         global $serendipity;
 
@@ -1569,7 +1570,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return mixed array/bool
      */
-    function getStaticPage($id) // no more &
+    private function getStaticPage($id) // no more &
     {
         global $serendipity;
 
@@ -1589,7 +1590,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return bool
      */
-    function selected()
+    private function selected()
     {
         global $serendipity;
 
@@ -1645,7 +1646,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return void
      */
-    function fetchStaticPage($id) // no more &
+    private function fetchStaticPage($id) // no more &
     {
         global $serendipity;
 
@@ -1668,7 +1669,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return void
      */
-    function fetchPageType($id) // no more &
+    private function fetchPageType($id) // no more &
     {
         global $serendipity;
 
@@ -1691,7 +1692,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return void
      */
-    function checkPage() {
+    private function checkPage() {
         global $serendipity;
 
         if (empty($this->staticpage['filename'])) {
@@ -1805,7 +1806,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return mixed array/bool
      */
-    function getStartpage()
+    private function getStartpage()
     {
         global $serendipity;
 
@@ -1829,7 +1830,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return mixed array/bool
      */
-    function get404Errorpage()
+    private function get404Errorpage()
     {
         global $serendipity;
 
@@ -1853,7 +1854,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return array
      */
-    function updateStaticPage()
+    private function updateStaticPage()
     {
         global $serendipity;
 
@@ -1908,7 +1909,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return void
      */
-    function updatePageType()
+    private function updatePageType()
     {
         global $serendipity;
 
@@ -1929,7 +1930,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return array
      */
-    function fetchStaticPages($plugins = false, $match_permalink = '') // no more &
+    private function fetchStaticPages($plugins = false, $match_permalink = '') // no more &
     {
         global $serendipity;
 
@@ -1954,7 +1955,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return mixed array/bool
      */
-    function fetchPublishedStaticPages() // no more &
+    private function fetchPublishedStaticPages() // no more &
     {
         global $serendipity;
 
@@ -1969,7 +1970,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return array
      */
-    function fetchPageTypes() // no more &
+    private function fetchPageTypes() // no more &
     {
         global $serendipity;
 
@@ -1982,7 +1983,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return array
      */
-    function fetchPlugins() // no more &
+    private function fetchPlugins() // no more &
     {
         global $serendipity;
 
@@ -2010,7 +2011,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return string by echo template
      */
-    function showBackend()
+    private function showBackend()
     {
         global $serendipity;
         // moduled, since using lots of html/smarty output - shall we re-include this now again?
@@ -2034,7 +2035,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return void
      */
-    function move_sequence($order)
+    private function move_sequence($order)
     {
         foreach ($order as $key => $id) {
             serendipity_db_update('staticpages', array('id' => $id), array('pageorder' => $key));
@@ -2049,7 +2050,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return void
      */
-    function move_up($id) // no more &
+    private function move_up($id) // no more &
     {
         global $serendipity;
 
@@ -2095,7 +2096,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return void
      */
-    function move_down($id) // no more &
+    private function move_down($id) // no more &
     {
         global $serendipity;
 
@@ -2141,7 +2142,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return mixed bool/void
      */
-    function inspectConfig($what, $elcount, $config_item, $config_value, $type, $cname, $cdesc, $value, $default, $lang_direction, $hvalue, $radio, $radio2, $select, $per_row, $per_row2)
+    private function inspectConfig($what, $elcount, $config_item, $config_value, $type, $cname, $cdesc, $value, $default, $lang_direction, $hvalue, $radio, $radio2, $select, $per_row, $per_row2)
     {
         global $serendipity;
 
@@ -2161,10 +2162,10 @@ class serendipity_event_staticpage extends serendipity_event
     /**
      * Smarty inspect config templater
      *
-     * @access private
+     * @access public since called by templates
      * @return template string
      */
-    function SmartyInspectConfig($params, &$smarty)
+    public function SmartyInspectConfig($params, &$smarty)
     {
         static $elcount = 0;
         global $serendipity;
@@ -2230,10 +2231,10 @@ class serendipity_event_staticpage extends serendipity_event
     /**
      * Smarty inspect config finish templater
      *
-     * @access private
+     * @access public since called by templates
      * @return template string
      */
-    function SmartyInspectConfigFinish($params, &$smarty)
+    public function SmartyInspectConfigFinish($params, &$smarty)
     {
         global $serendipity;
 
@@ -2265,7 +2266,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return bool
      */
-    function showForm(&$form_values, &$form_container, $introspec_func = 'introspect_item', $value_func = 'get_static', $submit_name = 'staticSubmit')
+    private function showForm(&$form_values, &$form_container, $introspec_func = 'introspect_item', $value_func = 'get_static', $submit_name = 'staticSubmit')
     {
         global $serendipity;
 
@@ -2331,7 +2332,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access private
      * @return bool
      */
-    function isplugin()
+    private function isplugin()
     {
         global $serendipity;
 
@@ -2354,7 +2355,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access public
      * @return string by echo template
      */
-    function showSearch()
+    public function showSearch()
     {
         global $serendipity;
 
@@ -2419,7 +2420,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @return mixed array/bool    int if match, else false
      *
      */
-    function fetchCatProp($cid, $key = 'staticpage_categorypage')
+    private function fetchCatProp($cid, $key = 'staticpage_categorypage')
     {
         global $serendipity;
 
@@ -2448,7 +2449,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @return mixed array/bool
      *
      */
-    function fetchStaticPageForCat($staticpage_id)
+    private function fetchStaticPageForCat($staticpage_id)
     {
         global $serendipity;
 
@@ -2475,7 +2476,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @return mixed array/bool
      *
      */
-    function setCatProps($cid, $val = false, $deleteOnly = false)
+    private function setCatProps($cid, $val = false, $deleteOnly = false)
     {
         global $serendipity;
 
@@ -2509,7 +2510,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @param     mixed     Any additional data from the hook_event call
      * @return    bool
      */
-    function event_hook($event, &$bag, &$eventData, $addData = null)
+    public function event_hook($event, &$bag, &$eventData, $addData = null)
     {
         global $serendipity;
 

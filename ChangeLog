@@ -14,6 +14,7 @@
     Smartified the backend as much as possible (get ready to run smarty-only in future?)
     Extend required Serendipity version to 1.6, since heavy smarty usage
     Rebuild the plugin stylesheets to work well with upcoming Serendipity 2.0
+    Fixes for Custom-Fields functionality
     Added a new responsive (mobile) template (build to work with upcoming Serendipity 2.0)
     Applied some plain button changes for 2.0 previously bumped as 4.06
     Added last_modified or created_on date option for frontend footer in plugin_staticpage.tpl (needs to change templates with already supplied files!)

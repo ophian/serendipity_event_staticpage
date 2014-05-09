@@ -2251,7 +2251,6 @@ class serendipity_event_staticpage extends serendipity_event
                 ));
             }
         }
-// RQ: good here or better move to tpl ?
         serendipity_plugin_api::hook_event('backend_staticpages_showform', $this->staticpage);
 
         $out = ob_get_contents();
@@ -2561,11 +2560,6 @@ class serendipity_event_staticpage extends serendipity_event
 
                 case 'backend_category_delete':
                     $this->setCatProps($eventData, null, true);
-/* RQ: remove note ?
-**  problem: different to backend_category_update and backend_category_addNew, here $eventData did not contain the id of the category, so
-**  the entry in the table _staticpage_categorypage is not deleted :-( Every time I get "35 AND 36" in the debug-modus.
-**  GARVIN: Yes, the ID contains a SQL statement for Category ID because the category children are contained as well!
-*/
                     break;
 
                 case 'backend_category_update':
@@ -2590,7 +2584,6 @@ class serendipity_event_staticpage extends serendipity_event
                     } else {
                         $nice_url = $serendipity['serendipityHTTPPath'] . $serendipity['indexFile'] . '?/' . $args;
                     }
-// RQ: remove note ?
 // Manko10 patch: http://board.s9y.org/viewtopic.php?f=3&t=17910&p=10426432#p10426432
 
                     // Check if static page exists or if this is an error 404
@@ -2682,7 +2675,6 @@ class serendipity_event_staticpage extends serendipity_event
 
 
                 case 'backend_media_rename':
-// RQ: ToDo ?
                     // Only MySQL supported, since I don't know how to use REGEXPs differently.
                     if ($serendipity['dbType'] != 'mysql' && $serendipity['dbType'] != 'mysqli') {
                         echo STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRY . '<br />';
@@ -2733,7 +2725,7 @@ class serendipity_event_staticpage extends serendipity_event
                     } else {
                         $param = null;
                     }
-// RQ: do we need to change this for newer frontend templates ?
+// RQ: do we need to change this for newer frontend templates like 2k11 and ist this about parent/child treeviews ?
                     if ($parts[0] == 'dtree.js') {
                         header('Content-Type: text/javascript');
                         echo file_get_contents(dirname(__FILE__) . '/dtree.js');

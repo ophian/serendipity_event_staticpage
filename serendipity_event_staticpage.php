@@ -2298,8 +2298,8 @@ class serendipity_event_staticpage extends serendipity_event
         }
 
         $filename = preg_replace('@[^a-z0-9\._-]@i', '', $serendipity['POST']['backend_template']);
-        // check for other templates, else set default
-        if (empty($filename)) {
+        // check for other templates, else set default and ckeck for old staticpage used internal, which is removed
+        if (empty($filename) || $serendipity['POST']['backend_template'] == 'internal') {
             $filename = 'default_staticpage_backend.tpl';
         }
 

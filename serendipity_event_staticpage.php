@@ -2272,8 +2272,6 @@ class serendipity_event_staticpage extends serendipity_event
         $this->htmlnugget = array();
         $GLOBALS['staticpage_htmlnugget'] = &$this->htmlnugget;
 
-        $serendipity['EditorBrowsers'] = '@(IE|Mozilla|Safari)@i';
-
         if (file_exists(S9Y_INCLUDE_PATH . 'include/functions_entries_admin.inc.php')) {
             include_once(S9Y_INCLUDE_PATH . 'include/functions_entries_admin.inc.php');
         }

@@ -21,6 +21,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [x] Added 2.0 experimental entrylistings (entrylisting and pageorder sequencer) respect parent/child staticpages treview listing in a simple way
 - [x] Added 2.0 collapsible boxes icon change and use universal setLocalStorage() and for retrieve
 - [x] Added new simpler pageorder table fetcher
+- [x] Added 2.0 for form submit save-toolbar-button is disabled using the CKEDITOR full-package
 - [x] Added compat fallback to defaultform_template in case of cookie stored 'all fields/non-template' (old hardcoded) form
 - [x] Changed method name getSystersID() to getSisterID()
 - [x] prepare everything to HTML5, which will be the default in future

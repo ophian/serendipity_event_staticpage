@@ -404,7 +404,7 @@ $("document").ready(function() {
                     <input type="hidden" name="serendipity[staticpagecategory]" value="pages">
                     <input type="hidden" name="serendipity[staticpage]" value="{$entry['id']}">
                     <input type="hidden" name="serendipity[listentries_formSubmit]" value="true">{* necessary to open form on entrylist post submits *}
-                    <input type="submit" name="serendipity[staticSubmit]" class="icon-edit sp-btn sp-btn-edit" value="&#xe803;" titele="{$CONST.EDIT} #{$entry['pagetitle']}">
+                    <input type="submit" name="serendipity[staticSubmit]" class="icon-edit sp-btn sp-btn-edit" value="&#xe803;" title="{$CONST.EDIT} #{$entry['pagetitle']}">
                     <input type="submit" name="serendipity[staticDelete]" class="icon-trash sp-btn sp-btn-purge" value="&#xe80d;" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:$entry['pagetitle']}');" title="{$CONST.DELETE} #{$entry['pagetitle']}">
                 </div>
                 </form>

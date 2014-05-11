@@ -149,7 +149,12 @@
     font-weight: 500;
     color: rgb(0, 0, 0) !important;
 }
+
+.sp_ptree { font-weight:500; }
+.sp_ctree { color: rgba(117, 131, 156, 1); }
+.sp_tree_child,
 .sp_status_draft { margin: 0px 0.2em 0px 0px; }
+.sp_tree_child {}
 
 .sp_bold { font-weight: 700; }
 .sp_top { margin-top: 0; }
@@ -416,10 +421,8 @@ div.sp_entrysave {
     border: 1px dashed #ccc;
 }
 #sp_sequencer #sequence .sp_grablet_title {
-    margin: 0 auto auto 1em;
     text-overflow: ellipsis;
-    display: inline-block;
-    width: 20em;
+    width: auto;
     white-space: nowrap;
     overflow: hidden;
     vertical-align: top;

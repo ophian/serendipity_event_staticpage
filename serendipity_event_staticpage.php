@@ -1950,7 +1950,29 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Fetch puplished static page for navigation data
+     * Fetch pageorder for sequencer mover
+     *
+     * @access private
+     * @return mixed array/bool
+     */
+    private function fetchStaticPagesOrder($simple=false)
+    {
+        global $serendipity;
+
+        if ($simple) {
+            $q = 'SELECT id, parent_id, pagetitle ';
+        } else {
+            $q = 'SELECT id, parent_id, pagetitle, headline, timestamp, last_modified, publishstatus ';
+        }
+        $q .= '
+                FROM '.$serendipity['dbPrefix'].'staticpages
+               ORDER BY pageorder';
+
+        return serendipity_db_query($q);
+    }
+
+    /**
+     * Fetch published static page for navigation data
      *
      * @access private
      * @return mixed array/bool
@@ -2188,7 +2210,7 @@ class serendipity_event_staticpage extends serendipity_event
         $elcount++;
         $config_value = empty($this->pagetype) ? $this->get_static($config_item, 'unset') : $this->pagetype[$config_item];
         $cbag = new serendipity_property_bag;
-        // $this->staticpage can be an empty or an fullfilled array - while pagetype is only empty, if the request fetches the default_staticpage_backend.tpl template.
+        // $this->staticpage can be an empty or an fullfilled array - since pagetype is only empty, if the request fetches the default_staticpage_backend.tpl template.
         if(empty($this->pagetype)) {
             $this->introspect_item($config_item, $cbag);
         } else {
@@ -2723,7 +2745,7 @@ class serendipity_event_staticpage extends serendipity_event
                     } else {
                         $param = null;
                     }
-// RQ: do we need to change this for newer frontend templates like 2k11 and ist this about parent/child treeviews ?
+// RQ: do we need to change this for newer frontend templates like 2k11 and is this about parent/child treeviews ?
                     if ($parts[0] == 'dtree.js') {
                         header('Content-Type: text/javascript');
                         echo file_get_contents(dirname(__FILE__) . '/dtree.js');

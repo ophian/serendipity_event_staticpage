@@ -37,10 +37,8 @@
                         break;
                 }
 
-                $pages = $this->fetchStaticPages(true);
+                $pages = $this->fetchStaticPagesOrder(true);
                 if(is_array($pages)) {
-                    $pages = serendipity_walkRecursive($pages);
-                    $sort_idx = 0;
                     $serendipity['smarty']->assign('sp_pageorder_pages', $pages);
                 }
                 break;

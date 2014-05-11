@@ -455,6 +455,35 @@ $("document").ready(function() {
         }
     }
 
+    setLocalStorage = (function(name, value) {
+        var storage, fail, uid;
+        try {
+            uid = new Date;
+            (storage = window.localStorage).setItem(uid, uid);
+            fail = storage.getItem(uid) != uid;
+            storage.removeItem(uid);
+            fail && (storage = false);
+        } catch(e) {}
+
+        // Remove old items first
+        localStorage.removeItem(name);
+
+        // Put the string/array/object into storage
+        localStorage.setItem(name, JSON.stringify(value));
+    });
+
+    Object.keys(localStorage).forEach(function(key) {
+        if (/^(staticpage_mobileform_)|(staticpage_defaultform_)/.test(key)) {
+            var k   = key.split('_');
+            var $id = '#'+k[2];
+            var $el = $id.replace('option','');
+            if (localStorage.getItem(key) !== null) {
+                $($id + ' > .icon-right-dir').removeClass('icon-right-dir').addClass('icon-down-dir');
+                $($el).removeClass('additional_info');
+            }
+        }
+    });
+
     function Spawnnugget() {
 {foreach from=$sp_pagetype_showform_htmlnuggets name=hnid item=htmlnuggetid}
         if (window.Spawnnuggets) Spawnnuggets('{$htmlnuggetid}');

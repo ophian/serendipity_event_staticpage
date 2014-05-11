@@ -309,6 +309,22 @@
 </div>
 
 <script src="{serendipity_getFile file='admin/js/jquery.magnific-popup.js'}"></script>
+{if $new_backend}
+<script>
+    $('.sp_toggle').click(function () {
+        var $id   = $(this).attr('id');
+        var $name = 'staticpage_mobileform_' + $id;
+        var cb    = localStorage.getItem($name);
+        if ( cb !== null ) {
+            $('#'+$id+' > .icon-down-dir').removeClass('icon-down-dir').addClass('icon-right-dir');
+            localStorage.removeItem($name);
+        } else {
+            $('#'+$id+' > .icon-right-dir').removeClass('icon-right-dir').addClass('icon-down-dir');
+            setLocalStorage($name, true);
+        }
+    });
+</script>
+{/if}
 
 <!-- RESPONSIVE_TEMPLATE.TPL end -->
 

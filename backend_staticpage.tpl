@@ -138,19 +138,19 @@ $("document").ready(function() {
         </noscript>
 
         <ol id="sequence" data-placement="sqid" class="sequence_container pluginmanager_container">
-        {foreach name=sp_sequence item=sp_element from=$sp_pageorder_pages}
-            <li id="{$sp_element['id']}" class="sequence_item pluginmanager_item_{cycle values="odd,even"}">{*  in normal situations id=$sp_element['pagetitle'], but we need id for js sequence mode *}
-                <input type="hidden" name="serendipity[plugin][sequence][id]" id="sequence_id" value="{$sp_element['id']}">
-                <div id="g{$sp_element['pagetitle']}" class="pluginmanager_grablet sequence_grablet">
+        {foreach name=sp_sequence item=entryorder from=$sp_pageorder_pages}
+            <li id="{$entryorder['id']}" class="sequence_item pluginmanager_item_{cycle values="odd,even"}">{*  in normal situations id=$entryorder['pagetitle'], but we need id for js sequence mode *}
+                <input type="hidden" name="serendipity[plugin][sequence][id]" id="sequence_id" value="{$entryorder['id']}">
+                <div id="g{$entryorder['pagetitle']}" class="pluginmanager_grablet sequence_grablet">
                     <button class="icon_link" type="button" title="{$CONST.MOVE}"><span class="icon-move"></span><span class="visuallyhidden"> {$CONST.MOVE}</span></button>
                 </div>
-                <span class="sp_grablet_title">{$sp_element['pagetitle']}</span>
+                <span class="sp_grablet_title">{$entryorder['pagetitle']}</span>
                 <div class="sp_nojs">
                 {if !$smarty.foreach.sp_sequence.first}
 
                     <span>
                         <noscript>
-                        <a href="?serendipity[adminModule]=staticpages&amp;serendipity[moveto]=moveup&amp;serendipity[pagetomove]={$sp_element['id']}&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder" style="border: 0"><img src="{serendipity_getFile file='admin/img/uparrow.png'}" alt="{$CONST.UP}"></a>
+                        <a href="?serendipity[adminModule]=staticpages&amp;serendipity[moveto]=moveup&amp;serendipity[pagetomove]={$entryorder['id']}&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder" style="border: 0"><img src="{serendipity_getFile file='admin/img/uparrow.png'}" alt="{$CONST.UP}"></a>
                         </noscript>
                     </span>
 
@@ -159,7 +159,7 @@ $("document").ready(function() {
 
                     <span>
                         <noscript>
-                        <a href="?serendipity[adminModule]=staticpages&amp;serendipity[moveto]=movedown&amp;serendipity[pagetomove]={$sp_element['id']}&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder" style="border: 0"><img src="{serendipity_getFile file='admin/img/downarrow.png'}" alt="{$CONST.DOWN}"></a>
+                        <a href="?serendipity[adminModule]=staticpages&amp;serendipity[moveto]=movedown&amp;serendipity[pagetomove]={$entryorder['id']}&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder" style="border: 0"><img src="{serendipity_getFile file='admin/img/downarrow.png'}" alt="{$CONST.DOWN}"></a>
                         </noscript>
                     </span>
 

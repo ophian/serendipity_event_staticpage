@@ -89,7 +89,6 @@ class serendipity_event_staticpage extends serendipity_event
             'entry_display'                                     => true,
             'genpage'                                           => true,
             'css_backend'                                       => true,
-            'frontend_fetchentries'                             => true,
             'backend_media_rename'                              => true,
             'frontend_fetchentries'                             => true,
             'frontend_rss'                                      => true,
@@ -2383,7 +2382,7 @@ class serendipity_event_staticpage extends serendipity_event
             $group     = '';
             $distinct  = 'DISTINCT';
             $find_part = "(headline ILIKE '%$term%' OR content ILIKE '%$term%')";
-        } elseif ($serendipity['dbType'] == 'sqlite') {
+        } elseif ($serendipity['dbType'] == 'sqlite' || $serendipity['dbType'] == 'sqlite3' || $serendipity['dbType'] == 'pdo-sqlite') {
             $group     = 'GROUP BY id';
             $distinct  = '';
             $term      = serendipity_mb('strtolower', $term);

@@ -10,18 +10,20 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] deep check, if current changes broke anything with some more enhanced staticpage options (all normal behaviour is checked working!)
 - [ ] move new backend template files into own or current backend_template directory ?
 - [ ] since now using Smarty 3 only, some Smarty code will need a refresh (no need, but cleaner)
-- [ ] how to navigate with larger amounts of staticpages, ie. beyond 10-15 ?
+- [ ] how to navigate with larger amounts of staticpages, ie. beyond 10-15 ? Use Javascript only ?
 - [ ] touch frontend templates (in this plugin dir) for HTML5, inline styles, etc ?
 - [ ] solve some last remaining questions pasted as '// RQ: ' notes
 - [ ] remove the four options link menu on top (since not used very often) - maybe per JS & Cookie hideaway ?
+- [ ] add filter function to entrylists ?
+
 
 - - -
 
 ### Already done: :arrow_up:
-- [x] Added 2.0 experimental entrylistings (entrylisting and pageorder sequencer) respect parent/child staticpages treview listing in a simple way
-- [x] Added 2.0 collapsible boxes icon change and use universal setLocalStorage() and for retrieve
+- [x] Added for 2.0: experimental entrylistings (entrylisting and pageorder sequencer) respect parent/child staticpages treview listing in a simple way
+- [x] Added for 2.0: collapsible boxes icon change and use a universal setLocalStorage() and another for retrieve
 - [x] Added new simpler pageorder table fetcher
-- [x] Added 2.0 for form submit save-toolbar-button is disabled using the CKEDITOR full-package
+- [x] Added for 2.0: form submit save-toolbar-button is now disabled when using the CKEDITOR full-package
 - [x] Added compat fallback to defaultform_template in case of cookie stored 'all fields/non-template' (old hardcoded) form
 - [x] Changed method name getSystersID() to getSisterID()
 - [x] prepare everything to HTML5, which will be the default in future

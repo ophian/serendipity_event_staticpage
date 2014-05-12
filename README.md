@@ -13,14 +13,14 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] how to navigate with larger amounts of staticpages, ie. beyond 10-15 ? Use Javascript only ?
 - [ ] touch frontend templates (in this plugin dir) for HTML5, inline styles, etc ?
 - [ ] solve some last remaining questions pasted as '// RQ: ' notes
-- [ ] remove the four options link menu on top (since not used very often) - maybe per JS & Cookie hideaway ?
+- [ ] remove the four options link tab menu on top (since not used very often) - maybe per JS & Cookie hideaway ?
 - [ ] add filter function to entrylists ?
 
 
 - - -
 
 ### Already done: :arrow_up:
-- [x] Added for 2.0: experimental entrylistings (entrylisting and pageorder sequencer) respect parent/child staticpages treview listing in a simple way
+- [x] Added for 2.0: experimental entrylistings (entrylisting and pageorder sequencer) respect parent/child staticpages treeview listing in a simple way
 - [x] Added for 2.0: collapsible boxes icon change and use a universal setLocalStorage() and another for retrieve
 - [x] Added new simpler pageorder table fetcher
 - [x] Added for 2.0: form submit save-toolbar-button is now disabled when using the CKEDITOR full-package

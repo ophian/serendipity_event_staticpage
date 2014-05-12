@@ -15,6 +15,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] solve some last remaining questions pasted as '// RQ: ' notes
 - [ ] remove the four options link tab menu on top (since not used very often) - maybe per JS & Cookie hideaway ?
 - [ ] add filter function to entrylists ?
+- [ ] rename directory backend_templates, since there is a risk that template directories have other files (not particulary excluded by backend_show) in it
 
 
 - - -

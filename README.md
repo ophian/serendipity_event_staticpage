@@ -13,7 +13,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] how to navigate with larger amounts of staticpages, ie. beyond 10-15 ? Use Javascript only ?
 - [ ] touch frontend templates (in this plugin dir) for HTML5, inline styles, etc ?
 - [ ] solve some last remaining questions pasted as '// RQ: ' notes
-- [ ] remove the four options link tab menu on top (since not used very often) - maybe per JS & Cookie hideaway ?
+- [ ] remove the 4 options link tab menu on top (since not used very often) - maybe per JS hideaway ?
 - [ ] add filter function to entrylists ?
 - [ ] rename directory backend_templates, since there is a risk that template directories have other files (not particulary excluded by backend_show) in it
 

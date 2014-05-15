@@ -16,6 +16,8 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] remove the 4 options link tab menu on top (since not used very often) - maybe per JS hideaway ?
 - [ ] add sorting filter function to entrylists ?
 - [ ] rename directory backend_templates. There is a risk that existing user template dirs have other files in it (not excluded by backend_show)
+- [ ] remove backend_staticpage.tpl non-js pageorder markup and functions ?
+- [ ] use 2.0 new js hook for backend staticpage scripts
 
 
 - - -

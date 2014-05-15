@@ -12,15 +12,17 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] since now using Smarty 3 only, some Smarty code will need a refresh (no need, but cleaner)
 - [ ] how to navigate with larger amounts of staticpages, ie. beyond 10-15 ? Use Javascript only ?
 - [ ] touch frontend templates (in this plugin dir) for HTML5, inline styles, etc ?
-- [ ] solve some last remaining questions pasted as '// RQ: ' notes
+- [ ] solve some last remaining questions pasted as '// RQ: ' notes (+ + -)
 - [ ] remove the 4 options link tab menu on top (since not used very often) - maybe per JS hideaway ?
-- [ ] add filter function to entrylists ?
-- [ ] rename directory backend_templates, since there is a risk that template directories have other files (not particulary excluded by backend_show) in it
+- [ ] add sorting filter function to entrylists ?
+- [ ] rename directory backend_templates. There is a risk that existing user template dirs have other files in it (not excluded by backend_show)
 
 
 - - -
 
 ### Already done: :arrow_up:
+- [x] Note, that some constants were added, removed or changed
+- [x] Added some missing and changed some method PHPDocs
 - [x] Added for 2.0: experimental entrylistings (entrylisting and pageorder sequencer) respect parent/child staticpages treeview listing in a simple way
 - [x] Added for 2.0: collapsible boxes icon change and use a universal setLocalStorage() and another for retrieve
 - [x] Added new simpler pageorder table fetcher

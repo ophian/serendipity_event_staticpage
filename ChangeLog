@@ -1,36 +1,57 @@
 4.20:
 ----
-    4.06 Bump version since merged entry list pull request by (ogerlach)
-    Fixed (4.06) markup and sets (4.06 listentries) to be optional (selectbox default), due to errors
-    Rebuild the stylesheets
-    Fixed various minor markup and logical code errors
-    Fixed backend_templates/default_staticpage_backend.tpl smarty markup (escape and cke-wysiwyg)
-    Changed template names to 'Default Template' (previously named 'Simple Template', which was not correct)
-    and 'No Template' (previously named 'All Fields', which was not correct, since just the very old hardcoded form)
-    Added 'publishstatus' and removed 'pass','is_startpage','is_404_page' in plugins config options,
-         since the latter were unused there and are too specific to be set global in plugin config.
-         Now 'publishstatus' will respect a global show as option rule (Draft is default)
-    Outsourced some heavy hardcoded markup functions
-    Smartified the backend as much as possible (get ready to run smarty-only in future?)
-    Extend required Serendipity version to 1.6, since heavy smarty usage
-    Rebuild the plugin stylesheets to work well with upcoming Serendipity 2.0
-    Fixes for Custom-Fields functionality
-    Added a new responsive (mobile) template (build to work with upcoming Serendipity 2.0)
-    Applied some plain button changes for 2.0 previously bumped as 4.06
-    Added last_modified or created_on date option for frontend footer in plugin_staticpage.tpl (needs to change templates with already supplied files!)
-    merged 4.07 Propagate $smarty.env.staticpage_pagetitle (and the others) so that it can be used in entries.tpl
-    merged 4.06 Serendipity 2.0 compatibility fix for the editorbuttons (wysiwyg and default)
-    Moved listentries _new submit footer to also show up on empty list
-    Added confirmation dialog on select change page events, to avoid saving into wrong page accidently
-    Extend required Serendipity version to 1.7 and Smarty 3.1, since the old_backend_staticpage.tpl would need too much old Smarty2 and CSS fixes
-    Removed old hardcoded markup - mark as fully smartified (except inspectConfig generation, which is some sort of template too and some minor markups that get hooked)
-    Changed method name getSystersID() to getSisterID()
-    Added compat fallback to defaultform_template in case of cookie stored 'all fields/non-template' (old hardcoded) form
-    Added for 2.0: form submit save-toolbar-button is now disabled when using the CKEDITOR full-package
-    Added new simpler pageorder table fetcher
-    Added for 2.0: collapsible boxes icon change and use a universal setLocalStorage() and another for retrieve
-    Added for 2.0: experimental entrylistings (entrylisting and pageorder sequencer) respect parent/child staticpages treeview listing in a simple way
-    Merge 4.07.1: sqlite-fix on searchpage
+(read downwards to latest changes)
+ *  4.06 Bump version since merged entry list pull request by (ogerlach)
+ *  Fixed (4.06) markup and sets (4.06 listentries) to be optional (selectbox default),
+    due to errors
+ *  Rebuild the stylesheets
+ *  Fixed various minor markup and logical code errors
+ *  Fixed backend_templates/default_staticpage_backend.tpl smarty markup
+    (escape, label break and cke-wysiwyg)
+ *  Changed template names to 'Default Template' (previously named 'Simple Template',
+    which was not correct)
+ *  Changed 'No Template' (previously named 'All Fields', which was not correct,
+    since just the very old hardcoded form)
+ *  Added 'publishstatus' and removed 'pass','is_startpage','is_404_page' in plugins
+    config options,
+    - since the latter were unused too specific to be set global in plugin config.
+    - Now 'publishstatus' will respect a global show as option rule (Draft is default)
+ *  Outsourced some heavy hardcoded markup functions
+ *  Smartified the backend as much as possible (get ready to run smarty-only in future?)
+ *  Extend required Serendipity version to 1.6, since heavy smarty usage
+ *  Rebuild the plugin stylesheets to work well with upcoming Serendipity 2.0
+ *  Fixes for Custom-Fields functionality
+ *  Added a new responsive (mobile) template (build to work with upcoming Serendipity 2.0)
+    - this also changed collapsible box name constants
+ *  Applied some plain button changes for 2.0 previously bumped as 4.06
+ *  Added last_modified or created_on date option for frontend footer in plugin_staticpage.tpl
+    - NOTE: this needs to change templates with already supplied files!
+ *  Merged 4.07 Propagate $smarty.env.staticpage_pagetitle (and the others) so that it can
+    be used in entries.tpl
+ *  Merged 4.06 Serendipity 2.0 compatibility fix for the editorbuttons (wysiwyg and default)
+ *  Moved listentries _new page submit footer to also show up on empty list
+ *  Added confirm dialog on select change page events. Avoids saving into wrong page by accident.
+    - adds new constant STATICPAGE_CONFIRM_SELECTDIALOG
+ *  Extend required Serendipity version to 1.7 and Smarty 3.1, since the old_backend_staticpage.tpl
+    would need too much old Smarty2 and CSS fixes
+ *  Removed old hardcoded markup - mark as fully smartified (except inspectConfig generation,
+    which is some sort of template too and some minor markups that get hooked)
+ *  Changed method name getSystersID() to getSisterID()
+ *  Added compat fallback to defaultform_template
+    - in case of cookie stored 'all fields/non-template' (old hardcoded) form
+ *  Added for 2.0:
+    - form submit toolbar-save-button is now disabled when using the CKEDITOR full-package
+ *  Added new simpler pageorder table fetcher
+ *  Added for 2.0:
+    - collapsible boxes icon change and use a universal setLocalStorage() and another for retrieve
+ *  Added for 2.0:
+    - experimental entrylistings (entrylisting and pageorder sequencer) respect parent/child
+      staticpages treeview listing in a simple way
+    - adds new constant STATICPAGE_TREE_CHILD
+ *  Merge 4.07.1: sqlite-fix on searchpage
+ *  Added some missing PHPDocs
+ *  Add new constant STATICPAGE_TOGGLEANDSAVE and removed old non-template
+    STATICPAGE_TEMPLATE_INTERNAL constant
 
 -----
 

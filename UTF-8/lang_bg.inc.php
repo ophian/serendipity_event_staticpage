@@ -153,7 +153,6 @@
 @define('STATICPAGE_NEW_HEADLINES','Най-нови статии:');
 
 @define('STATICPAGE_TEMPLATE','Шаблон за редактиране');
-@define('STATICPAGE_TEMPLATE_INTERNAL','Всички полета');
 @define('STATICPAGE_TEMPLATE_EXTERNAL', 'Кратък шаблон');
 
 @define('STATICPAGE_SECTION_META', 'Мета-данни');

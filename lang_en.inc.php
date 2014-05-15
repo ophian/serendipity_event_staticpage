@@ -171,7 +171,6 @@
 @define('STATICPAGE_NEW_HEADLINES','newest headlines:');
 
 @define('STATICPAGE_TEMPLATE','Backend template');
-@define('STATICPAGE_TEMPLATE_INTERNAL','No Template');//is 'old list-style view' (http://board.s9y.org/viewtopic.php?f=4&t=18951&p=10432469#p10432457)
 @define('STATICPAGE_TEMPLATE_EXTERNAL', 'Default Template');
 
 @define('STATICPAGE_SECTION_META', 'Metadata');
@@ -194,4 +193,6 @@
 @define('STATICPAGE_CONFIRM_SELECTDIALOG', "Are you sure to have saved your changed entry and want to switch the current page?\\n\\nIf you press OK, the page will change to new content!"); // js confirm need an additional backslash before the linebreaks!
 
 @define('STATICPAGE_TREE_CHILD', 'Child of');
+
+@define('STATICPAGE_TOGGLEANDSAVE', '%s and remember!');
 

@@ -163,7 +163,6 @@
 @define('STATICPAGE_NEW_HEADLINES', 'Nejnovější články:');
 
 @define('STATICPAGE_TEMPLATE', 'Šablona pro pozadí');
-@define('STATICPAGE_TEMPLATE_INTERNAL', 'Všechna pole');
 @define('STATICPAGE_TEMPLATE_EXTERNAL', 'Jednoduchá šablona');
 
 @define('STATICPAGE_SECTION_META', 'Metadata');

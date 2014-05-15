@@ -163,7 +163,6 @@
 @define('STATICPAGE_NEW_HEADLINES',		'Nejnovìj¹í èlánky:');
 
 @define('STATICPAGE_TEMPLATE',		'©ablona pro pozadí');
-@define('STATICPAGE_TEMPLATE_INTERNAL',		'V¹echna pole');
 @define('STATICPAGE_TEMPLATE_EXTERNAL',		'Jednoduchá ¹ablona');
 
 @define('STATICPAGE_SECTION_META',		'Metadata');

@@ -63,7 +63,7 @@ saveNewOrder = (function() {
     });
 });
 
-// create, set, check and bind a tab bar hide/show event button
+// create, set, check stored and bind the tab bar hide/show button
 $(function() {
     var stb = localStorage.getItem('staticpageTabBar');
     var el  = '<span id="sp_tabbar" class="button_link sp-btn sp_right icon-up-dir"></span>';
@@ -133,7 +133,7 @@ $(function() {
     });
 });
 
-// simple staticpage entrieslist pagination executor
+// add dialog to change page selector, to avoid page changes before saving current page
 $(function() {
     var prev_value;
     $('#staticpage_dropdown').focus(function() {
@@ -175,6 +175,7 @@ if (typeof(CKEDITOR) != 'undefined' && CKEDITOR.plugins.registered['save']) {
     }
 }
 
+// pageorder drag and drop handler
 $(function() {
     if (! Modernizr.touch){
         function getDragdropConfiguration(group) {

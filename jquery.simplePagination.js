@@ -1,5 +1,5 @@
 /**
-* simplePagination.js v1.6+ - gitHub master ckeckout 2014-05-15
+* simplePagination.js v1.6+ - gitHub master checkout on 2014-05-15
 * A simple jQuery pagination plugin.
 * http://flaviusmatis.github.com/simplePagination.js/
 *

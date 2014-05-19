@@ -6,7 +6,6 @@
 .icon-attention:before{content:'!';font-weight:bold;} /* fake for chrome, since exclamation mark ! not supported as native \2757 */
 
 .icon-error:before{content:'\2716'} /* fake for chrome, since origin triangled exclamation mark <!> not supported as native unicode */
-.icon-clock:before{content:'\2940'} /* fake for chrome, since origin clock not supported as native unicode - U+2940  &#10560;  ANTICLOCKWISE CLOSED CIRCLE ARROW  */
 
 .icon-attention:before, .icon-error:before {color:red;}
 .icon-ok:before {color:green;}
@@ -122,7 +121,7 @@
 
 /* staticpage smartified backend_staticpage.tpl */
 .sp_msg_success:not(:empty) {
-    display:block;
+    display: block;
     margin: 1.5em 0;
     padding: 10px;
 }
@@ -172,11 +171,6 @@
 .sp_defaultform_left {
     width: 69%;
     float: left;
-}
-/* this single is no template form only - remove when finished cleanup */
-div.sp_entrysave {
-    text-align: center;
-    padding: 0 !important;
 }
 .sp_defaultform_submit {
     text-align: center;
@@ -464,7 +458,6 @@ ul.simple-pagination {
 /* added for 2.0 */
 .simple-pagination li.active { 
     background-image: inherit;
-    /* shadow settings */
     -webkit-box-shadow: inherit;
     -moz-box-shadow: inherit;
     -o-box-shadow: inherit;

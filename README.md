@@ -9,7 +9,6 @@ Please use with care and always keep a backup copy of your updated plugin.
 ### ToDo: :arrow_down:
 - [ ] deep check, if current changes broke anything with some more enhanced staticpage options (all normal behaviour is checked working!)
 - [ ] move new backend template files into own or current backend_template directory ?
-- [ ] since now using Smarty 3 only, some Smarty code will need a refresh (no need, but cleaner)
 - [ ] touch frontend templates (in this plugin dir) for HTML5, inline styles, etc ?
 - [ ] solve some last remaining questions pasted as '// RQ: ' notes (+ + -)
 - [ ] rename directory backend_templates. There is a risk that existing user template dirs have other files in it (not excluded by backend_show)
@@ -19,6 +18,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Done for 2.0: since now using Smarty 3 only, some Smarty code will need a refresh (no need, but cleaner)
 - [x] Main backend CSS was renamed to staticpage_backend.css and now includes seperately into backends page header
 - [x] Added for 2.0: include new staticpage_backend.js to templates page footer - no need to use 2.0 js hook
 - [x] Hide/Show the top tab bar menu per JS hideaway, since not used very often

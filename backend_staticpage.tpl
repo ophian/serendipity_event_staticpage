@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.8, 2014-05-19 *}
+{* backend_staticpage template file v. 1.9, 2014-05-19 *}
 
 <!-- backend_staticpage.tpl START -->
 
@@ -27,7 +27,7 @@
         </noscript>
 
         <ol id="sequence" data-placement="sqid" class="sequence_container pluginmanager_container">
-        {foreach name=sp_sequence item=entryorder from=$sp_pageorder_pages}
+        {foreach $sp_pageorder_pages as $entryorder}
             <li id="{$entryorder['id']}" class="sequence_item pluginmanager_item_{cycle values="odd,even"}">{*  in normal situations id=$entryorder['pagetitle'], but we need id for js sequence mode *}
                 <input type="hidden" name="serendipity[plugin][sequence][id]" id="sequence_id" value="{$entryorder['id']}">
                 <div id="g{$entryorder['pagetitle']}" class="pluginmanager_grablet sequence_grablet">
@@ -35,7 +35,7 @@
                 </div>
                 {if $entryorder['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entryorder['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}<span class="sp_grablet_title">{$entryorder['pagetitle']}</span>
                 <div class="sp_nojs">
-                {if !$smarty.foreach.sp_sequence.first}
+                {if !$entryorder@first}
 
                     <span>
                         <noscript>
@@ -44,7 +44,7 @@
                     </span>
 
                 {/if}
-                {if !$smarty.foreach.sp_sequence.last}
+                {if !$entryorder@last}
 
                     <span>
                         <noscript>
@@ -90,7 +90,7 @@
             <option value="__new">{$CONST.NEW_ENTRY}</option>
             <option value="__new">-----------------</option>
 {if $sp_pagetype && is_array($sp_pagetype_types)}
-    {foreach name=sp_pagetype item=type from=$sp_pagetype_types}
+    {foreach $sp_pagetype_types as $type}
         <option value="{$type['id']}"{if $smarty.post.serendipity.pagetype == $type['id']} selected="selected"{/if}>{$type['description']|escape}</option>
     {/foreach}
 {/if}
@@ -128,11 +128,9 @@
         <input type="hidden" name="serendipity[adminModule]" value="event_display">
         <input type="hidden" name="serendipity[adminAction]" value="staticpages">
         <input type="hidden" name="serendipity[staticpagecategory]" value="pageadd">
+    {foreach $sp_pageadd_plugins as $plugin}
 
-    {foreach name=pageadd_plugins from=$sp_pageadd_plugins key=key item=plugin}
-
-        <input class="input_checkbox" type="checkbox" name="serendipity[externalPlugins][]" value="{$key}"{if isset($sp_pageadd_insplugins[$key])} checked="checked"{/if}>{$plugin['name']}<br>
-
+        <input class="input_checkbox" type="checkbox" name="serendipity[externalPlugins][]" value="{$plugin@key}"{if isset($sp_pageadd_insplugins[$plugin@key])} checked="checked"{/if}>{$plugin['name']}<br>
     {/foreach}
 
         <input type="submit" name="serendipity[typeSubmit]" class="input_button state_submit" value="{$CONST.GO}">
@@ -150,17 +148,17 @@
                 <th>{$CONST.STATICPAGE_STATUS}</th>
             </tr>
 
-    {foreach from=$sp_pageadd_plugstats key=key item=value}
+    {foreach $sp_pageadd_plugstats as $plugstats}
 
             <tr class="sp_t{cycle values="odd,even"}">
-                <td>{$key}</td>
-                <td><span class="sp_t{$value['color']|lower}">{$value['status']}</span></td>
+                <td>{$plugstats@key}</td>
+                <td><span class="sp_t{$plugstats['color']|lower}">{$plugstats['status']}</span></td>
             </tr>
 
     {/foreach}
 
         </table>
-    </fieldeset>
+    </fieldset>
 </div>
 
 {else} {** == 'pages' || 'pageedit' || default **}
@@ -204,7 +202,7 @@
             <select id="sp_templateselector" name="serendipity[backend_template]">
             {if isset($sp_defpages_top) && is_array($sp_defpages_top)}
 
-                {foreach name=sp_sts item=top from=$sp_defpages_top}{$top}{/foreach}
+                {foreach $sp_defpages_top as $templateform}{$templateform}{/foreach}
             {/if}
             </select>
         </div><!-- class sp_templateselector end -->
@@ -216,7 +214,7 @@
                 <option value="__new">-----------------</option>
             {if isset($sp_defpages_pop) && is_array($sp_defpages_pop)}
 
-                {foreach name=sp_sps item=pop from=$sp_defpages_pop}{$pop}{/foreach}
+                {foreach $sp_defpages_pop as $selectpage}{$selectpage}{/foreach}
             {/if}
             </select>
         {if isset($smarty.post.serendipity['staticpagecategory']) || isset($smarty.get.serendipity['staticid'])}
@@ -265,9 +263,9 @@
 
 <div id="step">
 
-{foreach name=sp_listentry item=entry from=$sp_listentries_entries}
+{foreach $sp_listentries_entries as $entry}
 
-    <div class="sp_entries_pane {cycle values="odd,even"}{if $smarty.foreach.sp_listentry.last} sp_close{/if}">
+    <div class="sp_entries_pane {cycle values="odd,even"}{if $entry@last} sp_close{/if}">
         <ul id="sp_entries_list" class="plainList{if $entry['parent_id'] > 0} sp_isChild{/if}">
             <li id="sple{$entry['id']}" class="clearfix">
                 <h3>{if $entry['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entry['parent_id']}</span><span class="icon-right-dir sp_ctree"></icon>{/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']}">{if !empty($entry['headline'])}{$entry['headline']|escape|truncate:50}{else}{$entry['pagetitle']}{/if}</a></h3>
@@ -332,7 +330,7 @@
         Sorry! Do not re-active, or you may lose data, when used/click-saved! The code for this has moved to staticpage_backend.js **}
 
     function Spawnnugget() {
-{foreach from=$sp_pagetype_showform_htmlnuggets name=hnid item=htmlnuggetid}
+{foreach $sp_pagetype_showform_htmlnuggets as $htmlnuggetid}
         if (window.Spawnnuggets) Spawnnuggets('{$htmlnuggetid}');
 {/foreach}
     }

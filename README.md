@@ -18,6 +18,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Changed for 2.0: default config value for show entrylist is now true
 - [x] Done for 2.0: since now using Smarty 3 only, some Smarty code will need a refresh (no need, but cleaner)
 - [x] Main backend CSS was renamed to staticpage_backend.css and now includes seperately into backends page header
 - [x] Added for 2.0: include new staticpage_backend.js to templates page footer - no need to use 2.0 js hook

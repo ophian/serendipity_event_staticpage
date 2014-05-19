@@ -60,6 +60,7 @@
  *  Added for 2.0:
     - navigate with larger amount of entrylist pages per newly added simplePagination.js,
       fits nice beyond 8 to some deci- pages
+ *  Changed for 2.0: default config value for show entrylist is now true
 
 -----
 

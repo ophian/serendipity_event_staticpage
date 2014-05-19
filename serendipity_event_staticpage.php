@@ -144,7 +144,7 @@ class serendipity_event_staticpage extends serendipity_event
                 $propbag->add('type',           'boolean');
                 $propbag->add('name',           STATICPAGE_SHOWLIST_DEFAULT);
                 $propbag->add('description',    STATICPAGE_SHOWLIST_DESC);
-                $propbag->add('default',        false);
+                $propbag->add('default',        ($serendipity['version'][0] == '2' ? true : false));
                 break;
 
             case 'use_quicksearch':

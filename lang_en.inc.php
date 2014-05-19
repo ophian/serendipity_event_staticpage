@@ -188,7 +188,7 @@
 @define('STATICPAGE_SHOW_BREADCRUMB_DESC', 'Show breadcrumb navigation on this page.');
 
 @define('STATICPAGE_SHOWLIST_DEFAULT', 'Backend: Show as entry list');
-@define('STATICPAGE_SHOWLIST_DESC', 'Show backends staticpage startpage as entry list. Selectbox default.');
+@define('STATICPAGE_SHOWLIST_DESC', 'Show staticpage backend startpage as entry list or select box.');
 
 @define('STATICPAGE_CONFIRM_SELECTDIALOG', "Are you sure to have saved your changed entry and want to switch the current page?\\n\\nIf you press OK, the page will change to new content!"); // js confirm need an additional backslash before the linebreaks!
 

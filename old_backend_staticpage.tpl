@@ -1,65 +1,4 @@
-{* old_backend_staticpage template file v. 1.6, 2014-05-06 *}
-{** moduled backend_show.php tpl vars
-
-+++++ head +++++
-{$s9y_get_cat}
-{$s9y_post_cat}
-
-+++++ switch +++++
-{$switch_spcat}
-
-+++++ pageorder +++++
-{array $sp_pageorder_pages}
-
-+++++ pagetype +++++
-{bool $sp_pagetype_saveconf}
-{bool $sp_pagetype_purged}
-     {$sp_pagetype_ripped}
-{bool $sp_pagetype_update}
-     {$sp_pagetype_mixedresult}
-{bool $sp_pagetype}
-     {$sp_pagetype_types}
-{bool $sp_pagetype_submit}
-{bool $sp_pagetype_isshowform}
-     {multiline string $sp_pagetype_showform}
-{bool $sp_pagetype_showform_isnuggets}
-     {array $sp_pagetype_showform_htmlnuggets}
-
-+++++ pageadd +++++
-{array $sp_pageadd_plugins}
-{array $sp_pageadd_insplugins}
-{array $sp_pageadd_plugstats}
-
-+++++ pagwedit/pages/default +++++
-{bool $sp_staticsubmit}
-     {$sp_defpages_upd_result}
-{bool $sp_staticdelete}
-     {$sp_defpages_rip_success}
-
-{bool $sp_defpages_showlist}
-     {string $sp_defpages_jsCookie}
-     {array $sp_defpages_top}
-     {array $sp_defpages_pop}
-     {bool $sp_defpages_sbplav}
-     {string $sp_defpages_link}
-     {string $sp_defpages_pagetitle}
-     {bool $sp_defpages_staticsave}
-     {$sp_defpages_showform}
-
-     {string $sp_listentries_authors}
-     {array $sp_listentries_entries}
-
-switch pcat if      pageorder
-            elseif  pagetype
-            elseif  pageadd
-            else    pageedit/pages/default
-                    if submit results
-                    if rip results
-                    if      sp_defpages_showlist false === select(able)
-                    elseif  sp_defpages_showlist true  === entries(list)
-                    else    no entries to print
-
-**}
+{* old_backend_staticpage template file v. 1.7, 2014-05-19 *}
 
 <!-- old_backend_staticpage.tpl START -->
 
@@ -310,33 +249,34 @@ switch pcat if      pageorder
     </script>
     {/if}
 
-    <div class="sp_templateselector">
-        <label for="sp_templateselector">{$CONST.STATICPAGE_TEMPLATE}</label> 
-        <select id="sp_templateselector" name="serendipity[backend_template]">
+    <div id="sp_navigator">
+        <div class="sp_templateselector">
+            <label for="sp_templateselector">{$CONST.STATICPAGE_TEMPLATE}</label>
+            <select id="sp_templateselector" name="serendipity[backend_template]">
             {if isset($sp_defpages_top) && is_array($sp_defpages_top)}
 
                 {foreach name=sp_sts item=top from=$sp_defpages_top}{$top}{/foreach}
             {/if}
-        </select>
-    </div><!-- class sp_templateselector end -->
+            </select>
+        </div><!-- class sp_templateselector end -->
 
-    <div class="sp_pageselector">
-        <p class="sp_bold sp_top">{$CONST.STATICPAGE_SELECT}</p>
-        <select name="serendipity[staticpage]" id="staticpage_dropdown">
-            <option value="__new">{$CONST.NEW_ENTRY}</option>
-            <option value="__new">-----------------</option>
+        <div class="sp_pageselector">
+            <p class="sp_bold sp_top">{$CONST.STATICPAGE_SELECT}</p>
+            <select name="serendipity[staticpage]" id="staticpage_dropdown">
+                <option value="__new">{$CONST.NEW_ENTRY}</option>
+                <option value="__new">-----------------</option>
             {if isset($sp_defpages_pop) && is_array($sp_defpages_pop)}
 
                 {foreach name=sp_sps item=pop from=$sp_defpages_pop}{$pop}{/foreach}
             {/if}
-        </select>
+            </select>
         {if isset($smarty.post.serendipity['staticpagecategory']) || isset($smarty.get.serendipity['staticid'])}
-        <script>
-            var prev_value;
-            jQuery('#staticpage_dropdown').focus(function() {
-                prev_value = jQuery(this).val();
-            }).change(function(){
-                jQuery(this).unbind('focus');
+            <script>
+                var prev_value;
+                jQuery('#staticpage_dropdown').focus(function() {
+                    prev_value = jQuery(this).val();
+                }).change(function(){
+                    jQuery(this).unbind('focus');
                 if (!confirm("{$CONST.STATICPAGE_CONFIRM_SELECTDIALOG}")) {
                     jQuery(this).val(prev_value);
                     jQuery(this).bind('focus');
@@ -344,26 +284,25 @@ switch pcat if      pageorder
                 } else {
                     jQuery(this.form.elements["serendipity[staticSubmit]"]).click();
                 }
-            });
-        </script>
+                });
+            </script>
         {/if}
-        <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong>
-        <input type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"document.getElementById('staticpage_dropdown').options[document.getElementById('staticpage_dropdown').selectedIndex].text"}');" class="serendipityPrettyButton input_button" value="{$CONST.DELETE}" />
-        <strong>-{$CONST.WORD_OR}-</strong> <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticPreview]" value="{$CONST.PREVIEW}" />
+            <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong>
+            <input type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"document.getElementById('staticpage_dropdown').options[document.getElementById('staticpage_dropdown').selectedIndex].text"}');" class="serendipityPrettyButton input_button" value="{$CONST.DELETE}" />
+            <strong>-{$CONST.WORD_OR}-</strong> <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticPreview]" value="{$CONST.PREVIEW}" />
         {if $sp_defpages_sbplav}
-        <div class="sp_plav">
-            <img class="attention" title="Staticpage Sidebar {$CONST.STATICPAGE_PLUGIN_AVAILABLE}" src="{serendipity_getFile file='admin/img/admin_msg_note.png'}" alt="info" />
-        </div>
+            <span class="icon-info-circled sp_right sp_info" title="Staticpage Sidebar {$CONST.STATICPAGE_PLUGIN_AVAILABLE}"></span>
         {/if}
-    </div><!-- class sp_pageselector end -->
+        </div><!-- class sp_pageselector end -->
 
     {if isset($sp_defpages_link)}
-    <script type="text/javascript">
-        var staticpage_preview = window.open("{$sp_defpages_link}", "staticpage_preview");
-        staticpage_preview.focus();
-    </script>
-    <p>{$CONST.PLUGIN_STATICPAGE_PREVIEW|sprintf:"<a href=\"$sp_defpages_link\">$sp_defpages_pagetitle</a>"}</p>
+        <script type="text/javascript">
+            var staticpage_preview = window.open("{$sp_defpages_link}", "staticpage_preview");
+            staticpage_preview.focus();
+        </script>
+        <p>{$CONST.PLUGIN_STATICPAGE_PREVIEW|sprintf:"<a href=\"$sp_defpages_link\">$sp_defpages_pagetitle</a>"}</p>
     {/if}
+    </div><!-- //id sp_navigator end -->
 
     {/if}{* showform, but not not entrylist end *}
     {if false === $sp_defpages_showlist} {* SELECT LIST BAR start WE NEED === here, do not use plain ! *}

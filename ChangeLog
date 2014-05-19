@@ -1,4 +1,4 @@
-4.20:
+4.21:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -52,6 +52,14 @@
  *  Added some missing PHPDocs
  *  Add new constant STATICPAGE_TOGGLEANDSAVE and removed old non-template
     STATICPAGE_TEMPLATE_INTERNAL constant
+ *  Main backend CSS file was renamed to staticpage_backend.css and
+    now includes seperately into backends page header
+ *  Added for 2.0:
+    - include new staticpage_backend.js to templates page footer - no need to use 2.0 js hook
+ *  Hide/Show the top tab bar menu per JS hideaway, since not used very often
+ *  Added for 2.0:
+    - navigate with larger amount of entrylist pages per newly added simplePagination.js,
+      fits nice beyond 8 to some deci- pages
 
 -----
 

@@ -10,19 +10,20 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] deep check, if current changes broke anything with some more enhanced staticpage options (all normal behaviour is checked working!)
 - [ ] move new backend template files into own or current backend_template directory ?
 - [ ] since now using Smarty 3 only, some Smarty code will need a refresh (no need, but cleaner)
-- [ ] how to navigate with larger amounts of staticpages, ie. beyond 10-15 ? Use Javascript only ?
 - [ ] touch frontend templates (in this plugin dir) for HTML5, inline styles, etc ?
 - [ ] solve some last remaining questions pasted as '// RQ: ' notes (+ + -)
-- [ ] remove the 4 options link tab menu on top (since not used very often) - maybe per JS hideaway ?
-- [ ] add sorting filter function to entrylists ?
 - [ ] rename directory backend_templates. There is a risk that existing user template dirs have other files in it (not excluded by backend_show)
 - [ ] remove backend_staticpage.tpl non-js pageorder markup and functions ?
-- [ ] use 2.0 new js hook for backend staticpage scripts
 
 
 - - -
 
 ### Already done: :arrow_up:
+- [x] Main backend CSS was renamed to staticpage_backend.css and now includes seperately into backends page header
+- [x] Added for 2.0: include new staticpage_backend.js to templates page footer - no need to use 2.0 js hook
+- [x] Hide/Show the top tab bar menu per JS hideaway, since not used very often
+- [x] Add sorting filter function to entrylists - no need, since using simplePagination now (!)
+- [x] Navigate with larger amount of entrylist pages per newly added simplePagination.js, fits nice from 8 to some deci- pages
 - [x] Note, that some constants were added, removed or changed
 - [x] Added some missing and changed some method PHPDocs
 - [x] Added for 2.0: experimental entrylistings (entrylisting and pageorder sequencer) respect parent/child staticpages treeview listing in a simple way

@@ -92,13 +92,14 @@ class serendipity_event_staticpage extends serendipity_event
             'backend_media_rename'                              => true,
             'frontend_fetchentries'                             => true,
             'frontend_rss'                                      => true,
+            'backend_header'                                    => true,
             'frontend_header'                                   => true
         ));
 
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.20');
+        $propbag->add('version', '4.21');
         $propbag->add('requirements',  array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -2706,6 +2707,12 @@ class serendipity_event_staticpage extends serendipity_event
                     }
                     break;
 
+                case 'backend_header':
+?>
+    <link rel="stylesheet" href="<?php echo $serendipity['serendipityHTTPPath']; ?>plugins/serendipity_event_staticpage/staticpage_backend.css">
+<?php
+                    break;
+
                 case 'frontend_header':
                     $md = htmlspecialchars($this->get_static('meta_description'));
                     $mk = htmlspecialchars($this->get_static('meta_keywords'));
@@ -2818,11 +2825,6 @@ class serendipity_event_staticpage extends serendipity_event
                 case 'css_backend':
                     if ($serendipity['version'][0] == '1') {
                         echo file_get_contents(dirname(__FILE__) . '/style_sp_s9yold.css');
-                    }
-                    if (!strpos($eventData, '#serendipityStaticpagesNav')) {
-                        // sadly these msg_classes get overwritten by other plugins like cke, so at least success needs a unique selector
-                        // class exists in CSS, so a user has customized it and we don't need default
-                        echo file_get_contents(dirname(__FILE__) . '/style_staticpage_backend.css');
                     }
                     break;
 

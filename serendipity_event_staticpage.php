@@ -2791,7 +2791,8 @@ class serendipity_event_staticpage extends serendipity_event
                         if ($serendipity['version'][0] == '1') {
                             printf(STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRIES . '<br />', count($dirs));
                         } else {
-                            printf(STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRIES . '<br>', count($dirs));
+                            $spimgmovedtodir = sprintf(STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRIES, count($dirs));
+                            printf('<span class="msg_notice"><span class="icon-info-circled"></span> ' . $spimgmovedtodir . '</span>');
                         }
                     }
                     break;

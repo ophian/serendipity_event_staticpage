@@ -85,4 +85,11 @@
 #backend_sp_respond .form_field_long input {
     width: 99% !important;
 }
+.serendipityAdminContent #sp_entries_list {
+    margin-bottom: 0.15em;
+}
+.serendipityAdminContent .serendipity_admin_list_item {
+    border: 0 none;
+    border-bottom: 1px solid #eee;
+}
 

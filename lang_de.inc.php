@@ -109,7 +109,7 @@
 @define('PLUGIN_STATICPAGELIST_IMG_NAME', 'Grafiken für Baumstruktur aktivieren');
 @define('PLUGIN_STATICPAGELIST_PARENTSONLY', 'Nur Eltern-Seiten darstellen?');
 @define('PLUGIN_STATICPAGELIST_PARENTSONLY_DESC', 'Falls aktiviert werden nur Eltern-Seiten dargestellt. Andernfalls werden auch Unterseiten angezeigt.');
-@define('PLUGIN_STATICPAGELIST_SHOWICONS_DESC', 'Baumstruktur oder einfache Textauflistung berwenden');
+@define('PLUGIN_STATICPAGELIST_SHOWICONS_DESC', 'Baumstruktur oder einfache Textauflistung verwenden');
 @define('PLUGIN_STATICPAGELIST_SHOWICONS_NAME', 'Icons bzw. Klartext');
 @define('PLUGIN_STATICPAGELIST_TEXT', 'Klartext');
 @define('STATICPAGE_DEFAULT_DESC', 'Standardeinstellung für neue Seiten');

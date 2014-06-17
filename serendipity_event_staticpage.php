@@ -88,6 +88,7 @@ class serendipity_event_staticpage extends serendipity_event
             'external_plugin'                                   => true,
             'entry_display'                                     => true,
             'genpage'                                           => true,
+            'css'                                               => true,
             'css_backend'                                       => true,
             'backend_media_rename'                              => true,
             'frontend_fetchentries'                             => true,
@@ -2820,6 +2821,30 @@ class serendipity_event_staticpage extends serendipity_event
                 case 'entries_footer':
                     if ($serendipity['GET']['action'] == 'search' && serendipity_db_bool($this->get_config('use_quicksearch'))) {
                         $this->showSearch();
+                    }
+                    break;
+
+                case 'css':
+                    if ($serendipity['version'][0] > 1) {
+?>
+/*
+ shorten very long staticpage titles by CSS,
+ width: 16em is for small sidebars.
+ Please overwrite for your templates needs.
+*/
+.sidebar_content .spp_title,
+.serendipitySideBarContent .spp_title,
+.sidebar_content .node,
+.serendipitySideBarContent .node {
+    padding-left: 0px;
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 16em;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: top;
+}
+<?php
                     }
                     break;
 

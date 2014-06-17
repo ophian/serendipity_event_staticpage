@@ -33,7 +33,7 @@
                 <div id="g{$entryorder['pagetitle']}" class="pluginmanager_grablet sequence_grablet">
                     <button class="icon_link" type="button" title="{$CONST.MOVE}"><span class="icon-move"></span><span class="visuallyhidden"> {$CONST.MOVE}</span></button>
                 </div>
-                {if $entryorder['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entryorder['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}<span class="sp_grablet_title">{$entryorder['pagetitle']}</span>
+                {if $entryorder['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entryorder['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}<span class="sp_grablet_title">{$entryorder['pagetitle']|truncate:50}</span>
                 <div class="sp_nojs">
                 {if !$entryorder@first}
 
@@ -258,7 +258,7 @@
 
     {if is_array($sp_listentries_entries)}
 
-<h3>{$CONST.STATICPAGE_LIST_EXISTING_PAGES}</h3>
+<h2>{$CONST.STATICPAGE_LIST_EXISTING_PAGES}</h2>
 
 <div id="sp_entry_pagination"></div>
 

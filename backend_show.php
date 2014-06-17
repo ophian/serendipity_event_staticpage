@@ -70,7 +70,7 @@
                 if (!empty($serendipity['POST']['typeDelete']) && $serendipity['POST']['pagetype'] != '__new') {
                     serendipity_db_query("DELETE FROM {$serendipity['dbPrefix']}staticpages_types WHERE id = " . (int)$serendipity['POST']['pagetype']);
                     $serendipity['smarty']->assign( array (
-                                 'sp_pagetype_ripped' => $this->pagetype['description'],
+                                 'sp_pagetype_ripped' => (int)$serendipity['POST']['pagetype'] . ' (' . $this->pagetype['description'] . ')',
                                  'sp_pagetype_purged' => true
                     ));
                 }
@@ -183,7 +183,7 @@
                     $serendipity['smarty']->assign('sp_staticdelete', true);
                     if (!$this->getChildPage($serendipity['POST']['staticpage'])) {
                         serendipity_db_query("DELETE FROM {$serendipity['dbPrefix']}staticpages WHERE id = " . (int)$serendipity['POST']['staticpage']);
-                        $serendipity['smarty']->assign('sp_defpages_rip_success', DONE .': '. sprintf(RIP_ENTRY, $this->staticpage['pagetitle']));
+                        $serendipity['smarty']->assign('sp_defpages_rip_success', DONE .': '. sprintf(RIP_ENTRY, (int)$serendipity['POST']['staticpage'] . ' (' . $this->staticpage['pagetitle'] . ')'));
                     }
                 }
 

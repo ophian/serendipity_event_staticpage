@@ -1,4 +1,4 @@
-<?php # 
+<?php #
 
 # serendipity_plugin_staticpage.php, v1.0 2005/06/01 (c) by Rob Antonishen
 
@@ -22,9 +22,9 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
     function introspect(&$propbag) {
         $propbag->add('name',        PLUGIN_STATICPAGELIST_NAME);
         $propbag->add('description', PLUGIN_STATICPAGELIST_NAME_DESC);
-        $propbag->add('author',      "Rob Antonishen, Falk Doering, Ian (Timbalu)");
+        $propbag->add('author',      "Rob Antonishen, Falk Doering, Ian");
         $propbag->add('stackable',   true);
-        $propbag->add('version',     '1.19');
+        $propbag->add('version',     '1.20');
         $propbag->add('configuration', array(
                 'title',
                 'limit',
@@ -36,9 +36,9 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                 'imgdir'
         ));
         $propbag->add('requirements',  array(
-            'serendipity' => '1.3',
-            'smarty'      => '2.6.7',
-            'php'         => '4.1.0'
+            'serendipity' => '1.7',
+            'smarty'      => '3.1.0',
+            'php'         => '5.2.0'
         ));
         $propbag->add('groups', array('FRONTEND_VIEWS'));
         $this->dependencies = array(
@@ -118,7 +118,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
     }
 
     function generate_content(&$title) { 
-        $title = $this->get_config('title');//STATICPAGE_TITLE;
+        $title = $this->get_config('title');
         // do not load the tpl in backend
         if(!defined('IN_serendipity_admin')) {
             $this->show_content();
@@ -148,13 +148,13 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                 }
             }
             if ($smartify) {
-                $smartcar = $this->displayPageList($this->get_config('limit'), serendipity_db_bool($this->get_config('parentsonly')), $smartify);
+                $smartcar = $this->displayPageList((int)$this->get_config('limit'), serendipity_db_bool($this->get_config('parentsonly')), $smartify);
             } else {
-                $str .= $this->displayPageList($this->get_config('limit'), serendipity_db_bool($this->get_config('parentsonly')));
+                $str .= $this->displayPageList((int)$this->get_config('limit'), serendipity_db_bool($this->get_config('parentsonly')));
             }
         } else {
             if (!isset($serendipity['staticpageplugin']['JS_init'])) {
-                $str .= '<script src="' . $serendipity['baseURL'] . ($serendipity['rewrite'] == 'none' ? $serendipity['indexFile'] . '?/' : '') . 'plugin/dtree.js" language="javascript" type="text/javascript"></script>';
+                $str .= '<script src="' . $serendipity['baseURL'] . ($serendipity['rewrite'] == 'none' ? $serendipity['indexFile'] . '?/' : '') . 'plugin/dtree.js" type="text/javascript"></script>';
                 $serendipity['staticpageplugin']['JS_init'] = true;
             }
 
@@ -209,7 +209,6 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                 'staticpage_listContent' => $smartcar
             ));
             $filename = 'plugin_staticpage_sidebar.tpl';
-            // use nativ API here - extends s9y version >= 1.3'
             $content = $this->parseTemplate($filename);
             echo $content;
         } else {
@@ -305,7 +304,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                 } elseif(is_string($content)) { 
                     $content .= (!empty($page['permalink'])
                         ? sprintf(
-                            "<a href=\"%s\" title=\"%s\" style=\"padding-left: %dpx;\">%s</a><br />\n",
+                            "<a href=\"%s\" title=\"%s\" class=\"spp_title\" style=\"padding-left: %dpx;\">%s</a><br />\n",
                             $page['permalink'],
                             htmlspecialchars($page['pagetitle']),
                             $page['depth']*10,

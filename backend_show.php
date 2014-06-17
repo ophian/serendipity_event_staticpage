@@ -236,12 +236,15 @@
                         foreach ($pages as $page) {
                             if ($this->checkPageUser($page['authorid'])) {
                                 $ps_option[] = '<option value="' . $page['id'] . '"' . ($serendipity['POST']['staticpage'] == $page['id'] ? ' selected="selected"' : '') . '>' . str_repeat('&nbsp;&nbsp;', $page['depth']) . htmlspecialchars($page['pagetitle']) . '</option>'."\n";
+                                if ($serendipity['POST']['staticpage'] == $page['id']) {
+                                    $ps_option['selected_id'] = $page['id'];
+                                    $ps_option['selected_name'] = htmlspecialchars($page['pagetitle']);
+                                }
                             }
                         }
                     }
                     if (isset($ps_option) && is_array($ps_option)) {
                         $serendipity['smarty']->assign('sp_defpages_pop', $ps_option);
-                        //$serendipity['smarty']->assign('sp_selected_id', $serendipity['POST']['staticpage'] == $page['id'] ? $page['id'] : '');//debug
                     }
 
                     if ($sbplav) {

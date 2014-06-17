@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.9, 2014-05-19 *}
+{* backend_staticpage template file v. 1.10, 2014-06-17 *}
 
 <!-- backend_staticpage.tpl START -->
 
@@ -221,7 +221,7 @@
             <script>var dropdown_dialog = "{$CONST.STATICPAGE_CONFIRM_SELECTDIALOG}";</script>
         {/if}
             <input class="input_button state_submit" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}"> <strong>-{$CONST.WORD_OR}-</strong>
-            <input class="input_button state_cancel" type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"document.getElementById('staticpage_dropdown').options[document.getElementById('staticpage_dropdown').selectedIndex].text"}');" value="{$CONST.DELETE}">
+            <input class="input_button state_cancel" type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"{$sp_defpages_pop.selected_id} ({$sp_defpages_pop.selected_name|truncate:30})"}');" value="{$CONST.DELETE}">
             <strong>-{$CONST.WORD_OR}-</strong> <input class="input_button entry_preview" type="submit" name="serendipity[staticPreview]" value="{$CONST.PREVIEW}">
         {if $sp_defpages_sbplav}
             <span class="icon-info-circled sp_right sp_info" title="Staticpage Sidebar {$CONST.STATICPAGE_PLUGIN_AVAILABLE}"></span>

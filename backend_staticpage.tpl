@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.10, 2014-06-17 *}
+{* backend_staticpage template file v. 1.11, 2014-07-13 *}
 
 <!-- backend_staticpage.tpl START -->
 
@@ -58,6 +58,9 @@
         {/foreach}
         </ol>
     </fieldset>
+    <form action="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder" method="post" name="saveOrder">
+        <input type="submit" class="input_button state_submit" name="serendipity[typeSubmit]" value="{$CONST.GO}">
+    </form>
 </div>
     {else}
 
@@ -341,8 +344,6 @@
 
 {/if} {* switch end *}
 
-<script src="{serendipity_getFile file="admin/js/jquery.autoscroll.js"}"></script>
-<script src="{serendipity_getFile file="admin/js/jquery.sortable.js"}"></script>
 <script src="{$serendipityHTTPPath}plugins/serendipity_event_staticpage/jquery.simplePagination.js"></script>
 <script src="{$serendipityHTTPPath}plugins/serendipity_event_staticpage/staticpage_backend.js"></script>
 

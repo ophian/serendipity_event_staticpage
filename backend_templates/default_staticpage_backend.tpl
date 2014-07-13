@@ -87,7 +87,7 @@
                     {staticpage_input item="meta_keywords"}
                 </div>
             {if !$new_backend}</div>{else}</fieldset>{/if}
-            {if !$new_backend}<script type="text/javascript" language="JavaScript">document.getElementById("el1").style.display = "none";</script>{/if}
+            {if !$new_backend}<script type="text/javascript">document.getElementById("el1").style.display = "none";</script>{/if}
             {/if}
 
         </fieldset>
@@ -153,7 +153,7 @@
                 </div>
 
             {if !$new_backend}</div>{else}</fieldset>{/if}
-            {if !$new_backend && !$is_wysiwyg}<script type="text/javascript" language="JavaScript">document.getElementById("el2").style.display = "none";</script>{/if}
+            {if !$new_backend && !$is_wysiwyg}<script type="text/javascript">document.getElementById("el2").style.display = "none";</script>{/if}
         </fieldset>
     </div>
 
@@ -252,7 +252,6 @@
     <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button"{if !$new_backend} /{/if}>
 </div>
 
-<script src="{serendipity_getFile file='admin/js/jquery.magnific-popup.js'}"></script>
 {if $new_backend}
 <script>
     $('.sp_toggle').click(function () {

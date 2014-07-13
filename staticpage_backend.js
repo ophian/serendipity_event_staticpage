@@ -1,6 +1,6 @@
 /***
  * Staticpage event backend js
- * Last modified: 2014-05-19
+ * Last modified: 2014-07-13
  **/
 
 /**
@@ -177,32 +177,9 @@ if (typeof(CKEDITOR) != 'undefined' && CKEDITOR.plugins.registered['save']) {
 
 // pageorder drag and drop handler
 $(function() {
-    if (! Modernizr.touch){
-        function getDragdropConfiguration(group) {
-            return {
-                containerSelector: '.pluginmanager_container',
-                group: group,
-                handle: '.pluginmanager_grablet',
-
-                onDrop: function ($item, container, _super) {
-                    var placement = $item.parents('.pluginmanager_container').data('placement');
-                    $item.find('select[name$="placement]"]').val(placement);
-                    $item.removeClass('dragged').removeAttr('style');
-                    $('body').removeClass('dragging');
-                    saveNewOrder();
-                    $.autoscroll.stop();
-                },
-                onDragStart: function ($item, container, _super) {
-                    $.autoscroll.init();
-                    $item.css({
-                        height: $item.height(),
-                        width: $item.width()
-                    });
-                    $item.addClass('dragged');
-                    $('body').addClass('dragging');
-                }
-            }
-        }
-        $('.configuration_group .pluginmanager_container').sortable(getDragdropConfiguration('plugins_event'));
-    }
+    $('#sp_sequencer form').submit(function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        saveNewOrder();
+    });
 });

@@ -116,7 +116,7 @@
 <?php
                         }
 ?>
-                    <script type="text/javascript" language="JavaScript">
+                    <script type="text/javascript">
                         var tb_<?php echo $config_item ?> = document.getElementById('tools_<?php echo $config_item ?>');
                         tb_<?php echo $config_item ?>.style.display = '';
                     </script>

@@ -103,7 +103,7 @@
             </div>
         </fieldset>
     </div>
-    {if !$new_backend}<script type="text/javascript" language="JavaScript">document.getElementById("el1").style.display = "none";</script>{/if}
+    {if !$new_backend}<script type="text/javascript">document.getElementById("el1").style.display = "none";</script>{/if}
     {/if}
 
     <div class="sp_sect configuration_group">
@@ -168,7 +168,7 @@
 
     </div>
 
-    {if !$new_backend && !$is_wysiwyg}<script type="text/javascript" language="JavaScript">document.getElementById("el2").style.display = "none";</script>{/if}
+    {if !$new_backend && !$is_wysiwyg}<script type="text/javascript">document.getElementById("el2").style.display = "none";</script>{/if}
 
     <div class="sp_sect configuration_group">
         {if $new_backend}
@@ -225,7 +225,7 @@
 
     </div>
 
-    {if !$new_backend && !$is_wysiwyg}<script type="text/javascript" language="JavaScript">document.getElementById("el3").style.display = "none";</script>{/if}
+    {if !$new_backend && !$is_wysiwyg}<script type="text/javascript">document.getElementById("el3").style.display = "none";</script>{/if}
 
     <div class="sp_sect configuration_group">
         {if $new_backend}
@@ -277,7 +277,7 @@
                 </pre>
                 </span>
             </div>
-            {if !$new_backend && !$is_wysiwyg}<script type="text/javascript" language="JavaScript">document.getElementById("el5").style.display = "none";</script>{/if}
+            {if !$new_backend && !$is_wysiwyg}<script type="text/javascript">document.getElementById("el5").style.display = "none";</script>{/if}
 
             <div id="entry_custom_sidebar" class="form_field form_multiselect sp_sect">
                 <label class="sp_label" title="Choose the main sidebar that should be shown when this staticpage is evaluated">Sidebars</label>
@@ -297,7 +297,7 @@
 
     </div>
 
-    {if !$new_backend && !$is_wysiwyg}<script type="text/javascript" language="JavaScript">document.getElementById("el4").style.display = "none";</script>{/if}
+    {if !$new_backend && !$is_wysiwyg}<script type="text/javascript">document.getElementById("el4").style.display = "none";</script>{/if}
 
 </div>
 
@@ -308,7 +308,6 @@
     <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button state_submit"{if !$new_backend} /{/if}>
 </div>
 
-<script src="{serendipity_getFile file='admin/js/jquery.magnific-popup.js'}"></script>
 {if $new_backend}
 <script>
     $('.sp_toggle').click(function () {

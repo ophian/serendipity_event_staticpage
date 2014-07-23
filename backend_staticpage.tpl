@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.11, 2014-07-13 *}
+{* backend_staticpage template file v. 1.12, 2014-07-23 *}
 
 <!-- backend_staticpage.tpl START -->
 
@@ -33,7 +33,7 @@
                 <div id="g{$entryorder['pagetitle']}" class="pluginmanager_grablet sequence_grablet">
                     <button class="icon_link" type="button" title="{$CONST.MOVE}"><span class="icon-move"></span><span class="visuallyhidden"> {$CONST.MOVE}</span></button>
                 </div>
-                {if $entryorder['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entryorder['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}<span class="sp_grablet_title">{$entryorder['pagetitle']|truncate:50}</span>
+                {if $entryorder['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entryorder['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}<span title="#{$entryorder['id']}" class="sp_grablet_title">{$entryorder['pagetitle']|truncate:50}</span>
                 <div class="sp_nojs">
                 {if !$entryorder@first}
 

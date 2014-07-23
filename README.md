@@ -13,11 +13,14 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] solve some last remaining questions pasted as '// RQ: ' notes (+ + -)
 - [ ] rename directory backend_templates. There is a risk that existing user template dirs have other files in it (not excluded by backend_show)
 - [ ] remove backend_staticpage.tpl non-js pageorder markup and functions ?
+- [ ] fix and correct entrypaging, breadcrumb and childpage navigations
 
 
 - - -
 
 ### Already done: :arrow_up:
+- [x] Changed for 2.0: added title attribute #ID to sequencer pagetitle, to know which id is meant by childpages
+- [x] Changed for 2.0: fixed save pageorder to work with current current 2.0 changes
 - [x] Changed for 2.0: default config value for show entrylist is now true
 - [x] Done for 2.0: since now using Smarty 3 only, some Smarty code will need a refresh (no need, but cleaner)
 - [x] Main backend CSS was renamed to staticpage_backend.css and now includes seperately into backends page header

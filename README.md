@@ -9,16 +9,17 @@ Please use with care and always keep a backup copy of your updated plugin.
 ### ToDo: :arrow_down:
 - [ ] deep check, if current changes broke anything with some more enhanced staticpage options (all normal behaviour is checked working!)
 - [ ] move new backend template files into own or current backend_template directory ?
-- [ ] touch frontend templates (in this plugin dir) for HTML5, inline styles, etc ?
 - [ ] solve some last remaining questions pasted as '// RQ: ' notes (+ + -)
 - [ ] rename directory backend_templates. There is a risk that existing user template dirs have other files in it (not excluded by backend_show)
 - [ ] remove backend_staticpage.tpl non-js pageorder markup and functions ?
-- [ ] fix and correct entrypaging, breadcrumb and childpage navigations
 
 
 - - -
 
 ### Already done: :arrow_up:
+- [x] Extends to PHP 5.3+
+- [x] Touch frontend templates (in this plugin dir) for HTML5, inline styles, Navigations, etc
+- [x] Fix and correct entrypaging, breadcrumb and childpage navigations
 - [x] Changed for 2.0: added title attribute #ID to sequencer pagetitle, to know which id is meant by childpages
 - [x] Changed for 2.0: fixed save pageorder to work with current current 2.0 changes
 - [x] Changed for 2.0: default config value for show entrylist is now true

@@ -100,11 +100,11 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.22');
+        $propbag->add('version', '4.23');
         $propbag->add('requirements',  array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
-            'php'         => '5.2.0'
+            'php'         => '5.3.0'
         ));
         $propbag->add('stackable', false);
         $propbag->add('groups', array('BACKEND_EDITOR', 'BACKEND_FEATURES'));
@@ -1113,6 +1113,75 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
+     * Get child breadcrumb navigation ids downwards
+     *
+     * @param  array    $pages
+     * @param  int      $id
+     * @param  array    recursive return
+     * @access (private) fallback public
+     * @return array
+     */
+    function recursive_childs($pages, $id, $p = array())
+    {
+        $p = array_merge($p, array($id));
+        foreach ($pages as $page) {
+            if ($page['parent_id'] == $id) { $p = $this->recursive_childs($pages, $page['id'], $p); break; }
+        }
+        return $p;
+    }
+
+    /**
+     * Get pages array index key by childs id
+     *
+     * @param  array    $pages
+     * @param  int      $id
+     * @access (private) fallback public
+     * @return int
+     */
+    function getPagesKey($p, $id)
+    {
+        foreach ($p as $key => $item) {
+            if ($item['id'] == $id) {
+                return $key;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Rewind and set internal pointer for next and prev navigation returns
+     * since $expages may have excluded/removed keys, without setting a new index, for comparison checks with $pages
+     * that is why the previous coded loops $i+1/$i-1 in $nav for prev and next did not help
+     *
+     * @param  array     $pages
+     * @param  int       for $index
+     * @param  boolean   next or prev
+     * @param  string    key name
+     * @access (private) fallback public
+     * @return string
+     */
+    function get_nav($array, $index, $prev, $s='')
+    {
+        // handle case end of array
+        end($array);         // move the internal pointer to the end of the array
+        $key = key($array);  // fetches the key of the element pointed to by the internal pointer
+        if (!$prev && ($key == $index)) return false;
+        if ( $prev && ($key == $index)) { prev($array); return $array[key($array)][$s]; }
+        // rewind and iterate through for normal case navigations
+        unset($key);
+        reset($array);
+        foreach ($array as $key => $item) {
+            if ($key == $index) {
+                if (!$prev) return $array[key($array)][$s]; // is next() index key already
+                prev($array); // set pointer to current key, see above
+                prev($array); // set pointer to real prev() key
+                return $array[key($array)][$s];
+            }
+        }
+        return false;
+    }
+
+    /**
      * Get navigation data for frontend navigations
      *
      * @access (private) fallback public
@@ -1128,13 +1197,43 @@ class serendipity_event_staticpage extends serendipity_event
             $pages = unserialize(file_get_contents($target));
         } else {
             $pages = $this->fetchPublishedStaticPages();
-            $pages = (is_array($pages) ? serendipity_walkRecursive($pages) : array());
+            $pages = (is_array($pages) ? serendipity_walkRecursive($pages) : array()); // builds depth flag
+            // builds flag 'excludenav', in case of a page with depth = 0 und no navis set at all
+            // takes PHP 5.3+ lambda function as a second parameter
+            array_walk($pages, function(&$val, $index){
+                if ($val['depth'] == 0 && $val['shownavi'] == 0 && $val['show_breadcrumb'] == 0) {
+                    $val['excludenav'] = true;
+                }
+            });
+            // add to all recursive childs of a level 0 parent with set flag
+            // (do not use same parameter names $k $v as later on in $expages loop!)
+            foreach ($pages AS $prc_key => &$prc_value) {
+                if ($prc_value['excludenav']) $lastpid = $prc_value['id'];
+                // set for all direct childs and if they are set with shownavi = 0
+                if ($prc_value['parent_id'] == $lastpid && $prc_value['depth'] > 0 && $prc_value['shownavi'] == 0) {
+                    $prc_value['excludenav'] = true;
+                    $prc_childs = $this->recursive_childs($pages, $prc_value['id']);
+                }
+                // set flag for all recursive childs of direct childs
+                if (isset($prc_childs[1])) {
+                    foreach ($prc_childs as $prcchild) {
+                        if ($prc_value['id'] == $prcchild && !$prc_value['excludenav']) $prc_value['excludenav'] = true;
+                    }
+                }
+            }
+
             $fp = fopen($target, 'w');
             fwrite($fp, serialize($pages));
             fclose($fp);
         }
 
         $thispage = (int)$this->getPageID();
+        $navname  = $this->get_config('showtextorheadline');
+
+        // clone pages array for shownavi navigation, but remove flagged item keys
+        foreach ($pages AS $k => $v) {
+            if (!$v['excludenav']) { $expages[$k] = $v; } // use old index key for strict comparison with pages array!
+        }
 
         for ($i = 0, $maxcount = count($pages); $i < $maxcount; $i++) {
             if ($pages[$i]['depth'] == 0) {
@@ -1142,20 +1241,29 @@ class serendipity_event_staticpage extends serendipity_event
                 $top['permalink'] = $pages[$i]['permalink'];
                 $top['id']        = $pages[$i]['id'];
             }
-
             if ($pages[$i]['id'] == $thispage) {
+                // the 'top' in $nav['top'] is just a synonym for 'current page', or 'top parent', or 'exit'
+                $previstop = ($top['id'] == $i) ? true : false; // case when top_parents id equals previous_key id
+                $childcase = ($pages[$i]['depth'] > 1) ? true : false;
                 $nav = array(
                     'prev' => array(
-                        'name' => $this->get_config('showtextorheadline') ? STATICPAGE_PREV : $pages[$i-1]['pagetitle'],
-                        'link' => $pages[$i-1]['permalink']
+                        'name' => $this->get_config('showtextorheadline') ? PREVIOUS : $this->get_nav($expages, $i, true, 'pagetitle'),
+                        'link' => $this->get_nav($expages, $i, true, 'permalink')
                     ),
                     'next' => array(
-                        'name' => $this->get_config('showtextorheadline') ? STATICPAGE_NEXT : $pages[$i+1]['pagetitle'],
-                        'link' => $pages[$i+1]['permalink']
+                        'name' => $this->get_config('showtextorheadline') ? NEXT : $this->get_nav($expages, $i, false, 'pagetitle'),
+                        'link' => $this->get_nav($expages, $i, false, 'permalink')
                     ),
                     'top' => array(
-                        'name' => (($top['id'] == $pages[$i-1]['id']) || ($this->get_config('showtextorheadline'))) ? STATICPAGE_TOP : $top['name'],
-                        'link' => ($top['id'] == $pages[$i-1]['id'] ? $serendipity['serendipityHTTPPath'] : $top['permalink'])
+                        'topp_name' => $childcase ? ($this->get_config('showtextorheadline') ? STATICPAGE_TOP : $top['name']) : '',
+                        'topp_link' => $childcase ? $top['permalink'] : '',
+                        'curr_name' => $pages[$i]['pagetitle'],
+                        'curr_link' => $pages[$i]['permalink'],
+                        'exit_name' => $previstop ? HOMEPAGE : '',
+                        'exit_link' => $previstop ? $serendipity['serendipityHTTPPath'] : '',
+                        // this is old combat view, reduced to a plain link of current page. Disabled top_parent here, too expensive!
+                        'name' => $pages[$i]['pagetitle'],
+                        'link' => $pages[$i]['permalink'],
                     )
                 );
 
@@ -1172,13 +1280,18 @@ class serendipity_event_staticpage extends serendipity_event
                 }
 
                 // Include breadcrumbs
+                // gather upwards from $thispage
                 $crumbs = array();
                 // Add the current page
                 $j = $i;
                 $pages[$j]['name'] = $pages[$j]['pagetitle'];
                 $pages[$j]['link'] = $pages[$j]['permalink'];
                 $crumbs[] = $pages[$j];
+
+                $childs = $this->recursive_childs($pages, $pages[$j]['id']);
+
                 $up = $pages[$j]['parent_id'];
+
                 while (($j >= 0) && ($up != 0)) {
                     // Find the parent page index! (Backwards for efficiency)
                     for (; ($j >= 0) && ($pages[$j]['id'] != $up); $j--) {}
@@ -1190,11 +1303,25 @@ class serendipity_event_staticpage extends serendipity_event
                         $up = $pages[$j]['parent_id'];
                     }
                 }
-                // Reverse the breadcrumb array
-                $nav['crumbs'] = array_reverse($crumbs);
+                // gather downwards from $thispage
+                foreach($childs As $child) {
+                    $pkey = $this->getPagesKey($pages, $child);
+                    $pages[$pkey]['name'] = $pages[$pkey]['pagetitle'];
+                    $pages[$pkey]['link'] = $pages[$pkey]['permalink'];
+                    if (is_int($pkey)) $crumbs[] = $pages[$pkey];
+                }
+                // merge the upwards and downwards breadcrumb array
+                $crumbs = array_unique($crumbs, SORT_REGULAR);
+                // sort breadcrumb array by depth key - PHP 5.3+
+                usort($crumbs, function($a, $b) {
+                    return $a['depth'] - $b['depth'];
+                });
+
+                $nav['crumbs'] = $crumbs;
 
                 return $nav;
             }
+
         }
         return false;
     }
@@ -1318,7 +1445,7 @@ class serendipity_event_staticpage extends serendipity_event
             $staticpage_content    = $this->get_static('content'); // no more &
             $staticpage_precontent = $this->get_static('pre_content'); // no more &
         }
-
+        // get the next level childpage downwards; to be viewed with Article type 'overview' pages
         if ($cpids = $this->getChildPagesID()) {
 
             foreach($cpids as $cpid) {
@@ -1992,7 +2119,8 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Fetch published static page for navigation data
+     * Fetch published static page for frontend navigation data
+     * exclude other lang, error pages and faked staticpages
      *
      * @access (private) fallback public
      * @return mixed array/bool
@@ -2001,7 +2129,15 @@ class serendipity_event_staticpage extends serendipity_event
     {
         global $serendipity;
 
-        $pub = serendipity_db_query("SELECT id, pagetitle, parent_id, permalink FROM {$serendipity['dbPrefix']}staticpages WHERE publishstatus = 1 ORDER BY parent_id, pageorder");
+        $q = "SELECT id, pagetitle, parent_id, permalink, shownavi, show_breadcrumb
+                FROM {$serendipity['dbPrefix']}staticpages
+               WHERE publishstatus = 1
+                 AND articletype != 0
+                 AND is_404_page = 0
+                 AND (shownavi = 1 OR show_breadcrumb = 1 OR (parent_id = 0 AND shownavi = 0 AND show_breadcrumb = 0))
+                 AND (language = '{$serendipity['lang']}' OR language = '' OR language = 'all')
+               ORDER BY parent_id, pageorder";
+        $pub = serendipity_db_query($q);
 
         return is_array($pub) ? $pub : false;
     }
@@ -2827,6 +2963,7 @@ class serendipity_event_staticpage extends serendipity_event
                 case 'css':
                     if ($serendipity['version'][0] > 1) {
 ?>
+
 /*
  shorten very long staticpage titles by CSS,
  width: 16em is for small sidebars.
@@ -2844,8 +2981,45 @@ class serendipity_event_staticpage extends serendipity_event
     overflow: hidden;
     vertical-align: top;
 }
+
 <?php
                     }
+?>
+
+#staticpage_nav {
+    border: 1px solid #aaa;
+    margin-bottom: 1em;
+}
+#staticpage_nav .staticpage_navigation {
+    text-align: center;
+    padding: 0.2em 0.5em;
+    margin: 0;
+    display: block;
+    border: 0 none;
+    background-color: inherit;
+}
+#staticpage_nav .staticpage_navigation li,
+#staticpage_nav .staticpage_navigation_breadcrumb {
+    display: inline-block;
+}
+#staticpage_nav .staticpage_navigation_left {
+    float: left;
+}
+#staticpage_nav .staticpage_navigation_center {
+    text-align: center;
+}
+#staticpage_nav .staticpage_navigation_right {
+    float: right;
+}
+#staticpage_nav .staticpage_navigation_breadcrumb {
+    background: none repeat scroll 0% 0% #EEE;
+    padding: 0.2em 0.5em;
+}
+#staticpage_nav .staticpage_navigation_dummy {
+    color: #bbb;
+}
+
+<?php
                     break;
 
                 case 'css_backend':

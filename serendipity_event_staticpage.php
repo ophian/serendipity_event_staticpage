@@ -1445,7 +1445,7 @@ class serendipity_event_staticpage extends serendipity_event
             $staticpage_content    = $this->get_static('content'); // no more &
             $staticpage_precontent = $this->get_static('pre_content'); // no more &
         }
-        // get the next level childpage downwards; to be viewed with Article type 'overview' pages
+        // get the next level childpage downwards; to be viewed with (simple) option 'show childpages'
         if ($cpids = $this->getChildPagesID()) {
 
             foreach($cpids as $cpid) {
@@ -1526,7 +1526,7 @@ class serendipity_event_staticpage extends serendipity_event
                 $pagevar . 'form_url'           => $serendipity['baseURL'] . $serendipity['indexFile'] . '?serendipity[subpage]=' . htmlspecialchars($this->get_static('pagetitle')),
                 $pagevar . 'content'            => $staticpage_content,
                 $pagevar . 'childpages'         => serendipity_db_bool($this->get_static('show_childpages')) ? $this->getChildPages() : false,
-                $pagevar . 'extchildpages'      => $childpages,
+                $pagevar . 'extchildpages'      => serendipity_db_bool($this->get_static('show_childpages')) ? $childpages : false,
                 $pagevar . 'pid'                => $this->get_static('id'),
                 $pagevar . 'precontent'         => $staticpage_precontent,
                 $pagevar . 'adminlink'          => $this->getEditlinkData(),

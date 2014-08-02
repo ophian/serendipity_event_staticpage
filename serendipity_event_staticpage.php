@@ -100,7 +100,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.23');
+        $propbag->add('version', '4.24');
         $propbag->add('requirements',  array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -1131,7 +1131,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Get pages array index key by childs id
+     * Get frontend pages array index key by childs id
      *
      * @param  array    $pages
      * @param  int      $id
@@ -1149,7 +1149,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Rewind and set internal pointer for next and prev navigation returns
+     * Rewind and set internal pointer for next and prev frontend navigation returns
      * since $expages may have excluded/removed keys, without setting a new index, for comparison checks with $pages
      * that is why the previous coded loops $i+1/$i-1 in $nav for prev and next did not help
      *
@@ -1207,6 +1207,7 @@ class serendipity_event_staticpage extends serendipity_event
             });
             // add to all recursive childs of a level 0 parent with set flag
             // (do not use same parameter names $k $v as later on in $expages loop!)
+            // finally this will have to be a real recursive function to get beyond limitation of level 3 great-grandchilds
             foreach ($pages AS $prc_key => &$prc_value) {
                 if ($prc_value['excludenav']) $lastpid = $prc_value['id'];
                 // set for all direct childs and if they are set with shownavi = 0
@@ -1214,10 +1215,21 @@ class serendipity_event_staticpage extends serendipity_event
                     $prc_value['excludenav'] = true;
                     $prc_childs = $this->recursive_childs($pages, $prc_value['id']);
                 }
-                // set flag for all recursive childs of direct childs
+                // set flag for all recursive childs of direct childs level 2 - grandchilds
                 if (isset($prc_childs[1])) {
                     foreach ($prc_childs as $prcchild) {
-                        if ($prc_value['id'] == $prcchild && !$prc_value['excludenav']) $prc_value['excludenav'] = true;
+                        if ($prc_value['parent_id'] == $prcchild && !$prc_value['excludenav']) {
+                            $prc_value['excludenav'] = true;
+                            $prc_gchilds = $this->recursive_childs($pages, $prc_value['id']);
+                        }
+                    }
+                }
+                // set flag for all recursive childs of hrandchilds level 3 - great-grandchilds
+                if (isset($prc_gchilds[1])) {
+                    foreach ($prc_gchilds as $prcgchild) {
+                        if ($prc_value['parent_id'] == $prcgchild && !$prc_value['excludenav']) {
+                            $prc_value['excludenav'] = true;
+                        }
                     }
                 }
             }
@@ -1228,7 +1240,7 @@ class serendipity_event_staticpage extends serendipity_event
         }
 
         $thispage = (int)$this->getPageID();
-        $navname  = $this->get_config('showtextorheadline');
+        $navname  = serendipity_db_bool($this->get_config('showtextorheadline'));
 
         // clone pages array for shownavi navigation, but remove flagged item keys
         foreach ($pages AS $k => $v) {
@@ -1247,15 +1259,15 @@ class serendipity_event_staticpage extends serendipity_event
                 $childcase = ($pages[$i]['depth'] > 1) ? true : false;
                 $nav = array(
                     'prev' => array(
-                        'name' => $this->get_config('showtextorheadline') ? PREVIOUS : $this->get_nav($expages, $i, true, 'pagetitle'),
+                        'name' => $navname ? PREVIOUS : $this->get_nav($expages, $i, true, 'pagetitle'),
                         'link' => $this->get_nav($expages, $i, true, 'permalink')
                     ),
                     'next' => array(
-                        'name' => $this->get_config('showtextorheadline') ? NEXT : $this->get_nav($expages, $i, false, 'pagetitle'),
+                        'name' => $navname ? NEXT : $this->get_nav($expages, $i, false, 'pagetitle'),
                         'link' => $this->get_nav($expages, $i, false, 'permalink')
                     ),
                     'top' => array(
-                        'topp_name' => $childcase ? ($this->get_config('showtextorheadline') ? STATICPAGE_TOP : $top['name']) : '',
+                        'topp_name' => $childcase ? ($navname ? STATICPAGE_TOP : $top['name']) : '',
                         'topp_link' => $childcase ? $top['permalink'] : '',
                         'curr_name' => $pages[$i]['pagetitle'],
                         'curr_link' => $pages[$i]['permalink'],

@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.12, 2014-07-23 *}
+{* backend_staticpage template file v. 1.13, 2014-08-03 *}
 
 <!-- backend_staticpage.tpl START -->
 
@@ -33,7 +33,7 @@
                 <div id="g{$entryorder['pagetitle']}" class="pluginmanager_grablet sequence_grablet">
                     <button class="icon_link" type="button" title="{$CONST.MOVE}"><span class="icon-move"></span><span class="visuallyhidden"> {$CONST.MOVE}</span></button>
                 </div>
-                {if $entryorder['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entryorder['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}<span title="#{$entryorder['id']}" class="sp_grablet_title">{$entryorder['pagetitle']|truncate:50}</span>
+                {if $entryorder['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entryorder['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}<span title="#{$entryorder['id']} {$entryorder['headline']}" class="sp_grablet_title">{$entryorder['pagetitle']|truncate:50}</span>
                 <div class="sp_nojs">
                 {if !$entryorder@first}
 
@@ -272,7 +272,7 @@
     <div class="sp_entries_pane {cycle values="odd,even"}{if $entry@last} sp_close{/if}">
         <ul id="sp_entries_list" class="plainList{if $entry['parent_id'] > 0} sp_isChild{/if}">
             <li id="sple{$entry['id']}" class="clearfix">
-                <h3>{if $entry['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entry['parent_id']}</span><span class="icon-right-dir sp_ctree"></icon>{/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']}">{if !empty($entry['headline'])}{$entry['headline']|escape|truncate:50}{else}{$entry['pagetitle']}{/if}</a></h3>
+                <h3>{if $entry['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entry['parent_id']}</span><span class="icon-right-dir sp_ctree"></icon>{/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']}">{if !empty($entry['headline'])}{$entry['headline']|escape|truncate:50}{else}{$entry['pagetitle']}{/if}</a></h3>
                 <div class="clearfix spmod">{$entry['timestamp']|@formatTime:'%Y-%m-%d'} {if $entry['timestamp'] <= ($entry['last_modified'] - 1800)}<span class="icon-clock" title="{$CONST.LAST_UPDATED}: {$entry['last_modified']|@formatTime:'%Y-%m-%d'}"></span>{/if}</div>
             </li>
             <li class="clearfix">

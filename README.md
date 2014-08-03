@@ -17,6 +17,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Added more backend title attribute information for pageorder and entrylisting titles
 - [x] Touch frontend templates (in this plugin dir) for HTML5, inline styles, Navigations, etc
 - [x] Fix and correct entrypaging, breadcrumb and childpage navigations
 - [x] Changed for 2.0: added title attribute #ID to sequencer pagetitle, to know which id is meant by childpages

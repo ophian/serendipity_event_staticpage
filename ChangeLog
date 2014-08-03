@@ -64,6 +64,7 @@
  *  Fix and correct entrypaging, breadcrumb and childpage navigations,
     - touches frontend templates (in this plugin dir) for HTML5, inline styles, Navigations, etc.
     - Needs you to update template copies in your template/theme!
+ *  Added more backend title attribute information for pageorder and entrylisting titles
 
 
 -----

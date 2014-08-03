@@ -1267,7 +1267,7 @@ class serendipity_event_staticpage extends serendipity_event
 
         // clone pages array for shownavi navigation, but remove flagged item keys
         foreach ($pages AS $k => $v) {
-            if (!$v['excludenav']) { $expages[$k] = $v; } // use old index key for strict comparison with pages array!
+            if (!$v['excludenav']) { $expages[$k] = $v; } // keep index key for strict comparison with pages array!
         }
 
         for ($i = 0, $maxcount = count($pages); $i < $maxcount; $i++) {
@@ -1277,9 +1277,9 @@ class serendipity_event_staticpage extends serendipity_event
                 $top['id']        = $pages[$i]['id'];
             }
             if ($pages[$i]['id'] == $thispage) {
-                // the 'top' in $nav['top'] is just a synonym for 'current page', or 'top parent', or 'exit'
                 $previstop = ($top['id'] == $i) ? true : false; // case when top_parents id equals previous_key id
                 $childcase = ($pages[$i]['depth'] > 1) ? true : false;
+                // the 'top' in $nav['top'] is just a synonym for 'current page', or 'top parent', or 'exit'
                 $nav = array(
                     'prev' => array(
                         'name' => $navname ? PREVIOUS : $this->get_nav($expages, $i, true, 'pagetitle'),
@@ -2144,7 +2144,7 @@ class serendipity_event_staticpage extends serendipity_event
         global $serendipity;
 
         if ($simple) {
-            $q = 'SELECT id, parent_id, pagetitle ';
+            $q = 'SELECT id, parent_id, pagetitle, headline ';
         } else {
             $q = 'SELECT id, parent_id, pagetitle, headline, timestamp, last_modified, publishstatus ';
         }

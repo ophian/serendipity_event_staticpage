@@ -100,11 +100,11 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.24');
+        $propbag->add('version', '4.25');
         $propbag->add('requirements',  array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
-            'php'         => '5.3.0'
+            'php'         => '5.2.0'
         ));
         $propbag->add('stackable', false);
         $propbag->add('groups', array('BACKEND_EDITOR', 'BACKEND_FEATURES'));
@@ -1136,7 +1136,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @param  array    $pages
      * @param  int      $id
      * @access (private) fallback public
-     * @return int
+     * @return mixed    int/bool
      */
     function getPagesKey($p, $id)
     {
@@ -1149,6 +1149,18 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
+     * Sort merged breadcrumb array by depth key regular - for < PHP 5.3 versions
+     *
+     * @param  array    $a crumbs
+     * @param  array    $b crumbs
+     * @access (private) fallback public
+     * @return array
+     */
+    function sortByOrder($a, $b) {
+        return $a['depth'] - $b['depth'];
+    }
+
+    /**
      * Rewind and set internal pointer for next and prev frontend navigation returns
      * since $expages may have excluded/removed keys, without setting a new index, for comparison checks with $pages
      * that is why the previous coded loops $i+1/$i-1 in $nav for prev and next did not help
@@ -1158,7 +1170,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @param  boolean   next or prev
      * @param  string    key name
      * @access (private) fallback public
-     * @return string
+     * @return mixed     string/bool
      */
     function get_nav($array, $index, $prev, $s='')
     {
@@ -1182,6 +1194,33 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
+     * Get all recursive childs of a given parent top id
+     *
+     * @param  array    $pages
+     * @param  int      $id
+     * @param  boolean  $parent
+     * @param  array    recursive return
+     * @access (private) fallback public
+     * @return array
+     */
+    function recursive_tree($array, $id, $parent=false, $tree=array())
+    {
+        foreach($array as $item) {
+            if ( (!$parent && $item['id'] == $id) || $item['parent_id'] == $id) {
+                $itemdata = array();
+                foreach($item as $k => $v) {
+                    $itemdata[$k] = $v;
+                }
+                $tree[] = $itemdata;
+                if($item['parent_id'] == $id) {
+                    $tree = array_merge($tree, $this->recursive_tree($array, $item['id'], true));
+                }
+            }
+        }
+        return $tree;
+    }
+
+    /**
      * Get navigation data for frontend navigations
      *
      * @access (private) fallback public
@@ -1198,37 +1237,21 @@ class serendipity_event_staticpage extends serendipity_event
         } else {
             $pages = $this->fetchPublishedStaticPages();
             $pages = (is_array($pages) ? serendipity_walkRecursive($pages) : array()); // builds depth flag
-            // builds flag 'excludenav', in case of a page with depth = 0 und no navis set at all
-            // takes PHP 5.3+ lambda function as a second parameter
-            array_walk($pages, function(&$val, $index){
-                if ($val['depth'] == 0 && $val['shownavi'] == 0 && $val['show_breadcrumb'] == 0) {
-                    $val['excludenav'] = true;
+
+            // builds level 0 flag 'excludenav', referenced, in case of a page with depth = 0 und no navis set at all
+            foreach ($pages as $lkey => &$lval) {
+                if ($lval['depth'] == 0 && $lval['shownavi'] == 0 && $lval['show_breadcrumb'] == 0) {
+                    $lval['excludenav'] = true;
                 }
-            });
+            }
             // add to all recursive childs of a level 0 parent with set flag
-            // (do not use same parameter names $k $v as later on in $expages loop!)
-            // finally this will have to be a real recursive function to get beyond limitation of level 3 great-grandchilds
-            foreach ($pages AS $prc_key => &$prc_value) {
-                if ($prc_value['excludenav']) $lastpid = $prc_value['id'];
-                // set for all direct childs and if they are set with shownavi = 0
-                if ($prc_value['parent_id'] == $lastpid && $prc_value['depth'] > 0 && $prc_value['shownavi'] == 0) {
-                    $prc_value['excludenav'] = true;
-                    $prc_childs = $this->recursive_childs($pages, $prc_value['id']);
-                }
-                // set flag for all recursive childs of direct childs level 2 - grandchilds
-                if (isset($prc_childs[1])) {
-                    foreach ($prc_childs as $prcchild) {
-                        if ($prc_value['parent_id'] == $prcchild && !$prc_value['excludenav']) {
-                            $prc_value['excludenav'] = true;
-                            $prc_gchilds = $this->recursive_childs($pages, $prc_value['id']);
-                        }
-                    }
-                }
-                // set flag for all recursive childs of hrandchilds level 3 - great-grandchilds
-                if (isset($prc_gchilds[1])) {
-                    foreach ($prc_gchilds as $prcgchild) {
-                        if ($prc_value['parent_id'] == $prcgchild && !$prc_value['excludenav']) {
-                            $prc_value['excludenav'] = true;
+            foreach ($pages as $addkey => $addvalue) {
+                if ($addvalue['excludenav']) {
+                    $rtree = $this->recursive_tree($pages, $addvalue['id']);
+                    foreach ($rtree as $tkey => $tval) {
+                        // referenced
+                        foreach ($pages as $rkey => &$rval) {
+                            if($rval['id'] == $tval['id'] && $rval['shownavi'] == 0) $rval['excludenav'] = true;
                         }
                     }
                 }
@@ -1273,7 +1296,7 @@ class serendipity_event_staticpage extends serendipity_event
                         'curr_link' => $pages[$i]['permalink'],
                         'exit_name' => $previstop ? HOMEPAGE : '',
                         'exit_link' => $previstop ? $serendipity['serendipityHTTPPath'] : '',
-                        // this is old combat view, reduced to a plain link of current page. Disabled top_parent here, too expensive!
+                        // this is old compat view, reduced to a plain link of current page. Disabled top_parent here, while too expensive!
                         'name' => $pages[$i]['pagetitle'],
                         'link' => $pages[$i]['permalink'],
                     )
@@ -1324,10 +1347,12 @@ class serendipity_event_staticpage extends serendipity_event
                 }
                 // merge the upwards and downwards breadcrumb array
                 $crumbs = array_unique($crumbs, SORT_REGULAR);
-                // sort breadcrumb array by depth key - PHP 5.3+
+                // sort breadcrumb array by depth key
+                /* with PHP 5.3 and up - enable soon!
                 usort($crumbs, function($a, $b) {
                     return $a['depth'] - $b['depth'];
-                });
+                });*/
+                usort($crumbs,array($this, 'sortByOrder'));
 
                 $nav['crumbs'] = $crumbs;
 

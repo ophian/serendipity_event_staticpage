@@ -17,9 +17,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
-- [x] Extends to PHP 5.3+
 - [x] Touch frontend templates (in this plugin dir) for HTML5, inline styles, Navigations, etc
-- [x] Shownavi ON/OFF navigation and is childpage from options are limited to work until level 3 great-grandchilds only by now
 - [x] Fix and correct entrypaging, breadcrumb and childpage navigations
 - [x] Changed for 2.0: added title attribute #ID to sequencer pagetitle, to know which id is meant by childpages
 - [x] Changed for 2.0: fixed save pageorder to work with current current 2.0 changes

@@ -1296,6 +1296,7 @@ class serendipity_event_staticpage extends serendipity_event
                         'curr_link' => $pages[$i]['permalink'],
                         'exit_name' => $previstop ? HOMEPAGE : '',
                         'exit_link' => $previstop ? $serendipity['serendipityHTTPPath'] : '',
+                        'new'       => true,
                         // this is old compat view, reduced to a plain link of current page. Disabled top_parent here, while too expensive!
                         'name' => $pages[$i]['pagetitle'],
                         'link' => $pages[$i]['permalink'],

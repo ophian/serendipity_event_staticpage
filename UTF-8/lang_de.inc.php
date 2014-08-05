@@ -159,3 +159,5 @@
 
 @define('STATICPAGE_TOGGLEANDSAVE', '%s und merken!');
 
+@define('CREATED_ON', 'Erstellt am');
+

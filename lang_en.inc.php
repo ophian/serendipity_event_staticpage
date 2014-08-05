@@ -196,3 +196,5 @@
 
 @define('STATICPAGE_TOGGLEANDSAVE', '%s and remember!');
 
+@define('CREATED_ON', 'Created on');
+

@@ -74,7 +74,7 @@
             <span class="visuallyhidden">{$CONST.ON} </span>
             {if $staticpage_use_lmdate}
             <time datetime="{$staticpage_lastchange|@serendipity_html5time}">{$staticpage_lastchange|@formatTime:$template_option.date_format}</time>
-            {if $staticpage_adminlink AND $staticpage_adminlink.page_user} ({$CONST.ON}: {$staticpage_created_on|@date_format:"%Y-%m-%d"}){/if}
+            {if $staticpage_adminlink AND $staticpage_adminlink.page_user} ({$CONST.CREATED_ON|lower}: {$staticpage_created_on|@date_format:"%Y-%m-%d"}){/if}
             {else}
             <time datetime="{$staticpage_created_on|@serendipity_html5time}">{$staticpage_created_on|@formatTime:$template_option.date_format}</time>
             {if $staticpage_adminlink AND $staticpage_adminlink.page_user} ({$CONST.LAST_UPDATED|lower}: {$staticpage_lastchange|@date_format:"%Y-%m-%d"}){/if}

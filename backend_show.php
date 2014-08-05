@@ -237,8 +237,8 @@
                             if ($this->checkPageUser($page['authorid'])) {
                                 $ps_option[] = '<option value="' . $page['id'] . '"' . ($serendipity['POST']['staticpage'] == $page['id'] ? ' selected="selected"' : '') . '>' . str_repeat('&nbsp;&nbsp;', $page['depth']) . htmlspecialchars($page['pagetitle']) . '</option>'."\n";
                                 if ($serendipity['POST']['staticpage'] == $page['id']) {
-                                    $ps_option['selected_id'] = $page['id'];
-                                    $ps_option['selected_name'] = htmlspecialchars($page['pagetitle']);
+                                    $this_selected_id = $page['id'];
+                                    $this_selected_name = htmlspecialchars($page['pagetitle']);
                                 }
                             }
                         }
@@ -246,6 +246,7 @@
                     if (isset($ps_option) && is_array($ps_option)) {
                         $serendipity['smarty']->assign('sp_defpages_pop', $ps_option);
                     }
+                    if (isset($this_selected_id)) $serendipity['smarty']->assign(array('sp_selected_id' => $this_selected_id, 'sp_selected_name' => $this_selected_name));
 
                     if ($sbplav) {
                         $serendipity['smarty']->assign('sp_defpages_sbplav', true);

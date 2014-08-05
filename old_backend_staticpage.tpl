@@ -1,4 +1,4 @@
-{* old_backend_staticpage template file v. 1.9, 2014-08-03 *}
+{* old_backend_staticpage template file v. 1.10, 2014-08-05 *}
 
 <!-- old_backend_staticpage.tpl START -->
 
@@ -288,7 +288,7 @@
             </script>
         {/if}
             <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong>
-            <input type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"{$sp_defpages_pop.selected_id} ({$sp_defpages_pop.selected_name|truncate:30})"}');" class="serendipityPrettyButton input_button" value="{$CONST.DELETE}" />
+            <input type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"{$sp_selected_id} ({$sp_selected_name|truncate:30})"}');" class="serendipityPrettyButton input_button" value="{$CONST.DELETE}" />
             <strong>-{$CONST.WORD_OR}-</strong> <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticPreview]" value="{$CONST.PREVIEW}" />
         {if $sp_defpages_sbplav}
             <span class="icon-info-circled sp_right sp_info" title="Staticpage Sidebar {$CONST.STATICPAGE_PLUGIN_AVAILABLE}"></span>

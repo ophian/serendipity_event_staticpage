@@ -101,6 +101,8 @@ via moduled inc/backend_show.php
      {string $sp_defpages_jsCookie}
      {array $sp_defpages_top}
      {array $sp_defpages_pop}
+     {int $sp_selected_id}
+     [string $sp_selected_name}
      {bool $sp_defpages_sbplav}
      {string $sp_defpages_link}
      {string $sp_defpages_pagetitle}

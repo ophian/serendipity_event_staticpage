@@ -1,4 +1,4 @@
-4.26:
+4.27:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -67,6 +67,7 @@
  *  Added more backend title attribute information for pageorder and entrylisting titles
  *  Fixed 2.0 Markup in category hook, the example markup in related category Readme, set some more
     form info and minor association with related category id and the corresonding table on delete.
+ *  Removed old and unused sequencer pageorder methods to use with javascript drag & drop only
 
 
 -----

@@ -24,17 +24,9 @@
 
         switch($spcat) {
             case 'pageorder':
-                switch($serendipity['GET']['moveto']) {
-                    case 'move':
-                        $new_order = explode(',', htmlspecialchars($serendipity['GET']['pagemoveorder']));
-                        $this->move_sequence($new_order);
-                        break;
-                    case 'moveup':
-                        $this->move_up($serendipity['GET']['pagetomove']);
-                        break;
-                    case 'movedown':
-                        $this->move_down($serendipity['GET']['pagetomove']);
-                        break;
+                if ($serendipity['GET']['moveto'] == 'move') {
+                    $new_order = explode(',', htmlspecialchars($serendipity['GET']['pagemoveorder']));
+                    $this->move_sequence($new_order);
                 }
 
                 $pages = $this->fetchStaticPagesOrder(true);

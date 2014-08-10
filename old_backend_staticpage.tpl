@@ -1,4 +1,4 @@
-{* old_backend_staticpage template file v. 1.10, 2014-08-05 *}
+{* old_backend_staticpage template file v. 1.11, 2014-08-10 *}
 
 <!-- old_backend_staticpage.tpl START -->
 
@@ -24,37 +24,16 @@
 <fieldset id="sp_sequencer" class="sp_sequence">
     <legend>{$CONST.STATICPAGE_PAGEORDER_DESC}</legend>
     <input type="hidden" name="serendipity[plugin][sequence]" id="sequence_value" value="{foreach name=sp_seqvalue item=element from=$sp_pageorder_pages}{$element['pagetitle']}{if !$smarty.foreach.sp_seqvalue.last},{/if}{/foreach}" />
-    <noscript>
-        <!-- Replace standard submit button when using up/down submits -->
-        <input type="hidden" name="SAVECONF" value="Save" />
-    </noscript>
     <ol id="sequence" class="sequence_container pluginmanager_container">
     {foreach name=sp_sequence item=sp_element from=$sp_pageorder_pages}
         <li id="{$sp_element['id']}" class="sequence_item_old pluginmanager_item_even">{*  in normal situations id=$sp_element['pagetitle'], but we need id for js sequence mode *}
             <input type="hidden" name="serendipity[plugin][sequence][id]" id="sequence_id" value="{$sp_element['id']}" />
             <div id="g{$sp_element['pagetitle']}" class="pluginmanager_grablet sequence_grablet"><a href="#"></a></div>
             <span title="#{$sp_element['id']} {$sp_element['headline']}">{$sp_element['pagetitle']}</span>
-            <div class="sp_nojs">
-                {if !$smarty.foreach.sp_sequence.first}
-
-                <span>
-                    <noscript><a href="?serendipity[adminModule]=staticpages&amp;serendipity[moveto]=moveup&amp;serendipity[pagetomove]={$sp_element['id']}&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder" style="border: 0"></noscript>
-                    <img src="{serendipity_getFile file='admin/img/uparrow.png'}" alt="{$CONST.UP}"><noscript></a></noscript>
-                </span>
-
-                {/if}
-                {if !$smarty.foreach.sp_sequence.last}
-
-                <span>
-                    <noscript><a href="?serendipity[adminModule]=staticpages&amp;serendipity[moveto]=movedown&amp;serendipity[pagetomove]={$sp_element['id']}&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder" style="border: 0"></noscript>
-                    <img src="{serendipity_getFile file='admin/img/downarrow.png'}" alt="{$CONST.DOWN}"><noscript></a></noscript>
-                </span>
-
-                {/if}
-            </div>
         </li>
     {/foreach}
     </ol>
+    <p>(automatic set on drag & drop)</p>
 </fieldset>
 <script type="text/javascript">
     var SYHP = "{$serendipityHTTPPath}";

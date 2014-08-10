@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.14, 2014-08-05 *}
+{* backend_staticpage template file v. 1.15, 2014-08-10 *}
 
 <!-- backend_staticpage.tpl START -->
 
@@ -21,10 +21,6 @@
     <fieldset class="sp_sequence">
         <legend>{$CONST.STATICPAGE_PAGEORDER_DESC}</legend>
         <input type="hidden" name="serendipity[plugin][sequence]" id="sequence_value" value="{foreach $sp_pageorder_pages as $orderlist}{$orderlist['pagetitle']}{if !$orderlist@last},{/if}{/foreach}">
-        <noscript>
-            <!-- Replace standard submit button when using up/down submits -->
-            <input type="hidden" name="SAVECONF" value="Save">
-        </noscript>
 
         <ol id="sequence" data-placement="sqid" class="sequence_container pluginmanager_container">
         {foreach $sp_pageorder_pages as $entryorder}
@@ -34,26 +30,6 @@
                     <button class="icon_link" type="button" title="{$CONST.MOVE}"><span class="icon-move"></span><span class="visuallyhidden"> {$CONST.MOVE}</span></button>
                 </div>
                 {if $entryorder['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entryorder['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}<span title="#{$entryorder['id']} {$entryorder['headline']}" class="sp_grablet_title">{$entryorder['pagetitle']|truncate:50}</span>
-                <div class="sp_nojs">
-                {if !$entryorder@first}
-
-                    <span>
-                        <noscript>
-                        <a href="?serendipity[adminModule]=staticpages&amp;serendipity[moveto]=moveup&amp;serendipity[pagetomove]={$entryorder['id']}&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder" style="border: 0"><img src="{serendipity_getFile file='admin/img/uparrow.png'}" alt="{$CONST.UP}"></a>
-                        </noscript>
-                    </span>
-
-                {/if}
-                {if !$entryorder@last}
-
-                    <span>
-                        <noscript>
-                        <a href="?serendipity[adminModule]=staticpages&amp;serendipity[moveto]=movedown&amp;serendipity[pagetomove]={$entryorder['id']}&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder" style="border: 0"><img src="{serendipity_getFile file='admin/img/downarrow.png'}" alt="{$CONST.DOWN}"></a>
-                        </noscript>
-                    </span>
-
-                {/if}
-                </div>
             </li>
         {/foreach}
         </ol>

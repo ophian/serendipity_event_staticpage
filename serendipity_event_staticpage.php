@@ -100,7 +100,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.26');
+        $propbag->add('version', '4.27');
         $propbag->add('requirements',  array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -1717,6 +1717,7 @@ class serendipity_event_staticpage extends serendipity_event
 
     /**
      * Get sequence mover sister IDs
+     * were used by old page_up/down() methods, now unused, but keep for future purposes
      *
      * @param  int       entry ID
      * @access (private) fallback public
@@ -2255,100 +2256,6 @@ class serendipity_event_staticpage extends serendipity_event
     {
         foreach ($order as $key => $id) {
             serendipity_db_update('staticpages', array('id' => $id), array('pageorder' => $key));
-        }
-
-        @unlink($this->cachefile);
-    }
-
-    /**
-     * Sequence mover up table work (in js true, unused - todo: remove)
-     *
-     * @param  int       entry ID
-     * @access (private) fallback public
-     * @return void
-     */
-    function move_up($id) // no more &
-    {
-        global $serendipity;
-
-        $dospecial = false;
-
-        $q = 'SELECT pageorder, parent_id
-                FROM '.$serendipity['dbPrefix'].'staticpages
-               WHERE id='.$id;
-
-        $thispage = serendipity_db_query($q, true, 'assoc');
-
-        $q = 'SELECT id
-                FROM '.$serendipity['dbPrefix'].'staticpages
-               WHERE parent_id = '.$thispage['parent_id'].'
-                 AND pageorder = '.($thispage['pageorder'] -1);
-
-        $childpage = serendipity_db_query($q, true, 'assoc');
-
-        $sisters = $this->getSisterID($id);
-
-        for ($i = 0, $ii = count($sisters); $i < $ii; $i++) {
-            if (($sisters[$i]['id'] != $id) && ($sisters[$i]['pageorder'] == $thispage['pageorder'])) {
-                $dospecial = true;
-                break;
-            }
-        }
-
-        if ($dospecial == true) {
-            for ($i = 0, $ii = count($sisters); $i < $ii; $i++) {
-                serendipity_db_update('staticpages', array('id' => $sisters[$i]['id']), array('pageorder' => ($i + 1)));
-            }
-        } else {
-            serendipity_db_update('staticpages', array('id' => $id), array('pageorder' => ($thispage['pageorder'] - 1)));
-            serendipity_db_update('staticpages', array('id' => $childpage['id']), array('pageorder' => $thispage['pageorder']));
-        }
-
-        @unlink($this->cachefile);
-    }
-
-    /**
-     * Sequence mover down table work (in js true, unused - todo: remove)
-     *
-     * @param  int       entry ID
-     * @access (private) fallback public
-     * @return void
-     */
-    function move_down($id) // no more &
-    {
-        global $serendipity;
-
-        $dospecial = false;
-
-        $q = 'SELECT pageorder, parent_id
-                FROM '.$serendipity['dbPrefix'].'staticpages
-               WHERE id='.$id;
-
-        $thispage = serendipity_db_query($q, true, 'assoc');
-
-        $q = 'SELECT id
-                FROM '.$serendipity['dbPrefix'].'staticpages
-               WHERE parent_id = '.$thispage['parent_id'].'
-                 AND pageorder = '.($thispage['pageorder'] + 1);
-
-        $childpage = serendipity_db_query($q, true, 'assoc');
-
-        $sisters = $this->getSisterID($id);
-
-        for ($i = 0, $ii = count($sisters); $i < $ii; $i++) {
-            if (($sisters[$i]['id'] != $id) && ($sisters[$i]['pageorder'] == $thispage['pageorder'])) {
-                $dospecial = true;
-                break;
-            }
-        }
-
-        if ($dospecial) {
-            for ($i = 0, $ii = count($sisters); $i < $ii; $i++) {
-                serendipity_db_update('staticpages', array('id' => $sisters[$i]['id']), array('pageorder' => ($i+1)));
-            }
-        } else {
-            serendipity_db_update('staticpages', array('id' => $id), array('pageorder' => ($thispage['pageorder'] + 1)));
-            serendipity_db_update('staticpages', array('id' => $childpage['id']), array('pageorder' => $thispage['pageorder']));
         }
 
         @unlink($this->cachefile);

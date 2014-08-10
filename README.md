@@ -9,7 +9,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 ### ToDo: :arrow_down:
 - [ ] deep check, if current changes broke anything with some more enhanced staticpage options (all normal behaviour is checked working!)
 - [ ] move new backend template files into own or current backend_template directory ?
-- [ ] solve some last remaining questions pasted as '// RQ: ' notes (+ + -)
+- [ ] solve some last remaining questions pasted as '// RQ: ' notes (+ + + -)
 - [ ] rename directory backend_templates. There is a risk that existing user template dirs have other files in it (not excluded by backend_show)
 - [ ] remove backend_staticpage.tpl non-js pageorder markup and functions ?
 
@@ -17,6 +17,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Fixed 2.0 Markup in category hook, the example markup in related category Readme, set some more form info and minor association with related category id and the corresonding table on delete
 - [x] Added more backend title attribute information for pageorder and entrylisting titles
 - [x] Touch frontend templates (in this plugin dir) for HTML5, inline styles, Navigations, etc
 - [x] Fix and correct entrypaging, breadcrumb and childpage navigations

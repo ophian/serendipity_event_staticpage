@@ -267,7 +267,7 @@
 }
 #sp_option_data > div,
 #sp_structure_data > div {
-    padding-bottom: 100%;/* cheat browser for equal-height part 1 */
+    padding-bottom: 100%; /* cheat browser for equal-height part 1 */
 }
 #backend_sp_respond select {
     min-width: 48%;
@@ -287,7 +287,7 @@
     border: 1px solid #aaa;
     padding: 0 .4em;
     min-height: 3.6em; /* avoid breaks having less height blocks */
-    padding-bottom: -100%;/* cheat browser for equal-height part 2 */
+    padding-bottom: -100%; /* cheat browser for equal-height part 2 */
 }
 #backend_sp_respond .form_field_long {
     background: #eee;
@@ -344,6 +344,10 @@
 #backend_sp_respond #sp_custom_data #el5 {
     margin-bottom: 1em
 }
+
+/* for both form templates - id.class is strict! */
+#entry_relcat_info.field_info,
+#related_category_info.field_info { width: 100%; }
 
 /* listentries */
 .spform a,.spform form {

@@ -83,8 +83,8 @@
 
                 if (isset($serendipity['POST']['typeSubmit'])) {
                     $serendipity['POST']['staticSubmit'] = true;//??
-                    $serendipity['POST']['plugin']['custom'] = $this->staticpage['custom'];//?? what for?
-                    if ($serendipity['version'][0] == '2') $serendipity['smarty']->assign('new_backend', true);
+                    $serendipity['POST']['plugin']['custom'] = $this->staticpage['custom']; // RQ: what for here?
+                    if ($serendipity['version'][0] > 1) $serendipity['smarty']->assign('new_backend', true);
                     $serendipity['POST']['backend_template'] = 'typeform_staticpage_backend.tpl';
                     $bag = new serendipity_property_bag();
                     $this->introspect($bag);
@@ -112,7 +112,7 @@
 
             case 'pageadd':
                 if (isset($serendipity['POST']['staticpagecategory']) && isset($serendipity['POST']['typeSubmit'])) {
-                    if ($serendipity['POST']['staticpagecategory'] == 'pageadd'/* && (is_array($serendipity['POST']['externalPlugins']) && !empty($serendipity['POST']['externalPlugins']))*/) { //externalPlugins do what?
+                    if ($serendipity['POST']['staticpagecategory'] == 'pageadd'/* && (is_array($serendipity['POST']['externalPlugins']) && !empty($serendipity['POST']['externalPlugins']))*/) { // RQ: externalPlugins shall do what here?
                         $serendipity['smarty']->assign('sp_addsubmit', true);
                     }
                 }
@@ -182,7 +182,13 @@
                 if (!empty($serendipity['POST']['staticDelete']) && $serendipity['POST']['staticpage'] != '__new') {
                     $serendipity['smarty']->assign('sp_staticdelete', true);
                     if (!$this->getChildPage($serendipity['POST']['staticpage'])) {
+                        $this_recatid = serendipity_db_query("SELECT categoryid FROM {$serendipity['dbPrefix']}staticpage_categorypage WHERE staticpage_categorypage = " . (int)$serendipity['POST']['staticpage']);
                         serendipity_db_query("DELETE FROM {$serendipity['dbPrefix']}staticpages WHERE id = " . (int)$serendipity['POST']['staticpage']);
+                        // case delete staticpage by id - keep track on serendipity_staticpage_categorypage table
+                        if (is_numeric($this_recatid)) {
+                            $this->setCatProps((int)$this_recatid, null, true);
+                            unset($this_recatid); // RQ: note table combine to user?
+                        }
                         $serendipity['smarty']->assign('sp_defpages_rip_success', DONE .': '. sprintf(RIP_ENTRY, (int)$serendipity['POST']['staticpage'] . ' (' . $this->staticpage['pagetitle'] . ')'));
                     }
                 }
@@ -208,10 +214,12 @@
                         while ($file = readdir($dh)) {
                             if (!in_array($file, $exclude_files) && preg_match('@^(.*).tpl$@i', $file, $m)) {
                                 if (isset($m[1]) && !empty($m[1])) $templateName = ucwords(str_replace('_', ' ', $m[1]));
-                                // this is, while the file was named 'default_staticpage_backend.tpl' before, to not have compat issues with new staticpage plugin
-                                // new files follow naming eg. 'responsive_template.tpl', to show up as 'Responsive Template' in sp_templateselector select form
+                                // This is, while the file was named 'default_staticpage_backend.tpl' before.
+                                // To not have compat issues with new staticpage backend form templates,
+                                // new files follow naming in sp_templateselector select form:
+                                // eg. 'responsive_template.tpl', to show up as 'Responsive Template'
                                 if ($templateName == 'Default Staticpage Backend') $templateName = STATICPAGE_TEMPLATE_EXTERNAL;
-                                $ts_option[] = '<option ' . ($file == $serendipity['POST']['backend_template'] ? 'selected="selected" ' : '') . 'value="' . htmlspecialchars($file) . '">' . htmlspecialchars($templateName) . '</option>'."\n";
+                                $ts_option[] = '<option' . ($file == $serendipity['POST']['backend_template'] ? ' selected="selected" ' : ' ') . 'value="' . htmlspecialchars($file) . '">' . htmlspecialchars($templateName) . '</option>'."\n";
                             }
                         }
                     }
@@ -220,9 +228,9 @@
                         while ($file = readdir($dh)) {
                             if (!in_array($file, $exclude_files) && preg_match('@^(.*).tpl$@i', $file, $m)) {
                                 if (isset($m[1]) && !empty($m[1])) $templateName = ucwords(str_replace('_', ' ', $m[1]));
-                                // see upper note
+                                // see upper naming convention note
                                 if ($templateName == 'Default Staticpage Backend') $templateName = STATICPAGE_TEMPLATE_EXTERNAL;
-                                $ts_option[] = '<option ' . ($file == $serendipity['POST']['backend_template'] ? 'selected="selected" ' : '') . 'value="' . htmlspecialchars($file) . '">' . htmlspecialchars($templateName) .'</option>'."\n";
+                                $ts_option[] = '<option' . ($file == $serendipity['POST']['backend_template'] ? ' selected="selected" ' : ' ') . 'value="' . htmlspecialchars($file) . '">' . htmlspecialchars($templateName) .'</option>'."\n";
                             }
                         }
                     }
@@ -287,7 +295,7 @@
                                      'sp_listentries_authors' => $this->selectAuthors()
                         ));
                     }
-                    // TODO: here entryList pagination... (only in case there are too much entries; but then also needed for selectbox default option) - could be a JS pagination by first or via php and external_plugins?
+                    // TODO: possibly here, real entryList pagination... (only in case there are too much entries; but then also needed for selectbox default option) - via php and external_plugins?
                 } //get_config('showlist') end
                 break;
         } //end switch

@@ -1,11 +1,11 @@
-<?php #
+<?php
 #http://board.s9y.org/viewtopic.php?p=57348#57348
 
 if (IN_serendipity !== true) {
     die ("Don't hack!");
 }
 
-define ('debug_staticpage','false');
+define ('DEBUG_STATICPAGE', false);
 
 // Probe for a language include with constants. Still include defines later on, if some constants were missing
 $probelang = dirname(__FILE__) . '/' . $serendipity['charset'] . 'lang_' . $serendipity['lang'] . '.inc.php';
@@ -100,7 +100,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.25');
+        $propbag->add('version', '4.26');
         $propbag->add('requirements',  array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -1238,13 +1238,13 @@ class serendipity_event_staticpage extends serendipity_event
             $pages = $this->fetchPublishedStaticPages();
             $pages = (is_array($pages) ? serendipity_walkRecursive($pages) : array()); // builds depth flag
 
-            // builds level 0 flag 'excludenav', referenced, in case of a page with depth = 0 und no navis set at all
+            // builds an exclude flag, referenced, in case of a level 0 top page with no navis set at all
             foreach ($pages as $lkey => &$lval) {
                 if ($lval['depth'] == 0 && $lval['shownavi'] == 0 && $lval['show_breadcrumb'] == 0) {
                     $lval['excludenav'] = true;
                 }
             }
-            // add to all recursive childs of a level 0 parent with set flag
+            // add to all recursive childs of a level 0 top parent with set flag
             foreach ($pages as $addkey => $addvalue) {
                 if ($addvalue['excludenav']) {
                     $rtree = $this->recursive_tree($pages, $addvalue['id']);
@@ -1414,7 +1414,7 @@ class serendipity_event_staticpage extends serendipity_event
             @include_once dirname(__FILE__) . '/smarty.inc.php';
             if (isset($serendipity['smarty']))
             {
-                $staticpage_cat = $this->fetchCatProp($serendipity['GET']['category']);
+                $staticpage_cat = $this->fetchCatProp((int)$serendipity['GET']['category']);
                 $serendipity['smarty']->assign('staticpage_categorypage', $this->fetchStaticPageForCat($staticpage_cat));
                 $serendipity['smarty']->assign('serendipityArchiveURL', getArchiveURL());
                 $serendipity['smarty']->registerPlugin('function', 'getCategoryLinkByID', 'smarty_getCategoryLinkByID');
@@ -2055,12 +2055,12 @@ class serendipity_event_staticpage extends serendipity_event
             @unlink($this->cachefile);
             $result = serendipity_db_insert('staticpages', $insert_page);
             $serendipity['POST']['staticpage'] = $pid = serendipity_db_insert_id('staticpages', 'id');
-            serendipity_plugin_api::hook_event('backend_staticpages_insert', $insert_page);
+            serendipity_plugin_api::hook_event('backend_staticpages_insert', $insert_page);// these hooks are used for up-to-date URL builds,
         } else {
             @unlink($this->cachefile);
             $pid = $insert_page['id'];
             $result = serendipity_db_update('staticpages', array('id' => $insert_page['id']), $insert_page);
-            serendipity_plugin_api::hook_event('backend_staticpages_update', $insert_page);
+            serendipity_plugin_api::hook_event('backend_staticpages_update', $insert_page);// (see above) eg in the google_sitemap plugin
         }
 
         // Store custom properties
@@ -2726,7 +2726,8 @@ class serendipity_event_staticpage extends serendipity_event
     {
         global $serendipity;
 
-        if (debug_staticpage == 'true') {
+        if (DEBUG_STATICPAGE) {
+            echo "setCatProps() :: ";
             echo "category ";
             echo $cid;
             echo " staticpage ";
@@ -2766,17 +2767,43 @@ class serendipity_event_staticpage extends serendipity_event
             switch ($event) {
 
                 case 'backend_category_showForm':
-                    // this markup happens inside backend categories, which is non smartified
+                    // this markup happens inside backend categories, which was non smartified with 1.7 Series and below
                     $pages = $this->fetchStaticPages(true);
                     $categorypage = $this->fetchCatProp((int)$eventData);
 
-                    if (debug_staticpage == 'true') {
+                    if (DEBUG_STATICPAGE) {
+                        echo "backend_category_showForm hook :: ";
                         echo "category ";
                         echo (int)$eventData . " ";
                         echo " staticpage ";
                         echo $this->fetchCatProp((int)$eventData);
                     }
-// RQ: here we need a switch for better 2.0 and backend categories markup, I assume... WHERE is this pasted to ?
+                    if ($serendipity['version'][0] > 1) {
+                        // hooked into category.inc.tpl
+?>
+<div id="category_staticpage" class="clearfix">
+    <div class="form_field">
+        <label for="staticpage_categorypage"><?php echo STATICPAGE_CATEGORYPAGE; ?></label>
+        <select name="serendipity[cat][staticpage_categorypage]">
+                <option value=""><?php echo NONE; ?></option>
+<?php
+                $pages = $this->fetchStaticPages();
+                if(is_array($pages)) {
+                    $pages = serendipity_walkRecursive($pages);
+                    foreach ($pages as $page) {
+                        if ($this->checkPageUser($page['authorid'])) {
+                            echo ' <option value="' . $page['id'] . '"' . ($page['id'] == $this->fetchCatProp((int)$eventData) ? ' selected="selected"' : '') . '>';
+                            echo str_repeat('&nbsp;&nbsp;', $page['depth']) . htmlspecialchars($page['pagetitle']) . '</option>'."\n";
+                        }
+                    }
+                }
+
+?>
+        </select>
+    </div>
+</div>
+<?php
+                    } else { // old backend markup
 ?>
     <tr>
         <td valign="top"><label for="staticpage_categorypage"><?php echo STATICPAGE_CATEGORYPAGE; ?></label></td>
@@ -2790,7 +2817,7 @@ class serendipity_event_staticpage extends serendipity_event
                     $pages = serendipity_walkRecursive($pages);
                     foreach ($pages as $page) {
                         if ($this->checkPageUser($page['authorid'])) {
-                            echo ' <option value="' . $page['id'] . '" ' . ($page['id'] == $this->fetchCatProp((int)$eventData) ? 'selected="selected"' : '') . '>';
+                            echo ' <option value="' . $page['id'] . '"' . ($page['id'] == $this->fetchCatProp((int)$eventData) ? ' selected="selected"' : '') . '>';
                             echo str_repeat('&nbsp;&nbsp;', $page['depth']) . htmlspecialchars($page['pagetitle']) . '</option>';
                         }
                     }
@@ -2801,21 +2828,21 @@ class serendipity_event_staticpage extends serendipity_event
         </td>
     </tr>
 <?php
-
+                    }
                     return true;
                     break;
 
                 case 'backend_category_delete':
-                    $this->setCatProps($eventData, null, true);
+                    $this->setCatProps((int)$eventData, null, true);
                     break;
 
                 case 'backend_category_update':
                 case 'backend_category_addNew':
                     $val = array(
-                        'categoryid '               =>  (int)$eventData,
-                        'staticpage_categorypage'   => $serendipity['POST']['cat']['staticpage_categorypage'],
+                        'categoryid'                => (int)$eventData,
+                        'staticpage_categorypage'   => (int)$serendipity['POST']['cat']['staticpage_categorypage'],
                     );
-                    $this->setCatProps($eventData, $val);
+                    $this->setCatProps((int)$eventData, $val);
                     break;
 
                 case 'frontend_fetchentries':

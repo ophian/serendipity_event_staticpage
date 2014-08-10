@@ -1,4 +1,4 @@
-4.25:
+4.26:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -65,6 +65,8 @@
     - touches frontend templates (in this plugin dir) for HTML5, inline styles, Navigations, etc.
     - Needs you to update template copies in your template/theme!
  *  Added more backend title attribute information for pageorder and entrylisting titles
+ *  Fixed 2.0 Markup in category hook, the example markup in related category Readme, set some more
+    form info and minor association with related category id and the corresonding table on delete.
 
 
 -----

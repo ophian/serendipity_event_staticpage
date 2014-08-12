@@ -68,6 +68,7 @@
  *  Fixed 2.0 Markup in category hook, the example markup in related category Readme, set some more
     form info and minor association with related category id and the corresonding table on delete.
  *  Removed old and unused sequencer pageorder methods to use with javascript drag & drop only
+ *  Removed old and unused getSistersID method
 
 
 -----

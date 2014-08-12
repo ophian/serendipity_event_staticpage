@@ -19,6 +19,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Removed old and unused getSistersID method
 - [x] Removed old and unused sequencer pageorder methods to use with javascript drag & drop only
 - [x] Fixed 2.0 Markup in category hook, the example markup in related category Readme, set some more form info and minor association with related category id and the corresonding table on delete
 - [x] Added more backend title attribute information for pageorder and entrylisting titles

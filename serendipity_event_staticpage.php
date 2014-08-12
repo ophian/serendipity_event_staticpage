@@ -1716,35 +1716,6 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Get sequence mover sister IDs
-     * were used by old page_up/down() methods, now unused, but keep for future purposes
-     *
-     * @param  int       entry ID
-     * @access (private) fallback public
-     * @return mixed array/bool
-     */
-    function getSisterID($id) // no more &
-    {
-        global $serendipity;
-
-        $q = 'SELECT parent_id
-                FROM '.$serendipity['dbPrefix'].'staticpages
-               WHERE id = '.(int)$id;
-
-        $parent_id = serendipity_db_query($q, true, 'assoc');
-
-        $q = 'SELECT id, pageorder
-                FROM '.$serendipity['dbPrefix'].'staticpages
-               WHERE parent_id = '.$parent_id['parent_id'].'
-                 AND publishstatus = 1
-            ORDER BY pageorder';
-
-        $pages = serendipity_db_query($q, false, 'assoc');
-
-        return is_array($pages) ? $pages : false;
-    }
-
-    /**
      * Get static page by ID
      *
      * @param  int       entry ID

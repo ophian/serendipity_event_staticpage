@@ -1521,42 +1521,6 @@ class serendipity_event_staticpage extends serendipity_event
             }
         }
 
-// RQ: remove ?
-/* this is probably unneeded for the solution with serendipity_fetchPrintEntries - see plugin_staticpage_related_category.tpl - so we can save the costs of a sql-query
-
-            $related_category_entries = null;
-            if ($this->get_static('related_category_id') >= 0) {
-                if ($this->get_static('related_category_id') > 0) {
-                    $serendipity['GET']['category'] = $this->get_static('related_category_id');
-                }
-                $select_key = "ep_sticky.value AS orderkey, e.id, e.title, e.timestamp";
-
-                $related_category_entries = serendipity_fetchEntries(null,
-                                                        false,
-                                                        '',
-                                                        false,
-                                                        false,
-                                                        'timestamp DESC',
-                                                        '',
-                                                        false,
-                                                        false,
-                                                        $select_key,
-                                                        null,
-                                                        'array');
-
-                unset($serendipity['GET']['category']);
-
-                if (is_array($related_category_entries)) {
-                    for ($i = 0, $ii = count($related_category_entries); $i < $ii; $i++) {
-                        $related_category_entries[$i]['link'] = serendipity_archiveURL($related_category_entries[$i]['id'],
-                                                                          $related_category_entries[$i]['title'],
-                                                                          'baseURL',
-                                                                          true);
-                    }
-                }
-            }
-*/
-
         $serendipity['smarty']->assign(
             array(
                 $pagevar . 'articleformat'      => serendipity_db_bool($this->get_static('articleformat')),
@@ -1579,9 +1543,6 @@ class serendipity_event_staticpage extends serendipity_event
                 $pagevar . 'title_element'      => $this->get_static('title_element'),
                 $pagevar . 'meta_description'   => $this->get_static('meta_description'),
                 $pagevar . 'meta_keywords'      => $this->get_static('meta_keywords')
-// RQ: remove ?
-// same thing as above
-//                    $pagevar . 'related_category_entries'           => $related_category_entries
             )
         );
         $filename = basename($filename);

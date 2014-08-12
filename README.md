@@ -9,7 +9,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 ### ToDo: :arrow_down:
 - [ ] deep check, if current changes broke anything with some more enhanced staticpage options (all normal behaviour is checked working!)
 - [ ] move new backend template files into own or current backend_template directory ?
-- [ ] solve some last remaining questions pasted as '// RQ: ' notes (+ + + -)
+- [ ] solve some last remaining questions pasted as '// RQ: ' notes (+ + + + -)
 - [ ] rename directory backend_templates. There is a risk that existing user template dirs have other files in it (not excluded by backend_show)
 - [ ] re-integrate backend_show into class method again
 - [ ] future Todo - check possibility for an automated integration to templates using $template_global_config = array('navigation' => true)
@@ -19,6 +19,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Removed commented $related_category_entries code, since being unneeded for the solution with serendipity_fetchPrintEntries and unworth to keep, since not really working.
 - [x] Removed old and unused getSistersID method
 - [x] Removed old and unused sequencer pageorder methods to use with javascript drag & drop only
 - [x] Fixed 2.0 Markup in category hook, the example markup in related category Readme, set some more form info and minor association with related category id and the corresonding table on delete

@@ -69,6 +69,8 @@
     form info and minor association with related category id and the corresonding table on delete.
  *  Removed old and unused sequencer pageorder methods to use with javascript drag & drop only
  *  Removed old and unused getSistersID method
+ *  Removed commented $related_category_entries code, since being unneeded for the solution with
+    serendipity_fetchPrintEntries and unworth to keep, since not really working.
 
 
 -----

@@ -132,9 +132,9 @@
                         <span id="related_category_info" class="field_info">
                             This <u>only</u> works in combination with the entries.tpl patch, described in the "README FOR RELATED CATEGORIES.txt" file.
                             For a frontend category page, with an amount<span style="font-size:10px"><sup> (1)</sup></span> of last entry links as a teaser,
-                            the best use would be a set Articletype: "<em>Staticpage with related category</em>" field in this form <strong>and</strong> in the
-                            backends category form hook a "<em>relation</em>" set to this staticpage, else just the latter.<br>
-                            <span style="font-size:10px"><sup>(1)</sup></span> Changing the amount of shown teaser entry links is done in the "plugin staticpage related category.tpl" file by the configurable calling hook.
+                            the best use would be a set Articletype: "<em>Staticpage with related category</em>" field in this form.
+                            Please note, that only unique 1:1 relations between staticpages and categories are allowed.<br>
+                            <span style="font-size:10px"><sup>(1)</sup></span> Changing the amount of shown teaser entry links is done in the "plugin staticpage related category.tpl" file by the configurable calling hook. Defaults to 5 entries.
                         </span>
                     </div>
                     {/if}

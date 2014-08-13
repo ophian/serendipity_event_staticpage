@@ -1,4 +1,4 @@
-{* old_backend_staticpage template file v. 1.11, 2014-08-10 *}
+{* old_backend_staticpage template file v. 1.12, 2014-08-12 *}
 
 <!-- old_backend_staticpage.tpl START -->
 
@@ -211,6 +211,11 @@
     <span class="icon-error"></span> {$CONST.IMPORT_NOTES}: {$CONST.STATICPAGE_CANNOTDELETE_MSG}
 </div>
         {/if}
+    {/if}
+    {if $sp_relcatchange}
+<div class="serendipityAdminMsgNote msg_notice">
+    <span class="icon-error"></span> {$CONST.IMPORT_NOTES}: {$CONST.RELATED_CATEGORY_CHANGE_MSG|sprintf:$prev_relcat_staticpage:$this_relcat_staticpage}
+</div>
     {/if}
 
     {if !$sp_listentries_entries} {* show selectbox form header start, if showform is present, since we need to select entries quickly *}

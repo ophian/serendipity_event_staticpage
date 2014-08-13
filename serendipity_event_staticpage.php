@@ -5,7 +5,7 @@ if (IN_serendipity !== true) {
     die ("Don't hack!");
 }
 
-define ('DEBUG_STATICPAGE', false);
+define ('DEBUG_STATICPAGE', false); // for related category debugging only
 
 // Probe for a language include with constants. Still include defines later on, if some constants were missing
 $probelang = dirname(__FILE__) . '/' . $serendipity['charset'] . 'lang_' . $serendipity['lang'] . '.inc.php';
@@ -100,7 +100,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.27');
+        $propbag->add('version', '4.28');
         $propbag->add('requirements',  array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -1976,24 +1976,87 @@ class serendipity_event_staticpage extends serendipity_event
         $this->checkPage();
         $this->staticpage['last_modified'] = time();
         $insert_page = $this->staticpage;
+        $rcid = (int)$insert_page['related_category_id'];
         unset($insert_page['custom']);
 
         if (!isset($this->staticpage['id'])) {
-            $cpo = $this->getChildPage($insert_page['parent_id']);
+            $cpo = $this->getChildPage($insert_page['parent_id']); // case new
             if (is_bool($cpo)) {
                 $this->staticpage['pageorder'] = 1;
             } else {
-                $this->staticpage['pageorder'] = count($cpo)+1;
+                $this->staticpage['pageorder'] = count($cpo)+1; // set a next dedicated pageorder place by counted parents
             }
             @unlink($this->cachefile);
             $result = serendipity_db_insert('staticpages', $insert_page);
-            $serendipity['POST']['staticpage'] = $pid = serendipity_db_insert_id('staticpages', 'id');
-            serendipity_plugin_api::hook_event('backend_staticpages_insert', $insert_page);// these hooks are used for up-to-date URL builds,
-        } else {
+            $serendipity['POST']['staticpage'] = $pid = serendipity_db_insert_id('staticpages', 'id'); // fetch last inserted id
+
+            // Associate relcat table entry with set data, if this new staticpage 'related_category_id' field was set as related to a category in form
+            if (!empty($rcid) && $rcid > 0) {
+                $data = array(
+                        'categoryid '               => $rcid,
+                        'staticpage_categorypage'   => (int)$pid,
+                );
+                $this->setCatProps($rcid, $data);
+            }
+            serendipity_plugin_api::hook_event('backend_staticpages_insert', $insert_page); // these hooks are used for up-to-date URL builds,
+        }
+        else {
             @unlink($this->cachefile);
-            $pid = $insert_page['id'];
+            $pid    = (int)$insert_page['id'];
             $result = serendipity_db_update('staticpages', array('id' => $insert_page['id']), $insert_page);
-            serendipity_plugin_api::hook_event('backend_staticpages_update', $insert_page);// (see above) eg in the google_sitemap plugin
+
+            // Associate relcat table with set data, if this 'related_category_id' field was changed or set in form on update
+            if (!empty($rcid) && $rcid > 0) {
+                // Note to user, that this has changed an already otherwise set category related staticpage and what to do
+                $pcp     = $this->fetchCatProp($rcid); // $pcp = previous category page
+                $pcpdata = $this->getStaticPage($pcp);
+                // case no entry had been set before, or case previous category id was gt 0 and != $pid
+                if (empty($pcp) || $pcp > 0 && $pcp != $pid) {
+                    // only assign note to smarty in the latter case, where an entry was really changed
+                    if (!empty($pcp)) {
+                        $serendipity['smarty']->assign(array(
+                            'sp_relcatchange' => true,
+                            'prev_relcat_staticpage' => $pcpdata['id']. ' ("' . $pcpdata['pagetitle'] . '")',
+                            'this_relcat_staticpage' => $insert_page['id']. ' ("' . $insert_page['pagetitle'] . '")')
+                        );
+                    } else {
+                        if (DEBUG_STATICPAGE) {
+                            echo 'DEBUG: This POSTed staticpage #';
+                            echo $pid;
+                            echo ', with related category #';
+                            echo $rcid;
+                            echo ' will associate with relcat table.';
+                            echo "<br>\n";
+                       }
+                    }
+                    // proceed and set new relation to categorypage table
+                    $data = array(
+                            'categoryid '               => $rcid,
+                            'staticpage_categorypage'   => $pid,
+                    );
+                    $this->setCatProps($rcid, $data);
+                }
+            }
+
+            // a (previously set) 'related_category_id' field was set (back) to 0
+            if ($rcid == 0) {
+                // check previous relcat table categoryid ($pcid) for a match with given staticpage $pid}
+                $pcid = serendipity_db_query("SELECT categoryid FROM {$serendipity['dbPrefix']}staticpage_categorypage WHERE staticpage_categorypage = " . $pid . " LIMIT 1", true, 'assoc');
+                if (is_numeric($pcid['categoryid']) && $pcid['categoryid'] > 0) {
+                    if (DEBUG_STATICPAGE) {
+                        echo 'DEBUG: This POSTed staticpage #';
+                        echo $pid;
+                        echo ', with related_category_id == 0, has an association with category #';
+                        echo $pcid['categoryid'];
+                        echo ' which will now be deleted from relcat table.';
+                        echo "<br>\n";
+                    }
+                    $this->setCatProps((int)$pcid['categoryid'], null, true); // set to 0, mean delete from table
+                }
+                // RQ: note table combine to user? (No, since we do not do this on new staticpages either.)
+            }
+
+            serendipity_plugin_api::hook_event('backend_staticpages_update', $insert_page); // (see hook above) eg in the google_sitemap plugin
         }
 
         // Store custom properties
@@ -2473,7 +2536,7 @@ class serendipity_event_staticpage extends serendipity_event
 
         if (!is_array($results)) {
             if ($results !== 1 && $results !== true) {
-                echo '<div style="margin: 1em 2em;">'.$results.'</div>';// already escaped by serendipity_db_query()
+                echo '<div style="margin: 1em 2em;">'.$results.'</div>'; // already escaped by serendipity_db_query()
             }
             $results = array();
         }
@@ -2524,7 +2587,7 @@ class serendipity_event_staticpage extends serendipity_event
 
     /**
      * -stm:
-     * get some elements of a staticpage for a given staticpage-id
+     * get some elements of a staticpage for a given staticpage ID
      *
      * @param  int       entry ID
      * @access (private) fallback public
@@ -2566,11 +2629,12 @@ class serendipity_event_staticpage extends serendipity_event
         global $serendipity;
 
         if (DEBUG_STATICPAGE) {
-            echo "setCatProps() :: ";
+            echo "DEBUG: setCatProps() :: ";
             echo "category ";
             echo $cid;
             echo " staticpage ";
             echo $val['staticpage_categorypage'];
+            echo "<br>\n";
         }
 
         serendipity_db_query("DELETE FROM {$serendipity['dbPrefix']}staticpage_categorypage
@@ -2581,6 +2645,29 @@ class serendipity_event_staticpage extends serendipity_event
         }
 
         return true;
+    }
+
+    /**
+     * update related category property for a valid given staticpage
+     *
+     * @param  int       staticpage ID
+     * @param  int       related category ID
+     * @access (private) fallback public
+     * @return boolean
+     *
+     */
+    function setCatPropForStaticpage($id = 0, $cid) {
+        if ($id > 0) {
+            global $serendipity;
+
+            $q = "UPDATE {$serendipity['dbPrefix']}staticpages
+                     SET related_category_id = " . $cid . "
+                   WHERE id = " . $id;
+            serendipity_db_query($q);
+
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -2611,11 +2698,12 @@ class serendipity_event_staticpage extends serendipity_event
                     $categorypage = $this->fetchCatProp((int)$eventData);
 
                     if (DEBUG_STATICPAGE) {
-                        echo "backend_category_showForm hook :: ";
+                        echo 'DEBUG: ' . $event . " hook :: ";
                         echo "category ";
                         echo (int)$eventData . " ";
                         echo " staticpage ";
                         echo $this->fetchCatProp((int)$eventData);
+                        echo "<br>\n";
                     }
                     if ($serendipity['version'][0] > 1) {
                         // hooked into category.inc.tpl
@@ -2672,16 +2760,69 @@ class serendipity_event_staticpage extends serendipity_event
                     break;
 
                 case 'backend_category_delete':
-                    $this->setCatProps((int)$eventData, null, true);
+                    $cid = (int)$eventData;
+                    $pcp = (int)$this->fetchCatProp($cid); // fetch previous set staticpage ID from relcat table ($pcp = previous category page)
+
+                    $this->setCatProps($cid, null, true); // do job on staticpage_categorypage table
+
+                    // Associate this staticpage ID field 'related_category_id' to 0 for a given staticpage ID > 0
+                    if ($pcp > 0) {
+                        $this->setCatPropForStaticpage($pcp, 0);
+                        if (DEBUG_STATICPAGE) {
+                            echo 'DEBUG: ' . $event . " hook :: ";
+                            echo "reset related_category_id field ";
+                            echo $cid . " ";
+                            echo " to 0 ON staticpage ID ";
+                            echo $pcp;
+                            echo "<br>\n";
+                        }
+                        // note this to user
+                        echo '<div class="msg_notice"><span class="icon-error"></span> ' . IMPORT_NOTES . ': ' . sprintf(RELATED_CATEGORY_CHANGE_DEL_MSG, $pcp) . '</div>';
+                    }
                     break;
 
                 case 'backend_category_update':
                 case 'backend_category_addNew':
+                    $cid = (int)$eventData;
+                    $pcp = (int)$this->fetchCatProp($cid); // fetch previous set staticpage ID from relcat table ($pcp = previous category page)
+                    $pid = (int)$serendipity['POST']['cat']['staticpage_categorypage'];
+
                     $val = array(
-                        'categoryid'                => (int)$eventData,
-                        'staticpage_categorypage'   => (int)$serendipity['POST']['cat']['staticpage_categorypage'],
+                        'categoryid'                => $cid,
+                        'staticpage_categorypage'   => $pid,
                     );
-                    $this->setCatProps((int)$eventData, $val);
+                    // check if this is a valid staticpage_categorypage and not 0
+                    if ($pid == 0) {
+                        // remove from relcat table
+                        $this->setCatProps($cid, null, true);
+                        // and set to 0 in that associated staticpage 'related_category_field'
+                        $this->setCatPropForStaticpage($pcp, 0);
+                    } else {
+                        $this->setCatProps($cid, $val); // do job on staticpage_categorypage table
+                    }
+
+                    // Associate this staticpage ID field 'related_category_id' for a given staticpage ID, if both are > 0 AND old and new IDs are different
+                    if ($cid > 0 && $pid > 0 && $pid != $pcp) {
+                        if (DEBUG_STATICPAGE) {
+                            echo 'DEBUG: ' . $event . " hook :: ";
+                            echo "update related_category_id field to ";
+                            echo $cid . " ";
+                            echo " ON staticpage ID ";
+                            echo $pid;
+                            echo "<br>\n";
+                        }
+                        $this->setCatPropForStaticpage($pid, $cid);
+
+                        if ($event == 'backend_category_update') {
+                            // and reset old staticpage related_categoryfield to 0
+                            if (DEBUG_STATICPAGE) echo ' and reset old staticpage ID '.$pcp . ' related_category_id field to 0.'."<br>\n";
+                            $this->setCatPropForStaticpage($pcp, 0);
+                        }
+                    }
+                    if ($pid > 0) {
+                        // note this to user in case we had updated real data
+                        echo '<div class="msg_notice"><span class="icon-error"></span> ' . IMPORT_NOTES . ': ' . sprintf(RELATED_CATEGORY_CHANGE_MSG, $pcp, $pid) . '</div>';
+                    }
                     break;
 
                 case 'frontend_fetchentries':
@@ -2845,7 +2986,7 @@ class serendipity_event_staticpage extends serendipity_event
                     } else {
                         $param = null;
                     }
-// RQ: do we need to change this for newer frontend templates like 2k11 and is this about parent/child treeviews ?
+                    // might need a refresh some day
                     if ($parts[0] == 'dtree.js') {
                         header('Content-Type: text/javascript');
                         echo file_get_contents(dirname(__FILE__) . '/dtree.js');

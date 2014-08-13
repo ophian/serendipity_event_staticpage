@@ -1,4 +1,4 @@
-4.27:
+4.28:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -71,6 +71,9 @@
  *  Removed old and unused getSistersID method
  *  Removed commented $related_category_entries code, since being unneeded for the solution with
     serendipity_fetchPrintEntries and unworth to keep, since not really working.
+ *  Associated 1:1 relation for staticpage related categories.
+    Touches staticpages and staticpage_categorypage tables to support the latter 1:1 relations only, as of now.
+    Old entries don't get touched by this, until they will be updated.
 
 
 -----

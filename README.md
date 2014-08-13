@@ -9,16 +9,18 @@ Please use with care and always keep a backup copy of your updated plugin.
 ### ToDo: :arrow_down:
 - [ ] deep check, if current changes broke anything with some more enhanced staticpage options (all normal behaviour is checked working!)
 - [ ] move new backend template files into own or current backend_template directory ?
-- [ ] solve some last remaining questions pasted as '// RQ: ' notes (+ + + + -)
 - [ ] rename directory backend_templates. There is a risk that existing user template dirs have other files in it (not excluded by backend_show)
 - [ ] re-integrate backend_show into class method again
 - [ ] future Todo - check possibility for an automated integration to templates using $template_global_config = array('navigation' => true)
+- [ ] future Todo - refactor related category associations
 - [ ] set backends form textformat option automatically to NO, on WYSIWYG usage ?
 
 
 - - -
 
 ### Already done: :arrow_up:
+- [x] Associated 1:1 relation for staticpage related categories. Touches staticpages and staticpage_categorypage tables to support the latter 1:1 relations only, as of now. Old entries don't get touched by this, until they will be updated.
+- [x] Solve some last remaining questions pasted as '// RQ: ' notes (+ + + + +)
 - [x] Removed commented $related_category_entries code, since being unneeded for the solution with serendipity_fetchPrintEntries and unworth to keep, since not really working.
 - [x] Removed old and unused getSistersID method
 - [x] Removed old and unused sequencer pageorder methods to use with javascript drag & drop only

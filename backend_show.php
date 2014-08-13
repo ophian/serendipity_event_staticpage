@@ -174,13 +174,14 @@
                 if (!empty($serendipity['POST']['staticDelete']) && $serendipity['POST']['staticpage'] != '__new') {
                     $serendipity['smarty']->assign('sp_staticdelete', true);
                     if (!$this->getChildPage($serendipity['POST']['staticpage'])) {
-                        $this_recatid = serendipity_db_query("SELECT categoryid FROM {$serendipity['dbPrefix']}staticpage_categorypage WHERE staticpage_categorypage = " . (int)$serendipity['POST']['staticpage']);
+                        // check previous relcat table categoryid ($pcid) for a match with given staticpage $pid}
+                        $pcid = serendipity_db_query("SELECT categoryid FROM {$serendipity['dbPrefix']}staticpage_categorypage WHERE staticpage_categorypage = " . (int)$serendipity['POST']['staticpage'] . " LIMIT 1", true, 'assoc');
                         serendipity_db_query("DELETE FROM {$serendipity['dbPrefix']}staticpages WHERE id = " . (int)$serendipity['POST']['staticpage']);
-                        // case delete staticpage by id - keep track on serendipity_staticpage_categorypage table
-                        if (is_numeric($this_recatid)) {
-                            $this->setCatProps((int)$this_recatid, null, true);
-                            unset($this_recatid); // RQ: note table combine to user?
+                        // case delete staticpage by id - keep track on relcat table
+                        if (is_numeric($pcid['categoryid']) && $pcid['categoryid'] > 0) {
+                            $this->setCatProps((int)$pcid['categoryid'], null, true);
                         }
+                        // RQ: note table combine to user? (No, since we do not do this on new staticpages either.)
                         $serendipity['smarty']->assign('sp_defpages_rip_success', DONE .': '. sprintf(RIP_ENTRY, (int)$serendipity['POST']['staticpage'] . ' (' . $this->staticpage['pagetitle'] . ')'));
                     }
                 }

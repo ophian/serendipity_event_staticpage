@@ -512,7 +512,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * get the realname form all authors
+     * Extract the realname from all authors
      *
      * @access (private) fallback public
      * @return array     key: userid, value: realname
@@ -547,7 +547,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Get related categories
+     * Fetch and get related categories
      *
      * @access (private) fallback public
      * @return array
@@ -567,7 +567,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * get the realname from the author id
+     * Extract the realname from the author id
      *
      * @param  int       authors ID
      * @access (private) fallback public
@@ -625,7 +625,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * get all created staticpages
+     * Fetch all created staticpages
      *
      * @access (private) fallback public
      * @return array     array of pages
@@ -657,7 +657,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * get a list of all pagetypes
+     * Fetch a list of all pagetypes
      *
      * @access (private) fallback public
      * @return mixed     array if pagetypes, else false
@@ -1113,7 +1113,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Get child breadcrumb navigation ids downwards
+     * Extract child breadcrumb navigation ids downwards
      *
      * @param  array    $pages
      * @param  int      $id
@@ -1131,7 +1131,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Get frontend pages array index key by childs id
+     * Extract frontend pages array index key by childs id
      *
      * @param  array    $pages
      * @param  int      $id
@@ -1221,7 +1221,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Get navigation data for frontend navigations
+     * Fetch and build navigation data for frontend navigations
      *
      * @access (private) fallback public
      * @return mixed array/bool
@@ -1365,7 +1365,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Get template for pagetypes by given ID
+     * Fetch template for pagetypes by given ID
      *
      * @param  int       template ID
      * @access (private) fallback public
@@ -1383,7 +1383,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Get pagetype images
+     * Fetch pagetype images
      *
      * @param  int       image ID
      * @access (private) fallback public
@@ -1580,7 +1580,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Get page ID
+     * Fetch page ID
      *
      * @access (private) fallback public
      * @return mixed array/bool
@@ -1604,7 +1604,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Get child pages by current parent ID
+     * Fetch child pages by current parent ID
      *
      * @access (private) fallback public
      * @return mixed array/bool
@@ -1626,7 +1626,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Get child pages ID by current parent ID
+     * Fetch child pages ID by current parent ID
      *
      * @access (private) fallback public
      * @return mixed array/bool
@@ -1656,7 +1656,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Get child pages by given parent ID
+     * Fetch child pages by given parent ID
      *
      * @param  int       parent ID
      * @access (private) fallback public
@@ -1677,7 +1677,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Get static page by ID
+     * Fetch static page by ID
      *
      * @param  int       entry ID
      * @access (private) fallback public
@@ -1916,7 +1916,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Get static page startpage
+     * Fetch static page startpage
      *
      * @access (private) fallback public
      * @return mixed array/bool
@@ -1940,7 +1940,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     *  Get static page errorpage
+     *  Fetch static page errorpage
      *
      * @access (private) fallback public
      * @return mixed array/bool
@@ -2013,11 +2013,11 @@ class serendipity_event_staticpage extends serendipity_event
                 // case no entry had been set before, or case previous category id was gt 0 and != $pid
                 if (empty($pcp) || $pcp > 0 && $pcp != $pid) {
                     // only assign note to smarty in the latter case, where an entry was really changed
-                    if (!empty($pcp)) {
+                    if (!empty($pcp) && $pcp != $pid) {
                         $serendipity['smarty']->assign(array(
                             'sp_relcatchange' => true,
-                            'prev_relcat_staticpage' => $pcpdata['id']. ' ("' . $pcpdata['pagetitle'] . '")',
-                            'this_relcat_staticpage' => $insert_page['id']. ' ("' . $insert_page['pagetitle'] . '")')
+                            'prev_relcat_staticpage' => $pcp . ' ("' . $pcpdata['pagetitle'] . '")',
+                            'this_relcat_staticpage' => $pid . ' ("' . $insert_page['pagetitle'] . '")')
                         );
                     } else {
                         if (DEBUG_STATICPAGE) {
@@ -2556,7 +2556,7 @@ class serendipity_event_staticpage extends serendipity_event
 
     /**
      * -stm:
-     * get the id of the staticpage for a given category-id
+     * Fetch the id of the staticpage for a given category-id
      *
      * @param  int       cache ID
      * @param  string    key name
@@ -2587,7 +2587,7 @@ class serendipity_event_staticpage extends serendipity_event
 
     /**
      * -stm:
-     * get some elements of a staticpage for a given staticpage ID
+     * Fetch some elements of a staticpage for a given staticpage ID
      *
      * @param  int       entry ID
      * @access (private) fallback public
@@ -2819,7 +2819,8 @@ class serendipity_event_staticpage extends serendipity_event
                             $this->setCatPropForStaticpage($pcp, 0);
                         }
                     }
-                    if ($pid > 0) {
+
+                    if ($pid > 0 && $pcp != $pid) {
                         // note this to user in case we had updated real data
                         echo '<div class="msg_notice"><span class="icon-error"></span> ' . IMPORT_NOTES . ': ' . sprintf(RELATED_CATEGORY_CHANGE_MSG, $pcp, $pid) . '</div>';
                     }

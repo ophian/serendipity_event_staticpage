@@ -145,7 +145,7 @@ class serendipity_event_staticpage extends serendipity_event
                 $propbag->add('type',           'boolean');
                 $propbag->add('name',           STATICPAGE_SHOWLIST_DEFAULT);
                 $propbag->add('description',    STATICPAGE_SHOWLIST_DESC);
-                $propbag->add('default',        ($serendipity['version'][0] > '1' ? true : false));
+                $propbag->add('default',        ($serendipity['version'][0] > 1 ? true : false));
                 break;
 
             case 'use_quicksearch':
@@ -2229,7 +2229,7 @@ class serendipity_event_staticpage extends serendipity_event
         // moduled, since using lots of html/smarty output - shall we re-include this now again?
         include_once 'backend_show.php';
 
-        if ($serendipity['version'][0] > '1') {
+        if ($serendipity['version'][0] > 1) {
             $filename = 'backend_staticpage.tpl';
         } else {
             $filename = 'old_backend_staticpage.tpl';
@@ -2433,10 +2433,10 @@ class serendipity_event_staticpage extends serendipity_event
         $serendipity['smarty']->registerPlugin('function', 'staticpage_input', array($this, 'SmartyInspectConfig'));
         $serendipity['smarty']->registerPlugin('function', 'staticpage_input_finish', array($this, 'SmartyInspectConfigFinish'));
 
-        if ($serendipity['version'][0] < '2' && $serendipity['wysiwyg'] && !class_exists('serendipity_event_ckeditor')) {
+        if ($serendipity['version'][0] < 2 && $serendipity['wysiwyg'] && !class_exists('serendipity_event_ckeditor')) {
             $serendipity['smarty']->assign('is_wysiwyg', true); // ckeditor has no need to disable 2cd collapsible box in default form template
         }
-        if ($serendipity['version'][0] > '1') {
+        if ($serendipity['version'][0] > 1) {
             $serendipity['smarty']->assign('new_backend', true);
         }
 
@@ -2548,7 +2548,6 @@ class serendipity_event_staticpage extends serendipity_event
         );
 
         $filename = 'plugin_staticpage_searchresults.tpl';
-        // use native API here - extends s9y version >= 1.3'
         $content = $this->parseTemplate($filename);
         echo $content;
     }
@@ -2900,10 +2899,10 @@ class serendipity_event_staticpage extends serendipity_event
                     $md = htmlspecialchars($this->get_static('meta_description'));
                     $mk = htmlspecialchars($this->get_static('meta_keywords'));
                     if (!empty($md)) {
-                        echo '        <meta name="description" content="' . $md . '"' . ($serendipity['version'][0] < '2' ? ' />' : '>') . "\n";
+                        echo '        <meta name="description" content="' . $md . '"' . ($serendipity['version'][0] < 2 ? ' />' : '>') . "\n";
                     }
                     if (!empty($mk)) {
-                        echo '        <meta name="keywords" content="' . $mk . '"' . ($serendipity['version'][0] < '2' ? ' />' : '>') . "\n";
+                        echo '        <meta name="keywords" content="' . $mk . '"' . ($serendipity['version'][0] < 2 ? ' />' : '>') . "\n";
                     }
                     break;
 
@@ -2971,7 +2970,7 @@ class serendipity_event_staticpage extends serendipity_event
                                                    WHERE id       = " . serendipity_db_escape_string($dir['id']);
                             serendipity_db_query($uq);
                         }
-                        if ($serendipity['version'][0] < '2') {
+                        if ($serendipity['version'][0] < 2) {
                             printf(STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRIES . '<br />', count($dirs));
                         } else {
                             $spimgmovedtodir = sprintf(STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRIES, count($dirs));
@@ -3032,6 +3031,9 @@ class serendipity_event_staticpage extends serendipity_event
                     }
 ?>
 
+.staticpage_index_navigation {
+    margin: 0 2em 1em;
+}
 #staticpage_nav {
     border: 1px solid #aaa;
     margin-bottom: 1em;
@@ -3069,7 +3071,7 @@ class serendipity_event_staticpage extends serendipity_event
                     break;
 
                 case 'css_backend':
-                    if ($serendipity['version'][0] < '2') {
+                    if ($serendipity['version'][0] < 2) {
                         echo file_get_contents(dirname(__FILE__) . '/style_sp_s9yold.css');
                     }
                     break;

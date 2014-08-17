@@ -63,7 +63,7 @@
 <?php
                     }
 ?>
-                    <input class="input_radio direction_<?php echo $lang_direction; ?>" type="radio" id="serendipity_plugin_<?php echo $id; ?>" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo $radio_value; ?>" <?php echo $checked ?> title="<?php echo htmlspecialchars($radio['desc'][$radio_index]); ?>"<?php if ($serendipity['version'][0] == '1') { ?> /<?php } ?>>
+                    <input class="input_radio direction_<?php echo $lang_direction; ?>" type="radio" id="serendipity_plugin_<?php echo $id; ?>" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo $radio_value; ?>" <?php echo $checked ?> title="<?php echo htmlspecialchars($radio['desc'][$radio_index]); ?>"<?php if ($serendipity['version'][0] < 2) { ?> /<?php } ?>>
                         <label for="serendipity_plugin_<?php echo $id; ?>"><?php echo htmlspecialchars($radio['desc'][$radio_index]); ?></label>
 <?php
                     if ($counter == $per_row) {
@@ -77,7 +77,7 @@
 
             case 'string':
 ?>
-                    <input class="input_textbox direction_<?php echo $lang_direction; ?>" type="text" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo $hvalue; ?>" size="30"<?php if ($serendipity['version'][0] == '1') { ?> /<?php } ?>>
+                    <input class="input_textbox direction_<?php echo $lang_direction; ?>" type="text" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo $hvalue; ?>" size="30"<?php if ($serendipity['version'][0] < 2) { ?> /<?php } ?>>
 <?php
                 break;
 
@@ -85,7 +85,7 @@
             case 'text':
 
                 if (!$serendipity['wysiwyg']) {
-                    if ($serendipity['version'][0] == '1') {
+                    if ($serendipity['version'][0] < 2) {
 ?>
                     <nobr><span id="tools_<?php echo $config_item ?>" class="editor_toolbar" style="display: none">
                         <?php if( $serendipity['nl2br']['iso2br'] ) { ?>
@@ -131,7 +131,7 @@
                     unset($entry['backend_entry_toolbar_body:nugget']);
                 } else {
 
-                    if ($serendipity['version'][0] > '1') {
+                    if ($serendipity['version'][0] > 1) {
                         serendipity_emit_htmlarea_code("nuggets{$elcount}","");
                     }
                     $entry['backend_entry_toolbar_body:nugget'] = 'nuggets' . $elcount;
@@ -159,13 +159,13 @@
 
             case 'hidden':
 ?>
-                <input class="direction_<?php echo $lang_direction; ?>" type="hidden" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo $value; ?>"<?php if ($serendipity['version'][0] == '1') { ?> /<?php } ?>>
+                <input class="direction_<?php echo $lang_direction; ?>" type="hidden" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo $value; ?>"<?php if ($serendipity['version'][0] < 2) { ?> /<?php } ?>>
 <?php
                 break;
 
             case 'timestamp':
 ?>
-                    <input class="input_textbox direction_<?php echo $lang_direction; ?>" type="text" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo serendipity_strftime(DATE_FORMAT_SHORT, $hvalue); ?>" size="30"<?php if ($serendipity['version'][0] == '1') { ?> /<?php } ?>>
+                    <input class="input_textbox direction_<?php echo $lang_direction; ?>" type="text" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo serendipity_strftime(DATE_FORMAT_SHORT, $hvalue); ?>" size="30"<?php if ($serendipity['version'][0] < 2) { ?> /<?php } ?>>
 <?php
                 break;
         }

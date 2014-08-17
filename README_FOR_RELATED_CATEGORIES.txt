@@ -20,7 +20,7 @@ for the backlinks from a category to the related static-page use this in your en
             {else}
                 <a href="{$serendipityBaseURL}">{$blogTitle}</a>
             {/if}
-            &raquo; {$CONST.STATICPAGE_ARTICLE_OVERVIEW}</li>
+            &raquo; {$CONST.STATICPAGE_ARTICLE_OVERVIEW} {$CONST.CATEGORY}: {$category_info.category_name}</li>
         </ul>
     </div>
 {/if}

@@ -2890,9 +2890,12 @@ class serendipity_event_staticpage extends serendipity_event
                     break;
 
                 case 'backend_header':
+                    // exclude this from preview.tpl entry previews
+                    if (!$serendipity['POST']['preview']) {
 ?>
     <link rel="stylesheet" href="<?php echo $serendipity['serendipityHTTPPath']; ?>plugins/serendipity_event_staticpage/staticpage_backend.css">
 <?php
+                    }
                     break;
 
                 case 'frontend_header':

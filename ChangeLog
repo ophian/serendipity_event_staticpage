@@ -74,7 +74,7 @@
  *  Associated 1:1 relation for staticpage related categories.
     Touches staticpages and staticpage_categorypage tables to support the latter 1:1 relations only, as of now.
     Old entries don't get touched by this, until they will be updated.
- *  Fixed example breadcrump in README_FOR_RELATED_CATEGORIES.txt to not fire on blogs entrypaging archives.
+ *  Fixed example breadcrumb in README_FOR_RELATED_CATEGORIES.txt, to not fire on blogs entrypaging archives.
 
 
 -----

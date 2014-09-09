@@ -113,7 +113,7 @@
     {/if}
 
 <form action="serendipity_admin.php" method="post" name="serendipityEntry">
-<div>
+  <div>
     <input type="hidden" name="serendipity[adminModule]" value="event_display" />
     <input type="hidden" name="serendipity[adminAction]" value="staticpages" />
     <input type="hidden" name="serendipity[staticpagecategory]" value="pagetype" />
@@ -137,11 +137,14 @@
         <!-- sp_pagetype_showform start -->
         {$sp_pagetype_showform}
         <!-- sp_pagetype_showform end -->
+
+        <div class="clearfix">
+            <input type="submit" name="serendipity[SAVECONF]" value="{$CONST.SAVE}" class="serendipityPrettyButton input_button" />
+        </div>
         {/if}
 
     </div>
-</div>
-
+  </div>
 </form>
 
 {elseif $switch_spcat == 'pageadd'}

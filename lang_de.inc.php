@@ -1,4 +1,4 @@
-<?php # 
+<?php
 
 @define('LANG_ALL', 'Alle Sprachen');
 @define('LANG_BG', 'Bulgarisch');
@@ -86,7 +86,7 @@
 @define('STATICPAGE_ARTICLETYPE_TEMPLATE', 'Templatename');
 @define('STATICPAGE_ARTICLETYPE_TEMPLATE_DESC', 'Der Name des Templates. Das Template kann im staticpages-plugin-Ordner oder im standardmäßigen Template-Ordner sein.');
 @define('STATICPAGE_ARTICLETYPE_IMAGE', 'Bildpfad');
-@define('STATICPAGE_ARTICLETYPE_IMAGE_DESC', 'Die URL zu einem Kategoriebild.');
+@define('STATICPAGE_ARTICLETYPE_IMAGE_DESC', 'Die URL zu einem (Kategorie)-Bild.');
 
 @define('STATICPAGE_USELMDATE_DEFAULT', 'Zeige als last_modified Datum im Eintragsfuß?');
 

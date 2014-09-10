@@ -260,7 +260,7 @@
                 <span id="custom_info" class="field_info">
                 <p>This custom section vastly improves Serendipity's CMS-abilities and shows an example for saving custom fields for static pages. All custom fields need to be implemented through usual HTML form elements, and need to save their values inside a serendipity[plugin][custom][XXX] fieldname. Once entered, the data will be automatically saved inside the serendipity_staticpage_custom database table, and will be available through &#123;$staticpage_custom.XXX&#125; when later being displayed in the frontend. This way, you can easily add new custom fields for a staticpage, ie. to specify a custom header image for each staticpage. Sky's the limit!</p>
                 <p>These example here enable to use either a custom CSS-BODY-ID to render the page. Or you can specify, which sidebar you want to see when this staticpage is rendered. Another nice example included here, is to define some related tags for this staticpage, to show a specific amount of entries including these tags.<br>
-                <span><strong>Please read:</strong></span><a href="{$serendipityHTTPPath}plugins/serendipity_event_staticpage/README_FOR_CUSTOM_FIELDS.txt" target="_blank">the readme for custom fields</a> examples.</p>
+                <span><strong>Please read:</strong> </span><a href="{$serendipityHTTPPath}plugins/serendipity_event_staticpage/README_FOR_CUSTOM_FIELDS.txt" target="_blank">the readme for custom fields</a> examples.</p>
                 </span>
             </div>
             {if !$new_backend && !$is_wysiwyg}<script type="text/javascript">document.getElementById("el5").style.display = "none";</script>{/if}

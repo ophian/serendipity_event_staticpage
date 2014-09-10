@@ -100,7 +100,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.28');
+        $propbag->add('version', '4.29');
         $propbag->add('requirements',  array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -2061,7 +2061,7 @@ class serendipity_event_staticpage extends serendipity_event
 
         // Store custom properties
         if (is_array($serendipity['POST']['plugin']['custom'])) {
-            // here we need to purge all values, that weren't posted (again) - like a reset sidebar value for example
+            // here we need to purge all values, that weren't posted (again) - like a reset sidebars value for example
             foreach($serendipity['POST']['plugin']['custom'] AS $custom_name => $custom_value) {
                 if (is_array($custom_value)) {
                     $custom_value = implode('~', $custom_value);

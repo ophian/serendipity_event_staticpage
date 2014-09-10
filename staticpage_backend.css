@@ -298,6 +298,10 @@
     margin: 0px .4em .125em;;
     width: 98.6%;
 }
+#backend_sp_respond input.sp_long[type="text"] {
+    min-width: 100%;
+}
+
 @media only screen and (max-width: 480px) {
     #backend_sp_respond .form_field_long label,
     #backend_sp_respond .form_field_long input {

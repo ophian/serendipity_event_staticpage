@@ -130,7 +130,7 @@
                     {if $new_backend}
                     <div id="entry_relcat_info" class="clearfix field_info additional_info">
                         <span id="related_category_info" class="field_info">
-                            This <u>only</u> works in combination with the entries.tpl patch, described in the "README FOR RELATED CATEGORIES.txt" file.
+                            This <u>only</u> works in combination with the entries.tpl patch, described in the "README FOR RELATED CATEGORIES.txt" <a href="{$serendipityHTTPPath}plugins/serendipity_event_staticpage/README_FOR_RELATED_CATEGORIES.txt" target="_blank">file</a>.
                             For a frontend category page, with an amount<span style="font-size:10px"><sup> (1)</sup></span> of last entry links as a teaser,
                             the best use would be a set Articletype: "<em>Staticpage with related category</em>" field in this form.
                             Please note, that only unique 1:1 relations between staticpages and categories are allowed.<br>

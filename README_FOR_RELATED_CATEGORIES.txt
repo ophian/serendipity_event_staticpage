@@ -1,6 +1,6 @@
-have a look at staticpage-entries-listing.tpl and plugin_staticpage_related_category.tpl!
+Have a look at staticpage-entries-listing.tpl and plugin_staticpage_related_category.tpl!
 
-for the backlinks from a category to the related static-page use this in your entries.tpl:
+for the backlinks from a category to the related static-page use this in your entries.tpl, below the hook {serendipity_hookPlugin hook="entries_header" addData="$entry_id"}:
 (you can use {$CONST.PLUGIN_STATICPAGELIST_FRONTPAGE_LINKNAME} instead of {$blogTitle})
 
 {if ($view == 'archives' && isset($head_subtitle)) || ($view == 'frontpage')}

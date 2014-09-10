@@ -1,5 +1,5 @@
 
-<!-- RESPONSIVE_TEMPLATE.TPL start -->
+<!-- CUSTOM_TEMPLATE.TPL start -->
 {if !$new_backend}
 <script type="text/javascript">
     var img_plus  = '{serendipity_getFile file="img/plus.png"}';
@@ -240,6 +240,62 @@
 
     {if !$new_backend && !$is_wysiwyg}<script type="text/javascript">document.getElementById("el3").style.display = "none";</script>{/if}
 
+    <div class="sp_sect configuration_group">
+        {if $new_backend}
+        <h3 class="toggle_headline"><button id="optionel4" class="toggle_info show_config_option sp_toggle" type="button" data-href="#el4" title="{$CONST.STATICPAGE_TOGGLEANDSAVE|sprintf:$CONST.TOGGLE_OPTION}"><span class="icon-right-dir"></span> {$CONST.STATICPAGES_CUSTOMEXAMPLE_OPTION_SHOW}</button></h3>
+        {else}
+        <p id="sp_toggle_optionall"><a href="#" onClick="showConfig('el4'); return false" title="{$CONST.STATICPAGE_TOGGLEANDSAVE|sprintf:$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel4" alt="+/-" border="0">&nbsp;{$CONST.STATICPAGES_CUSTOMEXAMPLE_OPTION_SHOW}</a></p>
+        {/if}
+    </div>
+
+    <div id="el4"{if $new_backend} class="config_optiongroup additional_info"{/if}>
+
+        <fieldset id="sp_custom_data" class="clearfix sect_custom">
+            <legend>Custom{if $new_backend} <button class="toggle_info button_link" type="button" data-href="#entry_custom_info"><span class="icon-info-circled"></span><b>i</b><span class="visuallyhidden"> Mehr</span></button>{/if}</legend>
+            {if !$new_backend}
+            <p id="sp_toggle_optionall">Custom <a href="#" onClick="showConfig('el5'); return false" title="{$CONST.STATICPAGE_TOGGLEANDSAVE|sprintf:$CONST.TOGGLE_OPTION}"><img src="{serendipity_getFile file="img/plus.png"}" id="optionel5" alt="+/-" border="0">&nbsp;Info</a></p>
+            {/if}
+
+            <div id="{if !$new_backend}el5{else}entry_custom_info{/if}" class="clearfix field_info additional_info">
+                <span id="custom_info" class="field_info">
+                <p>This custom section vastly improves Serendipity's CMS-abilities and shows an example for saving custom fields for static pages. All custom fields need to be implemented through usual HTML form elements, and need to save their values inside a serendipity[plugin][custom][XXX] fieldname. Once entered, the data will be automatically saved inside the serendipity_staticpage_custom database table, and will be available through &#123;$staticpage_custom.XXX&#125; when later being displayed in the frontend. This way, you can easily add new custom fields for a staticpage, ie. to specify a custom header image for each staticpage. Sky's the limit!</p>
+                <p>These example here enable to use either a custom CSS-BODY-ID to render the page. Or you can specify, which sidebar you want to see when this staticpage is rendered. Another nice example included here, is to define some related tags for this staticpage, to show a specific amount of entries including these tags.<br>
+                <span><strong>Please read:</strong></span><a href="{$serendipityHTTPPath}plugins/serendipity_event_staticpage/README_FOR_CUSTOM_FIELDS.txt" target="_blank">the readme for custom fields</a> examples.</p>
+                </span>
+            </div>
+            {if !$new_backend && !$is_wysiwyg}<script type="text/javascript">document.getElementById("el5").style.display = "none";</script>{/if}
+
+            <div class="form_field sp_sect">
+                <label class="sp_label" title="Set related freetags for this staticpage. No spaces. Use ; as delimiter!">Related Tag(s)</label>
+                <input type="text" class="sp_long" name="serendipity[plugin][custom][relTags]" value="{$form_values.custom.relTags|default:'None'}"{if !$new_backend} /{/if}>
+            </div>
+
+            <div class="form_field sp_sect">
+                <label class="sp_label" title="Set the amount of articles to show up by defined freetags">Amount of Pages</label>
+                <input type="text" name="serendipity[plugin][custom][relNumb]" value="{$form_values.custom.relNumb|default:'None'}"{if !$new_backend} /{/if}>
+            </div>
+
+            <div id="entry_custom_sidebar" class="form_field form_multiselect sp_sect">
+                <label class="sp_label" title="Choose the main sidebar that should be shown when this staticpage is evaluated. Mark 'None; to unmark existing settings!">Sidebars</label>
+                <select name="serendipity[plugin][custom][sidebars][]" id="sp_customsidebar" multiple="multiple">
+                    <option value="">None</option>
+                    <option {if isset($form_values.custom.sidebars) && in_array('left', (array)$form_values.custom.sidebars)}selected="selected"{/if}value="left">Left</option>
+                    <option {if isset($form_values.custom.sidebars) && in_array('right', (array)$form_values.custom.sidebars)}selected="selected"{/if}value="right">Right</option>
+                    <option {if isset($form_values.custom.sidebars) && in_array('hidden', (array)$form_values.custom.sidebars)}selected="selected"{/if}value="hidden">Hidden</option>
+                </select>
+            </div>
+
+            <div id="entry_custom_class" class="form_field sp_sect">
+                <label class="sp_label" title="CSS class of the main page body that should be associated">Main CSS class</label>
+                    <input class="input_textbox direction_ltr" type="text" size="30" name="serendipity[plugin][custom][css_class]" value="{$form_values.custom.css_class|default:'None'}"{if !$new_backend} /{/if}>
+            </div>
+
+        </fieldset>
+
+    </div>
+
+    {if !$new_backend && !$is_wysiwyg}<script type="text/javascript">document.getElementById("el4").style.display = "none";</script>{/if}
+
 </div>
 
 {staticpage_input_finish}
@@ -265,5 +321,5 @@
 </script>
 {/if}
 
-<!-- RESPONSIVE_TEMPLATE.TPL end -->
+<!-- CUSTOM_TEMPLATE.TPL end -->
 

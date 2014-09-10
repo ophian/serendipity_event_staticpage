@@ -75,6 +75,9 @@
     Touches staticpages and staticpage_categorypage tables to support the latter 1:1 relations only, as of now.
     Old entries don't get touched by this, until they will be updated.
  *  Fixed example breadcrumb in README_FOR_RELATED_CATEGORIES.txt, to not fire on blogs entrypaging archives.
+ *  Added new custom template, which now holds existing examples for custom properties, based on responsive template.
+    This remmoves the custom examples in responsive template.
+ *  Added new README_FOR_CUSTOM_FIELDS.txt
 
 
 -----

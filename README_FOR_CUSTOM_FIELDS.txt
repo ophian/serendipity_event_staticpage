@@ -34,9 +34,11 @@ Example parts for 2k11/index.tpl:
 
 --------------------------------------------------------------------------------------------------------
 
-The related tags example, having the freetag event plugin installed, needs you to to do the following additions.
+The related tags example, having the freetag event plugin installed, needs you to add the following additions:
 
 1. Add a new staticpage pagetype, with description: "Staticpage with related article" and templatename: "plugin_staticpage_related_article.tpl" and save the form.
+
++ + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
 
 2. Add a function to your templates "config.inc.php", which is:
 
@@ -57,7 +59,7 @@ and register it to Smarty:
 
 $serendipity['smarty']->registerPlugin('function', 'show_tags', 'smarty_show_tags');
 
-+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + 
++ + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
 
 3. Then create a file named "plugin_staticpage_related_article.tpl" to your template, with this content:
 
@@ -168,7 +170,7 @@ $serendipity['smarty']->registerPlugin('function', 'show_tags', 'smarty_show_tag
 
 + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + 
 
-5. Now create a staticpage via custom template, with the option field 'Articletype' set to: "Staticpage with related article". Add your related custom freetags into the custom option field: "Related Tag(s)" (delimiter is a ";" with no spaces) and set the amount of pages to show up, when page is called, to the required field.
+5. Now create a staticpage via custom template, with the option field 'Articletype' set to: "Staticpage with related article". Add your related custom freetags into the custom option field: "Related Tag(s)" (delimiter for tags is a ";" with no spaces) and set the desired amount of pages to show up, when page is called, to the next required field.
 
 You are done!
 

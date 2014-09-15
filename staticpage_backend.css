@@ -393,6 +393,20 @@
     padding-left: .3em;
     width: 47% !important;
 }
+#staticpage_pagetype input {
+    min-width: 330px;
+}
+/* SMALL SCREEN */
+@media only screen and (max-width: 372px) {
+    #staticpage_pagetype input {
+        min-width: 282px;
+    }
+}
+@media only screen and (max-width: 481px) {
+    #staticpage_pagetype.configuration_group .form_field input {
+        width: inherit;
+    }
+}
 
 /* pageadd */
 #staticpage_pageadd .input_button {

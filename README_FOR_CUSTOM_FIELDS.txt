@@ -153,7 +153,9 @@ $serendipity['smarty']->registerPlugin('function', 'show_tags', 'smarty_show_tag
 {if !empty($staticpage_custom.relTags)}
 
         <h3>Entries by related tags</h3>
-        <p>({$staticpage_custom.relTags})</p>
+        <div class="serendipity_freeTag">
+             <p>({$staticpage_custom.relTags|replace:';':', '})</p>
+        </div>
 
         <ul>
     {foreach from=$entries item="dategroup"}

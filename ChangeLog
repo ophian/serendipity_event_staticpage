@@ -79,6 +79,11 @@
     This remmoves the custom examples in responsive template.
  *  Added new README_FOR_CUSTOM_FIELDS.txt
 
+    TL;DR - Please note:
+    Some of these commits will change behaviour or appearance for older staticpage entries.
+    Please double check all you pages to show up correctly, or at least check the major ones in difference.
+    Also check for template staticpage files in need for an update (this may effect all kind of
+    yourTemplate/plugin_staticpage_***.tpl files and all backend form files in yourTemplate/backend_templates/*, if have).
 
 -----
 

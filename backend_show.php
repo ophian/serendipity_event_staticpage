@@ -25,7 +25,7 @@
         switch($spcat) {
             case 'pageorder':
                 if ($serendipity['GET']['moveto'] == 'move') {
-                    $new_order = explode(',', htmlspecialchars($serendipity['GET']['pagemoveorder']));
+                    $new_order = explode(',', (function_exists('serendipity_specialchars') ? serendipity_specialchars($serendipity['GET']['pagemoveorder']) : htmlspecialchars($serendipity['GET']['pagemoveorder'], ENT_COMPAT, LANG_CHARSET)));
                     $this->move_sequence($new_order);
                 }
 
@@ -45,8 +45,8 @@
                     $serendipity['POST']['typeSubmit'] = true;
                     $bag = new serendipity_property_bag();
                     $this->introspect($bag);
-                    $name = htmlspecialchars($bag->get('name'));
-                    $desc = htmlspecialchars($bag->get('description'));
+                    $name = (function_exists('serendipity_specialchars') ? serendipity_specialchars($bag->get('name')) : htmlspecialchars($bag->get('name'), ENT_COMPAT, LANG_CHARSET));
+                    $desc = (function_exists('serendipity_specialchars') ? serendipity_specialchars($bag->get('description')) : htmlspecialchars($bag->get('description'), ENT_COMPAT, LANG_CHARSET));
                     $config_t = $bag->get('type_configuration');
 
                     foreach($config_t as $config_item) {
@@ -80,8 +80,8 @@
                     $serendipity['POST']['backend_template'] = 'typeform_staticpage_backend.tpl';
                     $bag = new serendipity_property_bag();
                     $this->introspect($bag);
-                    $name = htmlspecialchars($bag->get('name'));
-                    $desc = htmlspecialchars($bag->get('description'));
+                    $name = (function_exists('serendipity_specialchars') ? serendipity_specialchars($bag->get('name')) : htmlspecialchars($bag->get('name'), ENT_COMPAT, LANG_CHARSET));
+                    $desc = (function_exists('serendipity_specialchars') ? serendipity_specialchars($bag->get('description')) : htmlspecialchars($bag->get('description'), ENT_COMPAT, LANG_CHARSET));
                     $config_t = $bag->get('type_configuration');
 
                     foreach($config_t as $config_item) {
@@ -155,8 +155,8 @@
                     $serendipity['smarty']->assign('sp_staticsubmit', true);
                     $bag  = new serendipity_property_bag;
                     $this->introspect($bag);
-                    $name = htmlspecialchars($bag->get('name'));
-                    $desc = htmlspecialchars($bag->get('description'));
+                    $name = (function_exists('serendipity_specialchars') ? serendipity_specialchars($bag->get('name')) : htmlspecialchars($bag->get('name'), ENT_COMPAT, LANG_CHARSET));
+                    $desc = (function_exists('serendipity_specialchars') ? serendipity_specialchars($bag->get('description')) : htmlspecialchars($bag->get('description'), ENT_COMPAT, LANG_CHARSET));
                     $config_names = $bag->get('page_configuration');
 
                     foreach ($config_names as $config_item) {
@@ -212,7 +212,7 @@
                                 // new files follow naming in sp_templateselector select form:
                                 // eg. 'responsive_template.tpl', to show up as 'Responsive Template'
                                 if ($templateName == 'Default Staticpage Backend') $templateName = STATICPAGE_TEMPLATE_EXTERNAL;
-                                $ts_option[] = '<option' . ($file == $serendipity['POST']['backend_template'] ? ' selected="selected" ' : ' ') . 'value="' . htmlspecialchars($file) . '">' . htmlspecialchars($templateName) . '</option>'."\n";
+                                $ts_option[] = '<option' . ($file == $serendipity['POST']['backend_template'] ? ' selected="selected" ' : ' ') . 'value="' . (function_exists('serendipity_specialchars') ? serendipity_specialchars($file) : htmlspecialchars($file, ENT_COMPAT, LANG_CHARSET)) . '">' . (function_exists('serendipity_specialchars') ? serendipity_specialchars($templateName) : htmlspecialchars($templateName, ENT_COMPAT, LANG_CHARSET)) . '</option>'."\n";
                             }
                         }
                     }
@@ -223,7 +223,7 @@
                                 if (isset($m[1]) && !empty($m[1])) $templateName = ucwords(str_replace('_', ' ', $m[1]));
                                 // see upper naming convention note
                                 if ($templateName == 'Default Staticpage Backend') $templateName = STATICPAGE_TEMPLATE_EXTERNAL;
-                                $ts_option[] = '<option' . ($file == $serendipity['POST']['backend_template'] ? ' selected="selected" ' : ' ') . 'value="' . htmlspecialchars($file) . '">' . htmlspecialchars($templateName) .'</option>'."\n";
+                                $ts_option[] = '<option' . ($file == $serendipity['POST']['backend_template'] ? ' selected="selected" ' : ' ') . 'value="' . (function_exists('serendipity_specialchars') ? serendipity_specialchars($file) : htmlspecialchars($file, ENT_COMPAT, LANG_CHARSET)) . '">' . (function_exists('serendipity_specialchars') ? serendipity_specialchars($templateName) : htmlspecialchars($templateName, ENT_COMPAT, LANG_CHARSET)) .'</option>'."\n";
                             }
                         }
                     }
@@ -236,10 +236,10 @@
                         $pages = serendipity_walkRecursive($pages);
                         foreach ($pages as $page) {
                             if ($this->checkPageUser($page['authorid'])) {
-                                $ps_option[] = '<option value="' . $page['id'] . '"' . ($serendipity['POST']['staticpage'] == $page['id'] ? ' selected="selected"' : '') . '>' . str_repeat('&nbsp;&nbsp;', $page['depth']) . htmlspecialchars($page['pagetitle']) . '</option>'."\n";
+                                $ps_option[] = '<option value="' . $page['id'] . '"' . ($serendipity['POST']['staticpage'] == $page['id'] ? ' selected="selected"' : '') . '>' . str_repeat('&nbsp;&nbsp;', $page['depth']) . (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['pagetitle']) : htmlspecialchars($page['pagetitle'], ENT_COMPAT, LANG_CHARSET)) . '</option>'."\n";
                                 if ($serendipity['POST']['staticpage'] == $page['id']) {
                                     $this_selected_id = $page['id'];
-                                    $this_selected_name = htmlspecialchars($page['pagetitle']);
+                                    $this_selected_name = (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['pagetitle']) : htmlspecialchars($page['pagetitle'], ENT_COMPAT, LANG_CHARSET));
                                 }
                             }
                         }

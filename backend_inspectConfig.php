@@ -9,9 +9,9 @@
                 <select class="direction_<?php echo $lang_direction; ?>" name="serendipity[plugin][<?php echo $config_item; ?>]">
 <?php
                 foreach($select AS $select_value => $select_desc) {
-                    $id = htmlspecialchars($config_item . $select_value);
+                    $id = (function_exists('serendipity_specialchars') ? serendipity_specialchars($config_item . $select_value) : htmlspecialchars($config_item . $select_value, ENT_COMPAT, LANG_CHARSET));
 ?>
-                    <option title="<?php echo htmlspecialchars($select_desc); ?>"<?php echo ($select_value == $hvalue ? ' selected="selected"' : ''); ?> value="<?php echo $select_value; ?>"><?php echo htmlspecialchars($select_desc); ?></option>
+                    <option title="<?php echo (function_exists('serendipity_specialchars') ? serendipity_specialchars($select_desc) : htmlspecialchars($select_desc, ENT_COMPAT, LANG_CHARSET)); ?>"<?php echo ($select_value == $hvalue ? ' selected="selected"' : ''); ?> value="<?php echo $select_value; ?>"><?php echo (function_exists('serendipity_specialchars') ? serendipity_specialchars($select_desc) : htmlspecialchars($select_desc, ENT_COMPAT, LANG_CHARSET)); ?></option>
 <?php
                 }
 ?>
@@ -45,7 +45,7 @@
 
                 $counter = 0;
                 foreach($radio['value'] AS $radio_index => $radio_value) {
-                    $id = htmlspecialchars($config_item . $radio_value);
+                    $id = (function_exists('serendipity_specialchars') ? serendipity_specialchars($config_item . $radio_value) : htmlspecialchars($config_item . $radio_value, ENT_COMPAT, LANG_CHARSET));
                     $counter++;
                     $checked = "";
 
@@ -63,8 +63,8 @@
 <?php
                     }
 ?>
-                    <input class="input_radio direction_<?php echo $lang_direction; ?>" type="radio" id="serendipity_plugin_<?php echo $id; ?>" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo $radio_value; ?>" <?php echo $checked ?> title="<?php echo htmlspecialchars($radio['desc'][$radio_index]); ?>"<?php if ($serendipity['version'][0] < 2) { ?> /<?php } ?>>
-                        <label for="serendipity_plugin_<?php echo $id; ?>"><?php echo htmlspecialchars($radio['desc'][$radio_index]); ?></label>
+                    <input class="input_radio direction_<?php echo $lang_direction; ?>" type="radio" id="serendipity_plugin_<?php echo $id; ?>" name="serendipity[plugin][<?php echo $config_item; ?>]" value="<?php echo $radio_value; ?>" <?php echo $checked ?> title="<?php echo (function_exists('serendipity_specialchars') ? serendipity_specialchars($radio['desc'][$radio_index]) : htmlspecialchars($radio['desc'][$radio_index], ENT_COMPAT, LANG_CHARSET)); ?>"<?php if ($serendipity['version'][0] < 2) { ?> /<?php } ?>>
+                        <label for="serendipity_plugin_<?php echo $id; ?>"><?php echo (function_exists('serendipity_specialchars') ? serendipity_specialchars($radio['desc'][$radio_index]) : htmlspecialchars($radio['desc'][$radio_index], ENT_COMPAT, LANG_CHARSET)); ?></label>
 <?php
                     if ($counter == $per_row) {
                         $counter = 0;

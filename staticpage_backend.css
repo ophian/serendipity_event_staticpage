@@ -54,6 +54,9 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* html5 standard */
 }
 
+/* Set a content max-width for 1.7 backend Series */
+.serendipityAdminContent * { max-width: 1002px; }
+
 /* overrule .serendipityAdminContent span, as long as also used with old backend - need to keep her and not in old.css */
 .serendipityAdminContent span.sp_ptype_desc {
     color: #5E7A94 !important;
@@ -109,6 +112,8 @@
 }
 .default_staticpage .sp_sect {
     margin-bottom: 5px;
+    width: 60%;
+    min-width: 340px;
 }
 .default_staticpage fieldset {
     margin: 5px;
@@ -386,6 +391,7 @@
 .sp-btn-purge:before { content: attr(value) '\e80d'); }
 
 /* pagetype */
+#staticpage_pagetype .sp_ptype_desc { width: 100% ;}
 #staticpage_pagetype .grouped:last-of-type { border-bottom: 1px solid #ccc;}
 #staticpage_pagetype .grouped.odd { background: #eee; }
 #staticpage_pagetype .grouped.even { background: #fff; }

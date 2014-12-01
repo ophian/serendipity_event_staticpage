@@ -7,18 +7,21 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### ToDo: :arrow_down:
-- [ ] deep check, if current changes broke anything with some more enhanced staticpage options (all normal behaviour is checked working!)
-- [ ] move new backend template files into own or current backend_template directory ?
+- [ ] deep check, if changes broke anything with some more enhanced staticpage options (all normal behaviour is checked working!)
+- [ ] move new backend template files into own or current backend_template directory (?)
 - [ ] rename directory backend_templates. There is a risk that existing user template dirs have other files in it (not excluded by backend_show)
-- [ ] re-integrate backend_show into class method again
 - [ ] future Todo - check possibility for an automated integration to templates using $template_global_config = array('navigation' => true)
 - [ ] future Todo - refactor related category associations
-- [ ] set backends form textformat option automatically to NO, on WYSIWYG usage ?
+- [ ] set backends form textformat option automatically to NO, on WYSIWYG usage (?)
 
 
 - - -
 
 ### Already done: :arrow_up:
+- [x] Renamed style_sp_s9yold.css to staticpage_backend.old.css
+- [x] Renamed old_backend_staticpage.tpl to backend_staticpage.old.tpl
+- [x] Re-integrated previously outsourced backend_show.php
+- [x] Fixed htmlspecialchars() for PHP >=5.4 with native, non-utf-8 language installs, which natively changed from ISO-8859-1 to UTF-8
 - [x] Added new README_FOR_CUSTOM_FIELDS.txt
 - [x] Added new custom template, which now holds existing examples for custom properties, based on responsive template. This remmoves the custom examples in responsive template.
 - [x] Some small fixes https://github.com/ophian/serendipity_event_staticpage/compare/v4.27...master?diff=unified

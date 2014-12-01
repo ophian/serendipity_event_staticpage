@@ -1,4 +1,4 @@
-<?php #
+<?php
 
 # serendipity_plugin_staticpage.php, v1.0 2005/06/01 (c) by Rob Antonishen
 
@@ -24,7 +24,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
         $propbag->add('description', PLUGIN_STATICPAGELIST_NAME_DESC);
         $propbag->add('author',      "Rob Antonishen, Falk Doering, Ian");
         $propbag->add('stackable',   true);
-        $propbag->add('version',     '1.20');
+        $propbag->add('version',     '1.21');
         $propbag->add('configuration', array(
                 'title',
                 'limit',

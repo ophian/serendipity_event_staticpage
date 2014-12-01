@@ -78,6 +78,8 @@
  *  Added new custom template, which now holds existing examples for custom properties, based on responsive template.
     This remmoves the custom examples in responsive template.
  *  Added new README_FOR_CUSTOM_FIELDS.txt
+ *  Fixed htmlspecialchars() for PHP >=5.4 with native, non-utf-8 language installs,
+    which natively changed from ISO-8859-1 to UTF-8
 
     TL;DR - Please note:
     Some of these commits will change behaviour or appearance for older staticpage entries.

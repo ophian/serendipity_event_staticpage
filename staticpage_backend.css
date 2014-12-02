@@ -55,9 +55,9 @@
 }
 
 /* Set a content max-width for 1.7 backend Series */
-.serendipityAdminContent * { max-width: 1002px; }
+.serendipityAdminContent * { max-width: 1002px; line-height: 1.6; }
 
-/* overrule .serendipityAdminContent span, as long as also used with old backend - need to keep her and not in old.css */
+/* overrule .serendipityAdminContent span, as long as also used with old backend - need to keep here and not in old.css */
 .serendipityAdminContent span.sp_ptype_desc {
     color: #5E7A94 !important;
     font-size: 8pt;
@@ -112,8 +112,6 @@
 }
 .default_staticpage .sp_sect {
     margin-bottom: 5px;
-    width: 60%;
-    min-width: 340px;
 }
 .default_staticpage fieldset {
     margin: 5px;

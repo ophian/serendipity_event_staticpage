@@ -55,7 +55,12 @@
 }
 
 /* Set a content max-width for 1.7 backend Series */
-.serendipityAdminContent * { max-width: 1002px; line-height: 1.6; }
+.serendipityAdminContent * { max-width: 1002px; }
+
+/* Set a line height for some section in 1.7 backend Series */
+.serendipityAdminContent #staticpage_pagetype *,
+.serendipityAdminContent #sequence *,
+.serendipityAdminContent .sp_add * {line-height: 1.6; }#
 
 /* overrule .serendipityAdminContent span, as long as also used with old backend - need to keep here and not in old.css */
 .serendipityAdminContent span.sp_ptype_desc {

@@ -100,7 +100,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.30');
+        $propbag->add('version', '4.31');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -2737,7 +2737,7 @@ class serendipity_event_staticpage extends serendipity_event
         }
 
         $filename = preg_replace('@[^a-z0-9\._-]@i', '', $serendipity['POST']['backend_template']);
-        // check for other templates, else set default and ckeck for old staticpage used internal, which is removed
+        // check for other templates, else set default and check for old staticpage used internal, which is removed
         if (empty($filename) || $serendipity['POST']['backend_template'] == 'internal') {
             $filename = 'default_staticpage_backend.tpl';
         }
@@ -2802,7 +2802,7 @@ class serendipity_event_staticpage extends serendipity_event
             $group     = '';
             $distinct  = 'DISTINCT';
             $find_part = "(headline ILIKE '%$term%' OR content ILIKE '%$term%')";
-        } elseif ($serendipity['dbType'] == 'sqlite' || $serendipity['dbType'] == 'sqlite3' || $serendipity['dbType'] == 'pdo-sqlite') {
+        } elseif ($serendipity['dbType'] == 'sqlite' || $serendipity['dbType'] == 'sqlite3' || $serendipity['dbType'] == 'sqlite3oo' || $serendipity['dbType'] == 'pdo-sqlite') {
             $group     = 'GROUP BY id';
             $distinct  = '';
             $term      = serendipity_mb('strtolower', $term);

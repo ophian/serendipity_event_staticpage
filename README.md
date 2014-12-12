@@ -16,6 +16,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] added check for new SQLite3 OO database layer with PHP 5.4+
 - [x] rename directory backend_templates. There is a risk that existing user template dirs have other files in it (not excluded by backend_show) (?) No.
 - [x] move new backend template files into own or current backend_template directory (?) No.
 - [x] Renamed style_sp_s9yold.css to staticpage_backend.old.css

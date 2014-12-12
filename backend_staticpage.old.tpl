@@ -1,4 +1,4 @@
-{* old_backend_staticpage template file v. 1.12, 2014-08-12 *}
+{* old_backend_staticpage template file v. 1.13, 2014-12-12 *}
 
 <!-- old_backend_staticpage.tpl START -->
 
@@ -196,7 +196,7 @@
     </table>
 </fieldeset>
 
-{else} {** == 'pages' || 'pageedit' || default **}
+{else} {* == 'pages' || 'pageedit' || default *}
 
     {if $sp_staticsubmit}
         {if !empty($sp_defpages_upd_result)}
@@ -301,7 +301,7 @@
     </div>
 
     <!-- sp_defpages_showform -->
-    {$sp_defpages_showform}{** this might come already smartified (default form) or as hardcoded table row stuff (old form) **}
+    {$sp_defpages_showform}{* this might come already smartified (default form) or as hardcoded table row stuff (old form) *}
 
     {/if}{* sp_defpages_staticsave end *}
 
@@ -318,7 +318,7 @@
 <div class="sp_entries_pane">
     <ul id="sp_entries_list" class="plainList serendipity_admin_list_item serendipity_admin_list_item_{if $smarty.foreach.sp_listentry.iteration % 2}even{else}uneven{/if}">
         <li id="sple{$entry['id']}" class="clearfix">
-            <h3>{if $entry['publishstatus'] == false}{$CONST.DRAFT}: {/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']}">{if !empty($entry['headline'])}{$entry['headline']|escape:'html'|truncate:50}{else}{$entry['pagetitle']}{/if}</a></h3>
+            <h3>{if $entry['publishstatus'] == false}{$CONST.DRAFT}: {/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']}">{if !empty($entry['headline'])}{$entry['headline']|truncate:50}{else}{$entry['pagetitle']}{/if}</a></h3>
             <div class="clearfix spmod">{$entry['timestamp']|@formatTime:'%Y-%m-%d'} {if $entry['timestamp'] <= ($entry['last_modified'] - 1800)}<span class="icon-clock" title="{$CONST.LAST_UPDATED}: {$entry['last_modified']|@formatTime:'%Y-%m-%d'}"></span>{/if}</div>
         </li>
         <li class="clearfix">

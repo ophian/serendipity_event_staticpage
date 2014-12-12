@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.16, 2014-08-12 *}
+{* backend_staticpage template file v. 1.17, 2014-12-12 *}
 
 <!-- backend_staticpage.tpl START -->
 
@@ -143,7 +143,7 @@
     </fieldset>
 </div>
 
-{else} {** == 'pages' || 'pageedit' || default **}
+{else} {* == 'pages' || 'pageedit' || default *}
 
     {if $sp_staticsubmit}
         {if !empty($sp_defpages_upd_result)}
@@ -234,7 +234,7 @@
     </div>
 
     <!-- sp_defpages_showform -->
-    {$sp_defpages_showform}{** this might come already smartified (default form) or as hardcoded table row stuff (old form) **}
+    {$sp_defpages_showform}{* this might come already smartified (default form) or as hardcoded table row stuff (old form) *}
 
     {/if}{* sp_defpages_staticsave end *}
 
@@ -255,7 +255,7 @@
     <div class="sp_entries_pane {cycle values="odd,even"}{if $entry@last} sp_close{/if}">
         <ul id="sp_entries_list" class="plainList{if $entry['parent_id'] > 0} sp_isChild{/if}">
             <li id="sple{$entry['id']}" class="clearfix">
-                <h3>{if $entry['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entry['parent_id']}</span><span class="icon-right-dir sp_ctree"></icon>{/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']}">{if !empty($entry['headline'])}{$entry['headline']|escape|truncate:50}{else}{$entry['pagetitle']}{/if}</a></h3>
+                <h3>{if $entry['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entry['parent_id']}</span><span class="icon-right-dir sp_ctree"></icon>{/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']}">{if !empty($entry['headline'])}{$entry['headline']|truncate:50}{else}{$entry['pagetitle']}{/if}</a></h3>
                 <div class="clearfix spmod">{$entry['timestamp']|@formatTime:'%Y-%m-%d'} {if $entry['timestamp'] <= ($entry['last_modified'] - 1800)}<span class="icon-clock" title="{$CONST.LAST_UPDATED}: {$entry['last_modified']|@formatTime:'%Y-%m-%d'}"></span>{/if}</div>
             </li>
             <li class="clearfix">

@@ -10,12 +10,12 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] deep check, if any change broke anything with some more enhanced staticpage options (all normal behaviour is checked working!)
 - [ ] future Todo - check possibility for an automated integration to templates using $template_global_config = array('navigation' => true)
 - [ ] future Todo - refactor related category associations
-- [ ] set backends form textformat option automatically to NO, on WYSIWYG usage (?)
 
 
 - - -
 
 ### Already done: :arrow_up:
+- [x] set backends form textformat option automatically to NO, on WYSIWYG usage (?) Yes. Has dependency in 2.0 entryproperties!
 - [x] Added - automark an entry as written by Wysiwyg-Editor via custom fields, to disable nl2br markup formating
 - [x] Fixed (html)specialchars double_encode to false for native charsets (which updates plugin_staticpage.tpl files again)
 - [x] added check for new SQLite3 OO database layer with PHP 5.4+

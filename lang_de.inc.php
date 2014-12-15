@@ -155,7 +155,7 @@
 @define('STATICPAGE_SHOWLIST_DEFAULT', 'Backend: Zeige als Eintragsliste');
 @define('STATICPAGE_SHOWLIST_DESC', 'Zeige Staticpage Backend Startseite als Eintrags-Liste oder Auswahl-Liste.');
 
-@define('STATICPAGE_CONFIRM_SELECTDIALOG', "Sind Sie sicher ihren offenen Artikel im Falle einer Veränderung gespeichert zu haben?\\n\\nWenn Sie OK drücken, wird die Seite gewechselt!"); // js confirm need an additional backslash before the linebreaks!
+@define('STATICPAGE_CONFIRM_SELECTDIALOG', "Sind Sie sicher ihren offenen Artikel im Falle einer Veränderung gespeichert zu haben?\\n\\nWenn Sie OK drücken, wird die Seite gewechselt!"); // js confirm needs an additional backslash before the linebreaks!
 
 @define('STATICPAGE_TOGGLEANDSAVE', '%s und merken!');
 

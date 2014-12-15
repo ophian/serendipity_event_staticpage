@@ -16,6 +16,8 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Added - automark an entry as written by Wysiwyg-Editor via custom fields, to disable nl2br markup formating
+- [x] Fixed (html)specialchars double_encode to false for native charsets (which updates plugin_staticpage.tpl files again)
 - [x] added check for new SQLite3 OO database layer with PHP 5.4+
 - [x] rename directory backend_templates. There is a risk that existing user template dirs have other files in it (not excluded by backend_show) (?) No.
 - [x] move new backend template files into own or current backend_template directory (?) No.

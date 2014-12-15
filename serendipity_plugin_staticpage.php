@@ -24,7 +24,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
         $propbag->add('description', PLUGIN_STATICPAGELIST_NAME_DESC);
         $propbag->add('author',      "Rob Antonishen, Falk Doering, Ian");
         $propbag->add('stackable',   true);
-        $propbag->add('version',     '1.21');
+        $propbag->add('version',     '1.22');
         $propbag->add('configuration', array(
                 'title',
                 'limit',
@@ -187,9 +187,9 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                     $str .= 'fd_' . $fdid . '.add('
                             . $value['id'] . ','
                             . $value['parent_id'] . ','
-                            . '"' . (function_exists('serendipity_specialchars') ? serendipity_specialchars((empty($value['headline']) ? $value['pagetitle'] : $value['headline'])) : htmlspecialchars((empty($value['headline']) ? $value['pagetitle'] : $value['headline']), ENT_COMPAT, LANG_CHARSET)) . '",'
-                            . '"' . (function_exists('serendipity_specialchars') ? serendipity_specialchars($value['permalink']) : htmlspecialchars($value['permalink'], ENT_COMPAT, LANG_CHARSET)) . '",'
-                            . '"' . (function_exists('serendipity_specialchars') ? serendipity_specialchars($value['pagetitle']) : htmlspecialchars($value['pagetitle'], ENT_COMPAT, LANG_CHARSET)) .'",'
+                            . '"' . (function_exists('serendipity_specialchars') ? serendipity_specialchars((empty($value['headline']) ? $value['pagetitle'] : $value['headline']), null, LANG_CHARSET, false) : htmlspecialchars((empty($value['headline']) ? $value['pagetitle'] : $value['headline']), ENT_COMPAT, LANG_CHARSET, false)) . '",'
+                            . '"' . (function_exists('serendipity_specialchars') ? serendipity_specialchars($value['permalink'], null, LANG_CHARSET, false) : htmlspecialchars($value['permalink'], ENT_COMPAT, LANG_CHARSET, false)) . '",'
+                            . '"' . (function_exists('serendipity_specialchars') ? serendipity_specialchars($value['pagetitle'], null, LANG_CHARSET, false) : htmlspecialchars($value['pagetitle'], ENT_COMPAT, LANG_CHARSET, false)) .'",'
                             . '"",'
                             . '"",'
                             . '"",'
@@ -294,10 +294,10 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                     /* smartify the staticpage sidebar plugin */
                     $content[] = array(
                         'id'           => $page['id'],
-                        'headline'     => (!empty($page['headline']) ? (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['headline']) : htmlspecialchars($page['headline'], ENT_COMPAT, LANG_CHARSET)) : (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['pagetitle']) : htmlspecialchars($page['pagetitle'], ENT_COMPAT, LANG_CHARSET))),
+                        'headline'     => (!empty($page['headline']) ? (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['headline'], null, LANG_CHARSET, false) : htmlspecialchars($page['headline'], ENT_COMPAT, LANG_CHARSET, false)) : (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['pagetitle'], null, LANG_CHARSET, false) : htmlspecialchars($page['pagetitle'], ENT_COMPAT, LANG_CHARSET, false))),
                         'parent_id'    => $page['parent_id'],
                         'permalink'    => (!empty($page['permalink']) ? $page['permalink'] : NULL),
-                        'pagetitle'    => (!empty($page['permalink']) ? (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['pagetitle']) : htmlspecialchars($page['pagetitle'], ENT_COMPAT, LANG_CHARSET)) : NULL),
+                        'pagetitle'    => (!empty($page['permalink']) ? (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['pagetitle'], null, LANG_CHARSET, false) : htmlspecialchars($page['pagetitle'], ENT_COMPAT, LANG_CHARSET, false)) : NULL),
                         'is_startpage' => $page['is_startpage'],
                         'depth'        => $page['depth']*10
                     );
@@ -306,13 +306,13 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                         ? sprintf(
                             "<a href=\"%s\" title=\"%s\" class=\"spp_title\" style=\"padding-left: %dpx;\">%s</a><br />\n",
                             $page['permalink'],
-                            (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['pagetitle']) : htmlspecialchars($page['pagetitle'], ENT_COMPAT, LANG_CHARSET)),
+                            (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['pagetitle'], null, LANG_CHARSET, false) : htmlspecialchars($page['pagetitle'], ENT_COMPAT, LANG_CHARSET, false)),
                             $page['depth']*10,
-                            (!empty($page['headline']) ? (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['headline']) : htmlspecialchars($page['headline'], ENT_COMPAT, LANG_CHARSET)) : (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['pagetitle']) : htmlspecialchars($page['pagetitle'], ENT_COMPAT, LANG_CHARSET))))
+                            (!empty($page['headline']) ? (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['headline'], null, LANG_CHARSET, false) : htmlspecialchars($page['headline'], ENT_COMPAT, LANG_CHARSET, false)) : (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['pagetitle'], null, LANG_CHARSET, false) : htmlspecialchars($page['pagetitle'], ENT_COMPAT, LANG_CHARSET, false))))
                         : sprintf(
                             "<div style=\"padding-left: %dpx;\">%s</div>",
                             $page['depth']*10,
-                            (!empty($page['headline']) ? (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['headline']) : htmlspecialchars($page['headline'], ENT_COMPAT, LANG_CHARSET)) : (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['pagetitle']) : htmlspecialchars($page['pagetitle'], ENT_COMPAT, LANG_CHARSET)))));
+                            (!empty($page['headline']) ? (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['headline'], null, LANG_CHARSET, false) : htmlspecialchars($page['headline'], ENT_COMPAT, LANG_CHARSET, false)) : (function_exists('serendipity_specialchars') ? serendipity_specialchars($page['pagetitle'], null, LANG_CHARSET, false) : htmlspecialchars($page['pagetitle'], ENT_COMPAT, LANG_CHARSET, false)))));
                 }
             }
         } 

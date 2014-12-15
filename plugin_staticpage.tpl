@@ -1,21 +1,21 @@
-{* frontend plugin_staticpage.tpl file v. 1.02, 2014-08-05 *}
+{* frontend plugin_staticpage.tpl file v. 1.03, 2014-12-16 *}
 <article id="staticpage_{$staticpage_pagetitle|@makeFilename}" class="clearfix serendipity_staticpage{if $staticpage_articleformat} serendipity_entry{/if}">
     <header>
-        <h2>{if $staticpage_articleformat}{if $staticpage_articleformattitle}{$staticpage_articleformattitle|escape}{else}{$staticpage_pagetitle}{/if}{else}{if $staticpage_headline}{$staticpage_headline|escape}{else}{$staticpage_pagetitle}{/if}{/if}</h2>
+        <h2>{if $staticpage_articleformat}{if $staticpage_articleformattitle}{$staticpage_articleformattitle|escape:'html':$CONST.LANG_CHARSET:false}{else}{$staticpage_pagetitle}{/if}{else}{if $staticpage_headline}{$staticpage_headline|escape:'html':$CONST.LANG_CHARSET:false}{else}{$staticpage_pagetitle}{/if}{/if}</h2>
     {if is_array($staticpage_navigation) AND ($staticpage_shownavi OR $staticpage_show_breadcrumb)}
         <div id="staticpage_nav">
         {if $staticpage_shownavi}
             <ul class="staticpage_navigation">
-                <li class="staticpage_navigation_left">{if !empty($staticpage_navigation.prev.link)}<a href="{$staticpage_navigation.prev.link}" title="prev">{$staticpage_navigation.prev.name|escape}</a>{else}<span class="staticpage_navigation_dummy">{$CONST.PREVIOUS}</span>{/if}</li>
-                <li class="staticpage_navigation_center">{if $staticpage_navigation.top.new}{if !empty($staticpage_navigation.top.topp_name)}<a href="{$staticpage_navigation.top.topp_link}" title="top">{$staticpage_navigation.top.topp_name}</a> | {/if}&#171 {$staticpage_navigation.top.curr_name|escape} &#187; {if !empty($staticpage_navigation.top.exit_name)}| <a href="{$staticpage_navigation.top.exit_link}" title="exit">{$staticpage_navigation.top.exit_name}</a>{/if}{else}<a href="{$staticpage_navigation.top.link}" title="current page">{$staticpage_navigation.top.name|escape}</a>{/if}</li>
-                <li class="staticpage_navigation_right">{if !empty($staticpage_navigation.next.link)}<a href="{$staticpage_navigation.next.link}" title="next">{$staticpage_navigation.next.name|escape}</a>{else}<span class="staticpage_navigation_dummy">{$CONST.NEXT}</span>{/if}</li>
-            </ul>
+                <li class="staticpage_navigation_left">{if !empty($staticpage_navigation.prev.link)}<a href="{$staticpage_navigation.prev.link}" title="prev">{$staticpage_navigation.prev.name|escape:'html':$CONST.LANG_CHARSET:false}</a>{else}<span class="staticpage_navigation_dummy">{$CONST.PREVIOUS}</span>{/if}</li>
+                <li class="staticpage_navigation_center">{if $staticpage_navigation.top.new}{if !empty($staticpage_navigation.top.topp_name)}<a href="{$staticpage_navigation.top.topp_link}" title="top">{$staticpage_navigation.top.topp_name}</a> | {/if}&#171 {$staticpage_navigation.top.curr_name|escape:'html':$CONST.LANG_CHARSET:false} &#187; {if !empty($staticpage_navigation.top.exit_name)}| <a href="{$staticpage_navigation.top.exit_link}" title="exit">{$staticpage_navigation.top.exit_name}</a>{/if}{else}<a href="{$staticpage_navigation.top.link}" title="current page">{$staticpage_navigation.top.name|escape:'html':$CONST.LANG_CHARSET:false}</a>{/if}</li>
+                <li class="staticpage_navigation_right">{if !empty($staticpage_navigation.next.link)}<a href="{$staticpage_navigation.next.link}" title="next">{$staticpage_navigation.next.name|escape:'html':$CONST.LANG_CHARSET:false}</a>{else}<span class="staticpage_navigation_dummy">{$CONST.NEXT}</span>{/if}</li>
+            </ul>{* 'top' is just a synonym for current page, or top parent, or exit *}
         {/if}
         {if $staticpage_show_breadcrumb}
             <div class="staticpage_navigation_breadcrumb">
                 <a href="{$serendipityBaseURL}">{$CONST.HOMEPAGE}</a> &#187;
             {foreach name="crumbs" from=$staticpage_navigation.crumbs item="crumb"}
-                {if !$smarty.foreach.crumbs.first}&#187;{/if}{if $crumb.id != $staticpage_pid}<a href="{$crumb.link}">{$crumb.name|escape}</a>{else}{$crumb.name|escape}{/if}
+                {if !$smarty.foreach.crumbs.first}&#187;{/if}{if $crumb.id != $staticpage_pid}<a href="{$crumb.link}">{$crumb.name|escape:'html':$CONST.LANG_CHARSET:false}</a>{else}{$crumb.name|escape:'html':$CONST.LANG_CHARSET:false}{/if}
             {/foreach}
             </div>
         {/if}
@@ -40,7 +40,7 @@
     <div class="clearfix content staticpage_childpages">
         <ul id="staticpage_childpages">
             {foreach from=$staticpage_childpages item="childpage"}
-            <li><a href="{$childpage.permalink|escape}" title="{$childpage.pagetitle|escape}">{$childpage.pagetitle|escape}</a></li>
+            <li><a href="{$childpage.permalink|escape:'html':$CONST.LANG_CHARSET:false}" title="{$childpage.pagetitle|escape:'html':$CONST.LANG_CHARSET:false}">{$childpage.pagetitle|escape:'html':$CONST.LANG_CHARSET:false}</a></li>
             {/foreach}
         </ul>
     </div>
@@ -55,7 +55,7 @@
     <footer class="staticpage_metainfo">
         <p>
         {if $staticpage_author}
-            <span class="single_user"><span class="visuallyhidden">{$CONST.POSTED_BY} </span>{$staticpage_author|escape}
+            <span class="single_user"><span class="visuallyhidden">{$CONST.POSTED_BY} </span>{$staticpage_author|escape:'html':$CONST.LANG_CHARSET:false}
         {/if}
         {if $staticpage_author AND $staticpage_lastchange} | </span>{/if}
         {if $staticpage_lastchange}
@@ -69,7 +69,7 @@
             {/if}
         {/if}
         {if $staticpage_adminlink AND $staticpage_adminlink.page_user}
-            | <a href="{$staticpage_adminlink.link_edit}">{$staticpage_adminlink.link_name|escape}</a>
+            | <a href="{$staticpage_adminlink.link_edit}">{$staticpage_adminlink.link_name|escape:'html':$CONST.LANG_CHARSET:false}</a>
         {/if}
         </p>
     </footer>

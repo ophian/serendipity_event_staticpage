@@ -1464,7 +1464,7 @@ class serendipity_event_staticpage extends serendipity_event
             // was it marked written true by wysiwyg-editor?
             $q = "SELECT * FROM {$serendipity['dbPrefix']}staticpage_custom WHERE staticpage = " . (int)$this->get_static('id') . ' AND name = "wysiwyg"';
             $sp_no_nl2br = serendipity_db_query($q, true, 'assoc');
-            if ($serendipity['wysiwyg'] || is_array($sp_no_nl2br)) {
+            if (is_array($sp_no_nl2br)) {
                 $plugins = serendipity_plugin_api::get_event_plugins();
                 if (is_array($plugins)) {
                     foreach($plugins AS $plugin => $plugin_data) {

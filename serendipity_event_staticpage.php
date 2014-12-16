@@ -1431,10 +1431,10 @@ class serendipity_event_staticpage extends serendipity_event
      * Native charsets will encode twice with default property for $double_encode
      * so this is set to false here
      * 
-     * @access (private) fallback public
+     * @access public
      * @return string
      */
-    function html_specialchars($string, $flags = null, $encoding = LANG_CHARSET, $double_encode = false) {
+    public function html_specialchars($string, $flags = null, $encoding = LANG_CHARSET, $double_encode = false) {
         if ($flags == null) {
             if (defined('ENT_HTML401')) {
                 // Added with PHP 5.4.x

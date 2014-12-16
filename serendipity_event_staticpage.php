@@ -1427,14 +1427,12 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Wrapper for htmlspecialchars charset switch with PHP 5.4
-     * Native charsets will encode twice with default property for $double_encode
-     * so this is set to false here
+     * Staticpage wrapper for htmlspecialchars charset switch with PHP 5.4
      * 
      * @access public
      * @return string
      */
-    public function html_specialchars($string, $flags = null, $encoding = LANG_CHARSET, $double_encode = false) {
+    public function html_specialchars($string, $flags = null, $encoding = LANG_CHARSET, $double_encode = true) {
         if ($flags == null) {
             if (defined('ENT_HTML401')) {
                 // Added with PHP 5.4.x
@@ -1446,6 +1444,10 @@ class serendipity_event_staticpage extends serendipity_event
         }
         if ($encoding == 'LANG_CHARSET') {
             $encoding = 'UTF-8'; // fallback
+        }
+        // Native ISO charsets will/may encode twice with $double_encode(true), which is the default, so this is set to false here
+        if ($encoding == 'ISO-8859-1') {
+            $double_encode = false;
         }
         return htmlspecialchars($string, $flags, $encoding, $double_encode);
     }

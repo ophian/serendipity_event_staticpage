@@ -261,6 +261,7 @@
                 <p>This custom section vastly improves Serendipity's CMS-abilities and shows some examples for saving custom fields for static pages. All custom fields need to be implemented through usual HTML form elements, and need to save their values inside a serendipity[plugin][custom][XXX] fieldname. Once entered, the data will be automatically saved inside the serendipity_staticpage_custom database table, and will be available through &#123;$staticpage_custom.XXX&#125; when later being displayed in the frontend. This way, you can easily add new custom fields for a staticpage, ie. to specify a custom header image for each staticpage. Sky's the limit!</p>
                 <p>These optional examples enable to use either a custom CSS-BODY-ID to render the page. Or you can specify, which sidebar you want to see when this staticpage is rendered. Another nice example included here, is to define some related tags for this staticpage, to show a specific amount of entries including these tags.<br>
                 <span><strong>Please read:</strong> </span><a href="{$serendipityHTTPPath}plugins/serendipity_event_staticpage/README_FOR_CUSTOM_FIELDS.txt" target="_blank">the readme for custom fields</a> examples.</p>
+                <p>The "Disable nl2br markup parser" radio option is already used internally to automark staticpage entries on wysiwyg usage by submit, to not pass through the nl2br markup parser on show.</p>
                 </span>
             </div>
             {if !$new_backend && !$is_wysiwyg}<script type="text/javascript">document.getElementById("el5").style.display = "none";</script>{/if}
@@ -288,6 +289,16 @@
             <div id="entry_custom_class" class="form_field sp_sect">
                 <label class="sp_label" title="CSS class of the main page body that should be associated">Main CSS class</label>
                     <input class="input_textbox direction_ltr" type="text" size="30" name="serendipity[plugin][custom][css_class]" value="{$form_values.custom.css_class|default:'None'}"{if !$new_backend} /{/if}>
+            </div>
+
+            <div id="entry_custom_markup" class="form_field form_radio sp_sect" style="clear:both">
+                <label class="sp_label" title="Mark nl2br disabled">Disable nl2br markup parser</label>
+                <div class="sp_input_radio">
+                    <input class="input_radio direction_ltr" type="radio" id="staticpage_default_markuptrue" name="serendipity[plugin][custom][wysiwyg]" value="true"{if $form_values.custom.wysiwyg} checked{/if} checked title="{$CONST.YES}"{if !$new_backend} /{/if}>
+                        <label for="staticpage_default_markuptrue">{$CONST.YES}</label>
+                    <input class="input_radio direction_ltr" type="radio" id="staticpage_default_markupfalse" name="serendipity[plugin][custom][wysiwyg]" value=""{if !$form_values.custom.wysiwyg || empty($form_values.custom.wysiwyg)} checked{/if} title="{$CONST.NO}"{if !$new_backend} /{/if}>
+                        <label for="staticpage_default_markupfalse">{$CONST.NO}</label>
+                </div>
             </div>
 
         </fieldset>

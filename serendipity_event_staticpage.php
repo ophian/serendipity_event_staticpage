@@ -2022,7 +2022,7 @@ class serendipity_event_staticpage extends serendipity_event
         if (isset($insert_page['custom'])) unset($insert_page['custom']);
 
         // automatically disable nl2br format markup by custom field entry if WYSIWYG is true
-        if ($serendipity['wysiwyg']) $serendipity['POST']['plugin']['custom']['wysiwyg'] = 1;
+        if ($serendipity['wysiwyg']) if ($serendipity['POST']['plugin']['custom']['wysiwyg'] != '') $serendipity['POST']['plugin']['custom']['wysiwyg'] = 1;
 
         if (!isset($this->staticpage['id'])) {
             $cpo = $this->getChildPage($insert_page['parent_id']); // case new

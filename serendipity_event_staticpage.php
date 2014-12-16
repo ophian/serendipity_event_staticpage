@@ -1487,7 +1487,7 @@ class serendipity_event_staticpage extends serendipity_event
         }
 
         if (serendipity_db_bool($this->get_static('markup'))) {
-            // was it marked written true by wysiwyg-editor?
+            // check if it was marked written true by wysiwyg-editor
             $q = "SELECT * FROM {$serendipity['dbPrefix']}staticpage_custom WHERE staticpage = " . (int)$this->get_static('id') . ' AND name = "wysiwyg"';
             $sp_no_nl2br = serendipity_db_query($q, true, 'assoc');
             if (is_array($sp_no_nl2br)) {
@@ -2021,16 +2021,8 @@ class serendipity_event_staticpage extends serendipity_event
 
         $rcid = (int)$insert_page['related_category_id'];
 
+        // remove previous custom sets
         if (isset($insert_page['custom'])) unset($insert_page['custom']);
-
-        // automatically disable nl2br format markup by custom field entry if WYSIWYG is true
-        if ($serendipity['wysiwyg']) {
-            //  automatic set with responsive and default backend form template, on demand within custom template radio option!
-            if (!isset($serendipity['POST']['plugin']['custom']) || $serendipity['POST']['plugin']['custom']['wysiwyg'] != '') $serendipity['POST']['plugin']['custom']['wysiwyg'] = 1;
-        } else {
-            // remove custom wysiwyg entry
-            $serendipity['POST']['plugin']['custom']['wysiwyg'] = '';
-        }
 
         if (!isset($this->staticpage['id'])) {
             $cpo = $this->getChildPage($insert_page['parent_id']); // case new
@@ -2110,6 +2102,18 @@ class serendipity_event_staticpage extends serendipity_event
             }
 
             serendipity_plugin_api::hook_event('backend_staticpages_update', $insert_page); // (see hook above) eg in the google_sitemap plugin
+        }
+
+        // automatically disable nl2br format markup by custom field entry if WYSIWYG is true (a granular faking entryproperties ep_no_nl2br)
+        if ($serendipity['wysiwyg']) {
+            // always automark true by default, or set on demand within custom template radio option!
+            // case new or default or set to false
+            if (!isset($serendipity['POST']['plugin']['custom']) || $serendipity['POST']['plugin']['custom']['wysiwyg'] != '') $serendipity['POST']['plugin']['custom']['wysiwyg'] = 1;
+            // in case textformat was set false, we don't need this all - this markup option has higher priority
+            if ($serendipity['POST']['plugin']['markup'] == 'false') $serendipity['POST']['plugin']['custom']['wysiwyg'] = '';
+        } else {
+            // remove custom wysiwyg entry
+            $serendipity['POST']['plugin']['custom']['wysiwyg'] = '';
         }
 
         // Store custom properties
@@ -2385,8 +2389,6 @@ class serendipity_event_staticpage extends serendipity_event
                 break;
 
             case 'pageadd':
-                // automatically disable nl2br format markup by custom field entry if WYSIWYG is true
-                if ($serendipity['wysiwyg']) $serendipity['POST']['plugin']['custom']['wysiwyg'] = 1;
 
                 if (isset($serendipity['POST']['staticpagecategory']) && isset($serendipity['POST']['typeSubmit'])) {
                     if ($serendipity['POST']['staticpagecategory'] == 'pageadd'/* && (is_array($serendipity['POST']['externalPlugins']) && !empty($serendipity['POST']['externalPlugins']))*/) { // RQ: externalPlugins shall do what here?
@@ -2791,6 +2793,7 @@ class serendipity_event_staticpage extends serendipity_event
         if ($serendipity['version'][0] > 1) {
             $serendipity['smarty']->assign('new_backend', true);
         }
+        if ($serendipity['wysiwyg']) $serendipity['smarty']->assign('custom_wysiwyg', true);
 
         $filename = preg_replace('@[^a-z0-9\._-]@i', '', $serendipity['POST']['backend_template']);
         // check for other templates, else set default and check for old staticpage used internal, which is removed

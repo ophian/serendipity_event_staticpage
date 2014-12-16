@@ -291,15 +291,17 @@
                     <input class="input_textbox direction_ltr" type="text" size="30" name="serendipity[plugin][custom][css_class]" value="{$form_values.custom.css_class|default:'None'}"{if !$new_backend} /{/if}>
             </div>
 
+            {if $custom_wysiwyg}
             <div id="entry_custom_markup" class="form_field form_radio sp_sect" style="clear:both">
-                <label class="sp_label" title="Mark nl2br disabled">Disable nl2br markup parser</label>
+                <label class="sp_label" title="Mark nl2br disabled">Disable nl2br markup parser (auto true)</label>
                 <div class="sp_input_radio">
-                    <input class="input_radio direction_ltr" type="radio" id="staticpage_default_markuptrue" name="serendipity[plugin][custom][wysiwyg]" value="true"{if $form_values.custom.wysiwyg} checked{/if} checked title="{$CONST.YES}"{if !$new_backend} /{/if}>
+                    <input class="input_radio direction_ltr" type="radio" id="staticpage_default_markuptrue" name="serendipity[plugin][custom][wysiwyg]" value="true"{if !is_array($form_values.custom) || !empty($form_values.custom.wysiwyg)} checked{/if} checked title="{$CONST.YES}"{if !$new_backend} /{/if}>
                         <label for="staticpage_default_markuptrue">{$CONST.YES}</label>
-                    <input class="input_radio direction_ltr" type="radio" id="staticpage_default_markupfalse" name="serendipity[plugin][custom][wysiwyg]" value=""{if !$form_values.custom.wysiwyg || empty($form_values.custom.wysiwyg)} checked{/if} title="{$CONST.NO}"{if !$new_backend} /{/if}>
+                    <input class="input_radio direction_ltr" type="radio" id="staticpage_default_markupfalse" name="serendipity[plugin][custom][wysiwyg]" value=""{if is_array($form_values.custom) && empty($form_values.custom.wysiwyg)} checked{/if} title="{$CONST.NO}"{if !$new_backend} /{/if}>
                         <label for="staticpage_default_markupfalse">{$CONST.NO}</label>
                 </div>
             </div>
+            {/if}
 
         </fieldset>
 

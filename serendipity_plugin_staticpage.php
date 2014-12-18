@@ -24,7 +24,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
         $propbag->add('description', PLUGIN_STATICPAGELIST_NAME_DESC);
         $propbag->add('author',      "Rob Antonishen, Falk Doering, Ian");
         $propbag->add('stackable',   true);
-        $propbag->add('version',     '1.22');
+        $propbag->add('version',     '1.23');
         $propbag->add('configuration', array(
                 'title',
                 'limit',
@@ -144,7 +144,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                 if ($smartify) {
                     $serendipity['smarty']->assign('frontpage_path', $serendipity['serendipityHTTPPath'] . $serendipity['indexFile']);
                 } else {
-                    $str .= '<a href="' . $serendipity['serendipityHTTPPath'] . $serendipity['indexFile'].'">'.PLUGIN_STATICPAGELIST_FRONTPAGE_LINKNAME . '</a><br />';
+                    $str .= '<a class="spp_title" title="' . PLUGIN_STATICPAGELIST_FRONTPAGE_LINKNAME . '" href="' . $serendipity['serendipityHTTPPath'] . $serendipity['indexFile'].'">' . PLUGIN_STATICPAGELIST_FRONTPAGE_LINKNAME . '</a>'."\n";
                 }
             }
             if ($smartify) {
@@ -304,7 +304,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                 } elseif(is_string($content)) { 
                     $content .= (!empty($page['permalink'])
                         ? sprintf(
-                            "<a href=\"%s\" title=\"%s\" class=\"spp_title\" style=\"padding-left: %dpx;\">%s</a><br />\n",
+                            "<a href=\"%s\" title=\"%s\" class=\"spp_title\" style=\"padding-left: %dpx;\">%s</a>\n",
                             $page['permalink'],
                             serendipity_event_staticpage::html_specialchars($page['pagetitle']),
                             $page['depth']*10,

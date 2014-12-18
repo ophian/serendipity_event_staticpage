@@ -3383,6 +3383,7 @@ class serendipity_event_staticpage extends serendipity_event
     white-space: nowrap;
     overflow: hidden;
     vertical-align: top;
+    font-weight: normal;
 }
 
 <?php

@@ -31,7 +31,7 @@
 @define('PLUGIN_STATICPAGELIST_TITLE_DESC', 'Überschrift für die Sidebar:');
 @define('PLUGIN_STATICPAGELIST_TITLE_DEFAULT', 'Statische Seiten');
 @define('PLUGIN_STATICPAGELIST_LIMIT', 'Seitenanzahl');
-@define('PLUGIN_STATICPAGELIST_LIMIT_DESC', 'Maximale Anzahl der anzuzeigenden Seiten');
+@define('PLUGIN_STATICPAGELIST_LIMIT_DESC', 'Maximale Anzahl der anzuzeigenden Seiten. 0 ist alle.');
 @define('PLUGIN_STATICPAGELIST_FRONTPAGE_NAME', 'Startseitenlink anzeigen');
 @define('PLUGIN_STATICPAGELIST_FRONTPAGE_DESC', 'Einen Link zur Startseite erstellen');
 @define('PLUGIN_STATICPAGELIST_FRONTPAGE_LINKNAME', 'Startseite');

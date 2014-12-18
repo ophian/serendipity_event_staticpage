@@ -10,14 +10,14 @@
 {if !$staticpage_jsStr or empty($staticpage_jsStr)}
     <dl>
 {if $frontpage_path}
-        <dt><a href="{$frontpage_path}">{$CONST.PLUGIN_STATICPAGELIST_FRONTPAGE_LINKNAME}</a></dt>
+        <dt><a class="spp_title" href="{$frontpage_path}">{$CONST.PLUGIN_STATICPAGELIST_FRONTPAGE_LINKNAME}</a></dt>
 {/if}
 {if is_array($staticpage_listContent) and !empty($staticpage_listContent)}
     {foreach name="pageList" from=$staticpage_listContent item="pageList"}
         {if !empty($pageList.permalink)}
-        <dt><a href="{$pageList.permalink}" title="{$pageList.pagetitle}" style="padding-left: {$pageList.depth}px;">{$pageList.headline|truncate:32:"&hellip;"}</a></dt>
+        <dt><a class="spp_title" href="{$pageList.permalink}" title="{$pageList.pagetitle}" style="padding-left: {$pageList.depth}px;">{$pageList.headline|truncate:32:"&hellip;"}</a></dt>
         {else}
-        <dt><span style="padding-left: {$pageList.depth}px;">{$pageList.headline|truncate:32:"&hellip;"}</span></dt>
+        <dt><span class="spp_title" style="padding-left: {$pageList.depth}px;">{$pageList.headline|truncate:32:"&hellip;"}</span></dt>
         {/if}
     {/foreach}
 {/if}

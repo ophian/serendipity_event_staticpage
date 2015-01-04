@@ -16,7 +16,7 @@ for the backlinks from a category to the related static-page use this in your en
         <ul class="staticpage_navigation">
             <li class="staticpage_navigation_center">&raquo;
             {if $staticpage_categorypage}
-                <a href="{$staticpage_categorypage.permalink}">{$staticpage_categorypage.pagetitle}</a>
+                <a href="{$staticpage_categorypage.permalink}">{$staticpage_categorypage.pagetitle|escape}</a>
             {else}
                 <a href="{$serendipityBaseURL}">{$blogTitle}</a>
             {/if}

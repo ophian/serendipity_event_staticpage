@@ -15,9 +15,9 @@
 {if is_array($staticpage_listContent) and !empty($staticpage_listContent)}
     {foreach name="pageList" from=$staticpage_listContent item="pageList"}
         {if !empty($pageList.permalink)}
-        <dt><a class="spp_title" href="{$pageList.permalink}" title="{$pageList.pagetitle}" style="padding-left: {$pageList.depth}px;">{$pageList.headline|truncate:32:"&hellip;"}</a></dt>
+        <dt><a class="spp_title" href="{$pageList.permalink}" title="{$pageList.pagetitle|escape}" style="padding-left: {$pageList.depth}px;">{$pageList.headline|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc|truncate:32:"&hellip;"}</a></dt>
         {else}
-        <dt><span class="spp_title" style="padding-left: {$pageList.depth}px;">{$pageList.headline|truncate:32:"&hellip;"}</span></dt>
+        <dt><span class="spp_title" style="padding-left: {$pageList.depth}px;">{$pageList.headline|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc|truncate:32:"&hellip;"}</span></dt>
         {/if}
     {/foreach}
 {/if}

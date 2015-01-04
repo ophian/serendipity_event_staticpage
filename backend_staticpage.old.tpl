@@ -1,4 +1,4 @@
-{* old_backend_staticpage template file v. 1.13, 2014-12-15 *}
+{* old_backend_staticpage template file v. 1.14, 2015-01-04 *}
 
 <!-- old_backend_staticpage.tpl START -->
 
@@ -27,9 +27,9 @@
     <ol id="sequence" class="sequence_container pluginmanager_container">
     {foreach name=sp_sequence item=sp_element from=$sp_pageorder_pages}
         <li id="{$sp_element['id']}" class="sequence_item_old pluginmanager_item_even">{*  in normal situations id=$sp_element['pagetitle'], but we need id for js sequence mode *}
-            <input type="hidden" name="serendipity[plugin][sequence][id]" id="sequence_id" value="{$sp_element['id']}" />
-            <div id="g{$sp_element['pagetitle']}" class="pluginmanager_grablet sequence_grablet"><a href="#"></a></div>
-            <span title="#{$sp_element['id']} {$sp_element['headline']}">{$sp_element['pagetitle']}</span>
+            <input type="hidden" name="serendipity[plugin][sequence][id]" id="sid{$sp_element['id']}" value="{$sp_element['id']}" />
+            <div id="sg{$sp_element['id']}" class="pluginmanager_grablet sequence_grablet"><a href="#"></a></div>
+            <span title="#{$sp_element['id']} {$sp_element['headline']|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc|default:{$entryorder['pagetitle']|escape}}">{$sp_element['pagetitle']|escape}</span>
         </li>
     {/foreach}
     </ol>
@@ -287,7 +287,7 @@
             var staticpage_preview = window.open("{$sp_defpages_link}", "staticpage_preview");
             staticpage_preview.focus();
         </script>
-        <p>{$CONST.PLUGIN_STATICPAGE_PREVIEW|sprintf:"<a href=\"$sp_defpages_link\">$sp_defpages_pagetitle</a>"}</p>
+        <p>{$CONST.PLUGIN_STATICPAGE_PREVIEW|sprintf:"<a href=\"$sp_defpages_link\">{$sp_defpages_pagetitle|escape}</a>"}</p>
     {/if}
     </div><!-- //id sp_navigator end -->
 
@@ -318,13 +318,13 @@
 <div class="sp_entries_pane">
     <ul id="sp_entries_list" class="plainList serendipity_admin_list_item serendipity_admin_list_item_{if $smarty.foreach.sp_listentry.iteration % 2}even{else}uneven{/if}">
         <li id="sple{$entry['id']}" class="clearfix">
-            <h3>{if $entry['publishstatus'] == false}{$CONST.DRAFT}: {/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']}">{if !empty($entry['headline'])}{$entry['headline']|escape:'html':$CONST.LANG_CHARSET:false|truncate:50}{else}{$entry['pagetitle']}{/if}</a></h3>
+            <h3>{if $entry['publishstatus'] == false}{$CONST.DRAFT}: {/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']|escape}">{if !empty($entry['headline'])}{$entry['headline']|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc|truncate:50}{else}{$entry['pagetitle']|escape}{/if}</a></h3>
             <div class="clearfix spmod">{$entry['timestamp']|@formatTime:'%Y-%m-%d'} {if $entry['timestamp'] <= ($entry['last_modified'] - 1800)}<span class="icon-clock" title="{$CONST.LAST_UPDATED}: {$entry['last_modified']|@formatTime:'%Y-%m-%d'}"></span>{/if}</div>
         </li>
         <li class="clearfix">
-            {$CONST.POSTED_BY} {$sp_listentries_authors[$entry['authorid']]|escape:'html'}
+            {$CONST.POSTED_BY} {$sp_listentries_authors[$entry['authorid']]|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}
             <div class="sp_entry_info clearfix spform">
-                <a target="_blank" href="{$serendipityHTTPPath}{$serendipityIndexFile}?serendipity[staticid]={$entry['id']}&amp;serendipity[staticPreview]=1" title="{$CONST.VIEW} #{$entry['id']} ({$entry['pagetitle']})" class="serendipityIconLink"><img src="{serendipity_getFile file='admin/img/zoom.png'}" alt="{$CONST.VIEW} #{$entry['id']} ({$entry['pagetitle']})" /></a>
+                <a target="_blank" href="{$serendipityHTTPPath}{$serendipityIndexFile}?serendipity[staticid]={$entry['id']}&amp;serendipity[staticPreview]=1" title="{$CONST.VIEW} #{$entry['id']} ({$entry['pagetitle']|escape})" class="serendipityIconLink"><img src="{serendipity_getFile file='admin/img/zoom.png'}" alt="{$CONST.VIEW} #{$entry['id']} ({$entry['pagetitle']|escape})" /></a>
                 <form action="serendipity_admin.php" method="post" name="sp_listentry_{$entry['id']}">
                 <div>
                     <input type="hidden" name="serendipity[adminModule]" value="event_display" />
@@ -332,8 +332,8 @@
                     <input type="hidden" name="serendipity[staticpagecategory]" value="pages" />
                     <input type="hidden" name="serendipity[staticpage]" value="{$entry['id']}" />
                     <input type="hidden" name="serendipity[listentries_formSubmit]" value="true" />{* necessary to open form on entrylist post submits *}
-                    <input type="image" name="serendipity[staticSubmit]" src="{serendipity_getFile file='admin/img/edit.png'}" class="spleim" title="{$CONST.EDIT} #{$entry['id']} ({$entry['pagetitle']})" />
-                    <input type="image" name="serendipity[staticDelete]" src="{serendipity_getFile file='admin/img/delete.png'}" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"{$entry['id']} ({$entry['pagetitle']})"}');" title="{$CONST.DELETE} #{$entry['id']} ({$entry['pagetitle']})" />
+                    <input type="image" name="serendipity[staticSubmit]" src="{serendipity_getFile file='admin/img/edit.png'}" class="spleim" title="{$CONST.EDIT} #{$entry['id']} ({$entry['pagetitle']|escape})" />
+                    <input type="image" name="serendipity[staticDelete]" src="{serendipity_getFile file='admin/img/delete.png'}" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"{$entry['id']} ({$entry['pagetitle']|escape})"}');" title="{$CONST.DELETE} #{$entry['id']} ({$entry['pagetitle']|escape})" />
                 </div>
                 </form>
             </div>

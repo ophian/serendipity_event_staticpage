@@ -65,13 +65,13 @@ $serendipity['smarty']->registerPlugin('function', 'show_tags', 'smarty_show_tag
 
 <article id="staticpage_{$staticpage_pagetitle|@makeFilename}" class="clearfix serendipity_staticpage{if $staticpage_articleformat} serendipity_entry{/if}">
     <header>
-        <h2>{if $staticpage_articleformat}{if $staticpage_articleformattitle}{$staticpage_articleformattitle|escape}{else}{$staticpage_pagetitle}{/if}{else}{if $staticpage_headline}{$staticpage_headline|escape}{else}{$staticpage_pagetitle}{/if}{/if}</h2>
+        <h2>{if $staticpage_articleformat}{if $staticpage_articleformattitle}{$staticpage_articleformattitle|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}{else}{$staticpage_pagetitle|escape}{/if}{else}{if $staticpage_headline}{$staticpage_headline|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}{else}{$staticpage_pagetitle|escape}{/if}{/if}</h2>
     {if is_array($staticpage_navigation) AND ($staticpage_shownavi OR $staticpage_show_breadcrumb)}
         <div id="staticpage_nav">
         {if $staticpage_shownavi}
             <ul class="staticpage_navigation">
                 <li class="staticpage_navigation_left">{if !empty($staticpage_navigation.prev.link)}<a href="{$staticpage_navigation.prev.link}" title="prev">{$staticpage_navigation.prev.name|escape}</a>{else}<span class="staticpage_navigation_dummy">{$CONST.PREVIOUS}</span>{/if}</li>
-                <li class="staticpage_navigation_center">{if !empty($staticpage_navigation.top.topp_name)}<a href="{$staticpage_navigation.top.topp_link}" title="top">{$staticpage_navigation.top.topp_name}</a> | {/if}&#171 {$staticpage_navigation.top.curr_name|escape} &#187; {if !empty($staticpage_navigation.top.exit_name)}| <a href="{$staticpage_navigation.top.exit_link}" title="exit">{$staticpage_navigation.top.exit_name}</a>{/if}</li>
+                <li class="staticpage_navigation_center">{if !empty($staticpage_navigation.top.topp_name)}<a href="{$staticpage_navigation.top.topp_link}" title="top">{$staticpage_navigation.top.topp_name|escape}</a> | {/if}&#171 {$staticpage_navigation.top.curr_name|escape} &#187; {if !empty($staticpage_navigation.top.exit_name)}| <a href="{$staticpage_navigation.top.exit_link}" title="exit">{$staticpage_navigation.top.exit_name|escape}</a>{/if}</li>
                 <li class="staticpage_navigation_right">{if !empty($staticpage_navigation.next.link)}<a href="{$staticpage_navigation.next.link}" title="next">{$staticpage_navigation.next.name|escape}</a>{else}<span class="staticpage_navigation_dummy">{$CONST.NEXT}</span>{/if}</li>
             </ul>
         {/if}
@@ -79,7 +79,7 @@ $serendipity['smarty']->registerPlugin('function', 'show_tags', 'smarty_show_tag
             <div class="staticpage_navigation_breadcrumb">
                 <a href="{$serendipityBaseURL}">{$CONST.HOMEPAGE}</a> &#187;
             {foreach name="crumbs" from=$staticpage_navigation.crumbs item="crumb"}
-                {if !$smarty.foreach.crumbs.first}&#187;{/if}{if $crumb.id != $staticpage_pid}<a href="{$crumb.link}">{$crumb.name|escape}</a>{else}{$crumb.name|escape}{/if}
+                {if !$smarty.foreach.crumbs.first}&#187;{/if}{if $crumb.id != $staticpage_pid}<a href="{$crumb.link}">{$crumb.name|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}</a>{else}{$crumb.name|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}{/if}
             {/foreach}
             </div>
         {/if}

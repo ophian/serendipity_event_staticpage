@@ -24,7 +24,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
         $propbag->add('description', PLUGIN_STATICPAGELIST_NAME_DESC);
         $propbag->add('author',      "Rob Antonishen, Falk Doering, Ian");
         $propbag->add('stackable',   true);
-        $propbag->add('version',     '1.23');
+        $propbag->add('version',     '1.24');
         $propbag->add('configuration', array(
                 'title',
                 'limit',
@@ -187,7 +187,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                     $str .= 'fd_' . $fdid . '.add('
                             . $value['id'] . ','
                             . $value['parent_id'] . ','
-                            . '"' . serendipity_event_staticpage::html_specialchars((empty($value['headline']) ? $value['pagetitle'] : $value['headline'])) . '",'
+                            . '"' . serendipity_event_staticpage::fixUTFEntity(serendipity_event_staticpage::html_specialchars((empty($value['headline']) ? $value['pagetitle'] : $value['headline']))) . '",'
                             . '"' . serendipity_event_staticpage::html_specialchars($value['permalink']) . '",'
                             . '"' . serendipity_event_staticpage::html_specialchars($value['pagetitle']) .'",'
                             . '"",'
@@ -294,7 +294,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                     /* smartify the staticpage sidebar plugin */
                     $content[] = array(
                         'id'           => $page['id'],
-                        'headline'     => (!empty($page['headline']) ? serendipity_event_staticpage::html_specialchars($page['headline']) : serendipity_event_staticpage::html_specialchars($page['pagetitle'])),
+                        'headline'     => serendipity_event_staticpage::fixUTFEntity(!empty($page['headline']) ? serendipity_event_staticpage::html_specialchars($page['headline']) : serendipity_event_staticpage::html_specialchars($page['pagetitle'])),
                         'parent_id'    => $page['parent_id'],
                         'permalink'    => (!empty($page['permalink']) ? $page['permalink'] : NULL),
                         'pagetitle'    => (!empty($page['permalink']) ? serendipity_event_staticpage::html_specialchars($page['pagetitle']) : NULL),
@@ -308,11 +308,11 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                             $page['permalink'],
                             serendipity_event_staticpage::html_specialchars($page['pagetitle']),
                             $page['depth']*10,
-                            (!empty($page['headline']) ? serendipity_event_staticpage::html_specialchars($page['headline']) : serendipity_event_staticpage::html_specialchars($page['pagetitle'])))
+                            serendipity_event_staticpage::fixUTFEntity(!empty($page['headline']) ? serendipity_event_staticpage::html_specialchars($page['headline']) : serendipity_event_staticpage::html_specialchars($page['pagetitle'])))
                         : sprintf(
                             "<div style=\"padding-left: %dpx;\">%s</div>",
                             $page['depth']*10,
-                            (!empty($page['headline']) ? serendipity_event_staticpage::html_specialchars($page['headline']) : serendipity_event_staticpage::html_specialchars($page['pagetitle']))));
+                            serendipity_event_staticpage::fixUTFEntity(!empty($page['headline']) ? serendipity_event_staticpage::html_specialchars($page['headline']) : serendipity_event_staticpage::html_specialchars($page['pagetitle']))));
                 }
             }
         } 

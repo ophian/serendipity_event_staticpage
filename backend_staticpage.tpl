@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.17, 2014-12-15 *}
+{* backend_staticpage template file v. 1.18, 2015-01-04 *}
 
 <!-- backend_staticpage.tpl START -->
 
@@ -20,16 +20,16 @@
 <div id="sp_sequencer" class="configuration_group even">
     <fieldset class="sp_sequence">
         <legend>{$CONST.STATICPAGE_PAGEORDER_DESC}</legend>
-        <input type="hidden" name="serendipity[plugin][sequence]" id="sequence_value" value="{foreach $sp_pageorder_pages as $orderlist}{$orderlist['pagetitle']}{if !$orderlist@last},{/if}{/foreach}">
+        <input type="hidden" name="serendipity[plugin][sequence]" id="sequence_value" value="{foreach $sp_pageorder_pages AS $orderlist}{$orderlist['pagetitle']}{if !$orderlist@last},{/if}{/foreach}">
 
         <ol id="sequence" data-placement="sqid" class="sequence_container pluginmanager_container">
-        {foreach $sp_pageorder_pages as $entryorder}
+        {foreach $sp_pageorder_pages AS $entryorder}
             <li id="{$entryorder['id']}" class="sequence_item pluginmanager_item_{cycle values="odd,even"}">{*  in normal situations id=$entryorder['pagetitle'], but we need id for js sequence mode *}
-                <input type="hidden" name="serendipity[plugin][sequence][id]" id="sequence_id" value="{$entryorder['id']}">
-                <div id="g{$entryorder['pagetitle']}" class="pluginmanager_grablet sequence_grablet">
+                <input type="hidden" name="serendipity[plugin][sequence][id]" id="sid{$sp_element['id']}" value="{$entryorder['id']}">
+                <div id="sg{$entryorder['id']}" class="pluginmanager_grablet sequence_grablet">
                     <button class="icon_link" type="button" title="{$CONST.MOVE}"><span class="icon-move"></span><span class="visuallyhidden"> {$CONST.MOVE}</span></button>
                 </div>
-                {if $entryorder['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entryorder['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}<span title="#{$entryorder['id']} {$entryorder['headline']}" class="sp_grablet_title">{$entryorder['pagetitle']|truncate:50}</span>
+                {if $entryorder['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entryorder['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}<span title="#{$entryorder['id']} {$entryorder['headline']|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc|default:{$entryorder['pagetitle']|escape}}" class="sp_grablet_title">{$entryorder['pagetitle']|escape|truncate:50}</span>
             </li>
         {/foreach}
         </ol>
@@ -69,7 +69,7 @@
             <option value="__new">{$CONST.NEW_ENTRY}</option>
             <option value="__new">-----------------</option>
 {if $sp_pagetype && is_array($sp_pagetype_types)}
-    {foreach $sp_pagetype_types as $type}
+    {foreach $sp_pagetype_types AS $type}
         <option value="{$type['id']}"{if $smarty.post.serendipity.pagetype == $type['id']} selected="selected"{/if}>{$type['description']|escape}</option>
     {/foreach}
 {/if}
@@ -110,7 +110,7 @@
         <input type="hidden" name="serendipity[adminModule]" value="event_display">
         <input type="hidden" name="serendipity[adminAction]" value="staticpages">
         <input type="hidden" name="serendipity[staticpagecategory]" value="pageadd">
-    {foreach $sp_pageadd_plugins as $plugin}
+    {foreach $sp_pageadd_plugins AS $plugin}
 
         <input class="input_checkbox" type="checkbox" name="serendipity[externalPlugins][]" value="{$plugin@key}"{if isset($sp_pageadd_insplugins[$plugin@key])} checked="checked"{/if}>{$plugin['name']}<br>
     {/foreach}
@@ -130,7 +130,7 @@
                 <th>{$CONST.STATICPAGE_STATUS}</th>
             </tr>
 
-    {foreach $sp_pageadd_plugstats as $plugstats}
+    {foreach $sp_pageadd_plugstats AS $plugstats}
 
             <tr class="sp_t{cycle values="odd,even"}">
                 <td>{$plugstats@key}</td>
@@ -189,7 +189,7 @@
             <select id="sp_templateselector" name="serendipity[backend_template]">
             {if isset($sp_defpages_top) && is_array($sp_defpages_top)}
 
-                {foreach $sp_defpages_top as $templateform}{$templateform}{/foreach}
+                {foreach $sp_defpages_top AS $templateform}{$templateform}{/foreach}
             {/if}
             </select>
         </div><!-- class sp_templateselector end -->
@@ -201,7 +201,7 @@
                 <option value="__new">-----------------</option>
             {if isset($sp_defpages_pop) && is_array($sp_defpages_pop)}
 
-                {foreach $sp_defpages_pop as $selectpage}{$selectpage}{/foreach}
+                {foreach $sp_defpages_pop AS $selectpage}{$selectpage}{/foreach}
             {/if}
             </select>
         {if isset($smarty.post.serendipity['staticpagecategory']) || isset($smarty.get.serendipity['staticid'])}
@@ -220,7 +220,7 @@
             var staticpage_preview = window.open("{$sp_defpages_link}", "staticpage_preview");
             staticpage_preview.focus();
         </script>
-        <div class="msg_notice"><span class="icon-info-circled"></span> {$CONST.PLUGIN_STATICPAGE_PREVIEW|sprintf:"<a href=\"$sp_defpages_link\">$sp_defpages_pagetitle</a>"}</div>
+        <div class="msg_notice"><span class="icon-info-circled"></span> {$CONST.PLUGIN_STATICPAGE_PREVIEW|sprintf:"<a href=\"$sp_defpages_link\">{$sp_defpages_pagetitle|escape}</a>"}</div>
     {/if}
     </div><!-- //id sp_navigator end -->
 
@@ -250,21 +250,21 @@
 
 <div id="step">
 
-{foreach $sp_listentries_entries as $entry}
+{foreach $sp_listentries_entries AS $entry}
 
     <div class="sp_entries_pane {cycle values="odd,even"}{if $entry@last} sp_close{/if}">
         <ul id="sp_entries_list" class="plainList{if $entry['parent_id'] > 0} sp_isChild{/if}">
             <li id="sple{$entry['id']}" class="clearfix">
-                <h3>{if $entry['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entry['parent_id']}</span><span class="icon-right-dir sp_ctree"></icon>{/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']}">{if !empty($entry['headline'])}{$entry['headline']|escape:'html':$CONST.LANG_CHARSET:false|truncate:50}{else}{$entry['pagetitle']}{/if}</a></h3>
+                <h3>{if $entry['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entry['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']|escape}">{if !empty($entry['headline'])}{$entry['headline']|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc|truncate:50}{else}{$entry['pagetitle']|escape}{/if}</a></h3>
                 <div class="clearfix spmod">{$entry['timestamp']|@formatTime:'%Y-%m-%d'} {if $entry['timestamp'] <= ($entry['last_modified'] - 1800)}<span class="icon-clock" title="{$CONST.LAST_UPDATED}: {$entry['last_modified']|@formatTime:'%Y-%m-%d'}"></span>{/if}</div>
             </li>
             <li class="clearfix">
-                {$CONST.POSTED_BY} {$sp_listentries_authors[$entry['authorid']]|escape} <span class="sp_dim">[<em class="sp_lang">{$entry['language']}</em>]</span>
+                {$CONST.POSTED_BY} {$sp_listentries_authors[$entry['authorid']]|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc} <span class="sp_dim">[<em class="sp_lang">{$entry['language']}</em>]</span>
                 <div class="sp_entry_info clearfix spform">
                     {if $entry['publishstatus'] == false}<span class="entry_status sp_status_draft">{$CONST.DRAFT}</span>{/if}
                     {if $entry['parent_id'] > 0}<span class="entry_status sp_tree_child">{$CONST.STATICPAGE_TREE_CHILD} #{$entry['parent_id']}</span>{/if}
 
-                    <a target="_blank" class="button_link" href="{$serendipityHTTPPath}{$serendipityIndexFile}?serendipity[staticid]={$entry['id']}&amp;serendipity[staticPreview]=1" title="{$CONST.VIEW} #{$entry['id']} ({$entry['pagetitle']})"><span class="icon-search"></span><span class="visuallyhidden"> {$CONST.VIEW} #{$entry['pagetitle']}</span></a>
+                    <a target="_blank" class="button_link" href="{$serendipityHTTPPath}{$serendipityIndexFile}?serendipity[staticid]={$entry['id']}&amp;serendipity[staticPreview]=1" title="{$CONST.VIEW} #{$entry['id']} ({$entry['pagetitle']|escape})"><span class="icon-search"></span><span class="visuallyhidden"> {$CONST.VIEW} #{$entry['pagetitle']|escape}</span></a>
                     <form action="serendipity_admin.php" method="post" name="sp_listentry_{$entry['id']}">
                     <div>
                         <input type="hidden" name="serendipity[adminModule]" value="event_display">
@@ -272,8 +272,8 @@
                         <input type="hidden" name="serendipity[staticpagecategory]" value="pages">
                         <input type="hidden" name="serendipity[staticpage]" value="{$entry['id']}">
                         <input type="hidden" name="serendipity[listentries_formSubmit]" value="true">{* necessary to open form on entrylist post submits *}
-                        <input type="submit" name="serendipity[staticSubmit]" class="icon-edit sp-btn sp-btn-edit" value="&#xe803;" title="{$CONST.EDIT} #{$entry['id']} ({$entry['pagetitle']})">
-                        <input type="submit" name="serendipity[staticDelete]" class="icon-trash sp-btn sp-btn-purge" value="&#xe80d;" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"{$entry['id']} ({$entry['pagetitle']})"}');" title="{$CONST.DELETE} #{$entry['id']} ({$entry['pagetitle']})">
+                        <input type="submit" name="serendipity[staticSubmit]" class="icon-edit sp-btn sp-btn-edit" value="&#xe803;" title="{$CONST.EDIT} #{$entry['id']} ({$entry['pagetitle']|escape})">
+                        <input type="submit" name="serendipity[staticDelete]" class="icon-trash sp-btn sp-btn-purge" value="&#xe80d;" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"{$entry['id']} ({$entry['pagetitle']|escape})"}');" title="{$CONST.DELETE} #{$entry['id']} ({$entry['pagetitle']|escape})">
                     </div>
                     </form>
                 </div>
@@ -317,7 +317,7 @@
         Sorry! Do not re-active, or you may lose data, when used/click-saved! The code for this has moved to staticpage_backend.js **}
 
     function Spawnnugget() {
-{foreach $sp_pagetype_showform_htmlnuggets as $htmlnuggetid}
+{foreach $sp_pagetype_showform_htmlnuggets AS $htmlnuggetid}
         if (window.Spawnnuggets) Spawnnuggets('{$htmlnuggetid}');
 {/foreach}
     }

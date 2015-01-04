@@ -100,7 +100,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.31');
+        $propbag->add('version', '4.32');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -868,7 +868,6 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     *
      * Manage and setup the database tables for staticpage
      *
      * @access (private) fallback public
@@ -1063,7 +1062,6 @@ class serendipity_event_staticpage extends serendipity_event
 
 
     /**
-     *
      * Walk through the staticpage item array and return the value by key
      *
      * @see    var staticpage
@@ -1079,7 +1077,6 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     *
      * Walk through the pagetype item type array and return the value by key
      *
      * @see    var pagetype
@@ -1427,6 +1424,18 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
+     * Fix double encoded entities by htmlspeciachars() for ISO-8859-1 charsets
+     *
+     * @param  string
+     * @access public
+     * @return string
+     */
+    public function fixUTFEntity($string) {
+        return preg_replace('/&amp;#(x[a-f0-9]{1,4}|[0-9]{1,5});/', '&#$1;', $string);
+    }
+
+
+    /**
      * Staticpage wrapper for htmlspecialchars charset switch with PHP 5.4
      * 
      * @access public
@@ -1443,12 +1452,11 @@ class serendipity_event_staticpage extends serendipity_event
             }
         }
         if ($encoding == 'LANG_CHARSET') {
-            $encoding = 'UTF-8'; // fallback
+            $encoding = 'UTF-8'; // fallback, if constant is not available
         }
-        // Native ISO charsets will/may encode twice with $double_encode(true), which is the default, so this is set to false here
-        if ($encoding == 'ISO-8859-1') {
-            $double_encode = false;
-        }
+        // Native ISO-8859-1 charsets will encode stored unicode ampersand (&) again with $double_encode(true),
+        // which is the default, so this is set to false on demand in some places
+        // ( see headline, etc. in Smarty template files, or fixed by this fixUTFEntity() )
         return htmlspecialchars($string, $flags, $encoding, $double_encode);
     }
 
@@ -1481,7 +1489,7 @@ class serendipity_event_staticpage extends serendipity_event
 
         foreach($this->config as $staticpage_config) {
             $cvar = $this->get_static($staticpage_config);
-            $serendipity['smarty']->assign($pagevar . $staticpage_config, $cvar);
+            $serendipity['smarty']->assign($pagevar . $staticpage_config, $cvar); // this is, where eg {$staticpage_articleformattitle} etc are assigned, which needs the fixUTFEntity or single escape with double_encode:false on Smarty side
             // This is a global variable assignment, so that within entries.tpl you can access $smarty.env.staticpage_pagetitle. Otherwise, $staticpage_pagetitle would only be available to index.tpl and content.tpl
             $_ENV[$pagevar . $staticpage_config] = $cvar;
         }
@@ -1561,10 +1569,10 @@ class serendipity_event_staticpage extends serendipity_event
 
             }
         }
-
+        // the #uncommented seem to be already assigned?!?
         $serendipity['smarty']->assign(
             array(
-                $pagevar . 'articleformat'      => serendipity_db_bool($this->get_static('articleformat')),
+                $pagevar . 'articleformat'      => serendipity_db_bool($this->get_static('articleformat')),//overwrite booleanized
                 $pagevar . 'form_pass'          => isset($serendipity['POST']['pass']) ? $serendipity['POST']['pass'] : '',
                 $pagevar . 'form_url'           => $serendipity['baseURL'] . $serendipity['indexFile'] . '?serendipity[subpage]=' . $this->html_specialchars($this->get_static('pagetitle')),
                 $pagevar . 'content'            => $staticpage_content,
@@ -1578,12 +1586,13 @@ class serendipity_event_staticpage extends serendipity_event
                 $pagevar . 'created_on'         => $this->get_static('timestamp'),
                 $pagevar . 'lastchange'         => $this->get_static('last_modified'),
                 $pagevar . 'use_lmdate'         => serendipity_db_bool($this->get_config('use_lmdate', true)),
-                $pagevar . 'shownavi'           => $this->get_static('shownavi'),
-                $pagevar . 'show_breadcrumb'    => $this->get_static('show_breadcrumb'),
+                #$pagevar . 'shownavi'           => $this->get_static('shownavi'),
+                #$pagevar . 'show_breadcrumb'    => $this->get_static('show_breadcrumb'),
                 $pagevar . 'custom'             => $this->get_static('custom'),
-                $pagevar . 'title_element'      => $this->get_static('title_element'),
-                $pagevar . 'meta_description'   => $this->get_static('meta_description'),
-                $pagevar . 'meta_keywords'      => $this->get_static('meta_keywords')
+                #$pagevar . 'title_element'      => $this->get_static('title_element'),
+                #$pagevar . 'meta_description'   => $this->fixUTFEntity($this->html_specialchars($this->get_static('meta_description'))),// escaped here since nowhere else used by yet
+                #$pagevar . 'meta_keywords'      => $this->fixUTFEntity($this->html_specialchars($this->get_static('meta_keywords'))),// dito
+                $pagevar . 'doublesc'           => ((LANG_CHARSET === 'ISO-8859-1') ? false : true)
             )
         );
         $filename = basename($filename);
@@ -1595,6 +1604,7 @@ class serendipity_event_staticpage extends serendipity_event
 
         return $content;
     }
+
 
     /**
      * Show selected static page
@@ -2331,8 +2341,8 @@ class serendipity_event_staticpage extends serendipity_event
                     $serendipity['POST']['typeSubmit'] = true;
                     $bag = new serendipity_property_bag();
                     $this->introspect($bag);
-                    $name = $this->html_specialchars($bag->get('name'));
-                    $desc = $this->html_specialchars($bag->get('description'));
+                    $name = $this->html_specialchars($bag->get('name')); // RQ: Where? Why? This is constant data...
+                    $desc = $this->html_specialchars($bag->get('description')); // RQ: Where? Why? This is constant data...
                     $config_t = $bag->get('type_configuration');
 
                     foreach($config_t as $config_item) {
@@ -2366,8 +2376,8 @@ class serendipity_event_staticpage extends serendipity_event
                     $serendipity['POST']['backend_template'] = 'typeform_staticpage_backend.tpl';
                     $bag = new serendipity_property_bag();
                     $this->introspect($bag);
-                    $name = $this->html_specialchars($bag->get('name'));
-                    $desc = $this->html_specialchars($bag->get('description'));
+                    $name = $this->html_specialchars($bag->get('name')); // RQ: Where? Why? This is constant data...
+                    $desc = $this->html_specialchars($bag->get('description')); // RQ: Where? Why? This is constant data...
                     $config_t = $bag->get('type_configuration');
 
                     foreach($config_t as $config_item) {
@@ -2442,8 +2452,8 @@ class serendipity_event_staticpage extends serendipity_event
                     $serendipity['smarty']->assign('sp_staticsubmit', true);
                     $bag  = new serendipity_property_bag;
                     $this->introspect($bag);
-                    $name = $this->html_specialchars($bag->get('name'));
-                    $desc = $this->html_specialchars($bag->get('description'));
+                    $name = $this->html_specialchars($bag->get('name')); // RQ: Where? Why? This is constant data...
+                    $desc = $this->html_specialchars($bag->get('description')); // RQ: Where? Why? This is constant data...
                     $config_names = $bag->get('page_configuration');
 
                     foreach ($config_names as $config_item) {
@@ -2496,7 +2506,7 @@ class serendipity_event_staticpage extends serendipity_event
                                 if (isset($m[1]) && !empty($m[1])) $templateName = ucwords(str_replace('_', ' ', $m[1]));
                                 // This is, while the file was named 'default_staticpage_backend.tpl' before.
                                 // To not have compat issues with new staticpage backend form templates,
-                                // new files follow naming in sp_templateselector select form:
+                                // new files follow naming scheme in sp_templateselector select form:
                                 // eg. 'responsive_template.tpl', to show up as 'Responsive Template'
                                 if ($templateName == 'Default Staticpage Backend') $templateName = STATICPAGE_TEMPLATE_EXTERNAL;
                                 $ts_option[] = '<option' . ($file == $serendipity['POST']['backend_template'] ? ' selected="selected" ' : ' ') . 'value="' . $this->html_specialchars($file) . '">' . $this->html_specialchars($templateName) . '</option>'."\n";
@@ -2580,6 +2590,8 @@ class serendipity_event_staticpage extends serendipity_event
                 break;
         } //end switch
 
+        // backend escape modififier param
+        $serendipity['smarty']->assign('staticpage_doublesc', ((LANG_CHARSET === 'ISO-8859-1') ? false : true));
 
         if ($serendipity['version'][0] > 1) {
             $filename = 'backend_staticpage.tpl';
@@ -2666,7 +2678,13 @@ class serendipity_event_staticpage extends serendipity_event
         if (empty($what)) {
             $what = 'input';
         }
-
+        // set double_escape entities for htnmlspecialchars (default true)
+        $double = true;
+        // allow single encode only for the ISO-8859-1 native charset
+        if (LANG_CHARSET === 'ISO-8859-1') {
+            $exclude = array('headline', 'articleformattitle', 'content', 'pre_content', 'title_element', 'meta_description', 'meta_keywords');
+            if (in_array($config_item, $exclude)) $double = false;
+        }
         // this brings pagetype into "scope". Without, value will not work, which is strange ...
         if (!empty($this->pagetype) && $serendipity['POST']['pagetype'] != '__new') {
             $this->fetchPageType($this->pagetype['id']);
@@ -2699,9 +2717,9 @@ class serendipity_event_staticpage extends serendipity_event
             // Try and set the default value for the config item
             $value = $cbag->get('default');
         }
-        $hvalue   = ((!isset($serendipity['POST']['staticSubmit']) || is_array($serendipity['GET']['pre'])) && isset($serendipity['POST']['plugin'][$config_item]) 
-                    ? $this->html_specialchars($serendipity['POST']['plugin'][$config_item])
-                    : $this->html_specialchars($value));
+        $hvalue   = ((!isset($serendipity['POST']['staticSubmit']) || is_array($serendipity['GET']['pre'])) && isset($serendipity['POST']['plugin'][$config_item])
+                    ? $this->html_specialchars($serendipity['POST']['plugin'][$config_item], null, LANG_CHARSET, $double)
+                    : $this->html_specialchars($value, null, LANG_CHARSET, $double));
         $radio    = array();
         $select   = array();
         $per_row  = null;
@@ -2788,7 +2806,7 @@ class serendipity_event_staticpage extends serendipity_event
         $serendipity['smarty']->registerPlugin('function', 'staticpage_input_finish', array($this, 'SmartyInspectConfigFinish'));
 
         if ($serendipity['version'][0] < 2 && $serendipity['wysiwyg'] && !class_exists('serendipity_event_ckeditor')) {
-            $serendipity['smarty']->assign('is_wysiwyg', true); // ckeditor has no need to disable 2cd collapsible box in default form template
+            $serendipity['smarty']->assign('is_wysiwyg', true); // ckeditor has no need to disable 2cd collapsible box in form default template
         }
         if ($serendipity['version'][0] > 1) {
             $serendipity['smarty']->assign('new_backend', true);
@@ -2891,14 +2909,15 @@ class serendipity_event_staticpage extends serendipity_event
 
         if (!is_array($results)) {
             if ($results !== 1 && $results !== true) {
-                echo '<div style="margin: 1em 2em;">'.$results.'</div>'; // already escaped by serendipity_db_query()
+                echo '<div style="margin: 1em 2em;">'.$results.'</div>'; // error message already escaped by serendipity_db_query()
             }
             $results = array();
         }
         $serendipity['smarty']->assign(
             array(
                 'staticpage_searchresults' => count($results),
-                'staticpage_results'       => $results
+                'staticpage_results'       => $results,
+                'staticpage_doublesc'      => ((LANG_CHARSET === 'ISO-8859-1') ? false : true)
             )
         );
 
@@ -3235,10 +3254,10 @@ class serendipity_event_staticpage extends serendipity_event
                     if ($this->selected()) {
                         $te = $this->get_static('title_element');
                         if (!empty($te)) {
-                            $serendipity['head_title']    = $this->html_specialchars($te);
+                            $serendipity['head_title']    = $this->fixUTFEntity($this->html_specialchars($te));
                             $serendipity['head_subtitle'] = '';
                         } else {
-                            $serendipity['head_title']    = $this->get_static('headline');
+                            $serendipity['head_title']    = $this->fixUTFEntity($this->get_static('headline'));
                             $serendipity['head_subtitle'] = $serendipity['blogTitle'];
                         }
                     }
@@ -3254,8 +3273,8 @@ class serendipity_event_staticpage extends serendipity_event
                     break;
 
                 case 'frontend_header':
-                    $md = $this->html_specialchars($this->get_static('meta_description'));
-                    $mk = $this->html_specialchars($this->get_static('meta_keywords'));
+                    $md = $this->fixUTFEntity($this->html_specialchars($this->get_static('meta_description')));
+                    $mk = $this->fixUTFEntity($this->html_specialchars($this->get_static('meta_keywords')));
                     if (!empty($md)) {
                         echo '        <meta name="description" content="' . $md . '"' . ($serendipity['version'][0] < 2 ? ' />' : '>') . "\n";
                     }

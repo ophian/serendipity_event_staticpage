@@ -69,7 +69,7 @@
             {/if}
         {/if}
         {if $staticpage_adminlink AND $staticpage_adminlink.page_user}
-            | <a href="{$staticpage_adminlink.link_edit}">{$staticpage_adminlink.link_name|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}</a>
+            | <a href="{$staticpage_adminlink.link_edit}">{$staticpage_adminlink.link_name|escape}</a>
         {/if}
         </p>
     </footer>

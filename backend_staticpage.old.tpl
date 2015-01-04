@@ -322,7 +322,7 @@
             <div class="clearfix spmod">{$entry['timestamp']|@formatTime:'%Y-%m-%d'} {if $entry['timestamp'] <= ($entry['last_modified'] - 1800)}<span class="icon-clock" title="{$CONST.LAST_UPDATED}: {$entry['last_modified']|@formatTime:'%Y-%m-%d'}"></span>{/if}</div>
         </li>
         <li class="clearfix">
-            {$CONST.POSTED_BY} {$sp_listentries_authors[$entry['authorid']]|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}
+            {$CONST.POSTED_BY} {$sp_listentries_authors[$entry['authorid']]|escape}
             <div class="sp_entry_info clearfix spform">
                 <a target="_blank" href="{$serendipityHTTPPath}{$serendipityIndexFile}?serendipity[staticid]={$entry['id']}&amp;serendipity[staticPreview]=1" title="{$CONST.VIEW} #{$entry['id']} ({$entry['pagetitle']|escape})" class="serendipityIconLink"><img src="{serendipity_getFile file='admin/img/zoom.png'}" alt="{$CONST.VIEW} #{$entry['id']} ({$entry['pagetitle']|escape})" /></a>
                 <form action="serendipity_admin.php" method="post" name="sp_listentry_{$entry['id']}">

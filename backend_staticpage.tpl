@@ -259,7 +259,7 @@
                 <div class="clearfix spmod">{$entry['timestamp']|@formatTime:'%Y-%m-%d'} {if $entry['timestamp'] <= ($entry['last_modified'] - 1800)}<span class="icon-clock" title="{$CONST.LAST_UPDATED}: {$entry['last_modified']|@formatTime:'%Y-%m-%d'}"></span>{/if}</div>
             </li>
             <li class="clearfix">
-                {$CONST.POSTED_BY} {$sp_listentries_authors[$entry['authorid']]|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc} <span class="sp_dim">[<em class="sp_lang">{$entry['language']}</em>]</span>
+                {$CONST.POSTED_BY} {$sp_listentries_authors[$entry['authorid']]|escape} <span class="sp_dim">[<em class="sp_lang">{$entry['language']}</em>]</span>
                 <div class="sp_entry_info clearfix spform">
                     {if $entry['publishstatus'] == false}<span class="entry_status sp_status_draft">{$CONST.DRAFT}</span>{/if}
                     {if $entry['parent_id'] > 0}<span class="entry_status sp_tree_child">{$CONST.STATICPAGE_TREE_CHILD} #{$entry['parent_id']}</span>{/if}

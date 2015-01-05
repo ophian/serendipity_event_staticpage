@@ -142,7 +142,7 @@
             </div>
 
             <div id="entry_struc_desc" class="form_field sp_sect">{* S2 *}
-                <label class="sp_articletype" title="{staticpage_input item="articletype" what="desc"}">{staticpage_input item="articletype" what="name"}</label>
+                <label class="sp_label" title="{staticpage_input item="articletype" what="desc"}">{staticpage_input item="articletype" what="name"}</label>
                     {staticpage_input item="articletype"}
             </div>
 

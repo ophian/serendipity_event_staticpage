@@ -56,13 +56,29 @@
 
         <div id="entry_main_data">
             <div id="entry_meta_urltitle" class="form_field sp_sect">
-                <label class="sp_label" title="{staticpage_input item="pagetitle" what="desc"}">{staticpage_input item="pagetitle" what="name"}</label>
+                <label class="sp_label sp_button" title="{staticpage_input item="pagetitle" what="desc"}">{staticpage_input item="pagetitle" what="name"}</label>
+                {if $new_backend}<button class="toggle_info button_link" type="button" data-href="#meta_urltitle_info"><span class="icon-info-circled"></span><b>i</b><span class="visuallyhidden"> {$CONST.MORE}</span></button>{/if}
                     {staticpage_input item="pagetitle"}
+                {if $new_backend}
+                <div id="meta_urltitle_info" class="clearfix field_info additional_info">
+                    <span id="urltitle_info" class="field_info">
+                        {$CONST.PLAIN_ASCII}
+                    </span>
+                </div>
+                {/if}
             </div>
 
             <div id="entry_meta_permalink" class="form_field sp_sect">
-                <label class="sp_label" title="{staticpage_input item="permalink" what="desc"}">{staticpage_input item="permalink" what="name"}</label>
+                <label class="sp_label sp_button" title="{staticpage_input item="permalink" what="desc"}">{staticpage_input item="permalink" what="name"}</label>
+                {if $new_backend}<button class="toggle_info button_link" type="button" data-href="#meta_permalink_info"><span class="icon-info-circled"></span><b>i</b><span class="visuallyhidden"> {$CONST.MORE}</span></button>{/if}
                     {staticpage_input item="permalink"}
+                {if $new_backend}
+                <div id="meta_permalink_info" class="clearfix field_info additional_info">
+                    <span id="permalink_info" class="field_info">
+                        {$CONST.PLAIN_ASCII}
+                    </span>
+                </div>
+                {/if}
             </div>
         </div>
 
@@ -146,18 +162,13 @@
             </div>
 
             <div id="entry_struc_cat" class="form_field sp_sect">{* S4 *}
-                <label class="sp_label" title="{staticpage_input item="related_category_id" what="desc"}">{staticpage_input item="related_category_id" what="name"}{if $new_backend}
-                <button class="toggle_info button_link" type="button" data-href="#entry_relcat_info"><span class="icon-info-circled"></span><b>i</b><span class="visuallyhidden"> Mehr</span></button>
-                {/if}</label>
+                <label class="sp_label sp_button" title="{staticpage_input item="related_category_id" what="desc"}">{staticpage_input item="related_category_id" what="name"}</label>
+                {if $new_backend}<button class="toggle_info button_link" type="button" data-href="#entry_relcat_info"><span class="icon-info-circled"></span><b>i</b><span class="visuallyhidden"> {$CONST.MORE}</span></button>{/if}
                     {staticpage_input item="related_category_id"}
                 {if $new_backend}
                 <div id="entry_relcat_info" class="clearfix field_info additional_info">
                     <span id="related_category_info" class="field_info">
-                        This <u>only</u> works in combination with the entries.tpl patch, described in the "README FOR RELATED CATEGORIES.txt" <a href="{$serendipityHTTPPath}plugins/serendipity_event_staticpage/README_FOR_RELATED_CATEGORIES.txt" target="_blank">file</a>.
-                        For a frontend category page, with an amount<span style="font-size:10px"><sup> (1)</sup></span> of last entry links as a teaser,
-                        the best use would be a set Articletype: "<em>Staticpage with related category</em>" field in this form.
-                        Please note, that only unique 1:1 relations between staticpages and categories are allowed.<br>
-                        <span style="font-size:10px"><sup>(1)</sup></span> Changing the amount of shown teaser entry links is done in the "plugin staticpage related category.tpl" file by the configurable calling hook. Defaults to 5 entries.
+                        {$CONST.STATICPAGE_RELCAT_INFO|sprintf:"{$serendipityHTTPPath}plugins/serendipity_event_staticpage/README_FOR_RELATED_CATEGORIES.txt"}
                     </span>
                 </div>
                 {/if}
@@ -258,10 +269,7 @@
 
             <div id="{if !$new_backend}el5{else}entry_custom_info{/if}" class="clearfix field_info additional_info">
                 <span id="custom_info" class="field_info">
-                <p>This custom section vastly improves Serendipity's CMS-abilities and shows some examples for saving custom fields for static pages. All custom fields need to be implemented through usual HTML form elements, and need to save their values inside a serendipity[plugin][custom][XXX] fieldname. Once entered, the data will be automatically saved inside the serendipity_staticpage_custom database table, and will be available through &#123;$staticpage_custom.XXX&#125; when later being displayed in the frontend. This way, you can easily add new custom fields for a staticpage, ie. to specify a custom header image for each staticpage. Sky's the limit!</p>
-                <p>These optional examples enable to use either a custom CSS-BODY-ID to render the page. Or you can specify, which sidebar you want to see when this staticpage is rendered. Another nice example included here, is to define some related tags for this staticpage, to show a specific amount of entries including these tags.<br>
-                <span><strong>Please read:</strong> </span><a href="{$serendipityHTTPPath}plugins/serendipity_event_staticpage/README_FOR_CUSTOM_FIELDS.txt" target="_blank">the readme for custom fields</a> examples.</p>
-                <p>The "Disable nl2br markup parser" radio option is already used internally to automark staticpage entries on wysiwyg usage by submit, to not pass through the nl2br markup parser on show.</p>
+                    {$CONST.STATICPAGE_CUSTOMFIELDS_INFO|sprintf:"{$serendipityHTTPPath}plugins/serendipity_event_staticpage/README_FOR_CUSTOM_FIELDS.txt"}
                 </span>
             </div>
             {if !$new_backend && !$is_wysiwyg}<script type="text/javascript">document.getElementById("el5").style.display = "none";</script>{/if}

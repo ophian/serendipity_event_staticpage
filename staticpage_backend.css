@@ -94,6 +94,17 @@
     display: block;
     clear: both;
 }
+.sp_button {
+    display: inline-block;
+}
+.sp_button ~ button,
+.sp_button ~ .toggle_info,
+.sp_button ~ .toggle_info:visited,
+.sp_button ~ .toggle_info:hover,
+.sp_button ~ .toggle_info:focus,
+.sp_button ~ .toggle_info:active {
+    margin: 1% 0 1% 0.4em;
+}
 .sp_templateselector {
     float: right;
     margin: 5px;
@@ -358,6 +369,10 @@
 }
 
 /* for both form templates - id.class is strict! */
+#meta_urltitle_info.field_info,
+#urltitle_info.field_info,
+#meta_permalink_info.field_info,
+#permalink_info.field_info,
 #entry_relcat_info.field_info,
 #related_category_info.field_info { width: 100%; }
 

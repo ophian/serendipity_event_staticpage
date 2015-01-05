@@ -201,3 +201,18 @@
 @define('RELATED_CATEGORY_CHANGE_MSG', 'This has overwritten a previous related-category-association called ID #%s, with staticpage ID #%s, since only unique associations are allowed! Please change this or the other staticpage in the staticpageform to a selected "related category" field: "none"!');
 @define('RELATED_CATEGORY_CHANGE_DEL_MSG', 'The corresponding related_category_id field of staticpage ID #%s has been updated and set to 0.');
 
+@define('PLAIN_ASCII', 'URLs shall use plain ASCII only. [A-Za-z0-9]');
+@define('STATICPAGE_RELCAT_INFO', 'This <b>only</b> works in combination with the entries.tpl patch, described in the "README FOR RELATED CATEGORIES.txt" <a href="%s" target="_blank" style="color:#7fdbff">file</a>.
+                        For a frontend category page, with an amount<span style="font-size:10px"><sup> (1)</sup></span> of last entry links as a teaser,
+                        the best use is a set Articletype: "<em>Staticpage with related category</em>" field in this form.
+                        Please note, that only unique 1:1 relations between staticpages and categories are allowed.<br><br>
+                        <span style="font-size:10px"><sup>(1)</sup></span> Changing the amount of shown teaser entry links is done in the "plugin staticpage related category.tpl" file by the configurable calling hook. Defaults to 5 entries.');
+@define('STATICPAGE_CUSTOMFIELDS_INFO', '<p>This custom section vastly improves Serendipity\'s CMS-abilities and shows some examples for saving custom fields for static pages.
+                    All custom fields need to be implemented through usual HTML form elements, and need to save their values inside a serendipity[plugin][custom][XXX] fieldname.
+                    Once entered, the data will be automatically saved inside the serendipity_staticpage_custom database table, and will be available through &#123;$staticpage_custom.XXX&#125;
+                    when later being displayed in the frontend. This way, you can easily add new custom fields for a staticpage, ie. to specify a custom header image for each staticpage. Sky\'s the limit!</p>
+                    <p>These optional examples enable to use either a custom CSS-BODY-ID to render the page. Or you can specify, which sidebar you want to see when this staticpage is rendered.
+                    Another nice example included here, is to define some related tags for this staticpage, to show a specific amount of entries including these tags.<br>
+                    <span><strong>Please read:</strong> </span><a href="%s" target="_blank" style="color:#7fdbff">the readme for custom fields</a> examples.</p>
+                    <p>The "Disable nl2br markup parser" radio option is already used internally to automark staticpage entries on wysiwyg usage by submit, to not pass through the nl2br markup parser on show.</p>');
+

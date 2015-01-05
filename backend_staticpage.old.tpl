@@ -29,7 +29,7 @@
         <li id="{$sp_element['id']}" class="sequence_item_old pluginmanager_item_even">{*  in normal situations id=$sp_element['pagetitle'], but we need id for js sequence mode *}
             <input type="hidden" name="serendipity[plugin][sequence][id]" id="sid{$sp_element['id']}" value="{$sp_element['id']}" />
             <div id="sg{$sp_element['id']}" class="pluginmanager_grablet sequence_grablet"><a href="#"></a></div>
-            <span title="#{$sp_element['id']} {$sp_element['headline']|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc|default:{$entryorder['pagetitle']|escape}}">{$sp_element['pagetitle']|escape}</span>
+            <span title="#{$sp_element['id']} {if !empty($sp_element['headline'])}{$sp_element['headline']|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}{else}{$sp_element['pagetitle']|escape}{/if}">{$sp_element['pagetitle']|escape}</span>
         </li>
     {/foreach}
     </ol>

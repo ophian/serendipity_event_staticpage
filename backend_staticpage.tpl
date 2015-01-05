@@ -29,7 +29,7 @@
                 <div id="sg{$entryorder['id']}" class="pluginmanager_grablet sequence_grablet">
                     <button class="icon_link" type="button" title="{$CONST.MOVE}"><span class="icon-move"></span><span class="visuallyhidden"> {$CONST.MOVE}</span></button>
                 </div>
-                {if $entryorder['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entryorder['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}<span title="#{$entryorder['id']} {$entryorder['headline']|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc|default:{$entryorder['pagetitle']|escape}}" class="sp_grablet_title">{$entryorder['pagetitle']|escape|truncate:50}</span>
+                {if $entryorder['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entryorder['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}<span title="#{$entryorder['id']} {if !empty($entryorder['headline'])}{$entryorder['headline']|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}{else}{$entryorder['pagetitle']|escape}{/if}" class="sp_grablet_title">{$entryorder['pagetitle']|escape|truncate:50}</span>
             </li>
         {/foreach}
         </ol>

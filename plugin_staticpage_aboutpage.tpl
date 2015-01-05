@@ -1,4 +1,4 @@
-{* frontend plugin_staticpage_aboutpage.tpl (overview) file v. 1.04, 2015-01-04 *}
+{* frontend plugin_staticpage_aboutpage.tpl (overview) file v. 1.04, 2015-01-05 *}
 <article id="staticpage_{$staticpage_pagetitle|@makeFilename}" class="clearfix serendipity_staticpage{if $staticpage_articleformat} serendipity_entry{/if}">
     <header>
         <h2>{if $staticpage_articleformat}{if $staticpage_articleformattitle}{$staticpage_articleformattitle|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}{else}{$staticpage_pagetitle|escape}{/if}{else}{if $staticpage_headline}{$staticpage_headline|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}{else}{$staticpage_pagetitle|escape}{/if}{/if}</h2>
@@ -15,7 +15,7 @@
             <div class="staticpage_navigation_breadcrumb">
                 <a href="{$serendipityBaseURL}">{$CONST.HOMEPAGE}</a> &#187;
             {foreach name="crumbs" from=$staticpage_navigation.crumbs item="crumb"}
-                {if !$smarty.foreach.crumbs.first}&#187;{/if}{if $crumb.id != $staticpage_pid}<a href="{$crumb.link}">{$crumb.name|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}</a>{else}{$crumb.name|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}{/if}
+                {if !$smarty.foreach.crumbs.first}&#187;{/if}{if $crumb.id != $staticpage_pid}<a href="{$crumb.link}">{$crumb.name|escape}</a>{else}{$crumb.name|escape}{/if}
             {/foreach}
             </div>
         {/if}
@@ -41,7 +41,7 @@
     <div class="clearfix content staticpage_childpages">
         <ul id="staticpage_childpages">
             {foreach from=$staticpage_childpages item="childpage"}
-            <li><a href="{$childpage.permalink|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}" title="{$childpage.pagetitle|escape}">{$childpage.pagetitle|escape}</a></li>
+            <li><a href="{$childpage.permalink}" title="{$childpage.pagetitle|escape}">{$childpage.pagetitle|escape}</a></li>
             {/foreach}
         </ul>
     </div>
@@ -52,7 +52,7 @@
     <div class="clearfix content staticpage_childpages">
         <ul id="staticpage_childpages">
             {foreach from=$staticpage_extchildpages item="childpage"}
-            <li>{if $childpage.image}<img src="{$childpage.image}" alt="">{/if}<a href="{$childpage.permalink|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}" title="{$childpage.pagetitle|escape}">{$childpage.pagetitle|escape}</a></li>
+            <li>{if $childpage.image}<img src="{$childpage.image}" alt="">{/if}<a href="{$childpage.permalink}" title="{$childpage.pagetitle|escape}">{$childpage.pagetitle|escape}</a></li>
             <ul><li>{$childpage.precontent|truncate:200:"&hellip;":true}</li></ul>
             {/foreach}
         </ul>

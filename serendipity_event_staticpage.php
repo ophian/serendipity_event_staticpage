@@ -1569,10 +1569,10 @@ class serendipity_event_staticpage extends serendipity_event
 
             }
         }
-        // the #uncommented seem to be already assigned?!?
+        // the #uncommented seem are already assigned?!? [see line 1492, which assigns $this->config vars]
         $serendipity['smarty']->assign(
             array(
-                $pagevar . 'articleformat'      => serendipity_db_bool($this->get_static('articleformat')),//overwrite booleanized
+                $pagevar . 'articleformat'      => serendipity_db_bool($this->get_static('articleformat')),// already assigned, but overwrite as boolean
                 $pagevar . 'form_pass'          => isset($serendipity['POST']['pass']) ? $serendipity['POST']['pass'] : '',
                 $pagevar . 'form_url'           => $serendipity['baseURL'] . $serendipity['indexFile'] . '?serendipity[subpage]=' . $this->html_specialchars($this->get_static('pagetitle')),
                 $pagevar . 'content'            => $staticpage_content,
@@ -1586,11 +1586,11 @@ class serendipity_event_staticpage extends serendipity_event
                 $pagevar . 'created_on'         => $this->get_static('timestamp'),
                 $pagevar . 'lastchange'         => $this->get_static('last_modified'),
                 $pagevar . 'use_lmdate'         => serendipity_db_bool($this->get_config('use_lmdate', true)),
-                #$pagevar . 'shownavi'           => $this->get_static('shownavi'),
-                #$pagevar . 'show_breadcrumb'    => $this->get_static('show_breadcrumb'),
+                $pagevar . 'shownavi'           => serendipity_db_bool($this->get_static('shownavi')),// already assigned, but overwrite as boolean
+                $pagevar . 'show_breadcrumb'    => serendipity_db_bool($this->get_static('show_breadcrumb')),// already assigned, but overwrite as boolean
                 $pagevar . 'custom'             => $this->get_static('custom'),
                 #$pagevar . 'title_element'      => $this->get_static('title_element'),
-                #$pagevar . 'meta_description'   => $this->fixUTFEntity($this->html_specialchars($this->get_static('meta_description'))),// escaped here since nowhere else used by yet
+                #$pagevar . 'meta_description'   => $this->fixUTFEntity($this->html_specialchars($this->get_static('meta_description'))),// escaped here since nowhere else used as a Smarty var by yet
                 #$pagevar . 'meta_keywords'      => $this->fixUTFEntity($this->html_specialchars($this->get_static('meta_keywords'))),// dito
                 $pagevar . 'doublesc'           => ((LANG_CHARSET === 'ISO-8859-1') ? false : true)
             )
@@ -3276,10 +3276,10 @@ class serendipity_event_staticpage extends serendipity_event
                     $md = $this->fixUTFEntity($this->html_specialchars($this->get_static('meta_description')));
                     $mk = $this->fixUTFEntity($this->html_specialchars($this->get_static('meta_keywords')));
                     if (!empty($md)) {
-                        echo '        <meta name="description" content="' . $md . '"' . ($serendipity['version'][0] < 2 ? ' />' : '>') . "\n";
+                        echo '    <meta name="description" content="' . $md . '"' . ($serendipity['version'][0] < 2 ? ' />' : '>') . "\n";
                     }
                     if (!empty($mk)) {
-                        echo '        <meta name="keywords" content="' . $mk . '"' . ($serendipity['version'][0] < 2 ? ' />' : '>') . "\n";
+                        echo '    <meta name="keywords" content="' . $mk . '"' . ($serendipity['version'][0] < 2 ? ' />' : '>') . "\n";
                     }
                     break;
 

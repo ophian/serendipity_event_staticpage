@@ -1489,7 +1489,7 @@ class serendipity_event_staticpage extends serendipity_event
 
         foreach($this->config as $staticpage_config) {
             $cvar = $this->get_static($staticpage_config);
-            $serendipity['smarty']->assign($pagevar . $staticpage_config, $cvar); // this is, where eg {$staticpage_articleformattitle} etc are assigned, which needs the fixUTFEntity or single escape with double_encode:false on Smarty side
+            $serendipity['smarty']->assign($pagevar . $staticpage_config, $cvar); // this is, where eg {$staticpage_articleformattitle} etc are assigned, which needs the fixUTFEntity or single escape with double_encode:false on Smarty side, or overwrite assignment at line 1573 ff
             // This is a global variable assignment, so that within entries.tpl you can access $smarty.env.staticpage_pagetitle. Otherwise, $staticpage_pagetitle would only be available to index.tpl and content.tpl
             $_ENV[$pagevar . $staticpage_config] = $cvar;
         }
@@ -1569,7 +1569,7 @@ class serendipity_event_staticpage extends serendipity_event
 
             }
         }
-        // the #uncommented seem are already assigned?!? [see line 1492, which assigns $this->config vars]
+        // the #uncommented are already assigned [see line 1492, which assigns $this->config vars]
         $serendipity['smarty']->assign(
             array(
                 $pagevar . 'articleformat'      => serendipity_db_bool($this->get_static('articleformat')),// already assigned, but overwrite as boolean
@@ -1589,9 +1589,9 @@ class serendipity_event_staticpage extends serendipity_event
                 $pagevar . 'shownavi'           => serendipity_db_bool($this->get_static('shownavi')),// already assigned, but overwrite as boolean
                 $pagevar . 'show_breadcrumb'    => serendipity_db_bool($this->get_static('show_breadcrumb')),// already assigned, but overwrite as boolean
                 $pagevar . 'custom'             => $this->get_static('custom'),
-                #$pagevar . 'title_element'      => $this->get_static('title_element'),
-                #$pagevar . 'meta_description'   => $this->fixUTFEntity($this->html_specialchars($this->get_static('meta_description'))),// escaped here since nowhere else used as a Smarty var by yet
-                #$pagevar . 'meta_keywords'      => $this->fixUTFEntity($this->html_specialchars($this->get_static('meta_keywords'))),// dito
+                #$pagevar . 'title_element'      => $this->fixUTFEntity($this->html_specialchars($this->get_static('title_element'))),// these three metas are not set, fixed and escaped here,
+                #$pagevar . 'meta_description'   => $this->fixUTFEntity($this->html_specialchars($this->get_static('meta_description'))),// since nowhere used as a Smarty var yet
+                #$pagevar . 'meta_keywords'      => $this->fixUTFEntity($this->html_specialchars($this->get_static('meta_keywords'))),// and being already assigned and properly escaped in SmartyInspectConfig()
                 $pagevar . 'doublesc'           => ((LANG_CHARSET === 'ISO-8859-1') ? false : true)
             )
         );

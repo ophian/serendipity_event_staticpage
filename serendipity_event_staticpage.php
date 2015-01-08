@@ -1430,7 +1430,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access public
      * @return string
      */
-    public function fixUTFEntity($string) {
+    public static function fixUTFEntity($string) {
         return preg_replace('/&amp;#(x[a-f0-9]{1,4}|[0-9]{1,5});/', '&#$1;', $string);
     }
 
@@ -1441,7 +1441,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @access public
      * @return string
      */
-    public function html_specialchars($string, $flags = null, $encoding = LANG_CHARSET, $double_encode = true) {
+    public static function html_specialchars($string, $flags = null, $encoding = LANG_CHARSET, $double_encode = true) {
         if ($flags == null) {
             if (defined('ENT_HTML401')) {
                 // Added with PHP 5.4.x

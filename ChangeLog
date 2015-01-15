@@ -1,4 +1,4 @@
-4.32:
+4.33:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -85,6 +85,7 @@
       for certain form input/testarea fields in backend and some Smarty output variables
       in backend/frontend (which updates plugin_staticpage_***.tpl files again)
  *  Added - automark an entry as written by Wysiwyg-Editor via custom fields, to disable nl2br markup formating
+ *  Fixed PHP 5.5+ compat
 
 
     TL;DR - Please note:

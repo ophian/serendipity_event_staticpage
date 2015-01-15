@@ -100,7 +100,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.32');
+        $propbag->add('version', '4.33');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -689,7 +689,8 @@ class serendipity_event_staticpage extends serendipity_event
      * @access (private) fallback public
      * @return bool
      */
-    function sb_plugin_status() {
+    function sb_plugin_status()
+    {
         $plugins = serendipity_plugin_api::enum_plugins('*', false, 'serendipity_plugin_staticpage');
         if(is_array($plugins) && !empty($plugins[0]['name'])) {
             return true;
@@ -1154,7 +1155,8 @@ class serendipity_event_staticpage extends serendipity_event
      * @access (private) fallback public
      * @return array
      */
-    function sortByOrder($a, $b) {
+    function sortByOrder($a, $b)
+    {
         return $a['depth'] - $b['depth'];
     }
 
@@ -1430,10 +1432,10 @@ class serendipity_event_staticpage extends serendipity_event
      * @access public
      * @return string
      */
-    public static function fixUTFEntity($string) {
+    public static function fixUTFEntity($string)
+    {
         return preg_replace('/&amp;#(x[a-f0-9]{1,4}|[0-9]{1,5});/', '&#$1;', $string);
     }
-
 
     /**
      * Staticpage wrapper for htmlspecialchars charset switch with PHP 5.4
@@ -1441,7 +1443,8 @@ class serendipity_event_staticpage extends serendipity_event
      * @access public
      * @return string
      */
-    public static function html_specialchars($string, $flags = null, $encoding = LANG_CHARSET, $double_encode = true) {
+    public static function html_specialchars($string, $flags = null, $encoding = LANG_CHARSET, $double_encode = true)
+    {
         if ($flags == null) {
             if (defined('ENT_HTML401')) {
                 // Added with PHP 5.4.x
@@ -1660,7 +1663,8 @@ class serendipity_event_staticpage extends serendipity_event
      * @access (private) fallback public
      * @return mixed array/bool
      */
-    function getChildPages() {
+    function getChildPages()
+    {
         global $serendipity;
 
         $id = (int)$this->getPageID();
@@ -1858,7 +1862,8 @@ class serendipity_event_staticpage extends serendipity_event
      * @access (private) fallback public
      * @return void
      */
-    function checkPage() {
+    function checkPage()
+    {
         global $serendipity;
 
         if (empty($this->staticpage['filename'])) {
@@ -3029,7 +3034,8 @@ class serendipity_event_staticpage extends serendipity_event
      * @return boolean
      *
      */
-    function setCatPropForStaticpage($id = 0, $cid) {
+    function setCatPropForStaticpage($id = 0, $cid)
+    {
         if ($id > 0) {
             global $serendipity;
 

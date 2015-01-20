@@ -336,6 +336,9 @@
 }
 #backend_sp_respond #sp_structure_data > div.form_area {
     margin-right: inherit;
+    padding: 0px;
+    background: transparent;
+    border: 0 none;
 }
 #backend_sp_respond #entry_main_headline,
 #backend_sp_respond #entry_main_aftitle,

@@ -182,6 +182,15 @@
     margin: 0 auto;
     padding: .2em 0;
 }
+/* overwrite 2k11/admin/style.css active toogle Ln 779 */
+#backend_sp_respond .sp_toggle active {
+    background: #ddd;
+    background-image: -webkit-linear-gradient(#fff, #ddd);
+    background-image: linear-gradient(#fff, #ddd);
+    border-color: #ddd #bbb #999;
+    color: #222;
+    text-shadow: #fff 0 1px 1px;
+}
 .sp_defaultform_right {
     width: 29%;
     float: right;

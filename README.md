@@ -15,6 +15,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] better use fixUTFEntity method only for frontend template vars (articleformatitle and headline)
 - [x] set backends form textformat option automatically to NO, on WYSIWYG usage (?) Yes. Has dependency in 2.0 entryproperties!
 - [x] Added - automark an entry as written by Wysiwyg-Editor via custom fields, to disable nl2br markup formating
 - [x] Fixed (html)specialchars double_encode to false for native ISO-8859-1 charsets for certain form input/testarea fields in backend and some Smarty output variables in backend/frontend (which updates plugin_staticpage_***.tpl files again)

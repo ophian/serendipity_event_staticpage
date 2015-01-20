@@ -100,7 +100,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.33');
+        $propbag->add('version', '4.34');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -1492,7 +1492,8 @@ class serendipity_event_staticpage extends serendipity_event
 
         foreach($this->config as $staticpage_config) {
             $cvar = $this->get_static($staticpage_config);
-            $serendipity['smarty']->assign($pagevar . $staticpage_config, $cvar); // this is, where eg {$staticpage_articleformattitle} etc are assigned, which needs the fixUTFEntity or single escape with double_encode:false on Smarty side, or overwrite assignment at line 1573 ff
+            // this is, where eg {$staticpage_articleformattitle} and headline etc are assigned, which needs the fixUTFEntity or single escape with double_encode:false on Smarty side, or overwrite assignment at line 1576 ff
+            $serendipity['smarty']->assign($pagevar . $staticpage_config, $cvar);
             // This is a global variable assignment, so that within entries.tpl you can access $smarty.env.staticpage_pagetitle. Otherwise, $staticpage_pagetitle would only be available to index.tpl and content.tpl
             $_ENV[$pagevar . $staticpage_config] = $cvar;
         }
@@ -1595,6 +1596,8 @@ class serendipity_event_staticpage extends serendipity_event
                 #$pagevar . 'title_element'      => $this->fixUTFEntity($this->html_specialchars($this->get_static('title_element'))),// these three metas are not set, fixed and escaped here,
                 #$pagevar . 'meta_description'   => $this->fixUTFEntity($this->html_specialchars($this->get_static('meta_description'))),// since nowhere used as a Smarty var yet
                 #$pagevar . 'meta_keywords'      => $this->fixUTFEntity($this->html_specialchars($this->get_static('meta_keywords'))),// and being already assigned and properly escaped in SmartyInspectConfig()
+                $pagevar . 'articleformattitle' => $this->fixUTFEntity($this->html_specialchars($this->get_static('articleformattitle'))), // overwrite already assigned and possibly unproperly escaped
+                $pagevar . 'headline'           => $this->fixUTFEntity($this->html_specialchars($this->get_static('headline'))), // in SmartyInspectConfig()
                 $pagevar . 'doublesc'           => ((LANG_CHARSET === 'ISO-8859-1') ? false : true)
             )
         );
@@ -2595,8 +2598,7 @@ class serendipity_event_staticpage extends serendipity_event
                 break;
         } //end switch
 
-        // backend escape modififier param
-        $serendipity['smarty']->assign('staticpage_doublesc', ((LANG_CHARSET === 'ISO-8859-1') ? false : true));
+        // backend escape modifier param staticpage_articleformattitle and staticpage_headline already escaped and fixed with fixUTFEntity (see 1599/1600) for ISO-8859-1
 
         if ($serendipity['version'][0] > 1) {
             $filename = 'backend_staticpage.tpl';
@@ -2918,11 +2920,16 @@ class serendipity_event_staticpage extends serendipity_event
             }
             $results = array();
         }
+        // escape & fix result
+        foreach ($results as &$result) {
+            foreach ($result as &$resval) {
+                $rval = $this->fixUTFEntity($this->html_specialchars($resval));
+            }
+        }
         $serendipity['smarty']->assign(
             array(
                 'staticpage_searchresults' => count($results),
-                'staticpage_results'       => $results,
-                'staticpage_doublesc'      => ((LANG_CHARSET === 'ISO-8859-1') ? false : true)
+                'staticpage_results'       => $results
             )
         );
 

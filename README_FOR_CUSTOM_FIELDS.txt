@@ -65,7 +65,7 @@ $serendipity['smarty']->registerPlugin('function', 'show_tags', 'smarty_show_tag
 
 <article id="staticpage_{$staticpage_pagetitle|@makeFilename}" class="clearfix serendipity_staticpage{if $staticpage_articleformat} serendipity_entry{/if}">
     <header>
-        <h2>{if $staticpage_articleformat}{if $staticpage_articleformattitle}{$staticpage_articleformattitle|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}{else}{$staticpage_pagetitle|escape}{/if}{else}{if $staticpage_headline}{$staticpage_headline|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}{else}{$staticpage_pagetitle|escape}{/if}{/if}</h2>
+        <h2>{if $staticpage_articleformat}{if $staticpage_articleformattitle}{$staticpage_articleformattitle}{else}{$staticpage_pagetitle|escape}{/if}{else}{if $staticpage_headline}{$staticpage_headline}{else}{$staticpage_pagetitle|escape}{/if}{/if}</h2>
     {if is_array($staticpage_navigation) AND ($staticpage_shownavi OR $staticpage_show_breadcrumb)}
         <div id="staticpage_nav">
         {if $staticpage_shownavi}

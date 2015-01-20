@@ -29,7 +29,7 @@
                 <div id="sg{$entryorder['id']}" class="pluginmanager_grablet sequence_grablet">
                     <button class="icon_link" type="button" title="{$CONST.MOVE}"><span class="icon-move"></span><span class="visuallyhidden"> {$CONST.MOVE}</span></button>
                 </div>
-                {if $entryorder['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entryorder['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}<span title="#{$entryorder['id']} {if !empty($entryorder['headline'])}{$entryorder['headline']|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}{else}{$entryorder['pagetitle']|escape}{/if}" class="sp_grablet_title">{$entryorder['pagetitle']|escape|truncate:50}</span>
+                {if $entryorder['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entryorder['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}<span title="#{$entryorder['id']} {if !empty($entryorder['headline'])}{$entryorder['headline']}{else}{$entryorder['pagetitle']|escape}{/if}" class="sp_grablet_title">{$entryorder['pagetitle']|escape|truncate:50}</span>
             </li>
         {/foreach}
         </ol>
@@ -255,7 +255,7 @@
     <div class="sp_entries_pane {cycle values="odd,even"}{if $entry@last} sp_close{/if}">
         <ul id="sp_entries_list" class="plainList{if $entry['parent_id'] > 0} sp_isChild{/if}">
             <li id="sple{$entry['id']}" class="clearfix">
-                <h3>{if $entry['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entry['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']|escape}">{if !empty($entry['headline'])}{$entry['headline']|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc|truncate:50}{else}{$entry['pagetitle']|escape}{/if}</a></h3>
+                <h3>{if $entry['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entry['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']|escape}">{if !empty($entry['headline'])}{$entry['headline']|truncate:50}{else}{$entry['pagetitle']|escape}{/if}</a></h3>
                 <div class="clearfix spmod">{$entry['timestamp']|@formatTime:'%Y-%m-%d'} {if $entry['timestamp'] <= ($entry['last_modified'] - 1800)}<span class="icon-clock" title="{$CONST.LAST_UPDATED}: {$entry['last_modified']|@formatTime:'%Y-%m-%d'}"></span>{/if}</div>
             </li>
             <li class="clearfix">

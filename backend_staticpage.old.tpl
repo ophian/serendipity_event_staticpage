@@ -29,7 +29,7 @@
         <li id="{$sp_element['id']}" class="sequence_item_old pluginmanager_item_even">{*  in normal situations id=$sp_element['pagetitle'], but we need id for js sequence mode *}
             <input type="hidden" name="serendipity[plugin][sequence][id]" id="sid{$sp_element['id']}" value="{$sp_element['id']}" />
             <div id="sg{$sp_element['id']}" class="pluginmanager_grablet sequence_grablet"><a href="#"></a></div>
-            <span title="#{$sp_element['id']} {if !empty($sp_element['headline'])}{$sp_element['headline']|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc}{else}{$sp_element['pagetitle']|escape}{/if}">{$sp_element['pagetitle']|escape}</span>
+            <span title="#{$sp_element['id']} {if !empty($sp_element['headline'])}{$sp_element['headline']}{else}{$sp_element['pagetitle']|escape}{/if}">{$sp_element['pagetitle']|escape}</span>
         </li>
     {/foreach}
     </ol>
@@ -318,7 +318,7 @@
 <div class="sp_entries_pane">
     <ul id="sp_entries_list" class="plainList serendipity_admin_list_item serendipity_admin_list_item_{if $smarty.foreach.sp_listentry.iteration % 2}even{else}uneven{/if}">
         <li id="sple{$entry['id']}" class="clearfix">
-            <h3>{if $entry['publishstatus'] == false}{$CONST.DRAFT}: {/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']|escape}">{if !empty($entry['headline'])}{$entry['headline']|escape:'html':$CONST.LANG_CHARSET:$staticpage_doublesc|truncate:50}{else}{$entry['pagetitle']|escape}{/if}</a></h3>
+            <h3>{if $entry['publishstatus'] == false}{$CONST.DRAFT}: {/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']|escape}">{if !empty($entry['headline'])}{$entry['headline']|truncate:50}{else}{$entry['pagetitle']|escape}{/if}</a></h3>
             <div class="clearfix spmod">{$entry['timestamp']|@formatTime:'%Y-%m-%d'} {if $entry['timestamp'] <= ($entry['last_modified'] - 1800)}<span class="icon-clock" title="{$CONST.LAST_UPDATED}: {$entry['last_modified']|@formatTime:'%Y-%m-%d'}"></span>{/if}</div>
         </li>
         <li class="clearfix">

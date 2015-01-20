@@ -3156,7 +3156,7 @@ class serendipity_event_staticpage extends serendipity_event
                             echo "<br>\n";
                         }
                         // note this to user
-                        echo '<div class="msg_notice"><span class="icon-error"></span> ' . IMPORT_NOTES . ': ' . sprintf(RELATED_CATEGORY_CHANGE_DEL_MSG, $pcp) . '</div>';
+                        echo '<div class="msg_notice spmsg"><span class="icon-error"></span> ' . IMPORT_NOTES . ': ' . sprintf(RELATED_CATEGORY_CHANGE_DEL_MSG, $pcp) . '</div>';
                     }
                     break;
 
@@ -3201,7 +3201,7 @@ class serendipity_event_staticpage extends serendipity_event
 
                     if ($pid > 0 && $pcp != $pid) {
                         // note this to user in case we had updated real data
-                        echo '<div class="msg_notice"><span class="icon-error"></span> ' . IMPORT_NOTES . ': ' . sprintf(RELATED_CATEGORY_CHANGE_MSG, $pcp, $pid) . '</div>';
+                        echo '<div class="msg_notice spmsg"><span class="icon-error"></span> ' . IMPORT_NOTES . ': ' . sprintf(RELATED_CATEGORY_CHANGE_MSG, $pcp, $pid) . '</div>';
                     }
                     break;
 

@@ -1,16 +1,15 @@
 
-.icon-ok:before{content:'\2714'}
-.icon-error:before{content:'\26a0';}
-.icon-cancel-circle:before{content:'\2716'}
-.icon-attention:before{content:'\2757';}
-.icon-attention:before{content:'!';font-weight:bold;} /* fake for chrome, since exclamation mark ! not supported as native \2757 */
+.spmsg .icon-ok:before{content:'\2714'}
+.spmsg .icon-error:before{content:'\26a0';}
+.spmsg .icon-attention:before{content:'\2757';}
+.spmsg .icon-attention:before{content:'!';font-weight:bold;} /* fake for chrome, since exclamation mark ! not supported as native \2757 */
 
-.icon-error:before{content:'\2716'} /* fake for chrome, since origin triangled exclamation mark <!> not supported as native unicode */
+.spmsg .icon-error:before{content:'\2716'} /* fake for chrome, since origin triangled exclamation mark <!> not supported as native unicode */
 
-.icon-attention:before, .icon-error:before {color:red;}
-.icon-ok:before {color:green;}
-.icon-clock:before {color:purple;}
-.icon-ok:before, .icon-error:before, .icon-attention:before, .icon-clock:before {font-size:131%;}
+.spmsg .icon-attention:before, .spmsg .icon-error:before {color:red;}
+.spmsg .icon-ok:before {color:green;}
+.spmod .icon-clock:before {color:purple;}
+#splistorder .icon-ok:before, .spmsg .icon-ok:before, .spmsg .icon-error:before, .spmsg .icon-attention:before, .spmod .icon-clock:before {font-size:131%;}
 
 #serendipityStaticpagesNav ul {
     padding: 3px 0 1px;

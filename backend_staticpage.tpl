@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.18, 2015-01-04 *}
+{* backend_staticpage template file v. 1.19, 2015-01-20 *}
 
 <!-- backend_staticpage.tpl START -->
 
@@ -47,15 +47,15 @@
 {elseif $switch_spcat == 'pagetype'}
 
     {if $sp_pagetype_saveconf}
-<div class="msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
+<div class="msg_success spmsg"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
     {/if}
 
     {if $sp_pagetype_purged}
-<div class="msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.RIP_ENTRY|sprintf:$sp_pagetype_ripped}</div>
+<div class="msg_success spmsg"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.RIP_ENTRY|sprintf:$sp_pagetype_ripped}</div>
     {/if}
 
     {if $sp_pagetype_update}
-<div class="msg_error"><span class="icon-error"></span> {$CONST.ERROR}: {$sp_pagetype_mixedresult}</div>
+<div class="msg_error spmsg"><span class="icon-error"></span> {$CONST.ERROR}: {$sp_pagetype_mixedresult}</div>
     {/if}
 
 <form action="serendipity_admin.php" method="post" name="serendipityEntry">
@@ -98,7 +98,7 @@
 <div id="staticpage_pageadd" class="sp_padd">
 
     {if $sp_addsubmit}
-    <div class="msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
+    <div class="msg_success spmsg"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
     {/if}
 
     <p>{$CONST.STATICPAGE_PAGEADD_DESC}</p>
@@ -147,23 +147,23 @@
 
     {if $sp_staticsubmit}
         {if !empty($sp_defpages_upd_result)}
-<div class="msg_error"><span class="icon-error"></span> {$CONST.ERROR}: {$sp_defpages_upd_result}</div>
+<div class="msg_error spmsg"><span class="icon-error"></span> {$CONST.ERROR}: {$sp_defpages_upd_result}</div>
         {else}
-<div class="msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
+<div class="msg_success spmsg"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
         {/if}
     {/if}
 
     {if $sp_staticdelete}
         {if isset($sp_defpages_rip_success)}
-<div class="msg_success"><span class="icon-ok"></span> {$sp_defpages_rip_success}</div>
+<div class="msg_success spmsg"><span class="icon-ok"></span> {$sp_defpages_rip_success}</div>
         {else}
-<div class="msg_notice">
+<div class="msg_notice spmsg">
     <span class="icon-error"></span> {$CONST.IMPORT_NOTES}: {$CONST.STATICPAGE_CANNOTDELETE_MSG}
 </div>
         {/if}
     {/if}
     {if $sp_relcatchange}
-<div class="msg_notice">
+<div class="msg_notice spmsg">
     <span class="icon-error"></span> {$CONST.IMPORT_NOTES}: {$CONST.RELATED_CATEGORY_CHANGE_MSG|sprintf:$prev_relcat_staticpage:$this_relcat_staticpage}
 </div>
     {/if}
@@ -287,7 +287,7 @@
 
     {else} {* if !$sp_listentries_entries || empty($sp_listentries_entries) *}
 
-<div class="msg_notice">
+<div class="msg_notice spmsg">
     <span class="icon-attention"></span> {$CONST.NO_ENTRIES_TO_PRINT}
 </div>
 

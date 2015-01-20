@@ -1,4 +1,4 @@
-{* old_backend_staticpage template file v. 1.14, 2015-01-04 *}
+{* old_backend_staticpage template file v. 1.15, 2015-01-20 *}
 
 <!-- old_backend_staticpage.tpl START -->
 
@@ -101,15 +101,15 @@
 {elseif $switch_spcat == 'pagetype'}
 
     {if $sp_pagetype_saveconf}
-<div class="serendipityAdminMsgSuccess msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
+<div class="serendipityAdminMsgSuccess msg_success spmsg "><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
     {/if}
 
     {if $sp_pagetype_purged}
-<div class="serendipityAdminMsgSuccess msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.RIP_ENTRY|sprintf:$sp_pagetype_ripped}</div>
+<div class="serendipityAdminMsgSuccess msg_success spmsg"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.RIP_ENTRY|sprintf:$sp_pagetype_ripped}</div>
     {/if}
 
     {if $sp_pagetype_update}
-<div class="serendipityAdminMsgError msg_error"><span class="icon-error"></span> {$CONST.ERROR}: {$sp_pagetype_mixedresult}</div>
+<div class="serendipityAdminMsgError msg_error spmsg"><span class="icon-error"></span> {$CONST.ERROR}: {$sp_pagetype_mixedresult}</div>
     {/if}
 
 <form action="serendipity_admin.php" method="post" name="serendipityEntry">
@@ -150,7 +150,7 @@
 {elseif $switch_spcat == 'pageadd'}
 
     {if $sp_addsubmit}
-<div class="serendipityAdminMsgSuccess msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
+<div class="serendipityAdminMsgSuccess msg_success spmsg"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
     {/if}
 
 <p class="sp_bold">{$CONST.STATICPAGE_PAGEADD_DESC}</p>
@@ -200,23 +200,23 @@
 
     {if $sp_staticsubmit}
         {if !empty($sp_defpages_upd_result)}
-<div class="serendipityAdminMsgError msg_error"><span class="icon-error"></span> {$CONST.ERROR}: {$sp_defpages_upd_result}</div>
+<div class="serendipityAdminMsgError msg_error spmsg"><span class="icon-error"></span> {$CONST.ERROR}: {$sp_defpages_upd_result}</div>
         {else}
-<div class="serendipityAdminMsgSuccess msg_success"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
+<div class="serendipityAdminMsgSuccess msg_success spmsg"><span class="icon-ok"></span> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|@formatTime:'%H:%M:%S')}</div>
         {/if}
     {/if}
 
     {if $sp_staticdelete}
         {if isset($sp_defpages_rip_success)}
-<div class="serendipityAdminMsgSuccess msg_success"><span class="icon-ok"></span> {$sp_defpages_rip_success}</div>
+<div class="serendipityAdminMsgSuccess msg_success spmsg"><span class="icon-ok"></span> {$sp_defpages_rip_success}</div>
         {else}
-<div class="serendipityAdminMsgNote msg_notice">
+<div class="serendipityAdminMsgNote msg_notice spmsg">
     <span class="icon-error"></span> {$CONST.IMPORT_NOTES}: {$CONST.STATICPAGE_CANNOTDELETE_MSG}
 </div>
         {/if}
     {/if}
     {if $sp_relcatchange}
-<div class="serendipityAdminMsgNote msg_notice">
+<div class="serendipityAdminMsgNote msg_notice spmsg">
     <span class="icon-error"></span> {$CONST.IMPORT_NOTES}: {$CONST.RELATED_CATEGORY_CHANGE_MSG|sprintf:$prev_relcat_staticpage:$this_relcat_staticpage}
 </div>
     {/if}
@@ -345,7 +345,7 @@
 
         {else} {* if !$sp_listentries_entries || empty($sp_listentries_entries) *}
 
-<div class="serendipityAdminMsgNote msg_notice">
+<div class="serendipityAdminMsgNote msg_notice spmsg">
     <span class="icon-attention"></span> {$CONST.NO_ENTRIES_TO_PRINT}
 </div>
 

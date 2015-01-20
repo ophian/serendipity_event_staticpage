@@ -183,7 +183,7 @@
     padding: .2em 0;
 }
 /* overwrite 2k11/admin/style.css active toogle Ln 779 */
-#backend_sp_respond .sp_toggle active {
+#backend_sp_respond .sp_toggle.active {
     background: #ddd;
     background-image: -webkit-linear-gradient(#fff, #ddd);
     background-image: linear-gradient(#fff, #ddd);

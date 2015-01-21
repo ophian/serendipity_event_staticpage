@@ -169,8 +169,8 @@
         <!-- RIGHT -->
         <fieldset class="sect_meta">
             <legend>{$CONST.STATICPAGE_SECTION_META}</legend>
-            <div class="sp_sect">
-                <label class="sp_label sp_button" title="{staticpage_input item="pagetitle" what="desc"}">{staticpage_input item="pagetitle" what="name"}</label>
+            <div class="sp_sect">{capture name="pagetitle"}{staticpage_input item="pagetitle" what="name"}{/capture}
+                <label class="sp_label sp_button" title="{$smarty.capture.pagetitle}">{$smarty.capture.pagetitle|truncate:30}</label>
                 {if $new_backend}<button class="toggle_info button_link" type="button" data-href="#meta_urltitle_info"><span class="icon-info-circled"></span><b>i</b><span class="visuallyhidden"> {$CONST.MORE}</span></button>{/if}
                     {staticpage_input item="pagetitle"}
                 {if $new_backend}

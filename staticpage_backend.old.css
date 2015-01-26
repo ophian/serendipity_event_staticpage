@@ -42,7 +42,7 @@
   text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3);
 }
 
-.spmod .icon-clock:before{content:'\2940'} /* fake for chrome, since origin clock not supported as native unicode - U+2940  &#10560;  ANTICLOCKWISE CLOSED CIRCLE ARROW  */
+/* .spmod .icon-clock:before{content:'\2940'} fake for chrome, since origin clock not supported as native unicode - U+2940  &#10560;  ANTICLOCKWISE CLOSED CIRCLE ARROW  */
 
 .msg_error,
 .msg_success,

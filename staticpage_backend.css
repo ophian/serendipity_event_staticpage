@@ -1,3 +1,74 @@
+@font-face {
+  font-family: 'spontello';
+  src: url('font/fontello.eot?95013916');
+  src: url('font/fontello.eot?95013916#iefix') format('embedded-opentype'),
+       url('font/fontello.woff?95013916') format('woff'),
+       url('font/fontello.ttf?95013916') format('truetype'),
+       url('font/fontello.svg?95013916#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'spontello';
+    src: url('font/fontello.svg?95013916#fontello') format('svg');
+  }
+}
+*/
+
+.spnav  [class^="icon-"]:before, .spnav [class*=" icon-"]:before {
+  font-family: "spontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed
+  margin-left: .2em; */
+
+  /* you can be more comfortable with increased icons size */
+  font-size: 131%; /* set to min height (clock) */
+
+  /* Uncomment for 3D effect */
+  text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); /* */
+
+  color: #666;
+  cursor: default;
+}
+
+.spnav  .icon-list:before { content: '\e800'; } /* '?' */
+.spnav  .icon-sort:before { content: '\e801'; } /* '?' */
+.spnav  .icon-puzzle:before { content: '\e802'; } /* '?' */
+.spnav  .icon-sitemap:before { content: '\e803'; } /* '?' */
+.spnav  .icon-clock:before { content: '\e804'; } /* '?' */
+
+.splist, .sptab {
+    color: #666;
+}
+.splist {
+    font-size: 1.375em; /* sizes to ~180% */
+}
+.sptab img {
+   color: #666;
+   font-size: x-small;
+}
 
 .spmsg .icon-ok:before{content:'\2714'}
 .spmsg .icon-error:before{content:'\26a0';}
@@ -10,6 +81,13 @@
 .spmsg .icon-ok:before {color:green;}
 .spmod .icon-clock:before {color:purple;}
 #splistorder .icon-ok:before, .spmsg .icon-ok:before, .spmsg .icon-error:before, .spmsg .icon-attention:before, .spmod .icon-clock:before {font-size:131%;}
+
+@media only screen and (max-width: 768px) {
+    .spshow {
+        display: none;
+        visibility: hidden;
+    }
+}
 
 #serendipityStaticpagesNav ul {
     padding: 3px 0 1px;
@@ -112,6 +190,10 @@
     background-color: #EEE;
     padding: 5px;
     border: 1px solid #DDD;
+}
+.sp_listnav {
+    float: right;
+    text-align: right;
 }
 .sp_listfooter {
     background-color: #DFDFDF;

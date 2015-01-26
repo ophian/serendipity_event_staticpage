@@ -86,7 +86,7 @@ $(function() {
         });
     } else {
         // case: nothing is set, append to listentries footer bar
-        $('.sp_listfooter').find("input:last").after(el);
+        //$('.sp_listfooter').find("input:last").after(el); since using iconized tabbar for entrylist - no need
         // case: nothing is set, append to navigator box
         $('#sp_navigator input.entry_preview').after(el);
         // case: set the dynamically created button text

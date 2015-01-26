@@ -15,6 +15,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] New: iconized entry tabbar for 2.0
 - [x] better use fixUTFEntity method only for frontend template vars (articleformatitle and headline)
 - [x] set backends form textformat option automatically to NO, on WYSIWYG usage (?) Yes. Has dependency in 2.0 entryproperties!
 - [x] Added - automark an entry as written by Wysiwyg-Editor via custom fields, to disable nl2br markup formating

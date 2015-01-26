@@ -86,6 +86,7 @@
       in backend/frontend (which updates plugin_staticpage_***.tpl files again)
  *  Added - automark an entry as written by Wysiwyg-Editor via custom fields, to disable nl2br markup formating
  *  Fixed PHP 5.5+ compat
+ *  New - Iconized entrylist tabbar for 2.0
 
 
     TL;DR - Please note:

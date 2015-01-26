@@ -1,15 +1,17 @@
-{* backend_staticpage template file v. 1.19, 2015-01-20 *}
+{* backend_staticpage template file v. 1.20, 2015-01-26 *}
 
 <!-- backend_staticpage.tpl START -->
 
+{if !$sp_listentries_entries}
 <div id="serendipityStaticpagesNav">
     <ul>
-        <li{if $s9y_get_cat == 'pageedit'} id="active"{/if}><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageedit">{$CONST.STATICPAGE_CATEGORY_PAGES}</a></li>
-        <li{if $s9y_get_cat == 'pageorder'} id="active"{/if}><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder">{$CONST.STATICPAGE_CATEGORY_PAGEORDER}</a></li>
-        <li{if $s9y_get_cat == 'pagetype' || $s9y_post_cat == 'pagetype'} id="active"{/if}><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pagetype">{$CONST.STATICPAGE_CATEGORY_PAGETYPES}</a></li>
-        <li{if $s9y_get_cat == 'pageadd'} id="active"{/if}><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageadd">{$CONST.STATICPAGE_CATEGORY_PAGEADD}</a></li>
+        <li{if $s9y_get_cat == 'pageedit'} id="active"{/if} class="spnav sptab"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageedit"><span title="{$CONST.STATICPAGE_CATEGORY_PAGES}" class="icon-list"></span><span class="spshow"> {$CONST.STATICPAGE_CATEGORY_PAGES}</span></a></li>
+        <li{if $s9y_get_cat == 'pageorder'} id="active"{/if} class="spnav sptab"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEORDER}" class="icon-sort"></span><span class="spshow"> {$CONST.STATICPAGE_CATEGORY_PAGEORDER}</span></a></li>
+        <li{if $s9y_get_cat == 'pagetype' || $s9y_post_cat == 'pagetype'} id="active"{/if} class="spnav sptab"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pagetype"><span title="{$CONST.STATICPAGE_CATEGORY_PAGETYPES}" class="icon-puzzle"></span><span class="spshow"> {$CONST.STATICPAGE_CATEGORY_PAGETYPES}</span></a></li>
+        <li{if $s9y_get_cat == 'pageadd'} id="active"{/if} class="spnav sptab"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageadd"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEADD}" class="icon-sitemap"></span><span class="spshow"> {$CONST.STATICPAGE_CATEGORY_PAGEADD}</span></a></li>
     </ul>
 </div>
+{/if}
 
 {if $switch_spcat == 'pageorder'}
 
@@ -246,9 +248,16 @@
 
 <h2>{$CONST.STATICPAGE_LIST_EXISTING_PAGES}</h2>
 
+<div class="sp_listnav">
+    <span{if $s9y_get_cat == 'pageedit'} id="active"{/if} class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageedit"><span title="{$CONST.STATICPAGE_CATEGORY_PAGES}" class="icon-list"></span></a></span>
+    <span class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEORDER}" class="icon-sort"></span></a></span>
+    <span class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pagetype"><span title="{$CONST.STATICPAGE_CATEGORY_PAGETYPES}" class="icon-puzzle"></span></a></span>
+    <span class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageadd"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEADD}" class="icon-sitemap"></span></a></span>
+</div>
+
 <div id="sp_entry_pagination"></div>
 
-<div id="step">
+<div id="step" class="clearfix">
 
 {foreach $sp_listentries_entries AS $entry}
 
@@ -256,7 +265,7 @@
         <ul id="sp_entries_list" class="plainList{if $entry['parent_id'] > 0} sp_isChild{/if}">
             <li id="sple{$entry['id']}" class="clearfix">
                 <h3>{if $entry['parent_id'] > 0}<span class="entry_status sp_ptree">#{$entry['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']|escape}">{if !empty($entry['headline'])}{$entry['headline']|truncate:50}{else}{$entry['pagetitle']|escape}{/if}</a></h3>
-                <div class="clearfix spmod">{$entry['timestamp']|@formatTime:'%Y-%m-%d'} {if $entry['timestamp'] <= ($entry['last_modified'] - 1800)}<span class="icon-clock" title="{$CONST.LAST_UPDATED}: {$entry['last_modified']|@formatTime:'%Y-%m-%d'}"></span>{/if}</div>
+                <div class="clearfix spnav spmod">{$entry['timestamp']|@formatTime:'%Y-%m-%d'} {if $entry['timestamp'] <= ($entry['last_modified'] - 1800)}<span class="icon-clock" title="{$CONST.LAST_UPDATED}: {$entry['last_modified']|@formatTime:'%Y-%m-%d'}"></span>{/if}</div>
             </li>
             <li class="clearfix">
                 {$CONST.POSTED_BY} {$sp_listentries_authors[$entry['authorid']]|escape} <span class="sp_dim">[<em class="sp_lang">{$entry['language']}</em>]</span>

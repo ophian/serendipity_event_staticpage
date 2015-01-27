@@ -13,7 +13,7 @@
 /*
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
-    font-family: 'fontello';
+    font-family: 'spontello';
     src: url('../font/fontello.svg?74722642#fontello') format('svg');
   }
 }
@@ -44,7 +44,7 @@
   margin-left: .2em; */
 
   /* you can be more comfortable with increased icons size */
-  font-size: 18px;/* 131%; set to min height (for clock) */
+  font-size: 18px;/* set to min height (for clock) */
 
   /* Uncomment for 3D effect */
   text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); /* */
@@ -530,7 +530,7 @@
     text-shadow: #fff 0 1px 1px;
 }
 #sp_entries_list input[type="submit"] {
-    font-family: "fontello";
+    font-family: "fontello"; /* yes, use serendipity default here! ;-) */
 }
 .sp-btn-edit:before { content:attr(value) '\e803'; }
 .sp-btn-purge:before { content: attr(value) '\e80d'); }

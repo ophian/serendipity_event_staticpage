@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'spontello';
-  src: url('font/fontello.eot?95013916');
-  src: url('font/fontello.eot?95013916#iefix') format('embedded-opentype'),
-       url('font/fontello.woff?95013916') format('woff'),
-       url('font/fontello.ttf?95013916') format('truetype'),
-       url('font/fontello.svg?95013916#fontello') format('svg');
+  src: url('font/fontello.eot?74722642');
+  src: url('font/fontello.eot?74722642#iefix') format('embedded-opentype'),
+       url('font/fontello.woff?74722642') format('woff'),
+       url('font/fontello.ttf?74722642') format('truetype'),
+       url('font/fontello.svg?74722642#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -13,8 +13,8 @@
 /*
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
-    font-family: 'spontello';
-    src: url('font/fontello.svg?95013916#fontello') format('svg');
+    font-family: 'fontello';
+    src: url('../font/fontello.svg?74722642#fontello') format('svg');
   }
 }
 */
@@ -44,7 +44,7 @@
   margin-left: .2em; */
 
   /* you can be more comfortable with increased icons size */
-  font-size: 131%; /* set to min height (clock) */
+  font-size: 18px;/* 131%; set to min height (for clock) */
 
   /* Uncomment for 3D effect */
   text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); /* */
@@ -54,7 +54,6 @@
 }
 
 .splist [class^="icon-"]:before {
-    font-size: 1.25em; /* upsize a little more for the icon entrylist nav */
     color: #F8F8F8;
     background: #666;
     -webkit-border-radius: 0.15em;
@@ -65,14 +64,13 @@
     padding: 0.2em;
     margin: 0;
 }
-
-.spnav  .icon-list:before { content: '\e800'; } /* '?' */
+.spnav  .icon-menu:before { content: '\e800'; } /* '?' */
 .spnav  .icon-sort:before { content: '\e801'; } /* '?' */
 .spnav  .icon-puzzle:before { content: '\e802'; } /* '?' */
 .spnav  .icon-sitemap:before { content: '\e803'; } /* '?' */
 .spnav  .icon-clock:before { content: '\e804'; } /* '?' */
 
-.sptab {
+.sptab [class^="icon-"]:before {
    font-size: small;
 }
 
@@ -86,15 +84,25 @@
 .spmsg .icon-attention:before, .spmsg .icon-error:before {color:red;}
 .spmsg .icon-ok:before {color:green;}
 .spmod .icon-clock:before {color:purple;}
-#splistorder .icon-ok:before, .spmsg .icon-ok:before, .spmsg .icon-error:before, .spmsg .icon-attention:before, .spmod .icon-clock:before {font-size:131%;}
+#splistorder .icon-ok:before, .spmsg .icon-ok:before, .spmsg .icon-error:before, .spmsg .icon-attention:before, .spmod .icon-clock:before {font-size: 18px;}
 
+.sp_entries_pane .spform a { padding-bottom: 1.25em; }
 @media only screen and (max-width: 768px) {
     .spshow {
         display: none;
         visibility: hidden;
     }
+    .sptab [class^="icon-"]:before {
+        font-size: 18px;
+    }
+    .sp_entries_pane .spform a {
+        padding-bottom: 1.3em;
+    }
 }
 
+#sp_navigator {
+    margin-top: 1.5em;
+}
 #serendipityStaticpagesNav ul {
     padding: 3px 0 1px;
     margin-left: 0;
@@ -201,6 +209,7 @@
     float: right;
     text-align: right;
     line-height: 1;
+    margin-top: .1em;
 }
 .sp_listfooter {
     background-color: #DFDFDF;
@@ -253,11 +262,12 @@
     display: inline-flex;
     height: 1.5em;
 }
+
 .serendipityAdminContent span.five {
     font-weight: 500;
     color: rgb(0, 0, 0) !important;
 }
-.sp_ptree { font-weight:500; }
+.sp_ptree { font-weight: 500; }
 .sp_ctree { color: rgba(117, 131, 156, 1); }
 .sp_tree_child,
 .sp_status_draft { margin: 0px 0.2em 0px 0px; }
@@ -321,6 +331,7 @@
     cursor: pointer;
     float: right;
 }
+.sp_formnav { margin-top: 0.3em; }
 #sp_navigator .sp_info { font-size: 125%; }
 .sp_ptype .input_textbox { width: inherit; }
 
@@ -328,6 +339,16 @@
 .sp_lang { padding: 0 0.1em; color: #800080; } 
 
 /**** 2.0 and very few tweaks for old backend ****/
+
+.sp_pageselector button[type="submit"].entry_preview {
+    background: #ddd;
+    background-image: -webkit-linear-gradient(#fff, #ddd);
+    background-image: linear-gradient(#fff, #ddd);
+    border-color: #ddd #bbb #999;
+    color: #222;
+    text-shadow: #fff 0 1px 1px;
+}
+
 #staticpage_pagetype fieldset,
 #staticpage_pageadd .sp_add {
     border: 1px solid #c0c0c0;
@@ -504,15 +525,14 @@
     text-shadow: inherit !important;
     border-color: #ddd #bbb #999 !important;
 }
-#sp_entries_list input[type="submit"] {
-    font-family: "fontello";
-}
 .sp-btn {
     color: #222 !important;
     text-shadow: #fff 0 1px 1px;
 }
+#sp_entries_list input[type="submit"] {
+    font-family: "fontello";
+}
 .sp-btn-edit:before { content:attr(value) '\e803'; }
-
 .sp-btn-purge:before { content: attr(value) '\e80d'); }
 
 /* pagetype */

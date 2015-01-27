@@ -102,3 +102,6 @@
     margin: auto 0.3em;
 }
 
+#entry_meta_urltitle label {
+    display: block;
+}

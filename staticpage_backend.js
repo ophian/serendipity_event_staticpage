@@ -63,41 +63,6 @@ saveNewOrder = (function() {
     });
 });
 
-// create, set, check stored and bind the tab bar hide/show button
-$(function() {
-    var stb = localStorage.getItem('staticpageTabBar');
-    var el  = '<span id="sp_tabbar" class="button_link sp-btn sp_right icon-up-dir"></span>';
-    if ( stb !== null ) {
-        $('#serendipityStaticpagesNav').hide(function(){
-            // since is removed navigation top tab bar, correct navigator box margin-top to #content
-            $('#sp_navigator').css({'margin-top' : '1.54em'});
-            // hidden set tab bar needs to create button and bind event handler
-            if ($('#sp_tabbar').length == 0) {
-                //  to navigator
-                $('#sp_navigator input.entry_preview').after(el);
-                //  to footer
-                $('.sp_listfooter').find("input:last").after(el);
-                // and bind click handler
-                $('#sp_tabbar').on('click', function(){
-                    setTabBar(this);
-                })
-            };
-            $('#sp_tabbar').text('Show TabBar').removeClass('icon-up-dir').addClass('icon-down-dir');
-        });
-    } else {
-        // case: nothing is set, append to listentries footer bar
-        //$('.sp_listfooter').find("input:last").after(el); since using iconized tabbar for entrylist - no need
-        // case: nothing is set, append to navigator box
-        $('#sp_navigator input.entry_preview').after(el);
-        // case: set the dynamically created button text
-        $('#sp_tabbar').text('Hide TabBar');
-        // case: bind click handler
-        $('#sp_tabbar').on('click', function(){
-            setTabBar(this);
-        });
-    }
-});
-
 // staticpage entrieslist simplePagination executor
 $(function() {
 

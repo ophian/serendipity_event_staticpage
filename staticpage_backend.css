@@ -87,6 +87,7 @@
 #splistorder .icon-ok:before, .spmsg .icon-ok:before, .spmsg .icon-error:before, .spmsg .icon-attention:before, .spmod .icon-clock:before {font-size: 18px;}
 
 .sp_entries_pane .spform a { padding-bottom: 1.25em; }
+.sp_formnav { margin-top: 4px; }
 @media only screen and (max-width: 768px) {
     .spshow {
         display: none;
@@ -97,6 +98,9 @@
     }
     .sp_entries_pane .spform a {
         padding-bottom: 1.3em;
+    }
+    .sp_formnav {
+        margin-top: 0px;
     }
 }
 
@@ -219,6 +223,7 @@
 }
 .default_staticpage {
     margin-top: 1.2em;
+    clear: both;
 }
 .default_staticpage .sp_label {
     font-weight: bold;
@@ -331,7 +336,7 @@
     cursor: pointer;
     float: right;
 }
-.sp_formnav { margin-top: 0.3em; }
+
 #sp_navigator .sp_info { font-size: 125%; }
 .sp_ptype .input_textbox { width: inherit; }
 

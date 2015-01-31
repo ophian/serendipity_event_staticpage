@@ -1,4 +1,4 @@
-4.34:
+4.36:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -88,6 +88,7 @@
  *  Fixed PHP 5.5+ compat
  *  New - Iconized entrylist/entryform tabbar for 2.0
  *  Fixed preview button for existing pages with 2.0
+ *  Fixed 2.0 backend template form chaining (4.08) and merge form names uniquely
 
 
     TL;DR - Please note:

@@ -100,7 +100,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.35');
+        $propbag->add('version', '4.36');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -2533,7 +2533,7 @@ class serendipity_event_staticpage extends serendipity_event
                         }
                     }
                     if (isset($ts_option) && is_array($ts_option)) {
-                        $serendipity['smarty']->assign('sp_defpages_top', $ts_option);
+                        $serendipity['smarty']->assign('sp_defpages_top', array_keys(array_flip($ts_option)));
                     }
 
                     $pages = $this->fetchStaticPages();
@@ -2826,7 +2826,11 @@ class serendipity_event_staticpage extends serendipity_event
             $filename = 'default_staticpage_backend.tpl';
         }
 
-        $tfile = serendipity_getTemplateFile('backend_templates/' . $filename, 'serendipityPath');
+        if ($serendipity['version'][0] < 2) {
+            $tfile = serendipity_getTemplateFile('backend_templates/' . $filename, 'serendipityPath'); // old API
+        } else {
+            $tfile = serendipity_getTemplateFile('backend_templates/' . $filename, 'serendipityPath', true); // force fallback
+        }
         if (!$tfile || $tfile == 'backend_templates/' . $filename) {
             $tfile = serendipity_getTemplateFile($filename, 'serendipityPath');
             if (!$tfile || $tfile == $filename) {

@@ -15,6 +15,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Fixed 2.0 backend template form chaining (4.08) and merge array backend form names uniquely
 - [x] Fixed preview button for existing pages with 2.0
 - [x] New: iconized entrylist/entryform tabbar for 2.0
 - [x] better use fixUTFEntity method only for frontend template vars (articleformatitle and headline)

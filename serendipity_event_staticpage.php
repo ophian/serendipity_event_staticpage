@@ -100,7 +100,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.36');
+        $propbag->add('version', '4.37');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -2495,9 +2495,12 @@ class serendipity_event_staticpage extends serendipity_event
                     // this is the default SELECT list block
                     $serendipity['smarty']->assign('sp_defpages_showlist', false);
 
-                    if (empty($serendipity['POST']['backend_template'])) {
+                    // case start, or update, or expired cookie - make sure to get a form selected
+                    if (empty($serendipity['POST']['backend_template']) || !isset($serendipity['POST']['backend_template'])) {
                         if (!empty($serendipity['COOKIE']['backend_template'])) {
                             $serendipity['POST']['backend_template'] = $serendipity['COOKIE']['backend_template'];
+                        } else {
+                            $serendipity['POST']['backend_template'] = ($serendipity['version'][0] > 1) ? 'responsive_template.tpl' : 'default_staticpage_backend.tpl'; // set as (new) default form selected
                         }
                         $serendipity['smarty']->assign('sp_defpages_jsCookie', '');
                     } else {
@@ -2808,7 +2811,6 @@ class serendipity_event_staticpage extends serendipity_event
         if (!is_object($serendipity['smarty'])) {
             serendipity_smarty_init();
         }
-        $serendipity['smarty']->registerPlugin('modifier', 'in_array', 'in_array');
         $serendipity['smarty']->registerPlugin('function', 'staticpage_input', array($this, 'SmartyInspectConfig'));
         $serendipity['smarty']->registerPlugin('function', 'staticpage_input_finish', array($this, 'SmartyInspectConfigFinish'));
 
@@ -2823,7 +2825,7 @@ class serendipity_event_staticpage extends serendipity_event
         $filename = preg_replace('@[^a-z0-9\._-]@i', '', $serendipity['POST']['backend_template']);
         // check for other templates, else set default and check for old staticpage used internal, which is removed
         if (empty($filename) || $serendipity['POST']['backend_template'] == 'internal') {
-            $filename = 'default_staticpage_backend.tpl';
+            $filename = ($serendipity['version'][0] > 1) ? 'responsive_template.tpl' : 'default_staticpage_backend.tpl'; // set as (new) default form file
         }
 
         if ($serendipity['version'][0] < 2) {

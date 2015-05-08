@@ -89,6 +89,8 @@
  *  New - Iconized entrylist/entryform tabbar for 2.0
  *  Fixed preview button for existing pages with 2.0
  *  Fixed 2.0 backend template form chaining (4.08) and merge form names uniquely
+ *  Fixed default selected fallback backend form when unset or expired cookie
+ *  Removed an old and wrong used registration, since 'in_array' already is an allowed $php_function, since S9y-1.7
 
 
     TL;DR - Please note:

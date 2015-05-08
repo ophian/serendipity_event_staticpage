@@ -15,6 +15,8 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Removed an old and wrong used registration, since 'in_array' already is an allowed $php_function, since S9y-1.7
+- [x] Fixed default selected fallback backend form when unset or expired cookie
 - [x] Fixed 2.0 backend template form chaining (4.08) and merge array backend form names uniquely
 - [x] Fixed preview button for existing pages with 2.0
 - [x] New: iconized entrylist/entryform tabbar for 2.0

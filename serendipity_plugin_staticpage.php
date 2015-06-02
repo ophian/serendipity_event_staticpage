@@ -24,7 +24,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
         $propbag->add('description', PLUGIN_STATICPAGELIST_NAME_DESC);
         $propbag->add('author',      "Rob Antonishen, Falk Doering, Ian");
         $propbag->add('stackable',   true);
-        $propbag->add('version',     '1.24');
+        $propbag->add('version',     '1.25');
         $propbag->add('configuration', array(
                 'title',
                 'limit',
@@ -153,10 +153,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                 $str .= $this->displayPageList((int)$this->get_config('limit'), serendipity_db_bool($this->get_config('parentsonly')));
             }
         } else {
-            if (!isset($serendipity['staticpageplugin']['JS_init'])) {
-                $str .= '<script src="' . $serendipity['baseURL'] . ($serendipity['rewrite'] == 'none' ? $serendipity['indexFile'] . '?/' : '') . 'plugin/dtree.js" type="text/javascript"></script>';
-                $serendipity['staticpageplugin']['JS_init'] = true;
-            }
+            $str .= '<script src="' . $serendipity['baseURL'] . ($serendipity['rewrite'] == 'none' ? $serendipity['indexFile'] . '?/' : '') . 'plugin/spdtree.js" type="text/javascript"></script>'."\n";
 
             $imgdir = $this->get_config('imgdir');
             if ($imgdir === "true") {

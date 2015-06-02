@@ -100,7 +100,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.37');
+        $propbag->add('version', '4.39');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -1513,7 +1513,7 @@ class serendipity_event_staticpage extends serendipity_event
                 }
             }
             $entry = array('body' => $this->get_static('content'));
-            $entry['staticpage'] =& $entry['body'];
+            $entry['staticpage'] =& $entry['body']; // RQ: What for are they doubled?
             serendipity_plugin_api::hook_event('frontend_display', $entry);
             if (isset($entry['markup_staticpage'])) {
                 $staticpage_content = $entry['staticpage'];
@@ -2496,7 +2496,7 @@ class serendipity_event_staticpage extends serendipity_event
                     $serendipity['smarty']->assign('sp_defpages_showlist', false);
 
                     // case start, or update, or expired cookie - make sure to get a form selected
-                    if (empty($serendipity['POST']['backend_template']) || !isset($serendipity['POST']['backend_template'])) {
+                    if (empty($serendipity['POST']['backend_template'])) {
                         if (!empty($serendipity['COOKIE']['backend_template'])) {
                             $serendipity['POST']['backend_template'] = $serendipity['COOKIE']['backend_template'];
                         } else {
@@ -2524,7 +2524,7 @@ class serendipity_event_staticpage extends serendipity_event
                             }
                         }
                     }
-                    $dh = @opendir($serendipity['templatePath'] . $serendipity['template'] . '/backend_templates');
+                    $dh = @opendir($serendipity['serendipityPath'] . $serendipity['templatePath'] . $serendipity['template'] . '/backend_templates');
                     if ($dh) {
                         while ($file = readdir($dh)) {
                             if (!in_array($file, $exclude_files) && preg_match('@^(.*).tpl$@i', $file, $m)) {
@@ -3382,8 +3382,8 @@ class serendipity_event_staticpage extends serendipity_event
                     } else {
                         $param = null;
                     }
-                    // might need a refresh some day
-                    if ($parts[0] == 'dtree.js') {
+                    // might need a lib refresh some day - Please note to use this with a unique single name only, since you could else get this lib in bound-in more than once!
+                    if ($parts[0] == 'spdtree.js') {
                         header('Content-Type: text/javascript');
                         echo file_get_contents(dirname(__FILE__) . '/dtree.js');
                     }
@@ -3402,6 +3402,7 @@ class serendipity_event_staticpage extends serendipity_event
                     break;
 
                 case 'css':
+                    echo '/*** START staticpage event plugin css ***/';
                     if ($serendipity['version'][0] > 1) {
 ?>
 
@@ -3464,7 +3465,18 @@ class serendipity_event_staticpage extends serendipity_event
     color: #bbb;
 }
 
+/*** END staticpage event plugin css ***/
+
 <?php
+                    $filename = 'dtree.css';
+                    $tfile = serendipity_getTemplateFile($filename, 'serendipityPath');
+
+                    if (!$tfile || $tfile == $filename) {
+                        $tfile = dirname(__FILE__) . '/' . $filename;
+                    }
+                    // do not include if not set or already used
+                    if (!serendipity_db_bool($this->get_config('showIcons')) && !strpos($eventData, '.dtree')) echo file_get_contents($tfile);
+
                     break;
 
                 case 'css_backend':

@@ -1,4 +1,4 @@
-4.36:
+4.39:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -91,6 +91,11 @@
  *  Fixed 2.0 backend template form chaining (4.08) and merge form names uniquely
  *  Fixed default selected fallback backend form when unset or expired cookie
  *  Removed an old and wrong used registration, since 'in_array' already is an allowed $php_function, since S9y-1.7
+ *  Fixed cookie issue with backend form template. Set responsive_template.tpl as "default" fallback on S9y >= 2.0
+ *  Fixed missing dtree.css includement, in case of having selected this option
+ *  Fixed dtree.js being included more than once, ba making the called script name unique
+ *  Removed $serendipity['staticpageplugin']['JS_init'] since this had no effect for the dtree.js call
+ *  Add separators to streamed css
 
 
     TL;DR - Please note:

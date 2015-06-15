@@ -1,6 +1,6 @@
 /***
  * Staticpage event backend js
- * Last modified: 2014-07-13
+ * Last modified: 2015-06-15
  **/
 
 /**
@@ -68,7 +68,7 @@ $(function() {
 
     var items    = $('#step > .sp_entries_pane');
     var numItems = items.length;
-    var perPage  = 6;
+    var perPage  = (typeof(spconfig_listPerPage) != 'undefined') ? spconfig_listPerPage : 6;
     var sp_class = { 'border-bottom' : '1px solid #CCC', 'margin-bottom' : '1em' };
 
     $('.sp_entries_pane').hide();

@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.21, 2015-01-27 *}
+{* backend_staticpage template file v. 1.22, 2015-06-15 *}
 
 <!-- backend_staticpage.tpl START -->
 
@@ -344,6 +344,9 @@
 
 {/if} {* switch end *}
 
+<script>
+    var spconfig_listPerPage = {$sp_listpp}
+</script>
 <script src="{$serendipityHTTPPath}plugins/serendipity_event_staticpage/jquery.simplePagination.js"></script>
 <script src="{$serendipityHTTPPath}plugins/serendipity_event_staticpage/staticpage_backend.js"></script>
 

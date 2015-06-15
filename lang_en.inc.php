@@ -187,8 +187,9 @@
 @define('STATICPAGE_SHOW_BREADCRUMB', 'Show breadcrumb');
 @define('STATICPAGE_SHOW_BREADCRUMB_DESC', 'Show breadcrumb navigation on this page.');
 
-@define('STATICPAGE_SHOWLIST_DEFAULT', 'Backend: Show as entry list');
+@define('STATICPAGE_SHOWLIST_DEFAULT', 'Show as entry list');
 @define('STATICPAGE_SHOWLIST_DESC', 'Show staticpage backend startpage as entry list or select box.');
+@define('STATICPAGE_SHOWLIST_NUMLIST', 'Page entrylist by "N" (6) entries');
 
 @define('STATICPAGE_CONFIRM_SELECTDIALOG', "Are you sure to have saved your changed entry and want to switch the current page?\\n\\nIf you press OK, the page will change to new content!"); // js confirm needs an additional backslash before the linebreaks!
 
@@ -215,4 +216,8 @@
                     Another nice example included here, is to define some related tags for this staticpage, to show a specific amount of entries including these tags.<br>
                     <span><strong>Please read:</strong> </span><a href="%s" target="_blank" style="color:#7fdbff">the readme for custom fields</a> examples.</p>
                     <p>The "Disable nl2br markup parser" radio option is already used internally to automark staticpage entries on wysiwyg usage by submit, to not pass through the nl2br markup parser on show.</p>');
+
+@define('STATICPAGE_CONFIGGROUP_FORM', 'Backend Form Option-Preferences:');
+@define('STATICPAGE_CONFIGGROUP_FRONTEND', 'Default Frontend Appearance:');
+@define('STATICPAGE_CONFIGGROUP_BACKEND', 'Default Backend Appearance:');
 

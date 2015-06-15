@@ -152,8 +152,9 @@
 @define('STATICPAGE_SHOW_BREADCRUMB', 'Zeige Navigationspfad (Breadcrumbs)');
 @define('STATICPAGE_SHOW_BREADCRUMB_DESC', 'Zeige auf dieser Seite den Navigationspfad (Breadcrumbs) an');
 
-@define('STATICPAGE_SHOWLIST_DEFAULT', 'Backend: Zeige als Eintragsliste');
+@define('STATICPAGE_SHOWLIST_DEFAULT', 'Zeige als Eintragsliste');
 @define('STATICPAGE_SHOWLIST_DESC', 'Zeige Staticpage Backend Startseite als Eintrags-Liste oder Auswahl-Liste.');
+@define('STATICPAGE_SHOWLIST_NUMLIST', 'Zeige als "N" (6) Einträge per Seite');
 
 @define('STATICPAGE_CONFIRM_SELECTDIALOG', "Sind Sie sicher ihren offenen Artikel im Falle einer Veränderung gespeichert zu haben?\\n\\nWenn Sie OK drücken, wird die Seite gewechselt!"); // js confirm needs an additional backslash before the linebreaks!
 
@@ -163,4 +164,8 @@
 
 @define('RELATED_CATEGORY_CHANGE_MSG', 'Dies hat eine vorherige, zugeordnete-Kategorie-Assoziierung von ID #%s, mit Staticpage ID #%s überschrieben, da nur 1:1 Beziehungen erlaubt sind! Bitte ändern Sie diese oder die vorherige statische Seite im Staticpage Auswahlfeld "zugeordnete Kategorie" zu "keine"!');
 @define('RELATED_CATEGORY_CHANGE_DEL_MSG', 'Das korrespondierende related_category_id Feld von Staticpage ID #%s wurde zurückgesetzt.');
+
+@define('STATICPAGE_CONFIGGROUP_FORM', 'Backend Formular Options-Voreinstellungen:');
+@define('STATICPAGE_CONFIGGROUP_FRONTEND', 'Allgemeine Frontend Anzeigen:');
+@define('STATICPAGE_CONFIGGROUP_BACKEND', 'Allgemeine Backend Anzeigen:');
 

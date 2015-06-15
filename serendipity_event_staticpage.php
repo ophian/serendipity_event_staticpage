@@ -100,7 +100,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.39');
+        $propbag->add('version', '4.40');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -109,18 +109,24 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('stackable', false);
         $propbag->add('groups', array('BACKEND_EDITOR', 'BACKEND_FEATURES'));
         $propbag->add('configuration', array(
+            'config_formgrouper',
             'markup',
             'articleformat',
             'publishstatus',
-            'use_lmdate',
             'show_childpages',
             'shownavi',
             'show_breadcrumb',
             'showonnavi',
-            'showtextorheadline',
             'showmeta',
+            'seperator2',
+            'config_frontendgrouper',
+            'showtextorheadline',
+            'use_lmdate',
             'use_quicksearch',
-            'showlist'
+            'seperator',
+            'config_configgrouper',
+            'showlist',
+            'listpp'
         ));
         $this->cachefile = $serendipity['serendipityPath'] . PATH_SMARTY_COMPILE . '/staticpage_pagelist.dat';
     }
@@ -141,11 +147,41 @@ class serendipity_event_staticpage extends serendipity_event
         global $serendipity;
 
         switch ($name) {
+            case 'listpp':
+                $propbag->add('type',           'string');
+                $propbag->add('name',           STATICPAGE_SHOWLIST_NUMLIST);
+                $propbag->add('description',    '');
+                $propbag->add('default',        '6');
+                break;
+
             case 'showlist':
                 $propbag->add('type',           'boolean');
                 $propbag->add('name',           STATICPAGE_SHOWLIST_DEFAULT);
                 $propbag->add('description',    STATICPAGE_SHOWLIST_DESC);
                 $propbag->add('default',        ($serendipity['version'][0] > 1 ? true : false));
+                break;
+
+            case 'seperator2':
+            case 'seperator':
+                $propbag->add('type',           'seperator');
+                break;
+
+            case 'config_formgrouper':
+                $propbag->add('type',           'content');
+                $propbag->add('name',           'Form Preferences');
+                $propbag->add('default',        '<h3>' . STATICPAGE_CONFIGGROUP_FORM . '</h3>');
+                break;
+
+            case 'config_frontendgrouper':
+                $propbag->add('type',           'content');
+                $propbag->add('name',           'Frontend Preferences');
+                $propbag->add('default',        '<h3>' . STATICPAGE_CONFIGGROUP_FRONTEND . '</h3>');
+                break;
+
+            case 'config_configgrouper':
+                $propbag->add('type',           'content');
+                $propbag->add('name',           'Configuration Preferences');
+                $propbag->add('default',        '<h3>' . STATICPAGE_CONFIGGROUP_BACKEND . '</h3>');
                 break;
 
             case 'use_quicksearch':
@@ -158,7 +194,7 @@ class serendipity_event_staticpage extends serendipity_event
             case 'use_lmdate':
                 $propbag->add('type',           'boolean');
                 $propbag->add('name',           STATICPAGE_USELMDATE_DEFAULT);
-                $propbag->add('description',    STATICPAGE_DEFAULT_DESC);
+                $propbag->add('description',    '');
                 $propbag->add('default',        true);
                 break;
 
@@ -2452,6 +2488,7 @@ class serendipity_event_staticpage extends serendipity_event
             case 'pages':
             default:
 
+                $serendipity['smarty']->assign('sp_listpp', (int)$this->get_config('listpp', '6'));
                 if ($serendipity['POST']['staticpage'] != '__new') {
                     $this->fetchStaticPage($serendipity['POST']['staticpage']);
                 }

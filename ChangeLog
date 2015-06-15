@@ -1,4 +1,4 @@
-4.39:
+4.40:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -40,8 +40,8 @@
  *  Added compat fallback to defaultform_template
     - in case of cookie stored 'all fields/non-template' (old hardcoded) form
  *  Added for 2.0:
-    - form submit toolbar-save-button is now disabled when using the CKEDITOR full-package
- *  Added new simpler pageorder table fetcher
+    - form submit wysiwyg-toolbar-save-button is now disabled when using the CKEDITOR full-package
+ *  Added a new simpler pageorder table fetcher
  *  Added for 2.0:
     - collapsible boxes icon change and use a universal setLocalStorage() and another for retrieve
  *  Added for 2.0:
@@ -93,16 +93,28 @@
  *  Removed an old and wrong used registration, since 'in_array' already is an allowed $php_function, since S9y-1.7
  *  Fixed cookie issue with backend form template. Set responsive_template.tpl as "default" fallback on S9y >= 2.0
  *  Fixed missing dtree.css includement, in case of having selected this option
- *  Fixed dtree.js being included more than once, ba making the called script name unique
+ *  Fixed dtree.js being included more than once, by making the called script name unique
  *  Removed $serendipity['staticpageplugin']['JS_init'] since this had no effect for the dtree.js call
  *  Add separators to streamed css
+ *  Add new config option to list entries paginate by N entries
+ *  Add configuration grouper
 
 
-    TL;DR - Please note:
+    TL;DR - PLEASE NOTE:
     Some of these commits will change behaviour or appearance for older staticpage entries.
     Please double check all you pages to show up correctly, or at least check the major ones in difference.
+
     Also check for template staticpage files in need for an update (this may effect all kind of
     yourTemplate/plugin_staticpage_***.tpl files and all backend form files in yourTemplate/backend_templates/*, if have).
+
+    Apart from appearance changes, other small bugfixes and code cleanup, this mainly is:
+    - 2.0 appearance
+    - Smartified the Backend
+    - New Backend form templates
+    - New staticpage SELECT query for the frontend and sidebar and the backend
+    - Fixed staticpage frontend navigations [new template markup]
+    - Associated 1:1 relation for staticpage related categories
+
 
 -----
 

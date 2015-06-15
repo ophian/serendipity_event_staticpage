@@ -111,6 +111,7 @@ via moduled inc/backend_show.php
 
      {string $sp_listentries_authors}
      {array $sp_listentries_entries}
+     {string $sp_listpp}
 
 switch pcat if      pageorder
             elseif  pagetype

@@ -15,6 +15,8 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Add configuration grouper
+- [x] Add new config option to list entries paginate by N entries
 - [x] Add separators to streamed css
 - [x] Removed $serendipity['staticpageplugin']['JS_init'] since this had no effect for the dtree.js call
 - [x] Fixed dtree.js being included more than once, ba making the called script name unique

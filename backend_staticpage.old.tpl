@@ -1,4 +1,4 @@
-{* old_backend_staticpage template file v. 1.15, 2015-01-20 *}
+{* old_backend_staticpage template file v. 1.16, 2015-06-29 *}
 
 <!-- old_backend_staticpage.tpl START -->
 
@@ -319,7 +319,7 @@
     <ul id="sp_entries_list" class="plainList serendipity_admin_list_item serendipity_admin_list_item_{if $smarty.foreach.sp_listentry.iteration % 2}even{else}uneven{/if}">
         <li id="sple{$entry['id']}" class="clearfix">
             <h3>{if $entry['publishstatus'] == false}{$CONST.DRAFT}: {/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']|escape}">{if !empty($entry['headline'])}{$entry['headline']|truncate:50}{else}{$entry['pagetitle']|escape}{/if}</a></h3>
-            <div class="clearfix spnav spmod">{$entry['timestamp']|@formatTime:'%Y-%m-%d'} {if $entry['timestamp'] <= ($entry['last_modified'] - 1800)}<span class="icon-clock" title="{$CONST.LAST_UPDATED}: {$entry['last_modified']|@formatTime:'%Y-%m-%d'}"></span>{/if}</div>
+            <div class="clearfix spnav spmod"{if $entry['timestamp'] <= ($entry['last_modified'] - 1800)} title="{$CONST.LAST_UPDATED}: {$entry['last_modified']|@formatTime:'%Y-%m-%d'}"{/if}>{$entry['timestamp']|@formatTime:'%Y-%m-%d'}</div>
         </li>
         <li class="clearfix">
             {$CONST.POSTED_BY} {$sp_listentries_authors[$entry['authorid']]|escape}

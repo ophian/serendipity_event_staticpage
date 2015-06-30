@@ -1,4 +1,4 @@
-4.40:
+4.42:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -98,6 +98,10 @@
  *  Add separators to streamed css
  *  Add new config option to list entries paginate by N entries
  *  Add configuration grouper
+ *  Fixed styles now added to the END of eventData stream, while checking for existing styles (dtree)
+ *  Changed dtree usage page links world image to something more smart
+ *  Fixed JS spconfig_listPerPage and JS pagination function to happen on listentries pages only
+ *  Removed icon font usage and added SVG sprites with 2.0 instead
 
 
     TL;DR - PLEASE NOTE:

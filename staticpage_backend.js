@@ -1,6 +1,6 @@
 /***
  * Staticpage event backend js
- * Last modified: 2015-06-15
+ * Last modified: 2015-06-28
  **/
 
 /**
@@ -63,7 +63,9 @@ saveNewOrder = (function() {
     });
 });
 
-// staticpage entrieslist simplePagination executor
+/**
+ * staticpage entrieslist simplePagination executor
+ **/
 $(function() {
 
     var items    = $('#step > .sp_entries_pane');
@@ -77,6 +79,7 @@ $(function() {
     // only show the first 6 items initially and hide the rest
     items.show().slice(perPage).hide();
 
+    if (numItems == 0) return;
     // now setup pagination
     $('#sp_entry_pagination').pagination({
         items: numItems,
@@ -98,7 +101,9 @@ $(function() {
     });
 });
 
-// add dialog to change page selector, to avoid page changes before saving current page
+/**
+ * add dialog to change page selector, to avoid page changes before saving current page
+ **/
 $(function() {
     var prev_value;
     $('#staticpage_dropdown').focus(function() {
@@ -115,7 +120,9 @@ $(function() {
     });
 });
 
-// collapsible box executor for staticpage entry forms
+/**
+ * collapsible box executor for staticpage entry forms
+ **/
 Object.keys(localStorage).forEach(function(key) {
     if (/^(staticpage_mobileform_)|(staticpage_defaultform_)/.test(key)) {
         var k   = key.split('_');
@@ -128,7 +135,9 @@ Object.keys(localStorage).forEach(function(key) {
     }
 });
 
-// overwrite CKE save button in all nugget instances, see extending smarty note in backend_staticpage.tpl
+/**
+ * overwrite CKE save button in all nugget instances, see extending smarty note in backend_staticpage.tpl
+ **/
 if (typeof(CKEDITOR) != 'undefined' && CKEDITOR.plugins.registered['save']) {
     CKEDITOR.plugins.registered['save'] = {
         init: function (editor) {
@@ -140,7 +149,9 @@ if (typeof(CKEDITOR) != 'undefined' && CKEDITOR.plugins.registered['save']) {
     }
 }
 
-// pageorder drag and drop handler
+/**
+ * pageorder drag and drop handler
+ **/
 $(function() {
     $('#sp_sequencer form').submit(function(event) {
         event.preventDefault();

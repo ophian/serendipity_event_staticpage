@@ -100,7 +100,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.40');
+        $propbag->add('version', '4.42');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -2488,7 +2488,7 @@ class serendipity_event_staticpage extends serendipity_event
             case 'pages':
             default:
 
-                $serendipity['smarty']->assign('sp_listpp', (int)$this->get_config('listpp', '6'));
+                $serendipity['smarty']->assign('sp_listpp', (int)$this->get_config('listpp', '6')); // is case 'pagedit' and '' = default by backend sidebar link
                 if ($serendipity['POST']['staticpage'] != '__new') {
                     $this->fetchStaticPage($serendipity['POST']['staticpage']);
                 }
@@ -3502,18 +3502,34 @@ class serendipity_event_staticpage extends serendipity_event
     color: #bbb;
 }
 
+<?php // break after anchor - see serendipity_plugin_staticpage.php non-smarty usage not using list markup
+if (!serendipity_db_bool($this->get_config('smartify'))) {
+?>
+.sidebar_content .spp_title,
+.serendipitySideBarContent .spp_title { display: inline; }
+.sidebar_content .spp_title:after,
+.serendipitySideBarContent .spp_title:after {
+    content:"\a";
+    white-space: pre;
+}
+<?php } ?>
 /*** END staticpage event plugin css ***/
 
 <?php
+                    // do not include if not set or already used - while searching for plugin css data, we need to append - not echo - else strpos() can not access it.
+                    if (strpos($eventData, '.dtree') !== false) {
+                       // class exists in CSS by another Plugin, or a user has customized it and we don't need default
+                       return;
+                    }
+
                     $filename = 'dtree.css';
                     $tfile = serendipity_getTemplateFile($filename, 'serendipityPath');
-
                     if (!$tfile || $tfile == $filename) {
                         $tfile = dirname(__FILE__) . '/' . $filename;
                     }
-                    // do not include if not set or already used
-                    if (!serendipity_db_bool($this->get_config('showIcons')) && !strpos($eventData, '.dtree')) echo file_get_contents($tfile);
-
+                    if (!serendipity_db_bool($this->get_config('showIcons'))) {
+                        $eventData .= file_get_contents($tfile);
+                    }
                     break;
 
                 case 'css_backend':

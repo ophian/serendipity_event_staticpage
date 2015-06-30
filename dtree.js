@@ -7,6 +7,7 @@
 | copyright messages are intact.                    |
 |                                                   |
 | Updated: 17.04.2003                               |
+| page.gif change 2015-06-29                        |
 |--------------------------------------------------*/
 
 // Node object
@@ -45,7 +46,8 @@ function dTree(objName, img_directory) {
         root                : img_directory + '/img/base.gif',
         folder              : img_directory + '/img/folder.gif',
         folderOpen          : img_directory + '/img/folderopen.gif',
-        node                : img_directory + '/img/page.gif',
+//        node                : img_directory + '/img/page.gif',
+        node                : img_directory + '/img/page.png',
         empty               : img_directory + '/img/empty.gif',
         line                : img_directory + '/img/line.gif',
         join                : img_directory + '/img/join.gif',

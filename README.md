@@ -15,11 +15,16 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+
+- [x] Removed icon font usage and added SVG sprites with 2.0 instead
+- [x] Fixed JS spconfig_listPerPage and JS pagination function to happen on listentries pages only
+- [x] Changed dtree usage page links world image to something more smart
+- [x] Fixed styles now added to the END of eventData stream, while checking for existing styles (dtree)
 - [x] Add configuration grouper
 - [x] Add new config option to list entries paginate by N entries
 - [x] Add separators to streamed css
 - [x] Removed $serendipity['staticpageplugin']['JS_init'] since this had no effect for the dtree.js call
-- [x] Fixed dtree.js being included more than once, ba making the called script name unique
+- [x] Fixed dtree.js being included more than once, by making the called script name unique
 - [x] Fixed missing dtree.css includement, in case of having selected this option
 - [x] Fixed cookie issue with backend form template. Set responsive_template.tpl as "default" fallback on S9y >= 2.0
 - [x] Removed an old and wrong used registration, since 'in_array' already is an allowed $php_function, since S9y-1.7

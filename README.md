@@ -16,6 +16,8 @@ Please use with care and always keep a backup copy of your updated plugin.
 
 ### Already done: :arrow_up:
 
+- [x] Fix icon-info image notifier not displayed embedded, when sidebar plugin is not installed
+- [x] Update jquery.simplePagination.js
 - [x] Removed icon font usage and added SVG sprites with 2.0 instead
 - [x] Fixed JS spconfig_listPerPage and JS pagination function to happen on listentries pages only
 - [x] Changed dtree usage page links world image to something more smart

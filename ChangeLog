@@ -1,4 +1,4 @@
-4.42:
+4.43:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -102,6 +102,8 @@
  *  Changed dtree usage page links world image to something more smart
  *  Fixed JS spconfig_listPerPage and JS pagination function to happen on listentries pages only
  *  Removed icon font usage and added SVG sprites with 2.0 instead
+ *  Update jquery.simplePagination.js
+ *  Fix icon-info image notifier not displayed embedded, when sidebar plugin is not installed
 
 
     TL;DR - PLEASE NOTE:

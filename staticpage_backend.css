@@ -48,7 +48,13 @@
 .icon-pageorder { color: #3E5F81;/*#6fbc6d;*/ }
 .icon-pagetype { color: #f46899; }
 .icon-otherplugins { color: #5fa9dd; }
-
+.sp_info .icon-info {
+    height: 1em;
+    width: 1em;
+    fill: currentColor;
+    margin-top: 0.25em;
+    margin-left: .75em;
+}
 .sp_entries_pane .spform a { padding-bottom: 1.25em; }
 
 @media only screen and (max-width: 768px) {

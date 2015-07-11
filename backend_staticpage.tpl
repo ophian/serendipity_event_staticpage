@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.23, 2015-06-29 *}
+{* backend_staticpage template file v. 1.24, 2015-07-11 *}
 
 <!-- backend_staticpage.tpl START -->
 
@@ -264,7 +264,7 @@
             - <button type="submit" name="serendipity[staticPreview]" value="1" title="{$CONST.PREVIEW}" class="button_link entry_preview icon-search"><span class="visuallyhidden">{$CONST.PREVIEW}</span></button>
             {/if}
         {if $sp_defpages_sbplav}
-            <svg class="icon icon-info sp_right sp_info" title="Staticpage Sidebar {$CONST.STATICPAGE_PLUGIN_AVAILABLE}"><use xlink:href="#icon-info"></use></svg>
+            <span class="sp_right sp_info" title="Staticpage Sidebar {$CONST.STATICPAGE_PLUGIN_AVAILABLE}"><svg class="icon icon-info"><use xlink:href="#icon-info"></use></svg></span>
         {/if}
             <ul class="sp_listnav">
                 <li{if $s9y_get_cat == 'pageedit'} id="active"{/if} class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageedit"><span title="{$CONST.STATICPAGE_CATEGORY_PAGES}"><svg class="icon icon-pagelist"><use xlink:href="#icon-pagelist"></use></svg></span></a></li>

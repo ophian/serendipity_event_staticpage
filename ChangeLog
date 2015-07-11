@@ -111,12 +111,16 @@
     Also check for template staticpage files in need for an update (this may effect all kind of
     yourTemplate/plugin_staticpage_***.tpl files and all backend form files in yourTemplate/backend_templates/*, if have).
 
+    Remove or temporary disable (by directory name change) previous used theme based staticpage backend forms
+    in /templates/yourTheme/backend_templates/*
+
     Apart from appearance changes, other small bugfixes and code cleanup, this mainly is:
-    - 2.0 appearance
+    - A smart rework for 2.0
     - Smartified the Backend
     - New Backend form templates
-    - New staticpage SELECT query for the frontend and sidebar and the backend
-    - Fixed staticpage frontend navigations [new template markup]
+    - Precise staticpage DB SELECT query for the frontend, the sidebar and the backend
+    - Backend listentries enhancements
+    - Fixed staticpage frontend navigations [assumes new template markup]
     - Associated 1:1 relation for staticpage related categories
 
 

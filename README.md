@@ -47,7 +47,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [x] Fixed htmlspecialchars() for PHP >=5.4 with native, non-utf-8 language installs, which changed with PHP 5.4 from ISO-8859-1 to UTF-8
 - [x] Added new README_FOR_CUSTOM_FIELDS.txt
 - [x] Added new custom template, which now holds existing examples for custom properties, based on responsive template. This removes the custom examples in the responsive template.
-- [x] Some small fixes https://github.com/ophian/serendipity_event_staticpage/compare/v4.27...master?diff=unified
+- [x] Some small fixes https://github.com/ophian/serendipity_event_staticpage/compare/v4.27...46320d9
 - [x] Associated 1:1 relation for staticpage related categories. Touches staticpages and staticpage_categorypage tables to support the latter 1:1 relations only, as of now. Old entries don't get touched by this, until they will be updated.
 - [x] Solve some last remaining questions pasted as '// RQ: ' notes (+ + + + +)
 - [x] Removed commented $related_category_entries code, since being unneeded for the solution with serendipity_fetchPrintEntries and unworth to keep, since not really working.

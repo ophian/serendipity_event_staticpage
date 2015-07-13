@@ -2710,11 +2710,11 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Smarty inspect config templater
+     * Public Smarty inspect config templater since called by templates
      *
      * @param   array  Smarty parameter input array:
      * @param   object Smarty object
-     * @access  public since called by templates
+     * @access  public
      * @return  template string
      */
     public function SmartyInspectConfig($params, &$smarty)
@@ -2789,11 +2789,11 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Smarty inspect config finish templater
+     * Public Smarty inspect config finish templater since called by templates
      *
      * @param   array  Smarty parameter input array:
      * @param   object Smarty object
-     * @access  public since called by templates
+     * @access  public
      * @return  template string
      */
     public function SmartyInspectConfigFinish($params, &$smarty)

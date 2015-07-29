@@ -16,6 +16,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 
 ### Already done: :arrow_up:
 
+- [x] Fix showlist db-boolean sets/gets
 - [x] Add db build case 21 for certain silent db error in the past (ALTER permissions). Now an error is shown in the backend only without spoiling the serendipity_editor.js
 - [x] Fix two commits for database changes with v.3.98 commit 36fd48b Changed meta fields, no longer custom properties and v.3.97 commit 43e0f86 Breadcrumb navigation as an independent option, which could happen to not apply in every case.
 - [x] Fix missing trim($str) and an empty output of the JS Tree Smarty var via template, while the empty(array) was not true. Sets the sidebar plugin to v.1.26

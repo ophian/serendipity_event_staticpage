@@ -102,7 +102,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.45');
+        $propbag->add('version', '4.46');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -160,7 +160,7 @@ class serendipity_event_staticpage extends serendipity_event
                 $propbag->add('type',           'boolean');
                 $propbag->add('name',           STATICPAGE_SHOWLIST_DEFAULT);
                 $propbag->add('description',    STATICPAGE_SHOWLIST_DESC);
-                $propbag->add('default',        ($serendipity['version'][0] > 1 ? true : false));
+                $propbag->add('default',        ($serendipity['version'][0] > 1 ? 'true' : 'false'));
                 break;
 
             case 'seperator2':
@@ -2602,7 +2602,7 @@ class serendipity_event_staticpage extends serendipity_event
                     }
                 }
 
-                if (false===serendipity_db_bool($this->get_config('showlist')) || isset($serendipity['POST']['staticpage']) ) {
+                if (false===serendipity_db_bool($this->get_config('showlist', ($serendipity['version'][0] > 1 ? 'true' : 'false'))) || isset($serendipity['POST']['staticpage']) ) {
                     // this is the default SELECT list block
                     $serendipity['smarty']->assign('sp_defpages_showlist', false);
 

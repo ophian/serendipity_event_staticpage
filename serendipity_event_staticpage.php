@@ -102,7 +102,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.44');
+        $propbag->add('version', '4.45');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -907,6 +907,20 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
+     * Check for db error string in backend environment only
+     * Avoids errors placed into the admin/serendipity_editor.js and the frontend!
+     * @param   mixed   serendipity_db_schema_import() result
+     * @access  private
+     * @return  boolean
+     */
+    function check_error($result) {
+        if (is_string($result) && defined('IN_serendipity_admin')) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Manage and setup the database tables for staticpage
      *
      * @access  private
@@ -946,7 +960,10 @@ class serendipity_event_staticpage extends serendipity_event
                     showonnavi int(4) default '1',
                     show_breadcrumb int(4) default '1',
                     publishstatus int(4) default '1',
-                    language varchar(10) default '') {UTF_8}");
+                    language varchar(10) default '',
+                    title_element varchar(255) not null default '',
+                    meta_description varchar(255) not null default '',
+                    meta_keywords varchar(255) not null default '') {UTF_8}");
 
             $old_stuff = serendipity_db_query("SELECT * FROM {$serendipity['dbPrefix']}config WHERE name LIKE 'serendipity_event_staticpage:%'");
 
@@ -1083,6 +1100,9 @@ class serendipity_event_staticpage extends serendipity_event
             case 19:
                 if (!$fresh) {
                     $q = "ALTER TABLE {$serendipity['dbPrefix']}staticpages ADD COLUMN show_breadcrumb int(4) default '1'";
+                    if ($serendipity['dbType'] == 'mysql' || $serendipity['dbType'] == 'mysqli') {
+                        $q .= ' AFTER showonnavi';
+                    }
                     serendipity_db_schema_import($q);
                 }
             case 20:
@@ -1094,7 +1114,59 @@ class serendipity_event_staticpage extends serendipity_event
                     $q = "ALTER TABLE {$serendipity['dbPrefix']}staticpages ADD COLUMN meta_keywords varchar(255) not null default ''";
                     serendipity_db_schema_import($q);
                 }
-                $this->set_config('db_built', 21);
+            case 21:
+                // ALTER table permission errors just die away silently, we now offer an error for cases since v.3.97
+                /*
+                https://github.com/s9y/additional_plugins/commit/43e0f86e4c965faf3e4f526fd707be0b3efec566#diff-a69dc3666716dfa0368134079aebb5b9
+                43e0f86 Breadcrumb navigation as an independent option
+                */
+                // correct missing case 19
+                $repairfield  = false;
+                $altererror   = false;
+                $has_sbcfield = serendipity_db_query("SELECT show_breadcrumb FROM {$serendipity['dbPrefix']}staticpages LIMIT 1", true, 'assoc');
+                if (!is_array($has_sbcfield) && !empty($has_sbcfield)) {
+                    $q = "ALTER TABLE {$serendipity['dbPrefix']}staticpages ADD COLUMN show_breadcrumb int(4) default '1'";
+                    if ($serendipity['dbType'] == 'mysql' || $serendipity['dbType'] == 'mysqli') {
+                        $q .= ' AFTER showonnavi';
+                    }
+                    $r = serendipity_db_schema_import($q);
+                    if ($r === true) {
+                        $repairfield = true;
+                    } else {
+                        $altererror = $this->check_error($r);
+                    }
+                }
+                // correct case 19 for mysql type dbs, which did not use the AFTER extension before
+                if ($repairfield === false && ($serendipity['dbType'] == 'mysql' || $serendipity['dbType'] == 'mysqli')) {
+                    $q = "ALTER TABLE {$serendipity['dbPrefix']}staticpages MODIFY COLUMN show_breadcrumb int(4) DEFAULT '1' AFTER showonnavi";
+                    $r = serendipity_db_schema_import($q);
+                    $altererror = $this->check_error($r);
+                }
+                /*
+                https://github.com/s9y/additional_plugins/commit/36fd48b5bc17d7395e4e1c9c38c60936925e184e#diff-a69dc3666716dfa0368134079aebb5b9
+                36fd48b Changed meta fields, no longer custom properties
+                */
+                // correct case 20 for upgraders, which did not use them in fresh before ( since v.4.09 )
+                $has_metafields = serendipity_db_query("SELECT title_element, meta_description, meta_keywords FROM {$serendipity['dbPrefix']}staticpages LIMIT 1", false, 'assoc');
+                if (!is_array($has_metafields) && !empty($has_metafields)) {
+                    $q = "ALTER TABLE {$serendipity['dbPrefix']}staticpages ADD COLUMN title_element varchar(255) not null default ''";
+                    $r = serendipity_db_schema_import($q);
+                    $altererror = $this->check_error($r);
+                    $q = "ALTER TABLE {$serendipity['dbPrefix']}staticpages ADD COLUMN meta_description varchar(255) not null default ''";
+                    $r = serendipity_db_schema_import($q);
+                    $altererror = $this->check_error($r);
+                    $q = "ALTER TABLE {$serendipity['dbPrefix']}staticpages ADD COLUMN meta_keywords varchar(255) not null default ''";
+                    $r = serendipity_db_schema_import($q);
+                    $altererror = $this->check_error($r);
+                }
+                if ($altererror === true) {
+                    echo '<span class="msg_error"><span class="icon-attention-circled"></span> <strong>Error:</strong> '.$r.'. Please check your privileges to this table; triggered in serendipity_event_staticpages, db_build() method, case 21 checks.</span>'; // ALTER command denied
+                } else // strictly secure this by IN_serendipity_admin backend, else $altererror will be false
+                if ($altererror === false && defined('IN_serendipity_admin')) {
+                    $this->set_config('db_built', 22);
+                } else {
+                    $this->set_config('db_built', 21);
+                }
                 break;
         }
     }
@@ -3361,7 +3433,7 @@ class serendipity_event_staticpage extends serendipity_event
                     break;
 
                 case 'backend_sidebar_entries':
-                    $this->setupDB(); // RQ: why here? It is already done in genpage ?!
+                    $this->setupDB(); // RQ: why here too? It is already done in genpage ?!
                     echo '<li class="serendipitySideBarMenuLink serendipitySideBarMenuEntryLinks"><a href="?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages">' . STATICPAGE_TITLE . '</a></li>';
                     break;
 

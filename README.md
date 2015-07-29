@@ -11,7 +11,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] future Todo - check possibility for an automated integration to templates using $template_global_config = array('navigation' => true)
 - [ ] future Todo - refactor related category associations
 - [ ] check staticpage authorid vs $serendipity['authorid'] (0 != 1)!
-- [ ] Keep new check_config() method check for dtree.css? Is it worth being expencieve here?
+- [ ] Keep new check_config() method check for dtree.css? Is it worth being expensive here?
 - [ ] Check some last remaining questions pasted as '// RQ: ' notes (- - - - -)
 
 

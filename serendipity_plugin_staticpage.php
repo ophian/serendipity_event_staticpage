@@ -24,7 +24,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
         $propbag->add('description', PLUGIN_STATICPAGELIST_NAME_DESC);
         $propbag->add('author',      "Rob Antonishen, Falk Doering, Ian");
         $propbag->add('stackable',   true);
-        $propbag->add('version',     '1.25');
+        $propbag->add('version',     '1.26');
         $propbag->add('configuration', array(
                 'title',
                 'limit',
@@ -130,16 +130,17 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
         static $smartify = null;
 
         if ($smartify === null) {
-            $smartify = serendipity_db_bool($this->get_config('smartify'));
+            $smartify = serendipity_db_bool($this->get_config('smartify', false));
         }        
 
         $title      = $this->get_config('title');
         $frontpage  = serendipity_db_bool($this->get_config('frontpage', true));
+        $parentonly = serendipity_db_bool($this->get_config('parentsonly'));
         $plugin_dir = basename(dirname(__FILE__));
         $smartcar   = array();
-        $str        = '';
+        $str        = "\n";
 
-        if (!serendipity_db_bool($this->get_config('showIcons'))) {
+        if (!serendipity_db_bool($this->get_config('showIcons', false))) {
             if ($frontpage) {
                 if ($smartify) {
                     $serendipity['smarty']->assign('frontpage_path', $serendipity['serendipityHTTPPath'] . $serendipity['indexFile']);
@@ -148,16 +149,21 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                 }
             }
             if ($smartify) {
-                $smartcar = $this->displayPageList((int)$this->get_config('limit'), serendipity_db_bool($this->get_config('parentsonly')), $smartify);
+                $smartcar = $this->displayPageList((int)$this->get_config('limit'), $parentonly, $smartify);
             } else {
-                $str .= $this->displayPageList((int)$this->get_config('limit'), serendipity_db_bool($this->get_config('parentsonly')));
+                $str .= $this->displayPageList((int)$this->get_config('limit'), $parentonly);
             }
         } else {
             $str .= '<script src="' . $serendipity['baseURL'] . ($serendipity['rewrite'] == 'none' ? $serendipity['indexFile'] . '?/' : '') . 'plugin/spdtree.js" type="text/javascript"></script>'."\n";
 
+            $serendipity['staticpageplugin']['JS_init'] = true; // RQ: probably only available within templates config later on... or so. NO, this happens after event plugin processing, but will later on not be available. Why is that?
+
             $imgdir = $this->get_config('imgdir');
-            if ($imgdir === "true") {
+            if ($imgdir == 'true' || $imgdir == 'yes') {
                 $imgdir = $serendipity['baseURL'] . 'plugins/' . $plugin_dir;
+            }
+            if ($imgdir == 'false' || $imgdir == 'no') {
+                $imgdir = $serendipity['baseURL'] . $serendipity['templatePath'] . 'default';
             }
             $fdid = str_replace(':', '_', $this->instance);
 
@@ -166,7 +172,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
             fd_' . $fdid . ' = new dTree("fd_' . $fdid . '","' . $imgdir . '");'."\n";
 
             /* configuration section*/
-            if (!serendipity_db_bool($this->get_config('useIcons'))) {
+            if (!serendipity_db_bool($this->get_config('useIcons')) || $imgdir == '') {
                 $str .= "fd_$fdid.config.useIcons  = false;\n";
             }
             $str .= "fd_$fdid.config.useSelection  = false;\n";
@@ -178,7 +184,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
 
             $str .= 'fd_' . $fdid . '.add(0,-1,"' . PLUGIN_STATICPAGELIST_FRONTPAGE_LINKNAME . '","' . $serendipity['serendipityHTTPPath'] . $serendipity['indexFile'] . '");'."\n";
 
-            if ($struct = $this->getPageList(serendipity_db_bool($this->get_config('parentsonly')))) {
+            if ($struct = $this->getPageList($parentonly)) {
                 $this->addJSTags($struct);
                 foreach ($struct as $value) {
                     $str .= 'fd_' . $fdid . '.add('
@@ -198,11 +204,12 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
             $str .= 'document.write(fd_' . $fdid . ');
             //-->
             </script>';
+            $str .= "\n";
         }
 
         if ($smartify) {
             $serendipity['smarty']->assign(array(
-                'staticpage_jsStr'       => $str,
+                'staticpage_jsStr'       => trim($str),
                 'staticpage_listContent' => $smartcar
             ));
             $filename = 'plugin_staticpage_sidebar.tpl';

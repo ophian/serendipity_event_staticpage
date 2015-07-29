@@ -1,4 +1,4 @@
-4.43:
+4.44:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -94,7 +94,6 @@
  *  Fixed cookie issue with backend form template. Set responsive_template.tpl as "default" fallback on S9y >= 2.0
  *  Fixed missing dtree.css includement, in case of having selected this option
  *  Fixed dtree.js being included more than once, by making the called script name unique
- *  Removed $serendipity['staticpageplugin']['JS_init'] since this had no effect for the dtree.js call
  *  Add separators to streamed css
  *  Add new config option to list entries paginate by N entries
  *  Add configuration grouper
@@ -104,6 +103,8 @@
  *  Removed icon font usage and added SVG sprites with 2.0 instead
  *  Update jquery.simplePagination.js
  *  Fix icon-info image notifier not displayed embedded, when sidebar plugin is not installed
+ *  Fix missing trim($str) and an empty output of the JS Tree via smarty template, while the empty(array) was not true
+    Sets the sidebar plugin to v.1.26
 
 
     TL;DR - PLEASE NOTE:

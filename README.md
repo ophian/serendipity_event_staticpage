@@ -16,6 +16,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 
 ### Already done: :arrow_up:
 
+- [x] Fixed password protected pages not showing up
 - [x] Fix sidebar plugin dependency config value check to append dtree.css into stream. Removed wrong used check for sidebar css. Updated plugin_staticpage_sidebar.tpl.
 - [x] Fix showlist db-boolean sets/gets
 - [x] Add db build case 21 for certain silent db error in the past (ALTER permissions). Now an error is shown in the backend only without spoiling the serendipity_editor.js

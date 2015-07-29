@@ -1,4 +1,4 @@
-4.47:
+4.48:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -115,6 +115,7 @@
  *  Fix sidebar plugin dependency config value check to append dtree.css into stream.
     Removed wrong used check for sidebar css.
     Updated plugin_staticpage_sidebar.tpl.
+ *  Fixed password protected pages not showing up
 
 
     TL;DR - PLEASE NOTE:

@@ -102,7 +102,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.47');
+        $propbag->add('version', '4.48');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -1171,7 +1171,6 @@ class serendipity_event_staticpage extends serendipity_event
         }
     }
 
-
     /**
      * Walk through the staticpage item array and return the value by key
      *
@@ -1641,7 +1640,7 @@ class serendipity_event_staticpage extends serendipity_event
             } else {
                 $staticpage_precontent = $entry['body'];
             }
-            if (isset($serendipity['POST']['properties']['ep_no_nl2br'])) unset($serendipity['POST']);
+            if (isset($serendipity['POST']['properties']['ep_no_nl2br']) && !isset($serendipity['POST']['pass'])) unset($serendipity['POST']);
         } else {
             $staticpage_content    = $this->get_static('content'); // no more &
             $staticpage_precontent = $this->get_static('pre_content'); // no more &

@@ -102,7 +102,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.46');
+        $propbag->add('version', '4.47');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -3175,6 +3175,33 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
+     * Get related config setting of a child dependency plugin
+     * gc - getChild by self instance since the sidebar being stackable
+     * ci - childsInstance by value
+     * cv - childsConfigValue by name
+     *
+     * @param   string       config name
+     * @param   string       default value
+     * @access  private
+     * @return  boolean/null
+     *
+     */
+    private function check_config($name, $default = NULL) {
+        global $serendipity;
+
+        $gc = serendipity_db_query("SELECT * FROM {$serendipity['dbPrefix']}config WHERE value LIKE '" . $this->instance . "%' LIMIT 1", true, 'assoc');
+        if (is_array($gc)) {
+            $ci = (string)str_replace('/dependencies', '', $gc['name']) . '/' . $name;
+        }
+        $cv = serendipity_db_query("SELECT * FROM {$serendipity['dbPrefix']}config WHERE name like '" . $ci . "' LIMIT 1", true, 'assoc');
+        if (is_array($cv) && $gc['authorid'] == $cv['authorid']) {
+            return serendipity_db_bool($cv['value']);
+        } else {
+            return $default;
+        }
+    }
+
+    /**
      * Hook for Serendipity events, initialize plug-in "listen" to an event
      *
      * This method is called by the main plugin API for every event, that is executed.
@@ -3578,16 +3605,16 @@ class serendipity_event_staticpage extends serendipity_event
 }
 
 <?php // break after anchor - see serendipity_plugin_staticpage.php non-smarty usage not using list markup change
-if (!serendipity_db_bool($this->get_config('smartify'))) {
+if ($serendipity['version'][0] < 2) {
 ?>
 .sidebar_content .spp_title,
 .serendipitySideBarContent .spp_title { display: inline; }
+<?php } ?>
 .sidebar_content .spp_title:after,
 .serendipitySideBarContent .spp_title:after {
     content:"\a";
     white-space: pre;
 }
-<?php } ?>
 /*** END staticpage event plugin css ***/
 
 <?php
@@ -3602,7 +3629,7 @@ if (!serendipity_db_bool($this->get_config('smartify'))) {
                     if (!$tfile || $tfile == $filename) {
                         $tfile = dirname(__FILE__) . '/' . $filename;
                     }
-                    if (!serendipity_db_bool($this->get_config('showIcons'))) {
+                    if ($this->check_config('showIcons', false)) {
                         $eventData .= file_get_contents($tfile);
                     }
                     break;

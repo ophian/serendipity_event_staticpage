@@ -1,4 +1,4 @@
-4.46:
+4.47:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -112,6 +112,9 @@
     Added db build case 21 for these certain silent db error in the past (ALTER permissions).
     Now an error is shown in the backend only without spoiling the serendipity_editor.js.
  *  Fix showlist db-boolean sets/gets
+ *  Fix sidebar plugin dependency config value check to append dtree.css into stream.
+    Removed wrong used check for sidebar css.
+    Updated plugin_staticpage_sidebar.tpl.
 
 
     TL;DR - PLEASE NOTE:

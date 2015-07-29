@@ -10,6 +10,9 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] deep check, if any change broke anything with some more enhanced staticpage options (all normal behaviour is checked working!)
 - [ ] future Todo - check possibility for an automated integration to templates using $template_global_config = array('navigation' => true)
 - [ ] future Todo - refactor related category associations
+- [ ] check staticpage authorid vs $serendipity['authorid'] (0 != 1)!
+- [ ] Keep new check_config() method check for dtree.css? Is it worth being expencieve here?
+- [ ] Check some last remaining questions pasted as '// RQ: ' notes (- - - - -)
 
 
 - - -
@@ -17,7 +20,8 @@ Please use with care and always keep a backup copy of your updated plugin.
 ### Already done: :arrow_up:
 
 - [x] Fixed password protected pages not showing up
-- [x] Fix sidebar plugin dependency config value check to append dtree.css into stream. Removed wrong used check for sidebar css. Updated plugin_staticpage_sidebar.tpl.
+- [x] Fix sidebar plugin dependency config value check to append dtree.css into stream. Updated plugin_staticpage_sidebar.tpl.
+- [x] Removed wrong used smartify sidebar dependency check for a certain CSS case - rule output not by option than by version now
 - [x] Fix showlist db-boolean sets/gets
 - [x] Add db build case 21 for certain silent db error in the past (ALTER permissions). Now an error is shown in the backend only without spoiling the serendipity_editor.js
 - [x] Fix two commits for database changes with v.3.98 commit 36fd48b Changed meta fields, no longer custom properties and v.3.97 commit 43e0f86 Breadcrumb navigation as an independent option, which could happen to not apply in every case.
@@ -40,13 +44,13 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [x] Fixed 2.0 backend template form chaining (4.08) and merge array backend form names uniquely
 - [x] Fixed preview button for existing pages with 2.0
 - [x] New: iconized entrylist/entryform tabbar for 2.0
-- [x] better use fixUTFEntity method only for frontend template vars (articleformatitle and headline)
-- [x] set backends form textformat option automatically to NO, on WYSIWYG usage (?) Yes. Has dependency in 2.0 entryproperties!
+- [x] Better use fixUTFEntity method only for frontend template vars (articleformatitle and headline)
+- [x] Set backends form textformat option automatically to NO, on WYSIWYG usage (?) Yes. Has dependency in 2.0 entryproperties!
 - [x] Added - automark an entry as written by Wysiwyg-Editor via custom fields, to disable nl2br markup formating
 - [x] Fixed (html)specialchars double_encode to false for native ISO-8859-1 charsets for certain form input/testarea fields in backend and some Smarty output variables in backend/frontend (which updates plugin_staticpage_***.tpl files again)
-- [x] added check for new SQLite3 OO database layer with PHP 5.4+
-- [x] rename directory backend_templates. There is a risk that existing user template dirs have other files in it (not excluded by backend_show) (?) No.
-- [x] move new backend template files into own or current backend_template directory (?) No.
+- [x] Added check for new SQLite3 OO database layer with PHP 5.4+
+- [x] Rename directory backend_templates. There is a risk that existing user template dirs have other files in it (not excluded by backend_show) (?) No.
+- [x] Move new backend template files into own or current backend_template directory (?) No.
 - [x] Renamed style_sp_s9yold.css to staticpage_backend.old.css
 - [x] Renamed old_backend_staticpage.tpl to backend_staticpage.old.tpl
 - [x] Re-integrated previously outsourced backend_show.php
@@ -80,9 +84,9 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [x] Added for 2.0: form submit save-toolbar-button is now disabled when using the CKEDITOR full-package
 - [x] Added compat fallback to defaultform_template in case of cookie stored 'all fields/non-template' (old hardcoded) form
 - [x] Changed method name getSystersID() to getSisterID()
-- [x] prepare everything to HTML5, which will be the default in future
-- [x] prepare everything and purge plugins hardcoded non-smarty output
-- [x] remove the 'no template' hardcoded stuff
+- [x] Prepare everything to HTML5, which will be the default in future
+- [x] Prepare everything and purge plugins hardcoded non-smarty output
+- [x] Remove the 'no template' hardcoded stuff
 - [x] Plain Editor button changes for the 2.0 backend
 - [x] Extend required Serendipity version to 1.7 and Smarty 3.1, since the old_backend_staticpage.tpl would need too much old Smarty2 and CSS fixes
 - [x] Added confirmation dialog on select change page events, to avoid saving into wrong page accidently
@@ -90,9 +94,9 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [x] Added new config option to show last_modified or created_on date in plugin_staticpage.tpl (needs to change templates with already supplied files!)
 - [x] Applied some plain button changes for 2.0 previously bumped as 4.06
 - [x] Added a responsive custom (mobile) template, to replace the old 'no Template' (previously named 'All Fields' form)
-- [x] finalize the version stylesheets for this
-- [x] finalize 'backend_staticpage.tpl' for Serendipity 2.0 only usage
-- [x] keep 'old_staticpage_backend.tpl' for previous S9y versions
+- [x] Finalize the version stylesheets for this
+- [x] Finalize 'backend_staticpage.tpl' for Serendipity 2.0 only usage
+- [x] Keep 'old_staticpage_backend.tpl' for previous S9y versions
 - [x] Reworked default form template by switching new_backend
 - [x] Added new 'pagetype' typeform template
 - [x] Set required S9y version to 1.6, due to smarty usage in sequencer 'pageorder' drag&drop

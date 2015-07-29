@@ -152,7 +152,7 @@
 @define('PLUGIN_LINKS_IMGDIR_BLAHBLAH', 'Tell the URL path to use for accessing the tree structure images. The "img" subfolder needs to be in this directory, and is delivered with this plugin.');
 @define('PLUGIN_STATICPAGELIST_SHOWICONS_NAME', 'Icons or plain Text');
 @define('PLUGIN_STATICPAGELIST_SHOWICONS_DESC', 'Show tree structure or plain Text-Menu');
-@define('PLUGIN_STATICPAGELIST_ICON', 'Tree');
+@define('PLUGIN_STATICPAGELIST_ICON', 'JS Tree');
 @define('PLUGIN_STATICPAGELIST_TEXT', 'Plain Text');
 @define('PLUGIN_STATICPAGELIST_PARENTSONLY', 'Only show parent pages?');
 @define('PLUGIN_STATICPAGELIST_PARENTSONLY_DESC', 'If enabled, only parent pages are shown. If disabled, childpages will also be shown.');

@@ -144,7 +144,7 @@
 @define('PLUGIN_LINKS_IMGDIR_BLAHBLAH', 'Zadej URL adresu adresáře, kde se nachází obrázky zobrazené ve stromu. V tomto adresáři se musí nacházet podadresář "img".');
 @define('PLUGIN_STATICPAGELIST_SHOWICONS_NAME', 'Ikony nebo čistý text');
 @define('PLUGIN_STATICPAGELIST_SHOWICONS_DESC', 'Zobrazit menu jako strom s ikonami nebo jako čistý text');
-@define('PLUGIN_STATICPAGELIST_ICON', 'Strom - ikony');
+@define('PLUGIN_STATICPAGELIST_ICON', 'JS Strom - ikony');
 @define('PLUGIN_STATICPAGELIST_TEXT', 'Čistý text');
 @define('PLUGIN_STATICPAGELIST_PARENTSONLY', 'Zobrazit pouze rodičovské stránky?');
 @define('PLUGIN_STATICPAGELIST_PARENTSONLY_DESC', 'Pokud je zaponuto, jsou zobrazeny pouze rodičovské stránky. Jinak budou zobrazeny i podřazené stránky.');

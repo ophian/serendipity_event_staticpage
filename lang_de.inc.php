@@ -105,7 +105,7 @@
 
 @define('PLUGIN_LINKS_IMGDIR', 'Verzeichnis für Bilder dieses Plugins');
 @define('PLUGIN_LINKS_IMGDIR_BLAHBLAH', 'Bitte geben Sie hier die URL ein, die zu dem Bildverzeichnis ihres Plugins führt. Das eingegebene Verzeichnis muss einen "img"-Unterordner besitzen, der standardmäßig mit diesem Plugin auch ausgeliefert wird.');
-@define('PLUGIN_STATICPAGELIST_ICON', 'Baumstruktur');
+@define('PLUGIN_STATICPAGELIST_ICON', 'JS Baumstruktur');
 @define('PLUGIN_STATICPAGELIST_IMG_NAME', 'Grafiken für Baumstruktur aktivieren');
 @define('PLUGIN_STATICPAGELIST_PARENTSONLY', 'Nur Eltern-Seiten darstellen?');
 @define('PLUGIN_STATICPAGELIST_PARENTSONLY_DESC', 'Falls aktiviert werden nur Eltern-Seiten dargestellt. Andernfalls werden auch Unterseiten angezeigt.');

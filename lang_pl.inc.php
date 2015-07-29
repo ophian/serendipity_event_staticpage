@@ -139,7 +139,7 @@
 @define('PLUGIN_LINKS_IMGDIR_BLAHBLAH', 'Podaj ¶cie¿kê URL, której wtyczka ma u¿ywaæ przy szukaniu obrazków wizualizuj±cych uk³ad menu. Podkatalog "img" musi znajdowaæ siê w miejscu wskazywanym przez ¶cie¿kê. Taki podkatalog znajduje siê w katalogu wtyczki Strony statyczne. W razie w±tpliwo¶ci pozostaw domy¶lne ustawienie.');
 @define('PLUGIN_STATICPAGELIST_SHOWICONS_NAME', 'Ikony czy czysty tekst');
 @define('PLUGIN_STATICPAGELIST_SHOWICONS_DESC', 'Pokazywaæ strukturê menu graficznie czy w formie czystego tekstu?');
-@define('PLUGIN_STATICPAGELIST_ICON', 'graficznie');
+@define('PLUGIN_STATICPAGELIST_ICON', 'JS graficznie');
 @define('PLUGIN_STATICPAGELIST_TEXT', 'czysty tekst');
 @define('PLUGIN_STATICPAGELIST_PARENTSONLY', 'Pokazywaæ tylko strony nadrzêdne?');
 @define('PLUGIN_STATICPAGELIST_PARENTSONLY_DESC', 'Je¶li opcja zostanie w³±czona, w strukturze menu pojawi± siê tylko strony oznaczone jako "nadrzêdne". Wy³±czenie opcji poka¿e tak¿e strony "potomne" w strukturze menu.');

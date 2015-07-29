@@ -16,6 +16,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 
 ### Already done: :arrow_up:
 
+- [x] Fix missing trim($str) and an empty output of the JS Tree Smarty var via template, while the empty(array) was not true. Sets the sidebar plugin to v.1.26
 - [x] Fix icon-info image notifier not displayed embedded, when sidebar plugin is not installed
 - [x] Update jquery.simplePagination.js
 - [x] Removed icon font usage and added SVG sprites with 2.0 instead
@@ -25,7 +26,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [x] Add configuration grouper
 - [x] Add new config option to list entries paginate by N entries
 - [x] Add separators to streamed css
-- [x] Removed $serendipity['staticpageplugin']['JS_init'] since this had no effect for the dtree.js call
+- [x] ~~Removed $serendipity['staticpageplugin']['JS_init'] since this had no effect for the dtree.js call~~ [Keep it. Though still being in question!]
 - [x] Fixed dtree.js being included more than once, by making the called script name unique
 - [x] Fixed missing dtree.css includement, in case of having selected this option
 - [x] Fixed cookie issue with backend form template. Set responsive_template.tpl as "default" fallback on S9y >= 2.0

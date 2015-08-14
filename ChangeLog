@@ -116,6 +116,7 @@
     Removed wrong used check for sidebar css.
     Updated plugin_staticpage_sidebar.tpl.
  *  Fixed password protected pages not showing up
+ *  Added language field info
 
 
     TL;DR - PLEASE NOTE:
@@ -125,8 +126,8 @@
     Also check for template staticpage files in need for an update (this may effect all kind of
     yourTemplate/plugin_staticpage_***.tpl files and all backend form files in yourTemplate/backend_templates/*, if have).
 
-    Remove or temporary disable (by directory name change) previous used theme based staticpage backend forms
-    in /templates/yourTheme/backend_templates/*
+    Temporary disable (by directory name change) previous used theme based staticpage backend forms
+    in /templates/yourTheme/backend_templates/* Remove, if these were not theme based or contact you themes author.
 
     Apart from appearance changes, other small bugfixes and code cleanup, this mainly is:
     - A smart rework for 2.0

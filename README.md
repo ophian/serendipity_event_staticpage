@@ -12,13 +12,17 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [ ] future Todo - refactor related category associations
 - [ ] check staticpage authorid vs $serendipity['authorid'] (0 != 1)!
 - [ ] Keep new check_config() method check for dtree.css? Is it worth being expensive here?
-- [ ] Check some last remaining questions pasted as '// RQ: ' notes (- - - - -)
+- [ ] Check some last remaining questions pasted as '// RQ: ' notes (- - - -)
 
 
 - - -
 
 ### Already done: :arrow_up:
 
+- [x] Remove RQ for double entry staticpage var
+- [x] Move 2cd fetchPlugins() call to only apply if in need
+- [x] Make db queries consistent
+- [x] Added language field info
 - [x] Fixed password protected pages not showing up
 - [x] Fix sidebar plugin dependency config value check to append dtree.css into stream. Updated plugin_staticpage_sidebar.tpl.
 - [x] Removed wrong used smartify sidebar dependency check for a certain CSS case - rule output not by option than by version now

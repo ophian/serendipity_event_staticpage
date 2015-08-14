@@ -118,8 +118,16 @@
                 </div>
 
                 <div class="sp_sect">
-                    <label class="sp_label" title="{staticpage_input item="language" what="desc"}">{staticpage_input item="language" what="name"}</label>
+                    <label class="sp_label" title="{staticpage_input item="language" what="desc"}">{staticpage_input item="language" what="name"}
+                    {if $new_backend}<button class="toggle_info button_link" type="button" data-href="#entry_language_info"><span class="icon-info-circled"></span><b>i</b><span class="visuallyhidden"> {$CONST.MORE}</span></button>{/if}</label>
                         {staticpage_input item="language"}
+                    {if $new_backend}
+                    <div id="entry_language_info" class="clearfix field_info additional_info">
+                        <span id="sp_language_info" class="field_info">
+                            {$CONST.STATICPAGE_LANGUAGE_INFO}
+                        </span>
+                    </div>
+                    {/if}
                 </div>
 
                 <div class="sp_sect">

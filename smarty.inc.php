@@ -1,8 +1,9 @@
-<?php # 
+<?php
 
 // You can fetch static pages via smarty as well. Syntax:
 //
 // {staticpage_display template="$TEMPLATE" pagevar="$PAGEVAR" id="$ID" permalink="$PERMALINK" pagetitle="$PAGETITLE" authorid="$AUTHORID" query="$QUERY"}
+// The staticpage textformatierung option per entry has to be ON with smartymarkup event plugin
 //
 // Variable options:
 // $TEMPLATE can be replaced with the name of the staticpage template to parse. It defaults to "plugin_staticpage.tpl".

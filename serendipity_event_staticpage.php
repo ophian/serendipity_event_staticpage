@@ -102,7 +102,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.48');
+        $propbag->add('version', '4.49');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -779,7 +779,7 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * prepare an list with available plugins for use in staticpage
+     * prepare a list with available plugins for use in staticpage
      *
      * @access  private
      * @return  array
@@ -909,6 +909,7 @@ class serendipity_event_staticpage extends serendipity_event
     /**
      * Check for db error string in backend environment only
      * Avoids errors placed into the admin/serendipity_editor.js and the frontend!
+     *
      * @param   mixed   serendipity_db_schema_import() result
      * @access  private
      * @return  boolean
@@ -988,6 +989,7 @@ class serendipity_event_staticpage extends serendipity_event
 
             serendipity_db_query("DELETE FROM {$serendipity['dbPrefix']}config  WHERE name LIKE 'serendipity_event_staticpage:%'");
             serendipity_db_query("DELETE FROM {$serendipity['dbPrefix']}plugins WHERE name LIKE 'serendipity_event_staticpage:%' AND name NOT LIKE '" . serendipity_db_escape_string($this->instance) . "'");
+
             $this->set_config('db_built', '7');
             $fresh = true;
             @define('STATICPAGE_UPGRADE_DONE', true); // No further static pages may be called!
@@ -1050,9 +1052,9 @@ class serendipity_event_staticpage extends serendipity_event
                     serendipity_db_schema_import($q);
                     $q = "ALTER TABLE {$serendipity['dbPrefix']}staticpages ADD COLUMN publishstatus int(4) default '1';";
                     serendipity_db_schema_import($q);
-                    $q = 'DROP TABLE '.$serendipity['dbPrefix'].'staticpages_plugins';
+                    $q = "DROP TABLE {$serendipity['dbPrefix']}staticpages_plugins";
                     serendipity_db_schema_import($q);
-                    $q = 'ALTER TABLE '.$serendipity['dbPrefix'].'staticpages ADD COLUMN language varchar(10) default \'\'';
+                    $q = "ALTER TABLE {$serendipity['dbPrefix']}staticpages ADD COLUMN language varchar(10) default ''";
                     serendipity_db_schema_import($q);
                 }
             case 11:
@@ -1069,7 +1071,7 @@ class serendipity_event_staticpage extends serendipity_event
                 }
             case 15:
                 if (!$fresh) {
-                    $sql = 'ALTER TABLE '.$serendipity['dbPrefix'].'staticpages ADD COLUMN related_category_id int(4) default 0';
+                    $sql = "ALTER TABLE {$serendipity['dbPrefix']}staticpages ADD COLUMN related_category_id int(4) default 0";
                     serendipity_db_schema_import($sql);
                 }
             case 16:
@@ -1092,7 +1094,7 @@ class serendipity_event_staticpage extends serendipity_event
                         ) {UTF_8}';
                 serendipity_db_schema_import($sql);
             case 18:
-                    $sql = 'ALTER TABLE '.$serendipity['dbPrefix'].'staticpages ADD COLUMN is_404_page int(1) default 0';
+                    $sql = "ALTER TABLE {$serendipity['dbPrefix']}staticpages ADD COLUMN is_404_page int(1) default 0";
                     if ($serendipity['dbType'] == 'mysql' || $serendipity['dbType'] == 'mysqli') {
                         $sql .= ' AFTER is_startpage';
                     }
@@ -1388,7 +1390,7 @@ class serendipity_event_staticpage extends serendipity_event
             if ($pages[$i]['id'] == $thispage) {
                 $previstop = ($top['id'] == $i) ? true : false; // case when top_parents id equals previous_key id
                 $childcase = ($pages[$i]['depth'] > 1) ? true : false;
-                // the 'top' in $nav['top'] is just a synonym for 'current page', or 'top parent', or 'exit'
+                // Keep im mind, the 'top' in $nav['top'] is just a synonym for 'current page', or 'top parent', or 'exit'
                 $nav = array(
                     'prev' => array(
                         'name' => $navname ? PREVIOUS : $this->get_nav($expages, $i, true, 'pagetitle'),
@@ -1520,7 +1522,7 @@ class serendipity_event_staticpage extends serendipity_event
         global $serendipity;
         if (!isset($this->smarty_init))
         {
-            @include_once dirname(__FILE__) . '/smarty.inc.php';
+            include_once dirname(__FILE__) . '/smarty.inc.php';
             if (isset($serendipity['smarty']))
             {
                 $staticpage_cat = $this->fetchCatProp((int)$serendipity['GET']['category']);
@@ -1529,13 +1531,14 @@ class serendipity_event_staticpage extends serendipity_event
                 $serendipity['smarty']->registerPlugin('function', 'getCategoryLinkByID', 'smarty_getCategoryLinkByID');
                 $serendipity['smarty']->registerPlugin('function', 'staticpage_display', 'staticpage_display');
                 $serendipity['staticpage_plugin'] =& $this;
+                #var_dump($this);
                 $this->smarty_init = true;
             }
         }
     }
 
     /**
-     * Fix double encoded entities by htmlspeciachars() for ISO-8859-1 charsets
+     * Fix double encoded entities by htmlspeciachars() for ISO-8859-1 charset cases
      *
      * @param   string
      * @access  public
@@ -1609,7 +1612,7 @@ class serendipity_event_staticpage extends serendipity_event
 
         if (serendipity_db_bool($this->get_static('markup'))) {
             // check if it was marked written true by wysiwyg-editor
-            $q = "SELECT * FROM {$serendipity['dbPrefix']}staticpage_custom WHERE staticpage = " . (int)$this->get_static('id') . ' AND name = "wysiwyg"';
+            $q = "SELECT * FROM {$serendipity['dbPrefix']}staticpage_custom WHERE staticpage = " . (int)$this->get_static('id') . " AND name = 'wysiwyg'";
             $sp_no_nl2br = serendipity_db_query($q, true, 'assoc');
             if (is_array($sp_no_nl2br)) {
                 $plugins = serendipity_plugin_api::get_event_plugins();
@@ -1622,7 +1625,7 @@ class serendipity_event_staticpage extends serendipity_event
                 }
             }
             $entry = array('body' => $this->get_static('content'));
-            $entry['staticpage'] =& $entry['body']; // RQ: What for are they doubled?
+            $entry['staticpage'] =& $entry['body']; // this will be $eventData['staticpage'] for the smartymarkup plugin!
             serendipity_plugin_api::hook_event('frontend_display', $entry);
             if (isset($entry['markup_staticpage'])) {
                 $staticpage_content = $entry['staticpage'];
@@ -1710,6 +1713,7 @@ class serendipity_event_staticpage extends serendipity_event
                 $pagevar . 'doublesc'           => ((LANG_CHARSET === 'ISO-8859-1') ? false : true)
             )
         );
+
         $filename = basename($filename);
         $tfile    = serendipity_getTemplateFile($filename, 'serendipityPath');
         if (!$tfile || $tfile == $filename) {
@@ -2304,10 +2308,10 @@ class serendipity_event_staticpage extends serendipity_event
                WHERE 1 = 1';
 
         if (!$plugins) {
-            $q .= ' AND content != \'plugin\'';
+            $q .= " AND content != 'plugin'";
         }
         if ($match_permalink != '') {
-            $q .= " AND permalink = '" . serendipity_db_escape_string($match_permalink) . "' ";
+            $q .= " AND permalink = '" . serendipity_db_escape_string($match_permalink) . "'";
         }
         $q .= ' ORDER BY parent_id, pageorder';
 
@@ -2330,9 +2334,7 @@ class serendipity_event_staticpage extends serendipity_event
         } else {
             $q = 'SELECT id, parent_id, pagetitle, headline, timestamp, last_modified, publishstatus ';
         }
-        $q .= '
-                FROM '.$serendipity['dbPrefix'].'staticpages
-               ORDER BY pageorder';
+        $q .= 'FROM '.$serendipity['dbPrefix'].'staticpages ORDER BY pageorder';
 
         return serendipity_db_query($q);
     }
@@ -2385,9 +2387,9 @@ class serendipity_event_staticpage extends serendipity_event
         global $serendipity;
 
         $q = "SELECT id, pagetitle, permalink, pre_content
-                FROM ".$serendipity['dbPrefix']."staticpages
+                FROM {$serendipity['dbPrefix']}staticpages
                WHERE content = 'plugin'
-              ORDER BY pageorder";
+            ORDER BY pageorder";
 
         $res = (array)serendipity_db_query($q, false, 'assoc');
 
@@ -2454,7 +2456,7 @@ class serendipity_event_staticpage extends serendipity_event
                     $this->fetchPageType($serendipity['POST']['pagetype']);
                 }
 
-                if ($serendipity['POST']['typeSave'] == "true" && !empty($serendipity['POST']['SAVECONF'])) {
+                if ($serendipity['POST']['typeSave'] == 'true' && !empty($serendipity['POST']['SAVECONF'])) {
                     $serendipity['POST']['typeSubmit'] = true;
                     $bag = new serendipity_property_bag();
                     $this->introspect($bag);
@@ -2505,8 +2507,8 @@ class serendipity_event_staticpage extends serendipity_event
                     }
                     $serendipity['smarty']->assign('sp_pagetype_submit', true);
                     ob_start();
-                    $this->showForm($this->config_types, $this->pagetype, 'introspect_item_type', 'get_type', 'typeSubmit');
-                    $smarty_pagetypeshowform = ob_get_contents();
+                      $this->showForm($this->config_types, $this->pagetype, 'introspect_item_type', 'get_type', 'typeSubmit');
+                      $smarty_pagetypeshowform = ob_get_contents();
                     ob_end_clean();
                     $serendipity['smarty']->assign( array(
                                  'sp_pagetype_isshowform' => true,
@@ -2522,8 +2524,9 @@ class serendipity_event_staticpage extends serendipity_event
                         $serendipity['smarty']->assign('sp_addsubmit', true);
                     }
                 }
-                $plugins = $this->selectPlugins();
+                $plugins    = $this->selectPlugins();
                 $insplugins = $this->fetchPlugins();
+
                 if (isset($serendipity['POST']['typeSubmit'])) {
                     foreach($insplugins as $key => $values) {
                         if (empty($serendipity['POST']['externalPlugins'][$key])) {
@@ -2542,9 +2545,8 @@ class serendipity_event_staticpage extends serendipity_event
                             $this->updateStaticPage();
                         }
                     }
+                    $insplugins = $this->fetchPlugins(); // fetch again
                 }
-
-                $insplugins = $this->fetchPlugins();
 
                 if (is_array($plugins)) {
                     $serendipity['smarty']->assign( array (
@@ -2565,7 +2567,7 @@ class serendipity_event_staticpage extends serendipity_event
                 if ($serendipity['POST']['staticpage'] != '__new') {
                     $this->fetchStaticPage($serendipity['POST']['staticpage']);
                 }
-                if ($serendipity['POST']['staticSave'] == "true" && !empty($serendipity['POST']['SAVECONF'])) {
+                if ($serendipity['POST']['staticSave'] == 'true' && !empty($serendipity['POST']['SAVECONF'])) {
                     $serendipity['POST']['staticSubmit'] = true;
                     $serendipity['smarty']->assign('sp_staticsubmit', true);
                     $bag  = new serendipity_property_bag;
@@ -2589,7 +2591,7 @@ class serendipity_event_staticpage extends serendipity_event
                 if (!empty($serendipity['POST']['staticDelete']) && $serendipity['POST']['staticpage'] != '__new') {
                     $serendipity['smarty']->assign('sp_staticdelete', true);
                     if (!$this->getChildPage($serendipity['POST']['staticpage'])) {
-                        // check previous relcat table categoryid ($pcid) for a match with given staticpage $pid}
+                        // check previous relcat table categoryid ($pcid) for a match with given staticpage $pid
                         $pcid = serendipity_db_query("SELECT categoryid FROM {$serendipity['dbPrefix']}staticpage_categorypage WHERE staticpage_categorypage = " . (int)$serendipity['POST']['staticpage'] . " LIMIT 1", true, 'assoc');
                         serendipity_db_query("DELETE FROM {$serendipity['dbPrefix']}staticpages WHERE id = " . (int)$serendipity['POST']['staticpage']);
                         // case delete staticpage by id - keep track on relcat table
@@ -2601,7 +2603,7 @@ class serendipity_event_staticpage extends serendipity_event
                     }
                 }
 
-                if (false===serendipity_db_bool($this->get_config('showlist', ($serendipity['version'][0] > 1 ? 'true' : 'false'))) || isset($serendipity['POST']['staticpage']) ) {
+                if (false === serendipity_db_bool($this->get_config('showlist', ($serendipity['version'][0] > 1 ? 'true' : 'false'))) || isset($serendipity['POST']['staticpage']) ) {
                     // this is the default SELECT list block
                     $serendipity['smarty']->assign('sp_defpages_showlist', false);
 
@@ -2682,8 +2684,8 @@ class serendipity_event_staticpage extends serendipity_event
                         $serendipity['POST']['plugin']['custom'] = $this->staticpage['custom'];
                         $serendipity['smarty']->assign('sp_defpages_staticsave', true);
                         ob_start();
-                        $this->showForm($this->config, $this->staticpage, 'introspect_item', 'get_static', 'staticSubmit');
-                        $smarty_showform = ob_get_contents();
+                          $this->showForm($this->config, $this->staticpage, 'introspect_item', 'get_static', 'staticSubmit');
+                          $smarty_showform = ob_get_contents();
                         ob_end_clean();
                         $serendipity['smarty']->assign('sp_defpages_showform', $smarty_showform);
                     }
@@ -2696,8 +2698,8 @@ class serendipity_event_staticpage extends serendipity_event
                     }
                     if ($serendipity['POST']['listentries_formSubmit'] || $serendipity['GET']['staticid']) {
                         ob_start();
-                        $this->showForm($this->config, $this->staticpage, 'introspect_item', 'get_static', 'staticSubmit');
-                        $smarty_showform = ob_get_contents();
+                          $this->showForm($this->config, $this->staticpage, 'introspect_item', 'get_static', 'staticSubmit');
+                          $smarty_showform = ob_get_contents();
                         ob_end_clean();
                         $serendipity['smarty']->assign('sp_defpages_showform', $smarty_showform);
                     } else {
@@ -2817,7 +2819,7 @@ class serendipity_event_staticpage extends serendipity_event
         $elcount++;
         $config_value = empty($this->pagetype) ? $this->get_static($config_item, 'unset') : $this->pagetype[$config_item];
         $cbag = new serendipity_property_bag;
-        // $this->staticpage can be an empty or an fullfilled array - since pagetype is only empty, if the request fetches the default_staticpage_backend.tpl template.
+        // $this->staticpage can be an empty or a fullfilled array - since pagetype is only empty, if the request fetches the default_staticpage_backend.tpl template.
         if (empty($this->pagetype)) {
             $this->introspect_item($config_item, $cbag);
         } else {
@@ -2827,8 +2829,8 @@ class serendipity_event_staticpage extends serendipity_event
         $cname = $this->html_specialchars($cbag->get('name'));
         $cdesc = $this->html_specialchars($cbag->get('description'));
         $value = empty($this->pagetype) ? $this->get_static($config_item, 'unset') : $this->get_type($config_item, 'unset');
-        $lang_direction = $this->html_specialchars($cbag->get('lang_direction'));
 
+        $lang_direction = $this->html_specialchars($cbag->get('lang_direction'));
         if (empty($lang_direction)) {
             $lang_direction = LANG_DIRECTION;
         }
@@ -2852,8 +2854,8 @@ class serendipity_event_staticpage extends serendipity_event
         $default  = $cbag->get('default');
 
         ob_start();
-        $this->inspectConfig($what, $elcount, $config_item, $config_value, $type, $cname, $cdesc, $value, $default, $lang_direction, $hvalue, $radio, $radio2, $select, $per_row, $per_row2);
-        $out = ob_get_contents();
+          $this->inspectConfig($what, $elcount, $config_item, $config_value, $type, $cname, $cdesc, $value, $default, $lang_direction, $hvalue, $radio, $radio2, $select, $per_row, $per_row2);
+          $out = ob_get_contents();
         ob_end_clean();
 
         return $out;
@@ -3013,27 +3015,27 @@ class serendipity_event_staticpage extends serendipity_event
             $distinct  = '';
             $term      = str_replace('&quot;', '"', $term);
             if (preg_match('@["\+\-\*~<>\(\)]+@', $term)) {
-                $find_part = "MATCH(headline,content) AGAINST('$term' IN BOOLEAN MODE)";
+                $find_part = "MATCH(headline,content) AGAINST('{$term}' IN BOOLEAN MODE)";
             } else {
-                $find_part = "MATCH(headline,content) AGAINST('$term')";
+                $find_part = "MATCH(headline,content) AGAINST('{$term}')";
             }
         }
 
-        $querystring = "SELECT $distinct s.*, a.realname
+        $querystring = "SELECT {$distinct} s.*, a.realname
                           FROM {$serendipity['dbPrefix']}staticpages AS s
                LEFT OUTER JOIN {$serendipity['dbPrefix']}authors AS a
                             ON a.authorid = s.authorid
-                         WHERE $find_part
+                         WHERE {$find_part}
                            AND s.publishstatus = 1
                            AND s.pass = ''
-                               $group
+                           {$group}
                       ORDER BY timestamp DESC";
 
         $results = serendipity_db_query($querystring);
 
         if (!is_array($results)) {
             if ($results !== 1 && $results !== true) {
-                echo '<div style="margin: 1em 2em;">'.$results.'</div>'; // error message already escaped by serendipity_db_query()
+                echo '<div class="serendipity_msg_important msg_error msg-error" style="margin: 1em 2em;">'.$results.'</div>'; // error message already escaped by serendipity_db_query()
             }
             $results = array();
         }
@@ -3499,9 +3501,9 @@ class serendipity_event_staticpage extends serendipity_event
                             $dir['pre_content'] = preg_replace('@(src=|href=|window.open.)(\'|")(' . preg_quote($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . '|' . preg_quote($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . ')@', '\1\2' . $serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $eventData[0]['newDir'], $dir['pre_content']);
 
                             $uq = "UPDATE {$serendipity['dbPrefix']}staticpages
-                                                     SET content     = '" . serendipity_db_escape_string($dir['content']) . "' ,
-                                                         pre_content = '" . serendipity_db_escape_string($dir['pre_content']) . "'
-                                                   WHERE id          = " . serendipity_db_escape_string($dir['id']);
+                                      SET content     = '" . serendipity_db_escape_string($dir['content']) . "' ,
+                                          pre_content = '" . serendipity_db_escape_string($dir['pre_content']) . "'
+                                    WHERE id          = " . serendipity_db_escape_string($dir['id']);
                             serendipity_db_query($uq);
                         }
                         if ($serendipity['version'][0] < 2) {
@@ -3520,7 +3522,7 @@ class serendipity_event_staticpage extends serendipity_event
                     } else {
                         $param = null;
                     }
-                    // might need a lib refresh some day - Please note to use this with a unique single name only, since you could else get this lib in bound-in more than once!
+                    // might need a lib refresh some day - Please note to use this with a unique single name only, since you could else get this lib bound-in more than once!
                     if ($parts[0] == 'spdtree.js') {
                         header('Content-Type: text/javascript');
                         echo file_get_contents(dirname(__FILE__) . '/dtree.js');
@@ -3623,12 +3625,12 @@ if ($serendipity['version'][0] < 2) {
                        return;
                     }
 
-                    $filename = 'dtree.css';
-                    $tfile = serendipity_getTemplateFile($filename, 'serendipityPath');
-                    if (!$tfile || $tfile == $filename) {
-                        $tfile = dirname(__FILE__) . '/' . $filename;
-                    }
                     if ($this->check_config('showIcons', false)) {
+                        $filename = 'dtree.css';
+                        $tfile = serendipity_getTemplateFile($filename, 'serendipityPath');
+                        if (!$tfile || $tfile == $filename) {
+                            $tfile = dirname(__FILE__) . '/' . $filename;
+                        }
                         $eventData .= file_get_contents($tfile);
                     }
                     break;

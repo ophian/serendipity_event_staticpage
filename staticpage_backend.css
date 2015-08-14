@@ -472,7 +472,9 @@
 #meta_permalink_info.field_info,
 #permalink_info.field_info,
 #entry_relcat_info.field_info,
-#related_category_info.field_info { width: 100%; }
+#entry_language_info.field_info,
+#related_category_info.field_info,
+#sp_language_info.field_info { width: 100%; }
 
 /* listentries */
 .spform a,.spform form {

@@ -120,7 +120,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
     function generate_content(&$title) { 
         $title = $this->get_config('title');
         // do not load the tpl in backend
-        if(!defined('IN_serendipity_admin')) {
+        if (!defined('IN_serendipity_admin')) {
             $this->show_content();
         }
     }
@@ -230,7 +230,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                  AND (language = \''.$serendipity['lang'].'\'
                   OR  language = \'\'
                   OR  language = \'all\')';
-        if($parentsonly) {
+        if ($parentsonly) {
             $q .= ' AND parent_id = 0';
         }
         $q .= ' ORDER BY parent_id, pageorder';
@@ -280,21 +280,21 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                  AND (language = \''.$serendipity['lang'].'\'
                   OR  language = \'\'
                   OR  language = \'all\')';
-        if($parentsonly) {
+        if ($parentsonly) {
             $q .= ' AND parent_id = 0';
         }
         $q .= ' ORDER BY parent_id, pageorder';
-        if($limit) {
+        if ($limit) {
             $q .= ' LIMIT '.$limit;
         }
         $pagelist = serendipity_db_query($q, false, 'assoc');
-        if(is_array($pagelist)) {
+        if (is_array($pagelist)) {
             serendipity_plugin_staticpage::iteratePageList($pagelist);
             $pagelist = serendipity_walkRecursive($pagelist, 'id', 'parent_id', VIEWMODE_THREADED);
             $content = ($tpl ? array() : (string)'');
 
             foreach($pagelist as $page) {
-                if(is_array($content)) { 
+                if (is_array($content)) {
                     /* smartify the staticpage sidebar plugin */
                     $content[] = array(
                         'id'           => $page['id'],
@@ -305,7 +305,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                         'is_startpage' => $page['is_startpage'],
                         'depth'        => $page['depth']*10
                     );
-                } elseif(is_string($content)) { 
+                } elseif (is_string($content)) {
                     $content .= (!empty($page['permalink'])
                         ? sprintf(
                             "<a href=\"%s\" title=\"%s\" class=\"spp_title\" style=\"padding-left: %dpx;\">%s</a>\n",

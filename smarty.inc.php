@@ -3,7 +3,7 @@
 // You can fetch static pages via smarty as well. Syntax:
 //
 // {staticpage_display template="$TEMPLATE" pagevar="$PAGEVAR" id="$ID" permalink="$PERMALINK" pagetitle="$PAGETITLE" authorid="$AUTHORID" query="$QUERY"}
-// The staticpage textformatierung option per entry has to be ON with smartymarkup event plugin
+// The staticpage textformat option per entry has to be ON with an activated smartymarkup event plugin
 //
 // Variable options:
 // $TEMPLATE can be replaced with the name of the staticpage template to parse. It defaults to "plugin_staticpage.tpl".
@@ -22,7 +22,7 @@
 // To fetch a static page with the URL shorthand name 'static' you simply put this in your template file (index.tpl, a userprofile .tpl or whatever):
 // {staticpage_display pagetitle='static'}
 //
-// do not use class method scope keywords public, protected or private here, even if included to class!
+// Do not use class method scope keywords public, protected or private here, even if included to class!
 
 function staticpage_display($params, &$smarty) {
     global $serendipity;

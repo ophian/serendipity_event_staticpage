@@ -148,6 +148,7 @@ $serendipity['smarty']->registerPlugin('function', 'show_tags', 'smarty_show_tag
 
 + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + 
 
+/* Staticpage related article by freetags. Better use a theme unique name, eg. mytheme_related_articles.tpl, because of the fallback line! */
 4. This page calls another file, named: "related_articles.tpl", in need to be placed to your template too. This actually shows the tagged related entries by entry title link, with this content as example:
 
 {if !empty($staticpage_custom.relTags)}

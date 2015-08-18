@@ -19,6 +19,8 @@ Please use with care and always keep a backup copy of your updated plugin.
 
 ### Already done: :arrow_up:
 
+- [x] Note to use a theme unique filename for the related article template by freetags
+- [x] Use the new simple fallback parameter in serendipity_getTemplateFile()
 - [x] Remove RQ for double entry staticpage var
 - [x] Move 2cd fetchPlugins() call to only apply if in need
 - [x] Make db queries consistent

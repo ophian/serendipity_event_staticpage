@@ -117,6 +117,7 @@
     Updated plugin_staticpage_sidebar.tpl.
  *  Fixed password protected pages not showing up
  *  Added language field info
+ *  Staticpages now use the simple directory fallback (theme->plugin), if supported by Serendipity core
 
 
     TL;DR - PLEASE NOTE:

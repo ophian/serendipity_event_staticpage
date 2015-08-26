@@ -19,6 +19,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 
 ### Already done: :arrow_up:
 
+- [x] Fixed entry image replacements on MOVE with Serendipity 2.1 DEV
 - [x] Note to use a theme unique filename for the related article template by freetags
 - [x] Use the new simple fallback parameter in serendipity_getTemplateFile()
 - [x] Remove RQ for double entry staticpage var

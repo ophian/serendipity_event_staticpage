@@ -102,7 +102,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.50');
+        $propbag->add('version', '4.51');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -3473,7 +3473,7 @@ class serendipity_event_staticpage extends serendipity_event
                 case 'backend_media_rename':
                     // Only MySQL supported, since I don't know how to use REGEXPs differently. // RQ: this is an old dev note. What shall we do about it to enable for other db layers?
                     if ($serendipity['dbType'] != 'mysql' && $serendipity['dbType'] != 'mysqli') {
-                        echo STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRY . '<br />';
+                        echo '<span class="msg_notice"><span class="icon-info-circled"></span> ' . STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRY . "</span>\n";
                         break;
                     }
 
@@ -3481,19 +3481,24 @@ class serendipity_event_staticpage extends serendipity_event
                         return true;
                     }
 
-                    if ($eventData[0]['type'] == 'dir'){
+                    if ($eventData[0]['type'] == 'dir') {
                         // void ???
-                    } elseif ($eventData[0]['type'] == 'filedir'){
-                         $eventData[0]['oldDir'] .= $eventData[0]['name'];
-                         $eventData[0]['newDir'] .= $eventData[0]['name'];
+                    } elseif ($eventData[0]['type'] == 'filedir' || $eventData[0]['type'] == 'file') {
+                        // Path patterns to SELECT en detail
+                        $oldDirThumb = $eventData[0]['oldDir'] . $eventData[0]['file']['name'] . '.' . $eventData[0]['file']['thumbnail_name'] . (($eventData[0]['file']['extension']) ? '.'.$eventData[0]['file']['extension'] : '');
+                        $newDirThumb = $eventData[0]['newDir'] . $eventData[0]['file']['name'] . '.' . $eventData[0]['file']['thumbnail_name'] . (($eventData[0]['file']['extension']) ? '.'.$eventData[0]['file']['extension'] : '');
+                        $oldDirFile  = $eventData[0]['oldDir'] . $eventData[0]['file']['name'] . (($eventData[0]['file']['extension']) ? '.'.$eventData[0]['file']['extension'] : '');
+                        $newDirFile  = $eventData[0]['newDir'] . $eventData[0]['file']['name'] . (($eventData[0]['file']['extension']) ? '.'.$eventData[0]['file']['extension'] : '');
+                        // REPLACE BY Path and Name only to also match Thumbs
+                        $eventData[0]['oldDir'] .= $eventData[0]['file']['name'];
+                        $eventData[0]['newDir'] .= $eventData[0]['file']['name'];
                     }
-
                     $q = "SELECT id, content, pre_content
                             FROM {$serendipity['dbPrefix']}staticpages
-                           WHERE content     REGEXP '(src=|href=|window.open.)(\'|\")(" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . "|" . serendipity_db_escape_string($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . ")'
-                              OR pre_content REGEXP '(src=|href=|window.open.)(\'|\")(" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . "|" . serendipity_db_escape_string($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . ")'";
-
+                           WHERE content     REGEXP '(src=|href=|window.open.)(\'|\")(" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $oldDirFile) . "|" . serendipity_db_escape_String($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $oldDirFile) . "|" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $oldDirThumb) . "|" . serendipity_db_escape_String($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $oldDirThumb) . ")'
+                              OR pre_content REGEXP '(src=|href=|window.open.)(\'|\")(" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $oldDirFile) . "|" . serendipity_db_escape_String($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $oldDirFile) . "|" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $oldDirThumb) . "|" . serendipity_db_escape_String($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $oldDirThumb) . ")'";
                     $dirs = serendipity_db_query($q);
+
                     if (is_array($dirs)) {
                         foreach($dirs AS $dir) {
 
@@ -3504,13 +3509,14 @@ class serendipity_event_staticpage extends serendipity_event
                                       SET content     = '" . serendipity_db_escape_string($dir['content']) . "' ,
                                           pre_content = '" . serendipity_db_escape_string($dir['pre_content']) . "'
                                     WHERE id          = " . serendipity_db_escape_string($dir['id']);
-                            serendipity_db_query($uq);
+                            serendipity_db_query($uq);// RQ: does it matter to serendipity_db_escape_string() content which already has been escaped ??
                         }
+
                         if ($serendipity['version'][0] < 2) {
                             printf(STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRIES . '<br />', count($dirs));
                         } else {
                             $spimgmovedtodir = sprintf(STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRIES, count($dirs));
-                            printf('<span class="msg_notice"><span class="icon-info-circled"></span> ' . $spimgmovedtodir . '</span>');
+                            printf('<span class="msg_notice"><span class="icon-info-circled"></span> ' . $spimgmovedtodir . "</span>\n");
                         }
                     }
                     break;

@@ -118,6 +118,7 @@
  *  Fixed password protected pages not showing up
  *  Added language field info
  *  Staticpages now use the simple directory fallback (theme->plugin), if supported by Serendipity core
+ *  Fixed entry image replacements on MOVE with Serendipity 2.1 DEV
 
 
     TL;DR - PLEASE NOTE:

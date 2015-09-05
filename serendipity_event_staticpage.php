@@ -1464,7 +1464,7 @@ class serendipity_event_staticpage extends serendipity_event
                 usort($crumbs, function($a, $b) {
                     return $a['depth'] - $b['depth'];
                 });*/
-                usort($crumbs,array($this, 'sortByOrder'));
+                usort($crumbs, array($this, 'sortByOrder'));
 
                 $nav['crumbs'] = $crumbs;
 
@@ -1715,7 +1715,8 @@ class serendipity_event_staticpage extends serendipity_event
         );
 
         $filename = basename($filename);
-        $tfile    = ($serendipity['version'][0] > 1) ? serendipity_getTemplateFile($filename, 'serendipityPath', true, true) : serendipity_getTemplateFile($filename, 'serendipityPath'); //force fallback simple fallback
+        // force simple fallback if possible
+        $tfile    = ($serendipity['version'][0] > 1) ? serendipity_getTemplateFile($filename, 'serendipityPath', true, true) : serendipity_getTemplateFile($filename, 'serendipityPath');
         if (!$tfile || $tfile == $filename) {
             $tfile = dirname(__FILE__) . '/' . $filename;
         }

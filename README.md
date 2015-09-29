@@ -19,6 +19,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 
 ### Already done: :arrow_up:
 
+- [x] Fixed $eventData[0]['type'] 'dir' replacements
 - [x] Fixed $eventData being changed by backend_media_rename hook
 - [x] Update simplePagination Lib
 - [x] Fixed MediaLibrary item path replacements on MOVE with Serendipity 2.1 DEV

@@ -3481,9 +3481,7 @@ class serendipity_event_staticpage extends serendipity_event
                         return true;
                     }
 
-                    if ($eventData[0]['type'] == 'dir') {
-                        // void ???  RQ: or say something?
-                    } elseif ($eventData[0]['type'] == 'filedir' || $eventData[0]['type'] == 'file') {
+                    if ($eventData[0]['type'] == 'filedir' || $eventData[0]['type'] == 'file') {
                         // Path patterns to SELECT en detail
                         $oldDirThumb = $eventData[0]['oldDir'] . $eventData[0]['file']['name'] . '.' . $eventData[0]['file']['thumbnail_name'] . (($eventData[0]['file']['extension']) ? '.'.$eventData[0]['file']['extension'] : '');
                         $newDirThumb = $eventData[0]['newDir'] . $eventData[0]['file']['name'] . '.' . $eventData[0]['file']['thumbnail_name'] . (($eventData[0]['file']['extension']) ? '.'.$eventData[0]['file']['extension'] : '');
@@ -3492,11 +3490,20 @@ class serendipity_event_staticpage extends serendipity_event
                         // REPLACE BY Path and Name only to also match Thumbs
                         $fromFile = $eventData[0]['oldDir'] . $eventData[0]['file']['name'];
                         $toFile   = $eventData[0]['newDir'] . $eventData[0]['file']['name'];
+                        $q = "SELECT id, content, pre_content
+                                FROM {$serendipity['dbPrefix']}staticpages
+                               WHERE content     REGEXP '(src=|href=|window.open.)(\'|\")(" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $oldDirFile) . "|" . serendipity_db_escape_String($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $oldDirFile) . "|" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $oldDirThumb) . "|" . serendipity_db_escape_String($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $oldDirThumb) . ")'
+                                  OR pre_content REGEXP '(src=|href=|window.open.)(\'|\")(" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $oldDirFile) . "|" . serendipity_db_escape_String($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $oldDirFile) . "|" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $oldDirThumb) . "|" . serendipity_db_escape_String($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $oldDirThumb) . ")'";
+                    } elseif ($eventData[0]['type'] == 'dir') {
+                        // RENAME vars to oldDir and newDir for the SELECT regex match and simplify query
+                        // and REPLACE BY Path only to also match Thumbs
+                        $fromFile = $oldDir = $eventData[0]['oldDir'];
+                        $toFile   = $newDir = $eventData[0]['newDir'];
+                        $q = "SELECT id, content, pre_content
+                                FROM {$serendipity['dbPrefix']}staticpages
+                               WHERE content     REGEXP '(src=|href=|window.open.)(\'|\")(" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $oldDir) . "|" . serendipity_db_escape_String($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $oldDir) . ")'
+                                  OR pre_content REGEXP '(src=|href=|window.open.)(\'|\")(" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $oldDir) . "|" . serendipity_db_escape_String($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $oldDir) . ")'";
                     }
-                    $q = "SELECT id, content, pre_content
-                            FROM {$serendipity['dbPrefix']}staticpages
-                           WHERE content     REGEXP '(src=|href=|window.open.)(\'|\")(" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $oldDirFile) . "|" . serendipity_db_escape_String($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $oldDirFile) . "|" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $oldDirThumb) . "|" . serendipity_db_escape_String($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $oldDirThumb) . ")'
-                              OR pre_content REGEXP '(src=|href=|window.open.)(\'|\")(" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $oldDirFile) . "|" . serendipity_db_escape_String($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $oldDirFile) . "|" . serendipity_db_escape_String($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $oldDirThumb) . "|" . serendipity_db_escape_String($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $oldDirThumb) . ")'";
                     $dirs = serendipity_db_query($q);
 
                     if (is_array($dirs)) {

@@ -121,6 +121,7 @@
  *  Fixed MediaLibrary item path replacements on MOVE with Serendipity 2.1 DEV
  *  Update simplePagination Lib
  *  Fixed $eventData being changed by backend_media_rename hook
+ *  Fixed $eventData[0]['type'] 'dir' replacements
 
 
     TL;DR - PLEASE NOTE:

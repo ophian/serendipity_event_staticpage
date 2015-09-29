@@ -19,7 +19,10 @@ Please use with care and always keep a backup copy of your updated plugin.
 
 ### Already done: :arrow_up:
 
-- [x] Fixed entry image replacements on MOVE with Serendipity 2.1 DEV
+- [x] Fixed $eventData being changed by backend_media_rename hook
+- [x] Remove check for an empty oldDir, since Serendipity 2.1 will support moving into 'uploads/' root
+- [x] Update simplePagination Lib
+- [x] Fixed MediaLibrary item path replacements on MOVE with Serendipity 2.1 DEV
 - [x] Note to use a theme unique filename for the related article template by freetags
 - [x] Use the new simple fallback parameter in serendipity_getTemplateFile()
 - [x] Remove RQ for double entry staticpage var

@@ -102,7 +102,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.51');
+        $propbag->add('version', '4.52');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -2904,7 +2904,7 @@ class serendipity_event_staticpage extends serendipity_event
      * @param   string    value_func name
      * @param   string    submit name
      * @access  private
-     * @return  bool
+     * @return  void
      */
     function showForm(&$form_values, &$form_container, $introspec_func = 'introspect_item', $value_func = 'get_static', $submit_name = 'staticSubmit')
     {
@@ -2962,10 +2962,8 @@ class serendipity_event_staticpage extends serendipity_event
                     'form_values'    => (is_array($serendipity['POST']['plugin']) ? $serendipity['POST']['plugin'] : $this->staticpage)
                 )
         );
-        $content = $serendipity['smarty']->fetch('file:'. $tfile);
+        echo $serendipity['smarty']->fetch('file:'. $tfile);
 
-        echo $content;
-        return true;
     }
 
     /**
@@ -3472,18 +3470,21 @@ class serendipity_event_staticpage extends serendipity_event
 
 
                 case 'backend_media_rename':
-                    // Only MySQL supported, since I don't know how to use REGEXPs differently. // RQ: this is an old dev note. What shall we do about it to enable for other db layers?
+                    // Only MySQL supported, since I don't know how to use REGEXPs differently. // RQ: this is an old dev note. What shall we do about it, to enable this for other db layers?
                     if ($serendipity['dbType'] != 'mysql' && $serendipity['dbType'] != 'mysqli') {
                         echo '<span class="msg_notice"><span class="icon-info-circled"></span> ' . STATICPAGE_MEDIA_DIRECTORY_MOVE_ENTRY . "</span>\n";
                         break;
                     }
 
-                    if (!isset($eventData[0]['oldDir'])) {
-                        return true;
+                    // disabled, since Serendipity 2.1 will now support an empty oldDir to remove files to 'uploads/' root
+                    if (version_compare($serendipity['version'], '2.0.99', '<')) {
+                        if (!isset($eventData[0]['oldDir'])) {
+                            return true;
+                        }
                     }
 
                     if ($eventData[0]['type'] == 'dir') {
-                        // void ???
+                        // void ???  RQ: or say something?
                     } elseif ($eventData[0]['type'] == 'filedir' || $eventData[0]['type'] == 'file') {
                         // Path patterns to SELECT en detail
                         $oldDirThumb = $eventData[0]['oldDir'] . $eventData[0]['file']['name'] . '.' . $eventData[0]['file']['thumbnail_name'] . (($eventData[0]['file']['extension']) ? '.'.$eventData[0]['file']['extension'] : '');
@@ -3491,8 +3492,8 @@ class serendipity_event_staticpage extends serendipity_event
                         $oldDirFile  = $eventData[0]['oldDir'] . $eventData[0]['file']['name'] . (($eventData[0]['file']['extension']) ? '.'.$eventData[0]['file']['extension'] : '');
                         $newDirFile  = $eventData[0]['newDir'] . $eventData[0]['file']['name'] . (($eventData[0]['file']['extension']) ? '.'.$eventData[0]['file']['extension'] : '');
                         // REPLACE BY Path and Name only to also match Thumbs
-                        $eventData[0]['oldDir'] .= $eventData[0]['file']['name'];
-                        $eventData[0]['newDir'] .= $eventData[0]['file']['name'];
+                        $fromFile = $eventData[0]['oldDir'] . $eventData[0]['file']['name'];
+                        $toFile   = $eventData[0]['newDir'] . $eventData[0]['file']['name'];
                     }
                     $q = "SELECT id, content, pre_content
                             FROM {$serendipity['dbPrefix']}staticpages
@@ -3503,8 +3504,8 @@ class serendipity_event_staticpage extends serendipity_event
                     if (is_array($dirs)) {
                         foreach($dirs AS $dir) {
 
-                            $dir['content']     = preg_replace('@(src=|href=|window.open.)(\'|")(' . preg_quote($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . '|' . preg_quote($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . ')@', '\1\2' . $serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $eventData[0]['newDir'], $dir['content']);
-                            $dir['pre_content'] = preg_replace('@(src=|href=|window.open.)(\'|")(' . preg_quote($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . '|' . preg_quote($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $eventData[0]['oldDir']) . ')@', '\1\2' . $serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $eventData[0]['newDir'], $dir['pre_content']);
+                            $dir['content']     = preg_replace('@(src=|href=|window.open.)(\'|")(' . preg_quote($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $fromFile) . '|' . preg_quote($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $fromFile) . ')@', '\1\2' . $serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $toFile, $dir['content']);
+                            $dir['pre_content'] = preg_replace('@(src=|href=|window.open.)(\'|")(' . preg_quote($serendipity['baseURL'] . $serendipity['uploadHTTPPath'] . $fromFile) . '|' . preg_quote($serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $fromFile) . ')@', '\1\2' . $serendipity['serendipityHTTPPath'] . $serendipity['uploadHTTPPath'] . $toFile, $dir['pre_content']);
 
                             $uq = "UPDATE {$serendipity['dbPrefix']}staticpages
                                       SET content     = '" . serendipity_db_escape_string($dir['content']) . "' ,

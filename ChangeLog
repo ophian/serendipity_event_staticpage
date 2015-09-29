@@ -120,7 +120,6 @@
  *  Staticpages now use the simple directory fallback (theme->plugin), if supported by Serendipity core
  *  Fixed MediaLibrary item path replacements on MOVE with Serendipity 2.1 DEV
  *  Update simplePagination Lib
- *  Remove check for an empty oldDir, since Serendipity 2.1 will support moving into 'uploads/' root
  *  Fixed $eventData being changed by backend_media_rename hook
 
 

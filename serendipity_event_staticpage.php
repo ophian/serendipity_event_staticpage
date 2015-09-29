@@ -3476,11 +3476,9 @@ class serendipity_event_staticpage extends serendipity_event
                         break;
                     }
 
-                    // disabled, since Serendipity 2.1 will now support an empty oldDir to remove files to 'uploads/' root
-                    if (version_compare($serendipity['version'], '2.0.99', '<')) {
-                        if (!isset($eventData[0]['oldDir'])) {
-                            return true;
-                        }
+                    // isset '' == true! Serendipity 2.1 will now support an empty oldDir to remove files to 'uploads/' root
+                    if (!isset($eventData[0]['oldDir'])) {
+                        return true;
                     }
 
                     if ($eventData[0]['type'] == 'dir') {

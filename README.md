@@ -19,6 +19,8 @@ Please use with care and always keep a backup copy of your updated plugin.
 
 ### Already done: :arrow_up:
 
+- [x] Fixed POST preview check
+- [x] a little better CSS
 - [x] Fixed $eventData[0]['type'] 'dir' replacements
 - [x] Fixed $eventData being changed by backend_media_rename hook
 - [x] Update simplePagination Lib
@@ -81,7 +83,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [x] Changed for 2.0: fixed save pageorder to work with current current 2.0 changes
 - [x] Changed for 2.0: default config value for show entrylist is now true
 - [x] Done for 2.0: since now using Smarty 3 only, some Smarty code will need a refresh (no need, but cleaner)
-- [x] Main backend CSS was renamed to staticpage_backend.css and now includes seperately into backends page header
+- [x] Main backend CSS was renamed to staticpage_backend.css and now includes separately into backends page header
 - [x] Added for 2.0: include new staticpage_backend.js to templates page footer - no need to use 2.0 js hook
 - [x] Hide/Show the top tab bar menu per JS hideaway, since not used very often
 - [x] Add sorting filter function to entrylists - no need, since using simplePagination now (!)

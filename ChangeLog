@@ -53,7 +53,7 @@
  *  Add new constant STATICPAGE_TOGGLEANDSAVE and removed old non-template
     STATICPAGE_TEMPLATE_INTERNAL constant
  *  Main backend CSS file was renamed to staticpage_backend.css and
-    now includes seperately into backends page header
+    now includes separately into backends page header
  *  Added for 2.0:
     - include new staticpage_backend.js to templates page footer - no need to use 2.0 js hook
  *  Hide/Show the top tab bar menu per JS hideaway, since not used very often
@@ -122,6 +122,7 @@
  *  Update simplePagination Lib
  *  Fixed $eventData being changed by backend_media_rename hook
  *  Fixed $eventData[0]['type'] 'dir' replacements
+ *  Fixed POST preview check
 
 
     TL;DR - PLEASE NOTE:

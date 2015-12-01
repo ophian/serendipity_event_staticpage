@@ -5,6 +5,7 @@
     display: block;
     margin-top: 0;
     margin-bottom: 0;
+    padding: 2px 0 0 0;
 }
 .sp_tabnav {}
 .splist {
@@ -35,8 +36,8 @@
     /*
     This works below also with 32px etc, since "width" & "height" were set using em units. Usually.
     To have best results overall, do not enable width here!
+    width: 1em;
     */
-    /*width: 1em;*/
     height: 1em;
     fill: currentColor;
     vertical-align: text-bottom;
@@ -59,17 +60,7 @@
 .icon-pageorder { color: #3E5F81;/*#6fbc6d;*/ }
 .icon-pagetype { color: #f46899; }
 .icon-otherplugins { color: #5fa9dd; }
-.sp_entries_pane .spform a { padding-bottom: 1.25em; }
-
-@media only screen and (max-width: 768px) {
-    .spshow {
-        display: none;
-        visibility: hidden;
-    }
-    .sp_entries_pane .spform a {
-        padding-bottom: 1.3em;
-    }
-}
+.sp_entries_pane .spform a { padding: 2px 9px }
 
 #sp_navigator {
     margin-top: 1.5em;
@@ -222,17 +213,12 @@
 .sp_entries_pane .spform {
     float: right;
 }
-/* older browsers which dont support inline-flex */
 .sp_entries_pane .spform a,
 .sp_entries_pane .spform form {
-    display: inline-block;
+    display: inline-table;
+    margin-right: auto;
     zoom: 1;
 }
-.sp_entries_pane .spform {
-    display: inline-flex;
-    height: 1.5em;
-}
-
 .serendipityAdminContent span.five {
     font-weight: 500;
     color: rgb(0, 0, 0) !important;
@@ -295,7 +281,7 @@
 #sp_entries_list li:last-of-type { margin-top: 0.5em; }
 #sp_entries_list h3 {
     font-size: inherit;
-    margin: 0;
+    margin: 0px;
 }
 .sp_right {
     cursor: pointer;
@@ -416,12 +402,6 @@
     min-width: 100%;
 }
 
-@media only screen and (max-width: 480px) {
-    #backend_sp_respond .form_field_long label,
-    #backend_sp_respond .form_field_long input {
-        width: 96.6%;
-    }
-}
 #staticpage_pagetype fieldset legend,
 #backend_sp_respond #sp_main_data legend,
 #backend_sp_respond #sp_structure_data legend,
@@ -518,18 +498,41 @@
 }
 #staticpage_pagetype input {
     min-width: 330px;
+    margin: auto 0.3em;
 }
+
 /* SMALL SCREEN */
 @media only screen and (max-width: 372px) {
     #staticpage_pagetype input {
         min-width: 282px;
     }
 }
-@media only screen and (max-width: 481px) {
+@media only screen and (max-width: 531px) {
+    .sp_listnav {
+        margin-top: 1em;
+        margin-bottom: 1em;
+        padding: 0;
+    }
+    #sp_entries_list h3 {
+        margin: 0px 0px 1.16667em;
+    }
+}
+@media only screen and (max-width: 480px) {
     #staticpage_pagetype.configuration_group .form_field input {
         width: inherit;
     }
+    #backend_sp_respond .form_field_long label,
+    #backend_sp_respond .form_field_long input {
+        width: 96.6%;
+    }
 }
+@media only screen and (max-width: 768px) {
+    .spshow {
+        display: none;
+        visibility: hidden;
+    }
+}
+
 
 /* pageadd */
 #staticpage_pageadd .input_button {

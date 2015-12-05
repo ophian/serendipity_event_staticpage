@@ -123,6 +123,7 @@
  *  Fixed $eventData being changed by backend_media_rename hook
  *  Fixed $eventData[0]['type'] 'dir' replacements
  *  Fixed POST preview check
+ *  Append frontend CSS to end of eventData stream
 
 
     TL;DR - PLEASE NOTE:

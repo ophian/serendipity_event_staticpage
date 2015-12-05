@@ -102,7 +102,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.53');
+        $propbag->add('version', '4.54');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -3555,7 +3555,8 @@ class serendipity_event_staticpage extends serendipity_event
                     break;
 
                 case 'css':
-                    echo '/*** START staticpage event plugin css ***/';
+                    ob_start();
+                    echo "\n\n/*** START staticpage event plugin css ***/\n";
                     if ($serendipity['version'][0] > 1) {
 ?>
 
@@ -3629,9 +3630,16 @@ if ($serendipity['version'][0] < 2) {
     content:"\a";
     white-space: pre;
 }
+
 /*** END staticpage event plugin css ***/
 
+
 <?php
+                    $staticpage_frontpage_css = ob_get_contents();
+                    ob_end_clean();
+
+                    $eventData = $eventData . $staticpage_frontpage_css; // append CSS
+
                     // do not include if not set or already used - while searching for plugin css data, we need to append - not echo - else strpos() can not access it.
                     if (strpos($eventData, '.dtree') !== false) {
                        // class exists in CSS by another Plugin, or a user has customized it and we don't need default

@@ -120,12 +120,12 @@ class serendipity_event_staticpage extends serendipity_event
             'show_breadcrumb',
             'showonnavi',
             'showmeta',
-            'seperator2',
+            'separator2',
             'config_frontendgrouper',
             'showtextorheadline',
             'use_lmdate',
             'use_quicksearch',
-            'seperator',
+            'separator',
             'config_configgrouper',
             'showlist',
             'listpp'
@@ -163,9 +163,9 @@ class serendipity_event_staticpage extends serendipity_event
                 $propbag->add('default',        ($serendipity['version'][0] > 1 ? 'true' : 'false'));
                 break;
 
-            case 'seperator2':
-            case 'seperator':
-                $propbag->add('type',           'seperator');
+            case 'separator2':
+            case 'separator':
+                $propbag->add('type',           'separator');
                 break;
 
             case 'config_formgrouper':
@@ -3461,7 +3461,11 @@ class serendipity_event_staticpage extends serendipity_event
 
                 case 'backend_sidebar_entries':
                     $this->setupDB(); // RQ: why here too? It is already done in genpage ?!
-                    echo '<li class="serendipitySideBarMenuLink serendipitySideBarMenuEntryLinks"><a href="?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages">' . STATICPAGE_TITLE . '</a></li>';
+                    if ($serendipity['version'][0] < 2) {
+                        echo "\n".'                        <li class="serendipitySideBarMenuLink serendipitySideBarMenuEntryLinks"><a href="?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages">' . STATICPAGE_TITLE . '</a></li>'."\n";
+                    } else {
+                        echo "\n".'                        <li><a href="?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages">' . STATICPAGE_TITLE . '</a></li>'."\n";
+                    }
                     break;
 
                 case 'backend_sidebar_entries_event_display_staticpages':

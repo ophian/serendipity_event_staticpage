@@ -19,6 +19,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 
 ### Already done: :arrow_up:
 
+- [x] Minor markup space fixes, update simplepagination, include iconizr template, added title for parent staticpage in list
 - [x] Append frontend CSS to end of eventData stream
 - [x] Fixed POST preview check
 - [x] a little better CSS

@@ -85,6 +85,7 @@ class serendipity_event_staticpage extends serendipity_event
             'backend_category_showForm'                         => true,
             'backend_sidebar_entries_event_display_staticpages' => true,
             'backend_sidebar_entries'                           => true,
+            'js_backend'                                        => true,
             'entries_header'                                    => true,
             'entries_footer'                                    => true,
             'external_plugin'                                   => true,
@@ -102,7 +103,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.54');
+        $propbag->add('version', '4.55');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -269,7 +270,7 @@ class serendipity_event_staticpage extends serendipity_event
                 break;
 
             default:
-                return false;
+                break;
         }
         return true;
     }
@@ -3287,7 +3288,6 @@ class serendipity_event_staticpage extends serendipity_event
     </tr>
 <?php
                     }
-                    return true;
                     break;
 
                 case 'backend_category_delete':
@@ -3459,6 +3459,21 @@ class serendipity_event_staticpage extends serendipity_event
                     }
                     break;
 
+                case 'js_backend':
+                    // keep for 2.0 < 2.1 version, since they do not have this nice config grouper item
+                    if ($serendipity['version'][0] == 2 && version_compare($serendipity['version'], '2.0.99', '<')) {
+                        echo '
+$(document).ready(function() {
+    $(\'.configure_plugin div.configuration_group\').each(function() {
+        if(!/[\S]/.test($(this).html())) {
+            $(this).replaceWith(\'<hr class="config_separator" style="visibility:hidden">\');
+        }
+    });
+});
+                        ';
+                    }
+                    break;
+
                 case 'backend_sidebar_entries':
                     $this->setupDB(); // RQ: why here too? It is already done in genpage ?!
                     if ($serendipity['version'][0] < 2) {
@@ -3482,7 +3497,7 @@ class serendipity_event_staticpage extends serendipity_event
 
                     // isset '' == true! Serendipity 2.1 will now support an empty oldDir to remove files to 'uploads/' root
                     if (!isset($eventData[0]['oldDir'])) {
-                        return true;
+                        break;
                     }
 
                     if ($eventData[0]['type'] == 'filedir' || $eventData[0]['type'] == 'file') {
@@ -3642,7 +3657,7 @@ if ($serendipity['version'][0] < 2) {
                     $staticpage_frontpage_css = ob_get_contents();
                     ob_end_clean();
 
-                    $eventData = $eventData . $staticpage_frontpage_css; // append CSS
+                    $eventData .= $staticpage_frontpage_css; // append CSS
 
                     // do not include if not set or already used - while searching for plugin css data, we need to append - not echo - else strpos() can not access it.
                     if (strpos($eventData, '.dtree') !== false) {
@@ -3667,7 +3682,7 @@ if ($serendipity['version'][0] < 2) {
                     break;
 
                 default:
-                    return false;
+                    break;
             }
             return true;
         }

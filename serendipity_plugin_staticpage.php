@@ -49,7 +49,9 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
     }
 
     function introspect_config_item($name, &$propbag) {
+
         global $serendipity;
+
         switch($name) {
             case 'title':
                 $propbag->add('type',        'string');
@@ -112,7 +114,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                 break;
 
             default:
-                return false;
+                break;
         }
         return true;
     }
@@ -154,7 +156,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                 $str .= $this->displayPageList((int)$this->get_config('limit'), $parentonly);
             }
         } else {
-            $str .= '<script src="' . $serendipity['baseURL'] . ($serendipity['rewrite'] == 'none' ? $serendipity['indexFile'] . '?/' : '') . 'plugin/spdtree.js" type="text/javascript"></script>'."\n";
+            $str .= '<script src="' . $serendipity['serendipityHTTPPath'] . ($serendipity['rewrite'] == 'none' ? $serendipity['indexFile'] . '?/' : '') . 'plugin/spdtree.js" type="text/javascript"></script>'."\n";
 
             $serendipity['staticpageplugin']['JS_init'] = true; // RQ: probably only available within templates config later on... or so. NO, this happens after event plugin processing, but will later on not be available. Why is that?
 

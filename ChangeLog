@@ -124,6 +124,7 @@
  *  Fixed $eventData[0]['type'] 'dir' replacements
  *  Fixed POST preview check
  *  Append frontend CSS to end of eventData stream
+ *  Added S9y 2.0.0 - 2.0.99 backend configgroup placeholder ability by script
 
 
     TL;DR - PLEASE NOTE:

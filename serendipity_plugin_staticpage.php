@@ -1,30 +1,22 @@
 <?php
 
-# serendipity_plugin_staticpage.php, v1.0 2005/06/01 (c) by Rob Antonishen
-
 if (IN_serendipity !== true) {
     die ("Don't hack!");
 }
 
+@serendipity_plugin_api::load_language(dirname(__FILE__));
 
-// Probe for a language include with constants. Still include defines later on, if some constants were missing
-$probelang = dirname(__FILE__) . '/' . $serendipity['charset'] . 'lang_' . $serendipity['lang'] . '.inc.php';
-if (file_exists($probelang)) {
-    include $probelang;
-}
-
-include dirname(__FILE__) . '/lang_en.inc.php';
-
-class serendipity_plugin_staticpage extends serendipity_plugin {
-
+class serendipity_plugin_staticpage extends serendipity_plugin
+{
     var $staticpage_config = array();
 
-    function introspect(&$propbag) {
+    function introspect(&$propbag)
+    {
         $propbag->add('name',        PLUGIN_STATICPAGELIST_NAME);
         $propbag->add('description', PLUGIN_STATICPAGELIST_NAME_DESC);
         $propbag->add('author',      "Rob Antonishen, Falk Doering, Ian");
         $propbag->add('stackable',   true);
-        $propbag->add('version',     '1.26');
+        $propbag->add('version',     '1.27');
         $propbag->add('configuration', array(
                 'title',
                 'limit',
@@ -48,8 +40,8 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
 
     }
 
-    function introspect_config_item($name, &$propbag) {
-
+    function introspect_config_item($name, &$propbag)
+    {
         global $serendipity;
 
         switch($name) {
@@ -114,12 +106,13 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
                 break;
 
             default:
-                break;
+                return false;
         }
         return true;
     }
 
-    function generate_content(&$title) { 
+    function generate_content(&$title)
+    {
         $title = $this->get_config('title');
         // do not load the tpl in backend
         if (!defined('IN_serendipity_admin')) {
@@ -127,7 +120,8 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
         }
     }
 
-    function show_content() {
+    function show_content()
+    {
         global $serendipity;
         static $smartify = null;
 
@@ -222,7 +216,8 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
         }
     }
 
-    function getPageList($parentsonly = false) {
+    function getPageList($parentsonly = false)
+    {
         global $serendipity;
 
         $q = 'SELECT id, headline, parent_id, permalink, pagetitle, is_startpage
@@ -245,7 +240,8 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
         return false;
     }
 
-    function addJSTags(&$pagelist) {
+    function addJSTags(&$pagelist)
+    {
         global $serendipity;
 
         $pc_count = count($pagelist);
@@ -258,7 +254,8 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
         }
     }
 
-    function iteratePageList(&$pagelist) {
+    function iteratePageList(&$pagelist)
+    {
         global $serendipity;
 
         if (is_array($pagelist)) {
@@ -272,7 +269,8 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
         return true;
     }
 
-    function displayPageList($limit, $parentsonly, $tpl=false) {
+    function displayPageList($limit, $parentsonly, $tpl=false)
+    {
         global $serendipity;
 
         $q = 'SELECT id, headline, parent_id, permalink, pagetitle, is_startpage
@@ -325,4 +323,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin {
 
         return $content;
     }
+
 }
+
+?>

@@ -18,7 +18,10 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
-
+- [x] Fix access permissions in backend
+- [x] Append all CSS to eventData
+- [x] Consistent use of serendipity_db_bool() config default values
+- [x] Now uses load_language API - extends sidebar plugin to v.1.27
 - [x] Added S9y 2.0.0 - 2.0.99 backend configgroup placeholder ability by script
 - [x] Minor markup space fixes, update simplepagination, include iconizr template, added title for parent staticpage in list
 - [x] Append frontend CSS to end of eventData stream

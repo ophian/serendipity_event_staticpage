@@ -129,6 +129,8 @@
  *  Now uses load_language API - extends sidebar plugin to v.1.27
  *  Consistent use of serendipity_db_bool() config default values
  *  Append all CSS to eventData
+ *  Added a "default fallback" frontend "plugin_staticpage_includeentry.tpl file", for the case
+    it was set previously in a template, OR an entry, switching to a new theme without having this file.
 
 
     TL;DR - PLEASE NOTE:

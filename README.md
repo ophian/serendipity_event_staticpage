@@ -18,6 +18,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Added a "default fallback" frontend "plugin_staticpage_includeentry.tpl file", for the case it was set previously in a template, OR an entry, switching to a new theme without having this file.
 - [x] Fix access permissions in backend
 - [x] Append all CSS to eventData
 - [x] Consistent use of serendipity_db_bool() config default values

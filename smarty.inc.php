@@ -24,7 +24,7 @@
 //
 // Do not use class method scope keywords public, protected or private here, even if included to class!
 
-function staticpage_display($params, &$smarty) {
+function staticpage_display($params, Smarty_Internal_Template $template) {
     global $serendipity;
 
     if (empty($params['template'])) {
@@ -35,26 +35,28 @@ function staticpage_display($params, &$smarty) {
         $params['pagevar'] = 'staticpage_';
     }
 
-    if (!empty($params['id'])) {
-        $where = "id = '" . serendipity_db_escape_string($params['id']) . "'";
-    } elseif (!empty($params['pagetitle'])) {
-        $where = "pagetitle = '" . serendipity_db_escape_string($params['pagetitle']) . "'";
-    } elseif (!empty($params['permalink'])) {
-        $where = "permalink = '" . serendipity_db_escape_string($params['permalink']) . "'";
-    } else {
-        $smarty->trigger_error(__FUNCTION__ .": missing 'id', 'permalink' or 'pagetitle' parameter");
-        return;
-    }
-
-    if (!empty($params['authorid'])) {
-        $where .= " AND authorid = " . (int)$params['authorid'];
-    }
-
     if (empty($params['query'])) {
-        $params['query'] = "SELECT *
-                              FROM {$serendipity['dbPrefix']}staticpages
-                             WHERE $where
-                             LIMIT 1";
+        if (!empty($params['id'])) {
+            $where = "id = '" . serendipity_db_escape_string($params['id']) . "'";
+        } elseif (!empty($params['pagetitle'])) {
+            $where = "pagetitle = '" . serendipity_db_escape_string($params['pagetitle']) . "'";
+        } elseif (!empty($params['permalink'])) {
+            $where = "permalink = '" . serendipity_db_escape_string($params['permalink']) . "'";
+        } else {
+            trigger_error(__FUNCTION__ .": missing 'id', 'permalink' or 'pagetitle' parameter");
+            return;
+        }
+
+        if (!empty($params['authorid'])) {
+            $where .= " AND authorid = " . (int)$params['authorid'];
+        }
+
+        if (empty($params['query'])) {
+            $params['query'] = "SELECT *
+                                  FROM {$serendipity['dbPrefix']}staticpages
+                                 WHERE $where
+                                 LIMIT 1";
+        }
     }
 
     $page = serendipity_db_query($params['query'], true, 'assoc');
@@ -82,7 +84,7 @@ function staticpage_display($params, &$smarty) {
  * @return string       The URL of the category - must be added to {$serendipityBaseURL} for a full URL
  */
 
-function smarty_getCategoryLinkByID ($data, &$smarty) {
+function smarty_getCategoryLinkByID($data, Smarty_Internal_Template $template) {
     $cat    = serendipity_fetchCategoryInfo($data['cid']);
     $result = serendipity_getPermalink($cat, 'category');
     return $result;

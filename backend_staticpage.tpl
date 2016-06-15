@@ -1,4 +1,4 @@
-{* backend_staticpage template file v. 1.25, 2015-12-08 *}
+{* backend_staticpage template file v. 1.26, 2016-06-15 *}
 
 <!-- backend_staticpage.tpl START -->
 
@@ -7,10 +7,10 @@
 {if $switch_spcat == 'pageorder' || $switch_spcat == 'pagetype' || $switch_spcat == 'pageadd'}
 <div id="serendipityStaticpagesNav">
     <ul class="sp_tabnav">
-        <li{if $s9y_get_cat == 'pageedit'} id="active"{/if} class="spnav"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageedit"><span title="{$CONST.STATICPAGE_CATEGORY_PAGES}"><svg class="icon icon-pagelist"><use xlink:href="#icon-pagelist"></use></svg></span><span class="spshow"> {$CONST.STATICPAGE_CATEGORY_PAGES}</span></a></li>
-        <li{if $s9y_get_cat == 'pageorder'} id="active"{/if} class="spnav"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEORDER}"><svg class="icon icon-pageorder"><use xlink:href="#icon-pageorder"></use></svg></span><span class="spshow"> {$CONST.STATICPAGE_CATEGORY_PAGEORDER}</span></a></li>
-        <li{if $s9y_get_cat == 'pagetype' || $s9y_post_cat == 'pagetype'} id="active"{/if} class="spnav"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pagetype"><span title="{$CONST.STATICPAGE_CATEGORY_PAGETYPES}"><svg class="icon icon-pagetype"><use xlink:href="#icon-pagetype"></use></svg></span><span class="spshow"> {$CONST.STATICPAGE_CATEGORY_PAGETYPES}</span></a></li>
-        <li{if $s9y_get_cat == 'pageadd'} id="active"{/if} class="spnav"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageadd"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEADD}"><svg class="icon icon-otherplugins"><use xlink:href="#icon-otherplugins"></use></svg></span><span class="spshow"> {$CONST.STATICPAGE_CATEGORY_PAGEADD}</span></a></li>
+        <li{if $s9y_get_cat == 'pageedit'} id="active"{/if} class="spnav"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageedit"><span title="{$CONST.STATICPAGE_CATEGORY_PAGES}"><svg role="img" class="icon icon-pagelist"><title>{$CONST.STATICPAGE_CATEGORY_PAGES}</title><use xlink:href="#icon-pagelist"></use></svg></span><span class="spshow"> {$CONST.STATICPAGE_CATEGORY_PAGES}</span></a></li>
+        <li{if $s9y_get_cat == 'pageorder'} id="active"{/if} class="spnav"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEORDER}"><svg role="img" class="icon icon-pageorder"><<title>{$CONST.STATICPAGE_CATEGORY_PAGEORDER}</title><use xlink:href="#icon-pageorder"></use></svg></span><span class="spshow"> {$CONST.STATICPAGE_CATEGORY_PAGEORDER}</span></a></li>
+        <li{if $s9y_get_cat == 'pagetype' || $s9y_post_cat == 'pagetype'} id="active"{/if} class="spnav"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pagetype"><span title="{$CONST.STATICPAGE_CATEGORY_PAGETYPES}"><svg role="img" class="icon icon-pagetype"><title>{$CONST.STATICPAGE_CATEGORY_PAGETYPES}</title><use xlink:href="#icon-pagetype"></use></svg></span><span class="spshow"> {$CONST.STATICPAGE_CATEGORY_PAGETYPES}</span></a></li>
+        <li{if $s9y_get_cat == 'pageadd'} id="active"{/if} class="spnav"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageadd"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEADD}"><svg role="img" class="icon icon-otherplugins"><title>{$CONST.STATICPAGE_CATEGORY_PAGEADD}</title>><use xlink:href="#icon-otherplugins"></use></svg></span><span class="spshow"> {$CONST.STATICPAGE_CATEGORY_PAGEADD}</span></a></li>
     </ul>
 </div>
 {/if}
@@ -51,15 +51,15 @@
 {elseif $switch_spcat == 'pagetype'}
 
     {if $sp_pagetype_saveconf}
-<div class="msg_success spmsg"><svg class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|formatTime:'%H:%M:%S')}</div>
+<div class="msg_success spmsg"><svg aria-hidden="true" class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|formatTime:'%H:%M:%S')}</div>
     {/if}
 
     {if $sp_pagetype_purged}
-<div class="msg_success spmsg"><svg class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg> {$CONST.DONE}! {$CONST.RIP_ENTRY|sprintf:$sp_pagetype_ripped}</div>
+<div class="msg_success spmsg"><svg aria-hidden="true" class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg> {$CONST.DONE}! {$CONST.RIP_ENTRY|sprintf:$sp_pagetype_ripped}</div>
     {/if}
 
     {if $sp_pagetype_update}
-<div class="msg_error spmsg"><svg class="icon icon-error"><use xlink:href="#icon-error"></use></svg> {$CONST.ERROR}: {$sp_pagetype_mixedresult}</div>
+<div class="msg_error spmsg"><svg aria-hidden="true" class="icon icon-error"><use xlink:href="#icon-error"></use></svg> {$CONST.ERROR}: {$sp_pagetype_mixedresult}</div>
     {/if}
 
 <form action="serendipity_admin.php" method="post" name="serendipityEntry">
@@ -102,7 +102,7 @@
 <div id="staticpage_pageadd" class="sp_padd">
 
     {if $sp_addsubmit}
-    <div class="msg_success spmsg"><svg class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|formatTime:'%H:%M:%S')}</div>
+    <div class="msg_success spmsg"><svg aria-hidden="true" class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|formatTime:'%H:%M:%S')}</div>
     {/if}
 
     <p>{$CONST.STATICPAGE_PAGEADD_DESC}</p>
@@ -151,24 +151,24 @@
 
     {if $sp_staticsubmit}
         {if !empty($sp_defpages_upd_result)}
-<div class="msg_error spmsg"><svg class="icon icon-error"><use xlink:href="#icon-error"></use></svg> {$CONST.ERROR}: {$sp_defpages_upd_result}</div>
+<div class="msg_error spmsg"><svg aria-hidden="true" class="icon icon-error"><use xlink:href="#icon-error"></use></svg> {$CONST.ERROR}: {$sp_defpages_upd_result}</div>
         {else}
-<div class="msg_success spmsg"><svg class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|formatTime:'%H:%M:%S')}</div>
+<div class="msg_success spmsg"><svg aria-hidden="true" class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg> {$CONST.DONE}! {$CONST.SETTINGS_SAVED_AT|sprintf:($smarty.now|formatTime:'%H:%M:%S')}</div>
         {/if}
     {/if}
 
     {if $sp_staticdelete}
         {if isset($sp_defpages_rip_success)}
-<div class="msg_success spmsg"><svg class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg> {$sp_defpages_rip_success}</div>
+<div class="msg_success spmsg"><svg aria-hidden="true" class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg> {$sp_defpages_rip_success}</div>
         {else}
 <div class="msg_notice spmsg">
-    <svg class="icon icon-error"><use xlink:href="#icon-error"></use></svg> {$CONST.IMPORT_NOTES}: {$CONST.STATICPAGE_CANNOTDELETE_MSG}
+    <svg aria-hidden="true" class="icon icon-error"><use xlink:href="#icon-error"></use></svg> {$CONST.IMPORT_NOTES}: {$CONST.STATICPAGE_CANNOTDELETE_MSG}
 </div>
         {/if}
     {/if}
     {if $sp_relcatchange}
 <div class="msg_notice spmsg">
-    <svg class="icon icon-error"><use xlink:href="#icon-error"></use></svg> {$CONST.IMPORT_NOTES}: {$CONST.RELATED_CATEGORY_CHANGE_MSG|sprintf:$prev_relcat_staticpage:$this_relcat_staticpage}
+    <svg aria-hidden="true" class="icon icon-error"><use xlink:href="#icon-error"></use></svg> {$CONST.IMPORT_NOTES}: {$CONST.RELATED_CATEGORY_CHANGE_MSG|sprintf:$prev_relcat_staticpage:$this_relcat_staticpage}
 </div>
     {/if}
 
@@ -217,13 +217,13 @@
             - <button type="submit" name="serendipity[staticPreview]" value="1" title="{$CONST.PREVIEW}" class="button_link entry_preview icon-search"><span class="visuallyhidden">{$CONST.PREVIEW}</span></button>
             {/if}
         {if $sp_defpages_sbplav}
-            <span class="sp_right sp_info" title="Staticpage Sidebar {$CONST.STATICPAGE_PLUGIN_AVAILABLE}"><svg class="icon icon-info"><use xlink:href="#icon-info"></use></svg></span>
+            <span class="sp_right sp_info" title="Staticpage Sidebar {$CONST.STATICPAGE_PLUGIN_AVAILABLE}"><svg aria-hidden="true" class="icon icon-info"><use xlink:href="#icon-info"></use></svg></span>
         {/if}
             <ul class="sp_listnav">
-                <li{if $s9y_get_cat == 'pageedit'} id="active"{/if} class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageedit"><span title="{$CONST.STATICPAGE_CATEGORY_PAGES}"><svg class="icon icon-pagelist"><use xlink:href="#icon-pagelist"></use></svg></span></a></li>
-                <li class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEORDER}"><svg class="icon icon-pageorder"><use xlink:href="#icon-pageorder"></use></svg></span></a></li>
-                <li class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pagetype"><span title="{$CONST.STATICPAGE_CATEGORY_PAGETYPES}"><svg class="icon icon-pagetype"><use xlink:href="#icon-pagetype"></use></svg></span></a></li>
-                <li class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageadd"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEADD}"><svg class="icon icon-otherplugins"><use xlink:href="#icon-otherplugins"></use></svg></span></a></li>
+                <li{if $s9y_get_cat == 'pageedit'} id="active"{/if} class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageedit"><span title="{$CONST.STATICPAGE_CATEGORY_PAGES}"><svg role="img" class="icon icon-pagelist"><title>{$CONST.STATICPAGE_CATEGORY_PAGES}</title><use xlink:href="#icon-pagelist"></use></svg></span></a></li>
+                <li class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEORDER}"><svg role="img" class="icon icon-pageorder"><<title>{$CONST.STATICPAGE_CATEGORY_PAGEORDER}</title><use xlink:href="#icon-pageorder"></use></svg></span></a></li>
+                <li class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pagetype"><span title="{$CONST.STATICPAGE_CATEGORY_PAGETYPES}"><svg role="img" class="icon icon-pagetype"><title>{$CONST.STATICPAGE_CATEGORY_PAGETYPES}</title><use xlink:href="#icon-pagetype"></use></svg></span></a></li>
+                <li class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageadd"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEADD}"><svg role="img" class="icon icon-otherplugins"><title>{$CONST.STATICPAGE_CATEGORY_PAGEADD}</title>><use xlink:href="#icon-otherplugins"></use></svg></span></a></li>
             </ul>
         </div><!-- class sp_pageselector end -->
 
@@ -232,7 +232,7 @@
             var staticpage_preview = window.open("{$sp_defpages_link}", "staticpage_preview");
             staticpage_preview.focus();
         </script>
-        <div class="msg_notice spmsg"><svg class="icon icon-info"><use xlink:href="#icon-info"></use></svg> {$CONST.PLUGIN_STATICPAGE_PREVIEW|sprintf:"<a href=\"$sp_defpages_link\">{$sp_defpages_pagetitle|escape}</a>"}</div>
+        <div class="msg_notice spmsg"><svg aria-hidden="true" class="icon icon-info"><use xlink:href="#icon-info"></use></svg> {$CONST.PLUGIN_STATICPAGE_PREVIEW|sprintf:"<a href=\"$sp_defpages_link\">{$sp_defpages_pagetitle|escape}</a>"}</div>
     {/if}
     </div><!-- //id sp_navigator end -->
 
@@ -259,10 +259,10 @@
 <h2>{$CONST.STATICPAGE_LIST_EXISTING_PAGES}</h2>
 
 <ul class="sp_listnav">
-    <li{if $s9y_get_cat == 'pageedit'} id="active"{/if} class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageedit"><span title="{$CONST.STATICPAGE_CATEGORY_PAGES}"><svg class="icon icon-pagelist"><use xlink:href="#icon-pagelist"></use></svg></span></a></li>
-    <li class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEORDER}"><svg class="icon icon-pageorder"><use xlink:href="#icon-pageorder"></use></svg></span></a></li>
-    <li class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pagetype"><span title="{$CONST.STATICPAGE_CATEGORY_PAGETYPES}"><svg class="icon icon-pagetype"><use xlink:href="#icon-pagetype"></use></svg></span></a></li>
-    <li class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageadd"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEADD}"><svg class="icon icon-otherplugins"><use xlink:href="#icon-otherplugins"></use></svg></span></a></li>
+    <li{if $s9y_get_cat == 'pageedit'} id="active"{/if} class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageedit"><span title="{$CONST.STATICPAGE_CATEGORY_PAGES}"><svg role="img" class="icon icon-pagelist"><title>{$CONST.STATICPAGE_CATEGORY_PAGES}</title><use xlink:href="#icon-pagelist"></use></svg></span></a></li>
+    <li class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageorder"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEORDER}"><svg role="img" class="icon icon-pageorder"><<title>{$CONST.STATICPAGE_CATEGORY_PAGEORDER}</title><use xlink:href="#icon-pageorder"></use></svg></span></a></li>
+    <li class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pagetype"><span title="{$CONST.STATICPAGE_CATEGORY_PAGETYPES}"><svg role="img" class="icon icon-pagetype"><title>{$CONST.STATICPAGE_CATEGORY_PAGETYPES}</title><use xlink:href="#icon-pagetype"></use></svg></span></a></li>
+    <li class="spnav splist"><a href="{$serendipityHTTPPath}serendipity_admin.php?serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pageadd"><span title="{$CONST.STATICPAGE_CATEGORY_PAGEADD}"><svg role="img" class="icon icon-otherplugins"><title>{$CONST.STATICPAGE_CATEGORY_PAGEADD}</title>><use xlink:href="#icon-otherplugins"></use></svg></span></a></li>
 </ul>
 
 <div id="sp_entry_pagination"></div>
@@ -275,7 +275,7 @@
         <ul id="sp_entries_list" class="plainList{if $entry['parent_id'] > 0} sp_isChild{/if}">
             <li id="sple{$entry['id']}" class="clearfix">
                 <h3>{if $entry['parent_id'] > 0}<span class="entry_status sp_ptree" title="parent static page ID">#{$entry['parent_id']}</span><span class="icon-right-dir sp_ctree"></span>{/if}{if empty($entry['headline'])}<span class="five">{$CONST.STATICPAGE_PAGETITLE}: </span>{/if}<a href="?serendipity[action]=admin&amp;serendipity[adminModule]=event_display&amp;serendipity[adminAction]=staticpages&amp;serendipity[staticpagecategory]=pages&amp;serendipity[staticid]={$entry['id']}" title="#{$entry['id']} {$entry['pagetitle']|escape}">{if !empty($entry['headline'])}{$entry['headline']|truncate:50}{else}{$entry['pagetitle']|escape}{/if}</a></h3>
-                <div class="clearfix spnav spmod">{$entry['timestamp']|formatTime:'%Y-%m-%d'} {if $entry['timestamp'] <= ($entry['last_modified'] - 1800)}<svg class="icon icon-clock" title="{$CONST.LAST_UPDATED}: {$entry['last_modified']|formatTime:'%Y-%m-%d'}"><use xlink:href="#icon-clock"></use></svg>{/if}</div>
+                <div class="clearfix spnav spmod" title="{$CONST.LAST_UPDATED}: {$entry['last_modified']|formatTime:'%Y-%m-%d'}">{$entry['timestamp']|formatTime:'%Y-%m-%d'} {if $entry['timestamp'] <= ($entry['last_modified'] - 1800)}<svg aria-hidden="true" class="icon icon-clock"><use xlink:href="#icon-clock"></use></svg>{/if}</div>
             </li>
             <li class="clearfix">
                 {$CONST.POSTED_BY} {$sp_listentries_authors[$entry['authorid']]|escape} <span class="sp_dim">[<em class="sp_lang">{$entry['language']}</em>]</span>
@@ -307,7 +307,7 @@
     {else} {* if !$sp_listentries_entries || empty($sp_listentries_entries) *}
 
 <div class="msg_notice spmsg">
-    <svg class="icon icon-attention"><use xlink:href="#icon-attention"></use></svg> {$CONST.NO_ENTRIES_TO_PRINT}
+    <svg aria-hidden="true" class="icon icon-attention"><use xlink:href="#icon-attention"></use></svg> {$CONST.NO_ENTRIES_TO_PRINT}
 </div>
 
     {/if} {* is_array($sp_listentries_entries) end *}

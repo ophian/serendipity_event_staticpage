@@ -1,4 +1,4 @@
-4.56:
+4.57:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -129,8 +129,12 @@
  *  Now uses load_language API - extends sidebar plugin to v.1.27
  *  Consistent use of serendipity_db_bool() config default values
  *  Append all CSS to eventData
- *  Added a "default fallback" frontend "plugin_staticpage_includeentry.tpl file", for the case
-    it was set previously in a template, OR an entry, switching to a new theme without having this file.
+ *  Added a "default fallback" frontend "plugin_staticpage_includeentry.tpl file",
+    for the case it was previously set in a template OR included by an entry, when
+    switching to a new theme without having this file.
+ *  Changed requirement to min PHP 5.3, which removes deprecated sortByOrder() method
+ *  Changed SVG since SVG title attributes were not read
+
 
 
     TL;DR - PLEASE NOTE:

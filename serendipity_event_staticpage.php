@@ -7,7 +7,7 @@ if (IN_serendipity !== true) {
 
 // Note: @access cased private method phpDOC notations, without(!) a private method keyword, were wished to make public again by Garvin. ;-)
 
-define ('DEBUG_STATICPAGE', false); // for related category debugging only
+@define ('DEBUG_STATICPAGE', false); // for related category debugging only
 
 @serendipity_plugin_api::load_language(dirname(__FILE__));
 
@@ -97,11 +97,11 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.56');
+        $propbag->add('version', '4.57');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
-            'php'         => '5.2.0'
+            'php'         => '5.3.0'
         ));
         $propbag->add('stackable', false);
         $propbag->add('groups', array('BACKEND_EDITOR', 'BACKEND_FEATURES'));
@@ -1231,7 +1231,10 @@ class serendipity_event_staticpage extends serendipity_event
     {
         $p = array_merge($p, array($id));
         foreach ($pages as $page) {
-            if ($page['parent_id'] == $id) { $p = $this->recursive_childs($pages, $page['id'], $p); break; }
+            if ($page['parent_id'] == $id) {
+                $p = $this->recursive_childs($pages, $page['id'], $p);
+                break;
+            }
         }
         return $p;
     }
@@ -1255,19 +1258,6 @@ class serendipity_event_staticpage extends serendipity_event
     }
 
     /**
-     * Sort merged breadcrumb array by depth key regular - for < PHP 5.3 versions, mark deprecated
-     *
-     * @param   array    $a crumbs
-     * @param   array    $b crumbs
-     * @access  private
-     * @return  array
-     */
-    function sortByOrder($a, $b)
-    {
-        return $a['depth'] - $b['depth'];
-    }
-
-    /**
      * Rewind and set internal pointer for next and prev frontend navigation returns
      * since $expages may have excluded/removed keys, without setting a new index, for comparison checks with $pages
      * that is why the previous coded loops $i+1/$i-1 in $nav for prev and next did not help
@@ -1284,14 +1274,21 @@ class serendipity_event_staticpage extends serendipity_event
         // handle case end of array
         end($array);         // move the internal pointer to the end of the array
         $key = key($array);  // fetches the key of the element pointed to by the internal pointer
-        if (!$prev && ($key == $index)) return false;
-        if ( $prev && ($key == $index)) { prev($array); return $array[key($array)][$s]; }
+        if (!$prev && ($key == $index)) {
+            return false;
+        }
+        if ( $prev && ($key == $index)) {
+            prev($array);
+            return $array[key($array)][$s];
+        }
         // rewind and iterate through for normal case navigations
         unset($key);
         reset($array);
         foreach ($array as $key => $item) {
             if ($key == $index) {
-                if (!$prev) return $array[key($array)][$s]; // is next() index key already
+                if (!$prev) {
+                    return $array[key($array)][$s]; // is next() index key already
+                }
                 prev($array); // set pointer to current key, see above
                 prev($array); // set pointer to real prev() key
                 return $array[key($array)][$s];
@@ -1456,11 +1453,9 @@ class serendipity_event_staticpage extends serendipity_event
                 // merge the upwards and downwards breadcrumb array
                 $crumbs = array_unique($crumbs, SORT_REGULAR);
                 // sort breadcrumb array by depth key
-                /* with PHP 5.3 and up - enable soon and then get rid of deprecated sortByOrder()!
                 usort($crumbs, function($a, $b) {
                     return $a['depth'] - $b['depth'];
-                });*/
-                usort($crumbs, array($this, 'sortByOrder'));
+                });
 
                 $nav['crumbs'] = $crumbs;
 
@@ -1643,7 +1638,9 @@ class serendipity_event_staticpage extends serendipity_event
             } else {
                 $staticpage_precontent = $entry['body'];
             }
-            if (isset($serendipity['POST']['properties']['ep_no_nl2br']) && !isset($serendipity['POST']['pass'])) unset($serendipity['POST']);
+            if (isset($serendipity['POST']['properties']['ep_no_nl2br']) && !isset($serendipity['POST']['pass'])) {
+                unset($serendipity['POST']);
+            }
         } else {
             $staticpage_content    = $this->get_static('content'); // no more &
             $staticpage_precontent = $this->get_static('pre_content'); // no more &
@@ -2230,7 +2227,7 @@ class serendipity_event_staticpage extends serendipity_event
                     }
                     $this->setCatProps((int)$pcid['categoryid'], null, true); // set to 0, mean delete from table
                 }
-                // RQ: note table combine to user? (No, since we do not do this on new staticpages either.)
+                // RQ: Shall we note table combine to user? (No, since we do not do this on new staticpages either.)
             }
 
             serendipity_plugin_api::hook_event('backend_staticpages_update', $insert_page); // (see hook above) eg in the google_sitemap plugin
@@ -2711,7 +2708,7 @@ class serendipity_event_staticpage extends serendipity_event
                         ));
                     }
                     // TODO: possibly here, real entryList pagination... (only in case there are too much entries; but then also needed for selectbox default option) - via php and external_plugins?
-                    // But as long as the full fetch does not slow down the javascript pagination is truly the best!!
+                    // But as long as the full fetch does not slow down, the javascript pagination is truly the best!!
                 } //get_config('showlist') end
                 break;
         } //end switch
@@ -2741,7 +2738,6 @@ class serendipity_event_staticpage extends serendipity_event
         foreach ($order as $key => $id) {
             serendipity_db_update('staticpages', array('id' => $id), array('pageorder' => $key));
         }
-
         @unlink($this->cachefile);
     }
 

@@ -8,6 +8,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 
 ### ToDo: :arrow_down:
 - [ ] deep check, if any change broke anything with some more enhanced staticpage options (all normal behaviour is checked working!)
+- [ ] check SQLite query install success (#377 "ALTER TABLE" is invalid in SQLite)
 - [ ] future Todo - check possibility for an automated integration to templates using $template_global_config = array('navigation' => true)
 - [ ] future Todo - refactor related category associations
 - [ ] check staticpage authorid vs $serendipity['authorid'] (0 != 1)!
@@ -18,7 +19,9 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
-- [x] Added a "default fallback" frontend "plugin_staticpage_includeentry.tpl file", for the case it was set previously in a template, OR an entry, switching to a new theme without having this file.
+- [x] Changed SVG since SVG title attributes were not read - see https://gist.github.com/davidhund/564331193e1085208d7e
+- [x] Changed requirement to min PHP 5.3, which removes deprecated sortByOrder() method.
+- [x] Added a "default fallback" frontend "plugin_staticpage_includeentry.tpl file", for the case it was previously set in a template OR included by an entry, when switching to a new theme without having this file.
 - [x] Fix access permissions in backend
 - [x] Append all CSS to eventData
 - [x] Consistent use of serendipity_db_bool() config default values

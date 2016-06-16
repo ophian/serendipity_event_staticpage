@@ -1,4 +1,4 @@
-{* old_backend_staticpage template file v. 1.16, 2015-06-29 *}
+{* old_backend_staticpage template file v. 1.17, 2016-06-16 *}
 
 <!-- old_backend_staticpage.tpl START -->
 
@@ -130,7 +130,7 @@
 
         </select>
         <input type="submit" class="serendipityPrettyButton input_button" name="serendipity[typeSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong>
-        <input type="submit" class="serendipityPrettyButton input_button" name="serendipity[typeDelete]" value="{$CONST.DELETE}" />
+        <input type="submit" class="serendipityPrettyButton input_button state_cancel" name="serendipity[typeDelete]" value="{$CONST.DELETE}" />
         {if $sp_pagetype_submit}<input type="hidden" name="serendipity[typeSave]" value="true" />{/if}
         {if $sp_pagetype_isshowform && !empty($sp_pagetype_showform)}
 
@@ -275,7 +275,7 @@
             </script>
         {/if}
             <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticSubmit]" value="{$CONST.GO}" /> <strong>-{$CONST.WORD_OR}-</strong>
-            <input type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"{$sp_selected_id} ({$sp_selected_name|truncate:30})"}');" class="serendipityPrettyButton input_button" value="{$CONST.DELETE}" />
+            <input class="state_cancel" type="submit" name="serendipity[staticDelete]" onclick="return confirm('{$CONST.DELETE_SURE|sprintf:"{$sp_selected_id} ({$sp_selected_name|truncate:30})"}');" class="serendipityPrettyButton input_button" value="{$CONST.DELETE}" />
             <strong>-{$CONST.WORD_OR}-</strong> <input class="serendipityPrettyButton input_button" type="submit" name="serendipity[staticPreview]" value="{$CONST.PREVIEW}" />
         {if $sp_defpages_sbplav}
             <span class="icon-info-circled sp_right sp_info" title="Staticpage Sidebar {$CONST.STATICPAGE_PLUGIN_AVAILABLE}"></span>

@@ -446,15 +446,15 @@
     margin-bottom: 1em
 }
 
-/* for both form templates - id.class is strict! */
-#meta_urltitle_info.field_info,
-#urltitle_info.field_info,
-#meta_permalink_info.field_info,
-#permalink_info.field_info,
-#entry_relcat_info.field_info,
-#entry_language_info.field_info,
-#related_category_info.field_info,
-#sp_language_info.field_info { width: 100%; }
+/* for both form templates - id.class is strict! Keep .default_staticpage to restrict this to staticpages only! */
+.default_staticpage #meta_urltitle_info.field_info,
+.default_staticpage #urltitle_info.field_info,
+.default_staticpage #meta_permalink_info.field_info,
+.default_staticpage #permalink_info.field_info,
+.default_staticpage #entry_relcat_info.field_info,
+.default_staticpage #entry_language_info.field_info,
+.default_staticpage #related_category_info.field_info,
+.default_staticpage #sp_language_info.field_info { width: 100%; }
 
 /* listentries */
 .spform a,.spform form {

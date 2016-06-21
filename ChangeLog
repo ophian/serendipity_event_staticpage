@@ -1,4 +1,4 @@
-4.57:
+4.58:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -134,6 +134,7 @@
     switching to a new theme without having this file.
  *  Changed requirement to min PHP 5.3, which removes deprecated sortByOrder() method
  *  Changed SVG since SVG title attributes were not read
+ *  Workaround SQLite install bug, while not being able to alter and change complicated tables changes
 
 
 

@@ -97,7 +97,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.57');
+        $propbag->add('version', '4.58');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -930,7 +930,8 @@ class serendipity_event_staticpage extends serendipity_event
 
         $built = $this->get_config('db_built', null);
         $fresh = false;
-        if ((empty($built)) && (!defined('STATICPAGE_UPGRADE_DONE'))) {
+
+        if ((empty($built)) && (!defined('STATICPAGE_UPGRADE_DONE')) && stristr($serendipity['dbType'], 'sqlite') === FALSE) {
             serendipity_db_schema_import("CREATE TABLE {$serendipity['dbPrefix']}staticpages (
                     id {AUTOINCREMENT} {PRIMARY},
                     parent_id int(11) default '0',
@@ -989,6 +990,64 @@ class serendipity_event_staticpage extends serendipity_event
             $this->set_config('db_built', '7');
             $fresh = true;
             @define('STATICPAGE_UPGRADE_DONE', true); // No further static pages may be called!
+        }
+        // workaround for sqlite not being able to alter complicated things later
+        if (stristr($serendipity['dbType'], 'sqlite') !== FALSE)) {
+
+            serendipity_db_schema_import("CREATE TABLE IF NOT EXISTS {$serendipity['dbPrefix']}staticpages (
+                                            id {AUTOINCREMENT} {PRIMARY},
+                                            parent_id int(11) DEFAULT '0',
+                                            articleformattitle varchar(255) NOT NULL DEFAULT '',
+                                            articleformat int(1) DEFAULT '1',
+                                            markup int(1) DEFAULT '1',
+                                            pagetitle varchar(255) NOT NULL DEFAULT '',
+                                            permalink varchar(255) NOT NULL DEFAULT '',
+                                            is_startpage int(1) DEFAULT '0',
+                                            is_404_page int(1) DEFAULT '0',
+                                            show_childpages int(1) NOT NULL DEFAULT '0',
+                                            content text,
+                                            pre_content text,
+                                            headline varchar(255) NOT NULL DEFAULT '',
+                                            filename varchar(255) NOT NULL DEFAULT '',
+                                            pass varchar(255) NOT NULL DEFAULT '',
+                                            timestamp int(10) unsigned DEFAULT NULL,
+                                            last_modified int(10) unsigned DEFAULT NULL,
+                                            authorid int(11) DEFAULT '0',
+                                            pageorder int(4) DEFAULT '0',
+                                            articletype int(4) DEFAULT '0',
+                                            related_category_id int(4) DEFAULT '0',
+                                            shownavi int(4) DEFAULT '1',
+                                            showonnavi int(4) DEFAULT '1',
+                                            show_breadcrumb int(4) DEFAULT '1',
+                                            publishstatus int(4) DEFAULT '1',
+                                            language varchar(10) DEFAULT '',
+                                            title_element varchar(255) NOT NULL DEFAULT '',
+                                            meta_description varchar(255) NOT NULL DEFAULT '',
+                                            meta_keywords varchar(255) NOT NULL DEFAULT '') {UTF_8}");
+
+            serendipity_db_schema_import("CREATE TABLE IF NOT EXISTS {$serendipity['dbPrefix']}staticpages_types (
+                                            id {AUTOINCREMENT} {PRIMARY},
+                                            description varchar(100) NOT NULL DEFAULT '',
+                                            template varchar(255) NOT NULL DEFAULT '',
+                                            image varchar(255) NOT NULL DEFAULT '') {UTF_8}");
+
+            serendipity_db_schema_import("CREATE TABLE IF NOT EXISTS {$serendipity['dbPrefix']}staticpage_categorypage (
+                                            categoryid int(4) DEFAULT '0',
+                                            staticpage_categorypage int(4) DEFAULT '0') {UTF_8}");
+
+            serendipity_db_schema_import("CREATE TABLE IF NOT EXISTS {$serendipity['dbPrefix']}staticpage_custom (
+                                            staticpage int(11) DEFAULT NULL,
+                                            name varchar(128) DEFAULT NULL,
+                                            value text) {UTF_8}");
+
+            // Set fulltext indizes of tables ? Is that working here? Should not... and just return true without accessing serendipity_db_query() method
+            #serendipity_db_schema_import("CREATE {FULLTEXT_MYSQL} INDEX staticentry_idx on {$serendipity['dbPrefix']}staticpages (headline, content);");
+
+            // set to latest build
+            $this->set_config('db_built', 22);
+            $build = 22;
+            $fresh = true;
+            @define('STATICPAGE_UPGRADE_DONE', true); // don't do this again!
         }
 
         switch ($built) {

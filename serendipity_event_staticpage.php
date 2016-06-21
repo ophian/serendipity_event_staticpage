@@ -992,7 +992,7 @@ class serendipity_event_staticpage extends serendipity_event
             @define('STATICPAGE_UPGRADE_DONE', true); // No further static pages may be called!
         }
         // workaround for sqlite not being able to alter complicated things later
-        if (stristr($serendipity['dbType'], 'sqlite') !== FALSE)) {
+        if (stristr($serendipity['dbType'], 'sqlite') !== FALSE) {
 
             serendipity_db_schema_import("CREATE TABLE IF NOT EXISTS {$serendipity['dbPrefix']}staticpages (
                                             id {AUTOINCREMENT} {PRIMARY},

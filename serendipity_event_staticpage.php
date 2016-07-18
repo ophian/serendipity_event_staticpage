@@ -97,7 +97,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.58');
+        $propbag->add('version', '4.59');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -1330,6 +1330,9 @@ class serendipity_event_staticpage extends serendipity_event
      */
     function get_nav($array, $index, $prev, $s='')
     {
+        if (!is_array($array)) {
+            return null;
+        }
         // handle case end of array
         end($array);         // move the internal pointer to the end of the array
         $key = key($array);  // fetches the key of the element pointed to by the internal pointer

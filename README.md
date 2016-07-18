@@ -18,6 +18,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Fix $nav array exception gathering values for an entry without any navigational options set
 - [x] Workaround SQLite install bug, while not being able to alter and change complicated tables changes (#377)
 - [x] Changed SVG since SVG title attributes were not read - see https://gist.github.com/davidhund/564331193e1085208d7e
 - [x] Changed requirement to min PHP 5.3, which removes deprecated sortByOrder() method.

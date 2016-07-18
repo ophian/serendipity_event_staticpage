@@ -135,6 +135,7 @@
  *  Changed requirement to min PHP 5.3, which removes deprecated sortByOrder() method
  *  Changed SVG since SVG title attributes were not read
  *  Workaround SQLite install bug, while not being able to alter and change complicated tables changes
+ *  Fix $nav array exception gathering values for an entry without any navigational options set
 
 
 

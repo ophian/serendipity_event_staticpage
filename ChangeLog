@@ -152,10 +152,11 @@
     Apart from appearance changes, other small bugfixes and code cleanup, this mainly is:
     - A smart rework for 2.0
     - Smartified the Backend
-    - New Backend form templates
+    - New Backend form templates. [Check you theme!]
     - Precise staticpage DB SELECT query for the frontend, the sidebar and the backend
     - Backend listentries enhancements
-    - Fixed staticpage frontend navigations [assumes new template markup]
+    - Touched and fixed staticpage frontend related template files for staticpage markup navigation changes,
+      regarding entry navigation, breadcrumb navigation and child navigation. [Check you theme to not work with old copies!]
     - Associated 1:1 relation for staticpage related categories
 
 

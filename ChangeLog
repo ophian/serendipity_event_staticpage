@@ -341,7 +341,7 @@ Changes by Stephan Manske:
 
 3.32:
 ==============================
-Changes by Falk Dï¿½ring:
+Changes by Falk Döring:
 
 * Update formatting
 * Fix pageorder setting
@@ -360,7 +360,7 @@ Change by Garvin Hicking:
 
 3.24:
 ==============================
-Changes by Falk Dï¿½ring:
+Changes by Falk Döring:
 
 * Change: Pagetype 'Aboutpage' renamed to 'Overview'
 * Update: german and english language file
@@ -372,19 +372,19 @@ Changes by Falk Dï¿½ring:
 
 3.22:
 ==============================
-Changes by Falk Dï¿½ring:
+Changes by Falk Döring:
 
 * Fix: disable templates if a plugin is called
 
 3.21:
 ==============================
-Changes by Falk Dï¿½ring:
+Changes by Falk Döring:
 
 * Fix: FAQ-Event now without mod_rewrite support
 
 3.20:
 ==============================
-Changes by Falk Doering:
+Changes by Falk Döring:
 
 * New: add FAQ-Event to sidebar
 * FIX: some wrong action messages
@@ -398,19 +398,19 @@ Changes by JWalker:
 
 3.18:
 ==============================
-Changes by Falk DÃ¶ring:
+Changes by Falk Döring:
 
 * Fix: integrating contactform per subpage correct if mod_rewrite is disabled
 
 3.17:
 ==============================
-Changes by Falk Dï¿½ring:
+Changes by Falk Döring:
 
 * New: a list of plugins they can be included in the sidebar and their status
 
 3.16:
 ==============================
-Changes by Falk Dï¿½ring:
+Changes by Falk Döring:
 
 * Fix multilingual selection. Now you can chose a page for all languages
 * Fix unused defines
@@ -425,7 +425,7 @@ Changes by Falk Dï¿½ring:
 
 3.14:
 ==============================
-Changes by Falk DÃ¶ring:
+Changes by Falk Döring:
 
 * New: Multilanguage support
 
@@ -462,7 +462,7 @@ Changes by Garvin Hicking:
 
 3.08:
 ==============================
-Changes by Falk DÃ¶ring:
+Changes by Falk Döring:
 
 * Fix DB updates, blame Garvin
 * New: show headline or next/prev in childpage-naviagtion
@@ -477,7 +477,7 @@ Changes by Garvin Hicking:
 
 3.06:
 ==============================
-Changes by Falk DÃ¶ring:
+Changes by Falk Döring:
 
 * New: Include other plugins in sidebar
 
@@ -495,7 +495,7 @@ Changes by Garvin Hicking:
 
 3.03:
 ==============================
-Changes by Falk DÃ¶ring:
+Changes by Falk Döring:
 
 * New Options:
  * show on navigation
@@ -517,7 +517,7 @@ Changes by Garvin Hicking:
 
 3.0:
 ==============================
-Changes by Falk DÃ¶ring:
+Changes by Falk Döring:
 
 * New: Pagecategorys
  * Default: Article and Aboutpage
@@ -528,7 +528,7 @@ Changes by Falk DÃ¶ring:
 
 2.12:
 ==============================
-Changes by Falk DÃ¶ring:
+Changes by Falk Döring:
 
 * Support display of last change and page back/next navigation
 * Support display of "Edit this page" link

@@ -1,5 +1,4 @@
 <?php
-#http://board.s9y.org/viewtopic.php?p=57348#57348 -> v.3.50 http://board.s9y.org/viewtopic.php?p=57362#57362
 
 if (IN_serendipity !== true) {
     die ("Don't hack!");
@@ -97,7 +96,7 @@ class serendipity_event_staticpage extends serendipity_event
         $propbag->add('page_configuration', $this->config);
         $propbag->add('type_configuration', $this->config_types);
         $propbag->add('author', 'Marco Rinck, Garvin Hicking, David Rolston, Falk Doering, Stephan Manske, Pascal Uhlmann, Ian, Don Chambers');
-        $propbag->add('version', '4.59');
+        $propbag->add('version', '4.60');
         $propbag->add('requirements', array(
             'serendipity' => '1.7',
             'smarty'      => '3.1.0',
@@ -199,42 +198,42 @@ class serendipity_event_staticpage extends serendipity_event
                 $propbag->add('type',           'boolean');
                 $propbag->add('name',           STATICPAGE_SHOWNAVI_DEFAULT);
                 $propbag->add('description',    STATICPAGE_DEFAULT_DESC);
-                $propbag->add('default',        '1');
+                $propbag->add('default',        'true');
                 break;
 
             case 'showonnavi':
                 $propbag->add('type',           'boolean');
                 $propbag->add('name',           STATICPAGE_SHOWONNAVI_DEFAULT);
                 $propbag->add('description',    STATICPAGE_DEFAULT_DESC);
-                $propbag->add('default',        '1');
+                $propbag->add('default',        'true');
                 break;
 
             case 'showmeta':
                 $propbag->add('type',           'boolean');
                 $propbag->add('name',           STATICPAGE_SHOWMETA_DEFAULT);
                 $propbag->add('description',    STATICPAGE_DEFAULT_DESC);
-                $propbag->add('default',        '1');
+                $propbag->add('default',        'true');
                 break;
 
             case 'show_breadcrumb':
                 $propbag->add('type',           'boolean');
                 $propbag->add('name',           STATICPAGE_SHOW_BREADCRUMB_DEFAULT);
                 $propbag->add('description',    STATICPAGE_DEFAULT_DESC);
-                $propbag->add('default',        '1');
+                $propbag->add('default',        'true');
                 break;
 
             case 'markup':
                 $propbag->add('type',           'boolean');
                 $propbag->add('name',           STATICPAGE_SHOWMARKUP_DEFAULT);
                 $propbag->add('description',    STATICPAGE_DEFAULT_DESC);
-                $propbag->add('default',        '1');
+                $propbag->add('default',        'true');
                 break;
 
             case 'articleformat':
                 $propbag->add('type',           'boolean');
                 $propbag->add('name',           STATICPAGE_SHOWARTICLEFORMAT_DEFAULT);
                 $propbag->add('description',    STATICPAGE_DEFAULT_DESC);
-                $propbag->add('default',        '1');
+                $propbag->add('default',        'true');
                 break;
 
             case 'publishstatus':
@@ -249,7 +248,7 @@ class serendipity_event_staticpage extends serendipity_event
                 $propbag->add('type',           'boolean');
                 $propbag->add('name',           STATICPAGE_SHOWCHILDPAGES_DEFAULT);
                 $propbag->add('description',    STATICPAGE_DEFAULT_DESC);
-                $propbag->add('default',        '1');
+                $propbag->add('default',        'true');
                 break;
 
             case 'showtextorheadline':
@@ -397,7 +396,7 @@ class serendipity_event_staticpage extends serendipity_event
                 $propbag->add('type',           'boolean');
                 $propbag->add('name',           STATICPAGE_SHOWCHILDPAGES_NAME);
                 $propbag->add('description',    STATICPAGE_SHOWCHILDPAGES_DESC);
-                $propbag->add('default',        $this->get_config('show_childpages','false'));
+                $propbag->add('default',        $this->get_config('show_childpages', 'true'));
                 break;
 
             case 'pre_content':
@@ -433,21 +432,21 @@ class serendipity_event_staticpage extends serendipity_event
                 $propbag->add('type',            'boolean');
                 $propbag->add('name',            STATICPAGE_SHOWNAVI);
                 $propbag->add('description',     STATICPAGE_SHOWNAVI_DESC);
-                $propbag->add('default',         $this->get_config('shownavi'));
+                $propbag->add('default',         $this->get_config('shownavi', 'true'));
                 break;
 
             case 'showonnavi':
                 $propbag->add('type',            'boolean');
                 $propbag->add('name',            STATICPAGE_SHOWONNAVI);
                 $propbag->add('description',     STATICPAGE_SHOWONNAVI_DESC);
-                $propbag->add('default',         $this->get_config('showonnavi'));
+                $propbag->add('default',         $this->get_config('showonnavi', 'true'));
                 break;
 
             case 'show_breadcrumb':
                 $propbag->add('type',            'boolean');
                 $propbag->add('name',            STATICPAGE_SHOW_BREADCRUMB);
                 $propbag->add('description',     STATICPAGE_SHOW_BREADCRUMB_DESC);
-                $propbag->add('default',         $this->get_config('show_breadcrumb'));
+                $propbag->add('default',         $this->get_config('show_breadcrumb', 'true'));
                 break;
 
             case 'publishstatus':
@@ -3014,7 +3013,7 @@ class serendipity_event_staticpage extends serendipity_event
         }
         $serendipity['smarty']->assign(
                 array(
-                    'showmeta'       => serendipity_db_bool($this->get_config('showmeta')),
+                    'showmeta'       => serendipity_db_bool($this->get_config('showmeta', 'true')),
                     'form_keys'      => $form_values,
                     'form_container' => ($this->staticpage ? $this->staticpage : $this->pagetype),
                     'form_post'      => $serendipity['POST']['plugin'],

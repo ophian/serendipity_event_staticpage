@@ -1,4 +1,4 @@
-4.59:
+4.60:
 ----
 (read downwards to latest changes)
  *  4.06 Bump version since merged entry list pull request by (ogerlach)
@@ -136,7 +136,9 @@
  *  Changed SVG since SVG title attributes were not read
  *  Workaround SQLite install bug, while not being able to alter and change complicated tables changes
  *  Fix $nav array exception gathering values for an entry without any navigational options set
-
+ *  Consistent cleanups - stringify booleans in config options, set and fix fallbacks and review sidebar plugin
+ *  Added undocumented feature since 3.50 to the Readme
+ *  Remove old TODO file
 
 
     TL;DR - PLEASE NOTE:
@@ -149,7 +151,7 @@
     Temporary disable (by directory name change) previous used theme based staticpage backend forms
     in /templates/yourTheme/backend_templates/* Remove, if these were not theme based or contact you themes author.
 
-    Apart from appearance changes, other small bugfixes and code cleanup, this mainly is:
+    Apart from appearance changes, other small bugfixes, code review, refactoring and code cleanup, this mainly is:
     - A smart rework for 2.0
     - Smartified the Backend
     - New Backend form templates. [Check you theme!]

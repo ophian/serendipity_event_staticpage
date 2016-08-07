@@ -1,4 +1,4 @@
-# serendipity_event_staticpage dev
+# Plugin serendipity_event_staticpage DEV
 
 This is a developer repository to smartify the current **S9y** serendipity_event_staticpage plugin and make it available with upcoming Serendipity 2.0/2.1.
 
@@ -18,6 +18,9 @@ Please use with care and always keep a backup copy of your updated plugin.
 - - -
 
 ### Already done: :arrow_up:
+- [x] Remove old TODO file
+- [x] Added undocumented feature since 3.50 to the Readme
+- [x] Consistent cleanups - stringify booleans in config options, set and fix fallbacks and review sidebar plugin
 - [x] Fix $nav array exception gathering values for an entry without any navigational options set
 - [x] Workaround SQLite install bug, while not being able to alter and change complicated tables changes (#377)
 - [x] Changed SVG since SVG title attributes were not read - see https://gist.github.com/davidhund/564331193e1085208d7e
@@ -135,3 +138,41 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [x] New option: sets publishstatus (default draft) as default
 - [x] New option: sets listentries (selectbox default), due to errors in combination with selectlist
 - [x] Fixed (4.06) new entrylist markup
+
+
+- - -
+
+### Undocumented Features
+
+Postby garvinhicking » Wed Jun 13, 2007 12:36 pm in http://board.s9y.org/viewtopic.php?p=57362#57362
+#### New staticpage feature: Show staticpages via Smarty
+
+I just upgraded the staticpage plugin in CVS to version 3.50.
+
+It now supports to use a custom smarty function to show static pages. This can be used in your custom template files (like the userprofile .tpls *) to emit specific staticpages depending on variables.
+
+Go ahead and play with it. The API is quite basic and described in the new 'smarty.inc.php' file. It basically works like this:
+
+(*) by the User-Profiles-Plugin
+
+```Smarty
+{staticpage_display template="$TEMPLATE" pagevar="$PAGEVAR" id="$ID" permalink="$PERMALINK" pagetitle="$PAGETITLE" authorid="$AUTHORID" query="$QUERY"}
+```
+
+Variable options:
+ - `$TEMPLATE` can be replaced with the name of the staticpage template to parse. It defaults to "plugin_staticpage.tpl".
+ - `$PAGEVAR` must match the variable prefix of the staticpage template. If you want to parse multiple staticpages, you might need to seperate those from each other. Always use the variable prefix that is also employed in the template file.
+
+To retrieve a staticpage, you need to supply either one of those options:
+ - `$ID` can be replaced with the ID of the staticpage you want to fetch.
+ - `$PERMALINK` can be replaced with the fully configured permalink of a staticpage.
+ - `$PAGETITLE` can be replaced with the URL shorthand/backwards compatibility name of a staticpage
+ - `$AUTHORID` additionally can be combined with the variables above to restrict output to a specific author
+
+If you need more customization, you can pass a SQL query directly using `$QUERY`.
+
+EXAMPLE:
+To fetch a static page with the URL shorthand name 'static' you simply put this in your template file (index.tpl, a userprofile .tpl or whatever):
+```Smarty
+{staticpage_display pagetitle='static'}
+```

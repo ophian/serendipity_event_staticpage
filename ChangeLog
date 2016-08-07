@@ -141,25 +141,28 @@
  *  Remove old TODO file
 
 
-    TL;DR - PLEASE NOTE:
+    TL;DR - MAJOR CHANGES - PLEASE NOTE:
     Some of these commits will change behaviour or appearance for older staticpage entries.
-    Please double check all you pages to show up correctly, or at least check the major ones in difference.
+    Please double check all your pages to show up correct, or at least check the major ones in difference.
 
-    Also check for template staticpage files in need for an update (this may effect all kind of
-    yourTemplate/plugin_staticpage_***.tpl files and all backend form files in yourTemplate/backend_templates/*, if have).
+    Also check for template staticpage files in need for an update. This may effect all kind of
+    yourTheme/plugin_staticpage_***.tpl files and probably all backend-form-files in yourTheme/backend_templates/*.
+    Theme templates in [2k11, Next, Bulletproof] delivered by core have already been changed when Staticpages DEV moves into Spartacus.
 
-    Temporary disable (by directory name change) previous used theme based staticpage backend forms
-    in /templates/yourTheme/backend_templates/* Remove, if these were not theme based or contact you themes author.
+    Temporary disable (by directory name change) previous used theme based staticpage-backend-forms
+    in /templates/yourTheme/backend_templates/*. Remove, if these were not specifically theme based, or contact your themes author.
+
+    Check the Plugin configurations (event and sidebar)!
 
     Apart from appearance changes, other small bugfixes, code review, refactoring and code cleanup, this mainly is:
-    - A smart rework for 2.0
+    - A smart rework for 2.0+
     - Smartified the Backend
-    - New Backend form templates. [Check you theme!]
-    - Precise staticpage DB SELECT query for the frontend, the sidebar and the backend
+    - New backend-form-templates. [Check your theme! See note above.]
+    - Precise staticpage database SELECT queries for the frontend, the sidebar and the backend
     - Backend listentries enhancements
     - Touched and fixed staticpage frontend related template files for staticpage markup navigation changes,
-      regarding entry navigation, breadcrumb navigation and child navigation. [Check you theme to not work with old copies!]
-    - Associated 1:1 relation for staticpage related categories
+      regarding entry navigation, breadcrumb navigation and child navigation. [Check your theme to not work with old and unchanged copies!]
+    - Associated strict 1:1 relation for staticpage related categories
 
 
 -----

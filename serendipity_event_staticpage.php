@@ -1572,11 +1572,10 @@ class serendipity_event_staticpage extends serendipity_event
     function smarty_init()
     {
         global $serendipity;
-        if (!isset($this->smarty_init))
-        {
+
+        if (!isset($this->smarty_init)) {
             include_once dirname(__FILE__) . '/smarty.inc.php';
-            if (isset($serendipity['smarty']))
-            {
+            if (isset($serendipity['smarty'])) {
                 $staticpage_cat = $this->fetchCatProp((int)$serendipity['GET']['category']);
                 $serendipity['smarty']->assign('staticpage_categorypage', $this->fetchStaticPageForCat($staticpage_cat));
                 $serendipity['smarty']->assign('serendipityArchiveURL', getArchiveURL());

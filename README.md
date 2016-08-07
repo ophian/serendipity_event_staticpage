@@ -22,19 +22,18 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [x] Added undocumented feature since 3.50 to the Readme
 - [x] Consistent cleanups - stringify booleans in config options, set and fix fallbacks and review sidebar plugin
 - [x] Fix $nav array exception gathering values for an entry without any navigational options set
-- [x] Workaround SQLite install bug, while not being able to alter and change complicated tables changes (#377)
+- [x] Workaround SQLite install bug, while not being able to ALTER and fully support other table changes (#377)
 - [x] Changed SVG since SVG title attributes were not read - see https://gist.github.com/davidhund/564331193e1085208d7e
 - [x] Changed requirement to min PHP 5.3, which removes deprecated sortByOrder() method.
 - [x] Added a "default fallback" frontend "plugin_staticpage_includeentry.tpl file", for the case it was previously set in a template OR included by an entry, when switching to a new theme without having this file.
 - [x] Fix access permissions in backend
-- [x] Append all CSS to eventData
+- [x] Append all CSS to eventData (includes earlier fix for frontend CSS)
 - [x] Consistent use of serendipity_db_bool() config default values
 - [x] Now uses load_language API - extends sidebar plugin to v.1.27
 - [x] Added S9y 2.0.0 - 2.0.99 backend configgroup placeholder ability by script
 - [x] Minor markup space fixes, update simplepagination, include iconizr template, added title for parent staticpage in list
-- [x] Append frontend CSS to end of eventData stream
 - [x] Fixed POST preview check
-- [x] a little better CSS
+- [x] Minor improvements to CSS
 - [x] Fixed $eventData[0]['type'] 'dir' replacements
 - [x] Fixed $eventData being changed by backend_media_rename hook
 - [x] Update simplePagination Lib
@@ -49,7 +48,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [x] Fix sidebar plugin dependency config value check to append dtree.css into stream. Updated plugin_staticpage_sidebar.tpl.
 - [x] Removed wrong used smartify sidebar dependency check for a certain CSS case - rule output not by option than by version now
 - [x] Fix showlist db-boolean sets/gets
-- [x] Add db build case 21 for certain silent db error in the past (ALTER permissions). Now an error is shown in the backend only without spoiling the serendipity_editor.js
+- [x] Add db-build case 21 for certain silent db error in the past (ALTER permissions). Now an error is shown in the backend only without spoiling the serendipity_editor.js
 - [x] Fix two commits for database changes with v.3.98 commit 36fd48b Changed meta fields, no longer custom properties and v.3.97 commit 43e0f86 Breadcrumb navigation as an independent option, which could happen to not apply in every case.
 - [x] Fix missing trim($str) and an empty output of the JS Tree Smarty var via template, while the empty(array) was not true. Sets the sidebar plugin to v.1.26
 - [x] Fix icon-info image notifier not displayed embedded, when sidebar plugin is not installed
@@ -59,8 +58,8 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [x] Changed dtree usage page links world image to something more smart
 - [x] Fixed styles now added to the END of eventData stream, while checking for existing styles (dtree)
 - [x] Add configuration grouper
-- [x] Add new config option to list entries paginate by N entries
-- [x] Add separators to streamed css
+- [x] Add new config option to list entries pagination by N entries
+- [x] Add separators to streamed CSS
 - [x] ~~Removed $serendipity['staticpageplugin']['JS_init'] since this had no effect for the dtree.js call~~ [Keep it. Though still being in question!]
 - [x] Fixed dtree.js being included more than once, by making the called script name unique
 - [x] Fixed missing dtree.css includement, in case of having selected this option
@@ -130,7 +129,7 @@ Please use with care and always keep a backup copy of your updated plugin.
 - [x] Outsourced and changed some heavy markup functions, due to a better overview
 - [x] Changed form template names
 - [x] Added in 'pageorder' a new drag&drop sequencer, to automatically set the new list order on drop
-- [x] Added some css and include by version files
+- [x] Added some CSS and include by version files
 - [x] Fixed tabs and 'pageadd' markup/css
 - [x] Fixed backend_templates/default_staticpage_backend.tpl smarty markup (escape and cke-wysiwyg)
 - [x] Fixed some plugin file code inconsistencies

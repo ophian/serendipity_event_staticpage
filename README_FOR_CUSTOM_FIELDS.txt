@@ -158,6 +158,7 @@ $serendipity['smarty']->registerPlugin('function', 'show_tags', 'smarty_show_tag
              <p>({$staticpage_custom.relTags|replace:';':', '})</p>
         </div>
 
+    {if !empty($entries)}
         <ul>
     {foreach from=$entries item="dategroup"}
         {foreach from=$dategroup.entries item="entry"}
@@ -169,11 +170,19 @@ $serendipity['smarty']->registerPlugin('function', 'show_tags', 'smarty_show_tag
     {/foreach}
 
         </ul>
+    {/if}
+
 {/if}
 
 + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + 
 
 5. Now create a staticpage via custom template, with the option field 'Articletype' set to: "Staticpage with related article". Add your related custom freetags into the custom option field: "Related Tag(s)" (delimiter for tags is a ";" with no spaces) and set the desired amount of pages to show up, when page is called, to the next required field.
+
+After tweaking your theme templates margin needs, like such:
+
+#staticpage_customtags.serendipity_entry  header {
+    margin-top: 1.5em;
+}
 
 You are done!
 

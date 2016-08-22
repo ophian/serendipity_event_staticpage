@@ -3722,6 +3722,10 @@ $(document).ready(function() {
     color: #bbb;
 }
 
+.staticpage_metainfo {
+    margin-top: 1em;
+}
+
 <?php // break after anchor - see serendipity_plugin_staticpage.php non-smarty usage not using list markup change
 if ($serendipity['version'][0] < 2) {
 ?>

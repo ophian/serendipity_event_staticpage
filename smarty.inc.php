@@ -25,7 +25,7 @@
  *
  * Do not use class method scope keywords public, protected or private here, even if included to class!
  */
-function staticpage_display($params, Smarty_Internal_Template $template) {
+function staticpage_display($params, $template) {
     global $serendipity;
 
     if (empty($params['template'])) {
@@ -83,7 +83,7 @@ function staticpage_display($params, Smarty_Internal_Template $template) {
  *
  * @return string       The URL of the category - must be added to {$serendipityBaseURL} for a full URL
  */
-function smarty_getCategoryLinkByID($params, Smarty_Internal_Template $template) {
+function smarty_getCategoryLinkByID($params, $template) {
     $cat    = serendipity_fetchCategoryInfo($params['cid']);
     $result = serendipity_getPermalink($cat, 'category');
     return $result;

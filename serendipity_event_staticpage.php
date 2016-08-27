@@ -556,7 +556,7 @@ class serendipity_event_staticpage extends serendipity_event
         global $serendipity;
 
         $users = (array)serendipity_fetchUsers();
-        foreach ($users as $user) {
+        foreach ($users AS $user) {
             if ($this->checkUser($user)) {
                 $u[$user['authorid']] = $user['realname'];
             }
@@ -592,7 +592,7 @@ class serendipity_event_staticpage extends serendipity_event
         $res = serendipity_fetchCategories($serendipity['authorid']);
         $ret[0] = NONE;
         if (is_array($res)) {
-            foreach ($res as $value) {
+            foreach ($res AS $value) {
                 $ret[$value['categoryid']] = $value['category_name'];
             }
         }
@@ -612,7 +612,7 @@ class serendipity_event_staticpage extends serendipity_event
         global $serendipity;
 
         $users = (array)serendipity_fetchUsers();
-        foreach ($users as $user) {
+        foreach ($users AS $user) {
             if ($user['authorid'] == $id) {
                 return $user['realname'];
             }
@@ -679,7 +679,7 @@ class serendipity_event_staticpage extends serendipity_event
 
         if (is_array($pages)) {
             $pages = serendipity_walkRecursive($pages);
-            foreach ($pages as $page) {
+            foreach ($pages AS $page) {
                 if ($this->checkPageUser($page['authorid']) && $serendipity['POST']['staticpage'] != $page['id']) {
                     $p[$page['id']] = str_repeat('', $page['depth']) . $page['pagetitle'];
                 }
@@ -706,7 +706,7 @@ class serendipity_event_staticpage extends serendipity_event
         $types = serendipity_db_query($q, false, 'assoc');
 
         if (is_array($types)) {
-            foreach ($types as $type) {
+            foreach ($types AS $type) {
                 $t[$type['id']] = $type['description'];
             }
             return $t;
@@ -752,7 +752,7 @@ class serendipity_event_staticpage extends serendipity_event
         $plugins = serendipity_plugin_api::get_installed_plugins('event');
         $classes = serendipity_plugin_api::enum_plugin_classes('event');
 
-        foreach ($uplugs as $plugin) {
+        foreach ($uplugs AS $plugin) {
             if (in_array($plugin, $plugins)) {
                 $this->pluginstats[$plugin] = array(
                     'status' => STATICPAGE_PLUGINS_INSTALLED,
@@ -785,7 +785,7 @@ class serendipity_event_staticpage extends serendipity_event
 
         $plugins = serendipity_plugin_api::get_installed_plugins('event');
 
-        foreach ($plugins as $plugin) {
+        foreach ($plugins AS $plugin) {
             switch ($plugin) {
 
                 case 'serendipity_event_downloadmanager':
@@ -966,7 +966,7 @@ class serendipity_event_staticpage extends serendipity_event
 
             $import = array();
             if (is_array($old_stuff)) {
-                foreach ($old_stuff as $item) {
+                foreach ($old_stuff AS $item) {
                     $names = explode('/', $item['name']);
                     if (!isset($import[$names[0]])) {
                         $import[$names[0]] = array('authorid' => $item['authorid']);
@@ -1288,7 +1288,7 @@ class serendipity_event_staticpage extends serendipity_event
     function recursive_childs($pages, $id, $p = array())
     {
         $p = array_merge($p, array($id));
-        foreach ($pages as $page) {
+        foreach ($pages AS $page) {
             if ($page['parent_id'] == $id) {
                 $p = $this->recursive_childs($pages, $page['id'], $p);
                 break;
@@ -1307,7 +1307,7 @@ class serendipity_event_staticpage extends serendipity_event
      */
     function getPagesKey($p, $id)
     {
-        foreach ($p as $key => $item) {
+        foreach ($p AS $key => $item) {
             if ($item['id'] == $id) {
                 return $key;
             }
@@ -1345,7 +1345,7 @@ class serendipity_event_staticpage extends serendipity_event
         // rewind and iterate through for normal case navigations
         unset($key);
         reset($array);
-        foreach ($array as $key => $item) {
+        foreach ($array AS $key => $item) {
             if ($key == $index) {
                 if (!$prev) {
                     return $array[key($array)][$s]; // is next() index key already
@@ -1370,10 +1370,10 @@ class serendipity_event_staticpage extends serendipity_event
      */
     function recursive_tree($array, $id, $parent=false, $tree=array())
     {
-        foreach($array as $item) {
+        foreach($array AS $item) {
             if ( (!$parent && $item['id'] == $id) || $item['parent_id'] == $id) {
                 $itemdata = array();
-                foreach($item as $k => $v) {
+                foreach($item AS $k => $v) {
                     $itemdata[$k] = $v;
                 }
                 $tree[] = $itemdata;
@@ -1404,18 +1404,18 @@ class serendipity_event_staticpage extends serendipity_event
             $pages = (is_array($pages) ? serendipity_walkRecursive($pages) : array()); // builds depth flag
 
             // builds an exclude flag, referenced, in case of a level 0 top page with no navis set at all
-            foreach ($pages as $lkey => &$lval) {
+            foreach ($pages AS $lkey => &$lval) {
                 if ($lval['depth'] == 0 && $lval['shownavi'] == 0 && $lval['show_breadcrumb'] == 0) {
                     $lval['excludenav'] = true;
                 }
             }
             // add to all recursive childs of a level 0 top parent with set flag
-            foreach ($pages as $addkey => $addvalue) {
+            foreach ($pages AS $addkey => $addvalue) {
                 if ($addvalue['excludenav']) {
                     $rtree = $this->recursive_tree($pages, $addvalue['id']);
-                    foreach ($rtree as $tkey => $tval) {
+                    foreach ($rtree AS $tkey => $tval) {
                         // referenced
-                        foreach ($pages as $rkey => &$rval) {
+                        foreach ($pages AS $rkey => &$rval) {
                             if ($rval['id'] == $tval['id'] && $rval['shownavi'] == 0) $rval['excludenav'] = true;
                         }
                     }
@@ -1657,7 +1657,7 @@ class serendipity_event_staticpage extends serendipity_event
             serendipity_smarty_init();
         }
 
-        foreach($this->config as $staticpage_config) {
+        foreach($this->config AS $staticpage_config) {
             $cvar = $this->get_static($staticpage_config);
             // this is, where eg {$staticpage_articleformattitle} and headline etc are assigned, which needs the fixUTFEntity or single escape with double_encode:false on Smarty side, or overwrite assignment at line 1576 ff
             $serendipity['smarty']->assign($pagevar . $staticpage_config, $cvar);
@@ -1708,11 +1708,11 @@ class serendipity_event_staticpage extends serendipity_event
         // get the next level childpage downwards; to be viewed with (simple) option 'show childpages'
         if ($cpids = $this->getChildPagesID()) {
 
-            foreach($cpids as $cpid) {
+            foreach($cpids AS $cpid) {
                 $cpages[] = $this->getStaticPage($cpid);
             }
 
-            foreach($cpages as $cpage) {
+            foreach($cpages AS $cpage) {
                 if (strlen($cpage['pre_content'])) {
                     $precontent = $cpage['pre_content']; // no more &
                 } else {
@@ -1875,7 +1875,7 @@ class serendipity_event_staticpage extends serendipity_event
         $p = serendipity_db_query($q, false, 'assoc');
 
         if (is_array($p)) {
-            foreach($p as $page) {
+            foreach($p AS $page) {
                 $pages[] = $page['id'];
             }
             return $pages;
@@ -2451,7 +2451,7 @@ class serendipity_event_staticpage extends serendipity_event
 
         $res = (array)serendipity_db_query($q, false, 'assoc');
 
-        foreach($res as $plugin){
+        foreach($res AS $plugin){
             $ret[$plugin['pre_content']] = array(
                 'pagetitle' => $plugin['pagetitle'],
                 'permalink' => $plugin['permalink'],
@@ -2522,7 +2522,7 @@ class serendipity_event_staticpage extends serendipity_event
                     $desc = self::html_specialchars($bag->get('description')); // RQ: Where? Why? This is constant data...
                     $config_t = $bag->get('type_configuration');
 
-                    foreach($config_t as $config_item) {
+                    foreach($config_t AS $config_item) {
                         $cbag = new serendipity_property_bag();
                         if ($this->introspect_item_type($config_item, $cbag)) {
                             $this->pagetype[$config_item] = serendipity_get_bool($serendipity['POST']['plugin'][$config_item]);
@@ -2557,7 +2557,7 @@ class serendipity_event_staticpage extends serendipity_event
                     $desc = self::html_specialchars($bag->get('description')); // RQ: Where? Why? This is constant data...
                     $config_t = $bag->get('type_configuration');
 
-                    foreach($config_t as $config_item) {
+                    foreach($config_t AS $config_item) {
                         $cbag = new serendipity_property_bag();
                         if ($this->introspect_item_type($config_item, $cbag)) {
                             $this->pagetype[$config_item] = serendipity_get_bool($serendipity['POST']['plugin'][$config_item]);
@@ -2586,13 +2586,13 @@ class serendipity_event_staticpage extends serendipity_event
                 $insplugins = $this->fetchPlugins();
 
                 if (isset($serendipity['POST']['typeSubmit'])) {
-                    foreach($insplugins as $key => $values) {
+                    foreach($insplugins AS $key => $values) {
                         if (empty($serendipity['POST']['externalPlugins'][$key])) {
                             serendipity_db_query('DELETE FROM '.$serendipity['dbPrefix'].'staticpages WHERE id = '.(int)$values['id']);
                         }
                     }
                     if (count($serendipity['POST']['externalPlugins'])) {
-                        foreach($serendipity['POST']['externalPlugins'] as $plugin) {
+                        foreach($serendipity['POST']['externalPlugins'] AS $plugin) {
                             $this->staticpage =  array(
                                 'permalink'   => $plugins[$plugin]['link'],
                                 'content'     => 'plugin',
@@ -2634,7 +2634,7 @@ class serendipity_event_staticpage extends serendipity_event
                     $desc = self::html_specialchars($bag->get('description')); // RQ: Where? Why? This is constant data...
                     $config_names = $bag->get('page_configuration');
 
-                    foreach ($config_names as $config_item) {
+                    foreach ($config_names AS $config_item) {
                         $cbag = new serendipity_property_bag;
                         if ($this->introspect_item($config_item, $cbag)) {
                             $this->staticpage[$config_item] = serendipity_get_bool($serendipity['POST']['plugin'][$config_item]);
@@ -2713,7 +2713,7 @@ class serendipity_event_staticpage extends serendipity_event
                     $pages = $this->fetchStaticPages();
                     if (is_array($pages)) {
                         $pages = serendipity_walkRecursive($pages);
-                        foreach ($pages as $page) {
+                        foreach ($pages AS $page) {
                             if ($this->checkPageUser($page['authorid'])) {
                                 $ps_option[] = '<option value="' . $page['id'] . '"' . ($serendipity['POST']['staticpage'] == $page['id'] ? ' selected="selected"' : '') . '>' . str_repeat('&nbsp;&nbsp;', $page['depth']) . self::html_specialchars($page['pagetitle']) . '</option>'."\n";
                                 if ($serendipity['POST']['staticpage'] == $page['id']) {
@@ -2795,7 +2795,7 @@ class serendipity_event_staticpage extends serendipity_event
      */
     function move_sequence($order)
     {
-        foreach ($order as $key => $id) {
+        foreach ($order AS $key => $id) {
             serendipity_db_update('staticpages', array('id' => $id), array('pageorder' => $key));
         }
         @unlink($this->cachefile);
@@ -3096,8 +3096,8 @@ class serendipity_event_staticpage extends serendipity_event
             $results = array();
         }
         // escape & fix result
-        foreach ($results as &$result) {
-            foreach ($result as &$resval) {
+        foreach ($results AS &$result) {
+            foreach ($result AS &$resval) {
                 $rval = self::fixUTFEntity(self::html_specialchars($resval));
             }
         }
@@ -3312,7 +3312,7 @@ class serendipity_event_staticpage extends serendipity_event
                 $pages = $this->fetchStaticPages();
                 if (is_array($pages)) {
                     $pages = serendipity_walkRecursive($pages);
-                    foreach ($pages as $page) {
+                    foreach ($pages AS $page) {
                         if ($this->checkPageUser($page['authorid'])) {
                             echo ' <option value="' . $page['id'] . '"' . ($page['id'] == $this->fetchCatProp((int)$eventData) ? ' selected="selected"' : '') . '>';
                             echo str_repeat('&nbsp;&nbsp;', $page['depth']) . self::html_specialchars($page['pagetitle']) . '</option>'."\n";
@@ -3337,7 +3337,7 @@ class serendipity_event_staticpage extends serendipity_event
                 $pages = $this->fetchStaticPages();
                 if (is_array($pages)) {
                     $pages = serendipity_walkRecursive($pages);
-                    foreach ($pages as $page) {
+                    foreach ($pages AS $page) {
                         if ($this->checkPageUser($page['authorid'])) {
                             echo ' <option value="' . $page['id'] . '"' . ($page['id'] == $this->fetchCatProp((int)$eventData) ? ' selected="selected"' : '') . '>';
                             echo str_repeat('&nbsp;&nbsp;', $page['depth']) . self::html_specialchars($page['pagetitle']) . '</option>';
@@ -3452,7 +3452,7 @@ class serendipity_event_staticpage extends serendipity_event
 
                     $pages = $this->fetchStaticPages(true, $nice_url);
                     if (is_array($pages)) {
-                        foreach ($pages as $page) {
+                        foreach ($pages AS $page) {
                             if ($page['permalink'] == $nice_url) {
                                 $this->error_404 = FALSE;
                                 if ($pages['is_404_page']) {

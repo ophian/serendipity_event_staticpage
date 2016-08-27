@@ -181,7 +181,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin
 
             if ($struct = $this->getPageList($parentonly)) {
                 $this->addJSTags($struct);
-                foreach ($struct as $value) {
+                foreach ($struct AS $value) {
                     $str .= 'fd_' . $fdid . '.add('
                             . $value['id'] . ','
                             . $value['parent_id'] . ','
@@ -291,7 +291,7 @@ class serendipity_plugin_staticpage extends serendipity_plugin
             $pagelist = serendipity_walkRecursive($pagelist, 'id', 'parent_id', VIEWMODE_THREADED); // childs follow parent
             $content  = $tpl ? array() : (string)'';
 
-            foreach($pagelist as $page) {
+            foreach($pagelist AS $page) {
                 if (is_array($content)) {
                     /* smartify the staticpage sidebar plugin */
                     $content[] = array(

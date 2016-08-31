@@ -24,6 +24,9 @@
  * {staticpage_display pagetitle='static'}
  *
  * Do not use class method scope keywords public, protected or private here, even if included to class!
+ *
+ * Functions making use of the Smarty $template object have to set the InstanceOf Smarty_Internal_Template type declaration
+ * eg. function smarty_function_mydir($params, Smarty_Internal_Template $template) {}
  */
 function staticpage_display($params, $template) {
     global $serendipity;
